@@ -4,15 +4,6 @@
 */
 
 var get = Ember.get, set = Ember.set, location = window.location;
-var supportsHistory = !!(window.history && history.pushState);
-var supportsHashChange = (function () {
-  if ('onhashchange' in window === false) {
-    return false;
-  }
-
-  // IE8 Compatibility Mode provides false positive
-  return (document.documentMode === undefined || document.documentMode > 7);
-})();
 
 /**
   Ember.AutoLocation will select the best location option based off browser
@@ -25,7 +16,7 @@ var supportsHashChange = (function () {
   @namespace Ember
   @static
 */
-Ember.AutoLocation = {
+Ember.AutoLocation = Ember.Object.create({
 
   /**
     Base path that should always be pretty; i.e. before hash state. Helpful when
@@ -39,11 +30,21 @@ Ember.AutoLocation = {
   */
   rootPath: '/',
 
+  supportsHistory: !!(window.history && history.pushState),
+  supportsHashChange: (function () {
+    if ('onhashchange' in window === false) {
+      return false;
+    }
+
+    // IE8 Compatibility Mode provides false positive
+    return (document.documentMode === undefined || document.documentMode > 7);
+  })(),
+
   create: function () {
     var implementationClass, historyPath, hashPath,
         currentPath = this.getFullPath();
 
-    if (supportsHistory) {
+    if (this.get('supportsHistory')) {
       historyPath = this.getHistoryPath();
 
       // Since we support history paths, let's be sure we're using them else 
@@ -54,7 +55,7 @@ Ember.AutoLocation = {
         location.replace(historyPath);
       }
 
-    } else if (supportsHashChange) {
+    } else if (this.get('supportsHashChange')) {
       hashPath = this.getHashPath();
 
       // Be sure we're using a hashed path, otherwise let's switch over it to so
@@ -140,6 +141,6 @@ Ember.AutoLocation = {
 
     return url;
   }
-};
+});
 
 Ember.Location.registerImplementation('auto', Ember.AutoLocation);

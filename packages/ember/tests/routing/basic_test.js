@@ -1938,3 +1938,51 @@ test("ApplicationRoute with model does not proxy the currentPath", function() {
   equal(currentPath, 'index', 'currentPath is index');
   equal('currentPath' in model, false, 'should have defined currentPath on controller');
 });
+
+module('Ember.AutoLocation', {
+  setup: function() {
+    Ember.run(function() {
+      App = Ember.Application.create({
+        name: 'App',
+        rootElement: '#qunit-fixture'
+      });
+
+      App.deferReadiness();
+
+      container = App.__container__;
+    });
+  },
+
+  teardown: function () {
+    if (App) {
+      Ember.run(function () {
+        App.destroy();
+        App = null;
+      });
+    }
+  }
+});
+
+test('Router property initialized with location: \'auto\' uses the best supported Location class', function () {
+  var LocationClass;
+    
+  if (Ember.AutoLocation.supportsHistory) {
+    LocationClass = Ember.HistoryLocation;
+  } else if (Ember.AutoLocation.supportsHashChange) {
+    LocationClass = Ember.HashLocation;
+  } else {
+    LocationClass = Ember.NoneLocation;
+  }
+
+  App.Router.reopen({
+    location: 'auto'
+  });
+
+  bootApplication();
+
+  Ember.run(function() {
+    router.handleURL("/");
+  });
+
+  ok(router.get('location') instanceof LocationClass, 'Router property initialized with location: \'auto\' creates the best supported Location class');
+});
