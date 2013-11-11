@@ -7,7 +7,8 @@
     "ember-handlebars-caps-lookup": false,
     "ember-testing-simple-setup": false,
     "ember-testing-routing-helpers": false,
-    "ember-testing-triggerEvent-helper": false
+    "ember-testing-triggerEvent-helper": false,
+    "ember-routing-auto-location": true
   },
   "debugStatements": ["Ember.warn", "Ember.assert", "Ember.deprecate", "Ember.debug", "Ember.Logger.info"]
 }
