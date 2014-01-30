@@ -134,12 +134,23 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
     /**
       @private
 
+      Returns the current `location.hash`
+
+      @method getHash
+    */
+    getHash: function () {
+      return location.hash;
+    },
+
+    /**
+      @private
+
       Returns the full pathname including the hash string.
 
       @method getFullPath
     */
     getFullPath: function () {
-      return this.getPath() + location.hash;
+      return this.getPath() + this.getHash();
     },
 
     /**
@@ -153,11 +164,24 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
     */
     getHistoryPath: function () {
       var path = this.getPath(),  
-          hashPath = location.hash.substr(1),
-          url = path + hashPath;
+          hash = this.getHash();
 
-      // Removes any stacked double stashes
-      return url.replace(/\/\//, '/');
+      // By convention, Ember.js routes using HashLocation are required to start
+      // with `#/`. Anything else should NOT be considered a route and should
+      // be passed straight through, without transformation.
+      if (hash.substr(0, 2) === '#/') {
+        // If the path already has a trailing slash, remove the one
+        // from the hashed route so we don't double up.
+        if (path.slice(-1) === '/') {
+            path += hash.substr(2);
+        } else {
+            path += hash.substr(1);
+        }
+      } else {
+        path += hash;
+      }
+
+      return path;
     },
 
     /**
