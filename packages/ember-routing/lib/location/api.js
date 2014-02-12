@@ -177,6 +177,7 @@ Ember.Location = {
   },
 
   implementations: {},
+  location: window.location,
 
   /**
     Returns the current `location.hash` by parsing location.href since browsers
@@ -188,7 +189,7 @@ Ember.Location = {
     @method getHash
   */
   getHash: function () {
-    var href = window.location.href,
+    var href = get(this, 'location').href,
         hashIndex = href.indexOf('#');
 
     if (hashIndex === -1) {

@@ -4,11 +4,8 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
   @submodule ember-routing
   */
 
-  var get = Ember.get, set = Ember.set;
-  var documentMode = document.documentMode,
-      history = window.history,
-      location = window.location,
-      getHash = Ember.Location.getHash;
+  var get = Ember.get, set = Ember.set,
+      history = window.history;
 
   /**
     Ember.AutoLocation will select the best location option based off browser
@@ -34,20 +31,29 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
     */
     rootURL: '/',
 
+    window: window,
+    location: window.location,
+    history: history,
+
+    // Included on context so we can mock them in testing
+    HistoryLocation: Ember.HistoryLocation,
+    HashLocation: Ember.HashLocation,
+    NoneLocation: Ember.NoneLocation,
+
     /**
       @private
 
       We assume that if the history object has a pushState method, the host should
       support HistoryLocation.
 
-      @property supportsHistory
+      @method getSupportsHistory
     */
-    supportsHistory: (function () {
+    getSupportsHistory: function () {
       // Boosted from Modernizr: https://github.com/Modernizr/Modernizr/blob/master/feature-detects/history.js
       // The stock browser on Android 2.2 & 2.3 returns positive on history support
       // Unfortunately support is really buggy and there is no clean way to detect
       // these bugs, so we fall back to a user agent sniff :(
-      var userAgent = window.navigator.userAgent;
+      var userAgent = this.window.navigator.userAgent;
 
       // We only want Android 2, stock browser, and not Chrome which identifies
       // itself as 'Mobile Safari' as well
@@ -57,8 +63,8 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
         return false;
       }
 
-      return !!(history && 'pushState' in history);
-    })(),
+      return !!(this.history && 'pushState' in this.history);
+    },
 
     /**
       @private
@@ -66,9 +72,14 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
       IE8 running in IE7 compatibility mode gives false positive, so we must also
       check documentMode.
 
-      @property supportsHashChange
+      @method getSupportsHashChange
     */
-    supportsHashChange: ('onhashchange' in window && (documentMode === undefined || documentMode > 7 )),
+    getSupportsHashChange: function () {
+      var window = this.window,
+          documentMode = window.document.documentMode;
+
+      return ('onhashchange' in window && (documentMode === undefined || documentMode > 7 ));
+    },
 
     create: function (options) {
       if (options && options.rootURL) {
@@ -79,34 +90,37 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
           cancelRouterSetup = false,
           currentPath = this.getFullPath();
 
-      if (this.supportsHistory) {
+      if (this.getSupportsHistory()) {
         historyPath = this.getHistoryPath();
 
-        // Since we support history paths, let's be sure we're using them else 
-        // switch the location over to it.
-        if (currentPath === historyPath) {
-          implementationClass = Ember.HistoryLocation;
-        } else {
-          cancelRouterSetup = true;
-          location.replace(historyPath);
+        implementationClass = this.HistoryLocation;
+
+        // Directly change the history, so we start off as expected, before
+        // HistoryLocation takes over
+        if (currentPath !== historyPath) {
+          this.history.replaceState(null, null, historyPath);  
         }
 
-      } else if (this.supportsHashChange) {
+      } else if (this.getSupportsHashChange()) {
         hashPath = this.getHashPath();
 
         // Be sure we're using a hashed path, otherwise let's switch over it to so
-        // we start off clean and consistent.
-        if (currentPath === hashPath) {
-          implementationClass = Ember.HashLocation;
+        // we start off clean and consistent. We'll count an index path with no
+        // hash as "good enough" as well.
+        if (currentPath === hashPath || (currentPath === '/' && hashPath === '/#/')) {
+          implementationClass = this.HashLocation;
         } else {
+          // Our URL isn't in the expected hash-supported format, so we want to
+          // cancel the router setup and replace the URL to start off clean
+          implementationClass = this.NoneLocation;
           cancelRouterSetup = true;
-          location.replace(hashPath);
+          this.location.replace(hashPath);
         }
       }
 
       // If none has been set
       if (!implementationClass) {
-        implementationClass = Ember.NoneLocation;
+        implementationClass = this.NoneLocation;
       }
 
       var implementation = implementationClass.create.apply(implementationClass, arguments);
@@ -121,12 +135,21 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
     /**
       @private
 
+      @method getRootURL
+    */
+    getRootURL: function () {
+      return this.rootURL;
+    },
+
+    /**
+      @private
+
       Returns the current `location.pathname`, normalized for IE inconsistencies.
 
       @method getPath
     */
     getPath: function () {
-      var pathname = location.pathname;
+      var pathname = this.location.pathname;
       // Various versions of IE/Opera don't always return a leading slash
       if (pathname.charAt(0) !== '/') {
         pathname = '/' + pathname;
@@ -138,12 +161,32 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
     /**
       @private
 
-      Returns the full pathname including the hash string.
+      Returns normalized location.hash
+
+      @method getHash
+    */
+    getHash: Ember.Location.getHash,
+
+    /**
+      @private
+
+      Returns location.search
+
+      @method getQuery
+    */
+    getQuery: function () {
+      return this.location.search;
+    },
+
+    /**
+      @private
+
+      Returns the full pathname including query and hash
 
       @method getFullPath
     */
     getFullPath: function () {
-      return this.getPath() + getHash().substr(1);
+      return this.getPath() + this.getQuery() + this.getHash();
     },
 
     /**
@@ -156,12 +199,43 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
       @method getHistoryPath
     */
     getHistoryPath: function () {
-      var path = this.getPath(),  
-          hashPath = getHash().substr(1),
-          url = path + hashPath;
+      var rootURL = this.getRootURL(),
+          path = this.getPath(),
+          hash = this.getHash(),
+          query = this.getQuery(),
+          rootURLIndex = path.indexOf(rootURL),
+          routeHash, hashParts;
 
-      // Removes any stacked double stashes
-      return url.replace(/\/\//, '/');
+      Ember.assert('Path ' + path + ' does not start with the provided rootURL ' + rootURL, rootURLIndex === 0);
+
+      // By convention, Ember.js routes using HashLocation are required to start
+      // with `#/`. Anything else should NOT be considered a route and should
+      // be passed straight through, without transformation.
+      if (hash.substr(0, 2) === '#/') {
+        // There could be extra hash segments after the route
+        hashParts = hash.substr(1).split('#');
+        // The first one is always the route url
+        routeHash = hashParts.shift();
+
+        // If the path already has a trailing slash, remove the one
+        // from the hashed route so we don't double up.
+        if (path.slice(-1) === '/') {
+            routeHash = routeHash.substr(1);
+        }
+
+        // This is the "expected" final order
+        path += routeHash;
+        path += query;
+
+        if (hashParts.length) {
+          path += '#' + hashParts.join('#');
+        }
+      } else {
+        path += query;
+        path += hash;
+      }
+
+      return path;
     },
 
     /**
@@ -173,15 +247,20 @@ if (Ember.FEATURES.isEnabled("ember-routing-auto-location")) {
       @method getHashPath
     */
     getHashPath: function () {
-      var historyPath = this.getHistoryPath(),
-          exp = new RegExp('(' + this.rootURL + ')(.+)'),
-          url = historyPath.replace(exp, '$1#/$2');
+      var rootURL = this.getRootURL(),
+          path = rootURL,
+          historyPath = this.getHistoryPath(),
+          routePath = historyPath.substr(rootURL.length);
 
-      // Remove any stacked double stashes
-      url = url.replace(/\/\//, '/');
+      if (routePath !== '') {
+        if (routePath.charAt(0) !== '/') {
+          routePath = '/' + routePath;
+        }
 
-      return url;
+        path += '#' + routePath;
+      }
+
+      return path;
     }
-
   };
 }
