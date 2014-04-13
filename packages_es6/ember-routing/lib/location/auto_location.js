@@ -31,12 +31,23 @@ var AutoLocation = {
   /**
     @private
 
+    This property is used by router:main to know whether to cancel the routing
+    setup process, which is needed while we redirect the browser.
+
+    @property cancelRouterSetup
+    @default false
+  */
+  cancelRouterSetup: false,
+
+  /**
+    @private
+
     Will be pre-pended to path upon state change.
 
     @property rootURL
     @default '/'
   */
-  _rootURL: '/',
+  rootURL: '/',
 
   /**
     @private
@@ -179,7 +190,7 @@ var AutoLocation = {
     @method _getRootURL
   */
   _getRootURL: function () {
-    return this._rootURL;
+    return this.rootURL;
   },
 
   /**
@@ -304,6 +315,21 @@ var AutoLocation = {
     return path;
   },
 
+  _prepareToReplacePath: function (path) {
+    this.cancelRouterSetup = true;
+    this._pathToReplaceWith = path;
+  },
+
+  /**
+    
+
+    @method initState
+  */
+  initState: function () {
+    Ember.assert('AutoLocation#initState called before a path is set', !!this._pathToReplaceWith);
+    this._replacePath(this._pathToReplaceWith);
+  },
+
   /**
     Selects the best location option based off browser support and returns an
     instance of that Location class.
@@ -311,12 +337,8 @@ var AutoLocation = {
     @see Ember.AutoLocation
     @method create
   */
-  create: function (options) {
-    if (options && options.rootURL) {
-      this._rootURL = options.rootURL;
-    }
-
-    var historyPath, hashPath,
+  create: function () {
+    var historyPath, hashPath, implementation,
         cancelRouterSetup = false,
         implementationClass = this._NoneLocation,
         currentPath = this._getFullPath();
@@ -324,35 +346,27 @@ var AutoLocation = {
     if (this._getSupportsHistory()) {
       historyPath = this._getHistoryPath();
 
-      // Since we support history paths, let's be sure we're using them else
-      // switch the location over to it.
       if (currentPath === historyPath) {
         implementationClass = this._HistoryLocation;
       } else {
-        cancelRouterSetup = true;
-        this._replacePath(historyPath);
+        implementation = this;
+        this._prepareToReplacePath(historyPath);
       }
 
     } else if (this._getSupportsHashChange()) {
       hashPath = this._getHashPath();
 
-      // Be sure we're using a hashed path, otherwise let's switch over it to so
-      // we start off clean and consistent. We'll count an index path with no
-      // hash as "good enough" as well.
+      // We're counting an index path with no hash as "good enough" as well.
       if (currentPath === hashPath || (currentPath === '/' && hashPath === '/#/')) {
         implementationClass = this._HashLocation;
       } else {
-        // Our URL isn't in the expected hash-supported format, so we want to
-        // cancel the router setup and replace the URL to start off clean
-        cancelRouterSetup = true;
-        this._replacePath(hashPath);
+        implementation = this;
+        this._prepareToReplacePath(hashPath);
       }
     }
 
-    var implementation = implementationClass.create.apply(implementationClass, arguments);
-
-    if (cancelRouterSetup) {
-      set(implementation, 'cancelRouterSetup', true);
+    if (!implementation) {
+      implementation = implementationClass.create.apply(implementationClass, arguments);
     }
 
     return implementation;

@@ -53,6 +53,13 @@ module("Ember.AutoLocation", {
       }
     };
 
+    AutoTestLocation._window = {
+      document: {},
+      navigator: {
+        userAgent: ''
+      }
+    };
+
     AutoTestLocation._location = {
       href: 'http://test.com/',
       pathname: '/',
@@ -75,13 +82,13 @@ module("Ember.AutoLocation", {
 
   teardown: function() {
     run(function() {
-      if (location) { location.destroy(); }
+      if (location && location.destroy) { location.destroy(); }
       AutoTestLocation = null;
     });
   }
 });
 
-test("replacePath cannot be used to redirect to a different origin (website)", function() {
+test("_replacePath() cannot be used to redirect to a different origin (website)", function() {
   expect(1);
 
   var expectedURL;
@@ -174,8 +181,8 @@ test("AutoLocation._getSupportsHistory() should use `history.pushState` existanc
   equal(AutoTestLocation._getSupportsHistory(), false, 'Returns false if `history` does not exist');
 });
 
-test("AutoLocation.create() should transform the URL for hashchange-only browsers viewing a HistoryLocation-formatted path", function() {
-  expect(4);
+test("AutoLocation.initState() should transform the URL for hashchange-only browsers viewing a HistoryLocation-formatted path", function() {
+  expect(3);
 
   supportsHistory = false;
   supportsHashChange = true;
@@ -196,13 +203,14 @@ test("AutoLocation.create() should transform the URL for hashchange-only browser
 
   createLocation();
 
-  equal(get(location, 'implementation'), 'none', 'NoneLocation should be returned while we attempt to location.replace()');
-  equal(location instanceof FakeNoneLocation, true, 'NoneLocation should be returned while we attempt to location.replace()');
-  equal(get(location, 'cancelRouterSetup'), true, 'cancelRouterSetup should be set so the router knows.');
+  location.initState();
+
+  equal(location, AutoTestLocation, 'AutoLocation itself should be returned while we attempt to location.replace()');
+  equal(get(location, 'cancelRouterSetup'), true, 'cancelRouterSetup should be set so the router knows whats up yo.');
 });
 
-test("AutoLocation.create() should transform the URL for pushState-supported browsers viewing a HashLocation-formatted url", function() {
-  expect(4);
+test("AutoLocation.initState() should transform the URL for pushState-supported browsers viewing a HashLocation-formatted url", function() {
+  expect(3);
 
   supportsHistory = true;
   supportsHashChange = true;
@@ -223,8 +231,9 @@ test("AutoLocation.create() should transform the URL for pushState-supported bro
 
   createLocation();
 
-  equal(get(location, 'implementation'), 'none', 'NoneLocation should be returned while we attempt to location.replace()');
-  equal(location instanceof FakeNoneLocation, true, 'NoneLocation should be returned while we attempt to location.replace()');
+  location.initState();
+
+  equal(location, AutoTestLocation, 'AutoLocation itself should be returned while we attempt to location.replace()');
   equal(get(location, 'cancelRouterSetup'), true, 'cancelRouterSetup should be set so the router knows.');
 });
 
@@ -306,7 +315,7 @@ test("AutoLocation._getFullPath() should return full pathname including query an
 test("AutoLocation._getHistoryPath() should return a normalized, HistoryLocation-supported path", function() {
   expect(3);
 
-  AutoTestLocation._rootURL = '/app/';
+  AutoTestLocation.rootURL = '/app/';
 
   AutoTestLocation._location = {
     href: 'http://test.com/app/about?foo=bar#foo',
@@ -336,7 +345,7 @@ test("AutoLocation._getHistoryPath() should return a normalized, HistoryLocation
 test("AutoLocation._getHashPath() should return a normalized, HashLocation-supported path", function() {
   expect(3);
 
-  AutoTestLocation._rootURL = '/app/';
+  AutoTestLocation.rootURL = '/app/';
 
   AutoTestLocation._location = {
     href: 'http://test.com/app/#/about?foo=bar#foo',
