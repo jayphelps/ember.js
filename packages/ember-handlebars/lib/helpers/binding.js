@@ -823,6 +823,8 @@ function classStringForParsedPath(parsedPath, value) {
 
 export {
   bind,
+  exists,
+  simpleBind,
   _triageMustacheHelper,
   resolveHelper,
   bindHelper,

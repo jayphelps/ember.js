@@ -39,21 +39,14 @@ export function content(morph, path, context, params, options, env) {
 
   // TODO: just set escaped on the morph in HTMLBars
   morph.escaped = options.escaped;
-  var lazyValue;
   var helper = hooks.lookupHelper(path, env);
   if (helper) {
     streamifyArgs(context, params, options, env);
-    lazyValue = helper(params, options, env);
-  } else {
-    lazyValue = hooks.streamFor(context, path);
+    return helper(params, options, env);
   }
-  if (lazyValue) {
-    lazyValue.subscribe(function(sender) {
-      morph.update(sender.value());
-    });
 
-    morph.update(lazyValue.value());
-  }
+  helper = hooks.lookupHelper('bindHelper', env);
+  return helper(path, options, env);
 }
 
 export function element(element, path, context, params, options, env) { //jshint ignore:line
