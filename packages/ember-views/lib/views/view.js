@@ -1065,7 +1065,12 @@ var View = CoreView.extend({
       Ember.assert('template must be a function. Did you mean to call Ember.Handlebars.compile("...") or specify templateName instead?', typeof template === 'function');
       // The template should write directly to the render buffer instead
       // of returning a string.
-      output = template(context, { data: data });
+      var options = { data: data };
+      if (template.length === 3) { // HTMLBars
+        throw "not implemented";
+      } else {
+        output = template(context, options);
+      }
 
       // If the template returned a string instead of writing to the buffer,
       // push the string onto the buffer.
