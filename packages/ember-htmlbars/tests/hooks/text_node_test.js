@@ -2,7 +2,7 @@ import EmberView from "ember-views/views/view";
 import run from "ember-metal/run_loop";
 import EmberObject from "ember-runtime/system/object";
 import { compile } from "htmlbars-compiler/compiler";
-import { equalHTML } from "../helpers";
+import { equalInnerHTML } from "../helpers";
 
 var view;
 
@@ -25,7 +25,7 @@ test("property is output", function() {
   });
   appendView(view);
 
-  equalHTML(view.element, 'ohai erik', "property is output");
+  equalInnerHTML(view.element, 'ohai erik', "property is output");
 });
 
 test("path is output", function() {
@@ -35,19 +35,20 @@ test("path is output", function() {
   });
   appendView(view);
 
-  equalHTML(view.element, 'ohai erik', "path is output");
+  equalInnerHTML(view.element, 'ohai erik', "path is output");
 });
 
 test("changed property updates", function() {
+  var context = EmberObject.create({name: 'erik'});
   view = EmberView.create({
-    context: EmberObject.create({name: 'erik'}),
+    context: context,
     template: compile("ohai {{name}}")
   });
   appendView(view);
 
-  equalHTML(view.element, 'ohai erik', "precond - original property is output");
+  equalInnerHTML(view.element, 'ohai erik', "precond - original property is output");
 
-  run(view, view.set, 'name', 'mmun');
+  run(context, context.set, 'name', 'mmun');
 
-  equalHTML(view.element, 'ohai mmun', "precond - original property is output");
+  equalInnerHTML(view.element, 'ohai mmun', "new property is output");
 });

@@ -1076,7 +1076,7 @@ var View = CoreView.extend({
       var options = { data: data };
       if (template.length === 3) { // HTMLBars
         var env = Ember.merge(buildHTMLBarsDefaultEnv(), options);
-        output = template(context, env, buffer.innerContextualElement());
+        output = template(this, env, buffer.innerContextualElement());
       } else {
         output = template(context, options);
       }

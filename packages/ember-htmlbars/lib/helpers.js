@@ -3,26 +3,46 @@
 @submodule ember-handlebars
 */
 
+import run from "ember-metal/run_loop";
+
+/*
 import {
-  simpleBind,
   bind,
   exists
 } from "ember-handlebars/helpers/binding";
+*/
 
-function bindHelper(property, options, env) {
-  // TODO: Remove this in favor of an actual refactoring.
-  // Make the Handlebars helper happy.
-  options.data = env.data;
-  options.hash = {unescaped: !options.escaped};
+import {
+  SimpleHandlebarsView
+} from "ember-handlebars/views/handlebars_bound_view";
 
-  if (!options.fn) {
-    var lazyValue = env.data.view.getStream(property);
-    return simpleBind(options.context, lazyValue, options);
+function simpleBind(params, options, env) {
+  var parentView = env.data.view;
+  var lazyValue = params[0];
+
+  var view = new SimpleHandlebarsView(
+    lazyValue, options.escaped
+  );
+
+  view._parentView = parentView;
+  view._morph = options.morph;
+  parentView.appendChild(view);
+
+  lazyValue.subscribe(parentView._wrapAsScheduled(function() {
+    run.scheduleOnce('render', view, 'rerender');
+  }));
+}
+
+function bindHelper(params, options, env) {
+  if (options.fn) {
+    // This code path has not been tested at all
+    // TODO: is this needed?
+    // options.helperName = 'bind';
+    // bind.call(options.context, property, options, false, exists);
+    throw "not implemented";
+  } else {
+    simpleBind(params, options, env);
   }
-
-  options.helperName = 'bind';
-
-  return bind.call(options.context, property, options, false, exists);
 }
 
 export {

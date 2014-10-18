@@ -11,13 +11,7 @@ export var defaultEnv = {
     content: content,
     element: element,
     subexpr: subexpr,
-    lookupHelper: lookupHelper,
-
-    streamFor: function(context, path) {
-      return new Stream(function() {
-        return context[path];
-      });
-    }
+    lookupHelper: lookupHelper
   },
 
   helpers: {

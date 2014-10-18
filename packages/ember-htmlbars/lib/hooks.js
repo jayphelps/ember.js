@@ -1,75 +1,62 @@
 import Stream from "ember-metal/streams/stream";
 import {readArray} from "ember-metal/streams/read";
 
-function streamifyArgs(context, params, options, env) {
-  var hooks = env.hooks;
-
-  // TODO: Revisit keyword rewriting approach
-  if (params.length === 3 && params[1] === "in") {
-    params.splice(0, 3, {isKeyword: true, from: params[2], to: params[0]});
-    options.types.splice(0, 3, 'keyword');
-  }
-
-  if (params.length === 3 && params[1] === "as") {
-    params.splice(0, 3, {isKeyword: true, from: params[0], to: params[2]});
-    options.types.splice(0, 3, 'keyword');
-  }
-
+function streamifyArgs(view, params, options, env) {
   // Convert ID params to streams
   for (var i = 0, l = params.length; i < l; i++) {
     if (options.types[i] === 'id') {
-      params[i] = hooks.streamFor(context, params[i]);
-    } else if (options.types[i] === 'keyword') {
-      params[i].lazyValue = hooks.streamFor(context, params[i].from);
+      params[i] = view.getStream(params[i]);
     }
   }
 
   // Convert hash ID values to streams
-  var hash = options.hash,
-      hashTypes = options.hashTypes;
+  var hash = options.hash;
+  var hashTypes = options.hashTypes;
   for (var key in hash) {
     if (hashTypes[key] === 'id') {
-      hash[key] = hooks.streamFor(context, hash[key]);
+      hash[key] = view.getStream(hash[key]);
     }
   }
 }
 
-export function content(morph, path, context, params, options, env) {
+export function content(morph, path, view, params, options, env) {
   var hooks = env.hooks;
 
   // TODO: just set escaped on the morph in HTMLBars
   morph.escaped = options.escaped;
   var helper = hooks.lookupHelper(path, env);
-  if (helper) {
-    streamifyArgs(context, params, options, env);
-    return helper(params, options, env);
+  if (!helper) {
+    helper = hooks.lookupHelper('bindHelper', env);
+    // Modify params to include the first word
+    params.unshift(path);
+    options.types = ['id'];
   }
 
-  helper = hooks.lookupHelper('bindHelper', env);
-  return helper(path, options, env);
+  streamifyArgs(view, params, options, env);
+  return helper(params, options, env);
 }
 
-export function element(element, path, context, params, options, env) { //jshint ignore:line
+export function element(element, path, view, params, options, env) { //jshint ignore:line
   var hooks = env.hooks;
   var helper = hooks.lookupHelper(path, env);
 
   if (helper) {
-    streamifyArgs(context, params, options, env);
+    streamifyArgs(view, params, options, env);
     return helper(element, params, options, env);
   } else {
-    return hooks.streamFor(context, path);
+    return view.getStream(path);
   }
 }
 
-export function subexpr(path, context, params, options, env) {
+export function subexpr(path, view, params, options, env) {
   var hooks = env.hooks;
   var helper = hooks.lookupHelper(path, env);
 
   if (helper) {
-    streamifyArgs(context, params, options, env);
+    streamifyArgs(view, params, options, env);
     return helper(params, options, env);
   } else {
-    return hooks.streamFor(context, path);
+    return view.getStream(path);
   }
 }
 
