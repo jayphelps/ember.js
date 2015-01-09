@@ -21,6 +21,7 @@ function mergeGenericViewBindings(view, props, hash) {
         key === 'class' ||
         key === 'classBinding' ||
         key === 'classNameBindings' ||
+        key === 'classNames' ||
         key === 'attributeBindings') {
       continue;
     }
@@ -83,6 +84,11 @@ function mergeDOMViewBindings(view, props, hash) {
 
   if (hash.classNameBindings) {
     a_push.apply(classBindings, hash.classNameBindings.split(' '));
+  }
+
+  if (hash.classNames) {
+    classBindings.push(hash.classNames._label);
+    delete hash.classNames;
   }
 
   if (classBindings.length > 0) {

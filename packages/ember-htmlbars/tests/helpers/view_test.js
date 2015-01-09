@@ -468,6 +468,22 @@ test("Should update classes from a bound property", function() {
   ok(jQuery('#foo').hasClass('fooBar'), "changes property to string value (but does not dasherize)");
 });
 
+test("SUCH WOW", function() {
+  view = EmberView.create({
+    controller: {
+      someClassName: 'single',
+      someClassNames: ['first', 'second']
+    },
+    template: compile('{{#view id="foo" class=someClassName classNames=someClassNames}} Foo{{/view}}')
+  });
+
+  runAppend(view);
+
+  console.log(jQuery('#foo')[0].className);
+  ok(jQuery('#foo').hasClass('first'));
+  ok(jQuery('#foo').hasClass('second'));
+});
+
 test("bound properties should be available in the view", function() {
   var FuView = viewClass({
     elementId: 'fu',
