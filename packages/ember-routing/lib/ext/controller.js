@@ -12,7 +12,7 @@ import ControllerMixin from "ember-runtime/mixins/controller";
 @submodule ember-routing
 */
 
-ControllerMixin.reopen({
+export default ControllerMixin.reopen({
   concatenatedProperties: ['queryParams', '_pCacheMeta'],
 
   init: function() {
@@ -350,6 +350,3 @@ function listenForQueryParamChanges(controller) {
     controller.addObserver(prop + '.[]', controller, controller._qpChanged);
   }
 }
-
-
-export default ControllerMixin;

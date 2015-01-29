@@ -64,8 +64,7 @@ var slice = [].slice;
   @param {Object} [args*] Any additional arguments you wish to pass to the method.
   @return {Object} return value from invoking the passed function.
 */
-export default run;
-function run() {
+export default function run() {
   return backburner.run.apply(backburner, arguments);
 }
 

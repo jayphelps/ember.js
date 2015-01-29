@@ -1,7 +1,6 @@
 import dictionary from 'ember-metal/dictionary';
-export default Cache;
 
-function Cache(limit, func) {
+export default function Cache(limit, func) {
   this.store  = dictionary(null);
   this.size   = 0;
   this.misses = 0;

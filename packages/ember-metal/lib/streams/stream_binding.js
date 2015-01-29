@@ -3,7 +3,7 @@ import merge from "ember-metal/merge";
 import run from "ember-metal/run_loop";
 import Stream from "ember-metal/streams/stream";
 
-function StreamBinding(stream) {
+export default function StreamBinding(stream) {
   Ember.assert("StreamBinding error: tried to bind to object that is not a stream", stream && stream.isStream);
 
   this.init();
@@ -73,5 +73,3 @@ merge(StreamBinding.prototype, {
     }
   }
 });
-
-export default StreamBinding;

@@ -9,8 +9,6 @@ function Operation(type, count) {
   this.count = count;
 }
 
-export default SubArray;
-
 /**
   An `Ember.SubArray` tracks an array in a way similar to, but more specialized
   than, `Ember.TrackedArray`.  It is useful for keeping track of the indexes of
@@ -19,7 +17,7 @@ export default SubArray;
   @class SubArray
   @namespace Ember
 */
-function SubArray(length) {
+export default function SubArray(length) {
   if (arguments.length < 1) { length = 0; }
 
   if (length > 0) {

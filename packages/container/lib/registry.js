@@ -17,7 +17,7 @@ var VALID_FULL_NAME_REGEXP = /^[^:]+.+:[^:]+$/;
  @private
  @class Registry
 */
-function Registry(options) {
+export default function Registry(options) {
   this.resolver = options && options.resolver ? options.resolver : function() {};
 
   this.registrations  = dictionary(options && options.registrations ? options.registrations : null);
@@ -669,5 +669,3 @@ function resolve(registry, normalizedName) {
 function has(registry, fullName) {
   return registry.resolve(fullName) !== undefined;
 }
-
-export default Registry;

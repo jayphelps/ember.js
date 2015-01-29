@@ -44,6 +44,7 @@ var FIRST_KEY = /^([^\.]+)/;
   @param {String} keyName The property key to retrieve
   @return {Object} the property value or `null`.
 */
+export default get;
 export function get(obj, keyName) {
   // Helpers that operate with 'this' within an #each
   if (keyName === '') {
@@ -177,5 +178,3 @@ export function getWithDefault(root, key, defaultValue) {
   if (value === undefined) { return defaultValue; }
   return value;
 }
-
-export default get;

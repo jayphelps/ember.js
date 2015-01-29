@@ -24,7 +24,7 @@ import isNone from 'ember-metal/is_none';
   @param {Object} obj Value to test
   @return {Boolean}
 */
-function isEmpty(obj) {
+export default function isEmpty(obj) {
   var none = isNone(obj);
   if (none) {
     return none;
@@ -56,5 +56,3 @@ function isEmpty(obj) {
 
   return false;
 }
-
-export default isEmpty;

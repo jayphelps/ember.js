@@ -19,11 +19,9 @@ import { sendEvent } from "ember-metal/events";
     ...
   ]
 */
-export default ObserverSet;
-function ObserverSet() {
+export default function ObserverSet() {
   this.clear();
 }
-
 
 ObserverSet.prototype.add = function(sender, keyName, eventName) {
   var observerSet = this.observerSet;

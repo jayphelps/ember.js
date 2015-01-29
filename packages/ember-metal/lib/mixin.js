@@ -542,8 +542,7 @@ export function mixin(obj) {
   @class Mixin
   @namespace Ember
 */
-export default Mixin;
-function Mixin(args, properties) {
+export default function Mixin(args, properties) {
   this.properties = properties;
 
   var length = args && args.length;

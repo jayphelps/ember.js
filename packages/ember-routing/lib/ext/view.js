@@ -8,7 +8,7 @@ import EmberView from "ember-views/views/view";
 @submodule ember-routing
 */
 
-EmberView.reopen({
+export default EmberView.reopen({
 
   /**
     Sets the private `_outlets` object on the view.
@@ -151,5 +151,3 @@ EmberView.reopen({
     }
   }
 });
-
-export default EmberView;

@@ -13,7 +13,7 @@ import {
   @constructor
   @private
 */
-function Libraries() {
+export default function Libraries() {
   this._registry = [];
   this._coreLibIndex = 0;
 }
@@ -66,5 +66,3 @@ Libraries.prototype = {
     });
   }
 };
-
-export default Libraries;

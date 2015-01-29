@@ -3,7 +3,7 @@ import environment from "ember-metal/environment";
 
 var domHelper = environment.hasDOM ? new DOMHelper() : null;
 
-function Renderer(_helper) {
+export default function Renderer(_helper) {
   this._uuid = 0;
 
   // These sizes and values are somewhat arbitrary (but sensible)
@@ -290,5 +290,3 @@ Renderer.prototype.willDestroyElement = noop; // willClearRender (currently bala
 Renderer.prototype.didDestroyElement = noop; // element destroyed so view.destroy shouldn't try to remove it removedFromDOM
 Renderer.prototype.destroyView = noop;
 Renderer.prototype.childViews = noop;
-
-export default Renderer;

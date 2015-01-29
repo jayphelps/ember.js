@@ -251,7 +251,7 @@ deprecateProperty(OrderedSet.prototype, 'length', 'size');
   @private
   @constructor
 */
-function Map() {
+export default function Map() {
   if (this instanceof this.constructor) {
     this._keys = OrderedSet.create();
     this._keys._silenceRemoveDeprecation = true;
@@ -499,8 +499,6 @@ MapWithDefault.prototype.copy = function() {
     defaultValue: this.defaultValue
   }));
 };
-
-export default Map;
 
 export {
   OrderedSet,

@@ -14,7 +14,7 @@ import {
   @namespace Ember.stream
   @constructor
 */
-function Stream(fn) {
+export default function Stream(fn) {
   this.init();
   this.valueFn = fn;
 }
@@ -149,5 +149,3 @@ Stream.prototype = {
     }
   }
 };
-
-export default Stream;

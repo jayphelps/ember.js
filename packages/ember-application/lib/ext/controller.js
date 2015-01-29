@@ -71,7 +71,7 @@ var defaultControllersComputedProperty = computed(function() {
   @class ControllerMixin
   @namespace Ember
 */
-ControllerMixin.reopen({
+export default ControllerMixin.reopen({
   concatenatedProperties: ['needs'],
 
   /**
@@ -175,5 +175,3 @@ ControllerMixin.reopen({
   */
   controllers: defaultControllersComputedProperty
 });
-
-export default ControllerMixin;

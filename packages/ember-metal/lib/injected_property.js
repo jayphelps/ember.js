@@ -16,7 +16,7 @@ import { meta } from "ember-metal/utils";
   @param {String} name (optional) The name the property will lookup, defaults
          to the property's name
 */
-function InjectedProperty(type, name) {
+export default function InjectedProperty(type, name) {
   this.type = type;
   this.name = name;
 
@@ -46,5 +46,3 @@ InjectedPropertyPrototype.get = ComputedPropertyPrototype.get;
 InjectedPropertyPrototype.readOnly = ComputedPropertyPrototype.readOnly;
 
 InjectedPropertyPrototype.teardown = ComputedPropertyPrototype.teardown;
-
-export default InjectedProperty;

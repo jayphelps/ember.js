@@ -142,7 +142,7 @@ import {
   @param {Hash} options
   @return {String} HTML string
 */
-function bindAttrHelper(params, hash, options, env) {
+export default function bindAttrHelper(params, hash, options, env) {
   var element = options.element;
 
   Ember.assert("You must specify at least one hash argument to bind-attr", !!keys(hash).length);
@@ -228,8 +228,6 @@ function bindAttrHelperDeprecated() {
     return helpers['bind-attr'].apply(this, arguments);
   }
 }
-
-export default bindAttrHelper;
 
 export {
   bindAttrHelper,

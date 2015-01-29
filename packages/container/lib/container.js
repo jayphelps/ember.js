@@ -19,7 +19,7 @@ var Registry;
  @private
  @class Container
  */
-function Container(registry, options) {
+export default function Container(registry, options) {
   this._registry = registry || (function() {
     Ember.deprecate("A container should only be created for an already instantiated registry. For backward compatibility, an isolated registry will be instantiated just for this container.");
 
@@ -369,5 +369,3 @@ function resetMember(container, fullName) {
     }
   }
 }
-
-export default Container;

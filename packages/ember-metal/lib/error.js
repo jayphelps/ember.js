@@ -18,7 +18,7 @@ var errorProps = [
   @extends Error
   @constructor
 */
-function EmberError() {
+export default function EmberError() {
   var tmp = Error.apply(this, arguments);
 
   // Adds a `stack` property to the given error object that will yield the
@@ -38,5 +38,3 @@ function EmberError() {
 }
 
 EmberError.prototype = create(Error.prototype);
-
-export default EmberError;

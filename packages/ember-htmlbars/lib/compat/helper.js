@@ -20,7 +20,7 @@ var slice = [].slice;
   @constructor
   @private
 */
-function HandlebarsCompatibleHelper(fn) {
+export default function HandlebarsCompatibleHelper(fn) {
   this.helperFunction = function helperFunc(params, hash, options, env) {
     var param, blockResult, fnResult;
     var context = this;
@@ -96,5 +96,3 @@ export function handlebarsHelper(name, value) {
     helpers[name] = boundFn;
   }
 }
-
-export default HandlebarsCompatibleHelper;

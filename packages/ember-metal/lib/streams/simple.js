@@ -3,7 +3,7 @@ import Stream from "ember-metal/streams/stream";
 import create from "ember-metal/platform/create";
 import { read, isStream } from "ember-metal/streams/utils";
 
-function SimpleStream(source) {
+export default function SimpleStream(source) {
   this.init();
   this.source = source;
 
@@ -59,5 +59,3 @@ merge(SimpleStream.prototype, {
     }
   }
 });
-
-export default SimpleStream;

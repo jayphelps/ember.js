@@ -34,7 +34,7 @@ import environment from "ember-metal/environment";
   @static
   @param ctx
 */
-function bootstrap(ctx) {
+export default function bootstrap(ctx) {
   var selectors = 'script[type="text/x-handlebars"], script[type="text/x-raw-handlebars"]';
 
   jQuery(selectors, ctx)
@@ -101,5 +101,3 @@ onLoad('Ember.Application', function(Application) {
     // jscs:enable validateIndentation
   }
 });
-
-export default bootstrap;

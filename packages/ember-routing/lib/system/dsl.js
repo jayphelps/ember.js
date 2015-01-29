@@ -5,12 +5,11 @@ import Ember from "ember-metal/core"; // FEATURES, assert
 @submodule ember-routing
 */
 
-function DSL(name, options) {
+export default function DSL(name, options) {
   this.parent = name;
   this.enableLoadingSubstates = options && options.enableLoadingSubstates;
   this.matches = [];
 }
-export default DSL;
 
 DSL.prototype = {
   route: function(name, options, callback) {
