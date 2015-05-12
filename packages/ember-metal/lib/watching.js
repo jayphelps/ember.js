@@ -37,9 +37,7 @@ import {
 */
 function watch(obj, _keyPath, m) {
   // can't watch length on Array - it is special...
-  if (_keyPath === 'length' && isArray(obj)) {
-    return;
-  }
+  if (_keyPath === 'length' && isArray(obj)) { return; }
 
   if (!isPath(_keyPath)) {
     watchKey(obj, _keyPath, m);
@@ -59,9 +57,7 @@ watch.flushPending = flushPendingChains;
 
 export function unwatch(obj, _keyPath, m) {
   // can't watch length on Array - it is special...
-  if (_keyPath === 'length' && isArray(obj)) {
-    return;
-  }
+  if (_keyPath === 'length' && isArray(obj)) { return; }
 
   if (!isPath(_keyPath)) {
     unwatchKey(obj, _keyPath, m);

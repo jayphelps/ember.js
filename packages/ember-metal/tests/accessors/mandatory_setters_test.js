@@ -35,27 +35,12 @@ if (Ember.FEATURES.isEnabled('mandatory-setter')) {
 
       var obj = { };
 
-      defineProperty(obj, 'a', {
-        value: true
-      });
-      defineProperty(obj, 'b', {
-        value: false
-      });
-      defineProperty(obj, 'c', {
-        value: undefined
-      });
-      defineProperty(obj, 'd', {
-        value: undefined,
-        writable: false
-      });
-      defineProperty(obj, 'e', {
-        value: undefined,
-        configurable: false
-      });
-      defineProperty(obj, 'f', {
-        value: undefined,
-        configurable: true
-      });
+      defineProperty(obj, 'a', { value: true });
+      defineProperty(obj, 'b', { value: false });
+      defineProperty(obj, 'c', { value: undefined });
+      defineProperty(obj, 'd', { value: undefined, writable: false });
+      defineProperty(obj, 'e', { value: undefined, configurable: false });
+      defineProperty(obj, 'f', { value: undefined, configurable: true });
 
       watch(obj, 'a');
       watch(obj, 'b');
@@ -75,9 +60,7 @@ if (Ember.FEATURES.isEnabled('mandatory-setter')) {
     QUnit.test('should not setup mandatory-setter if setter is already setup on property', function() {
       expect(2);
 
-      var obj = {
-        someProp: null
-      };
+      var obj = { someProp: null };
 
       defineProperty(obj, 'someProp', {
         set(value) {

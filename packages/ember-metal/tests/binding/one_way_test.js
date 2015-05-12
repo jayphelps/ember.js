@@ -8,12 +8,8 @@ var MyApp;
 QUnit.module('system/mixin/binding/oneWay_test', {
   setup() {
     MyApp = {
-      foo: {
-        value: 'FOO'
-      },
-      bar: {
-        value: 'BAR'
-      }
+      foo: { value: 'FOO' },
+      bar: { value: 'BAR' }
     };
   },
 

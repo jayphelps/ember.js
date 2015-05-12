@@ -9,24 +9,11 @@ QUnit.test('can retrieve a hash of properties from an object via an argument lis
     companyName: 'Apple, Inc.'
   };
 
-  deepEqual(getProperties(obj, 'firstName', 'lastName'), {
-    firstName: 'Steve',
-    lastName: 'Jobs'
-  });
-  deepEqual(getProperties(obj, 'firstName', 'lastName'), {
-    firstName: 'Steve',
-    lastName: 'Jobs'
-  });
-  deepEqual(getProperties(obj, 'lastName'), {
-    lastName: 'Jobs'
-  });
+  deepEqual(getProperties(obj, 'firstName', 'lastName'), { firstName: 'Steve', lastName: 'Jobs' });
+  deepEqual(getProperties(obj, 'firstName', 'lastName'), { firstName: 'Steve', lastName: 'Jobs' });
+  deepEqual(getProperties(obj, 'lastName'), { lastName: 'Jobs' });
   deepEqual(getProperties(obj), {});
-  deepEqual(getProperties(obj, ['firstName', 'lastName']), {
-    firstName: 'Steve',
-    lastName: 'Jobs'
-  });
-  deepEqual(getProperties(obj, ['firstName']), {
-    firstName: 'Steve'
-  });
+  deepEqual(getProperties(obj, ['firstName', 'lastName']), { firstName: 'Steve', lastName: 'Jobs' });
+  deepEqual(getProperties(obj, ['firstName']), { firstName: 'Steve' });
   deepEqual(getProperties(obj, []), {});
 });

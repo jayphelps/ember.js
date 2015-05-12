@@ -445,21 +445,15 @@ export function metaPath(obj, path, writable) {
   var _meta = meta(obj, writable);
   var keyName, value;
 
-  for (var i = 0, l = path.length; i < l; i++) {
+  for (let i = 0, l = path.length; i < l; i++) {
     keyName = path[i];
     value = _meta[keyName];
 
     if (!value) {
-      if (!writable) {
-        return undefined;
-      }
-      value = _meta[keyName] = {
-        __ember_source__: obj
-      };
+      if (!writable) { return undefined; }
+      value = _meta[keyName] = { __ember_source__: obj };
     } else if (value.__ember_source__ !== obj) {
-      if (!writable) {
-        return undefined;
-      }
+      if (!writable) { return undefined; }
       value = _meta[keyName] = o_create(value);
       value.__ember_source__ = obj;
     }
@@ -628,9 +622,7 @@ if (needsFinallyFix) {
       }
     }
 
-    if (finalError) {
-      throw finalError;
-    }
+    if (finalError) { throw finalError; }
 
     return (finalResult === undefined) ? result : finalResult;
   };
@@ -714,9 +706,7 @@ if (needsFinallyFix) {
       }
     }
 
-    if (finalError) {
-      throw finalError;
-    }
+    if (finalError) { throw finalError; }
 
     return (finalResult === undefined) ? result : finalResult;
   };
@@ -750,12 +740,12 @@ var deprecatedTryCatchFinally = function() {
 var toString = Object.prototype.toString;
 
 var isArray = Array.isArray || function(value) {
-    return value !== null &&
-      value !== undefined &&
-      typeof value === 'object' &&
-      typeof value.length === 'number' &&
-      toString.call(value) === '[object Array]';
-  };
+  return value !== null &&
+    value !== undefined &&
+    typeof value === 'object' &&
+    typeof value.length === 'number' &&
+    toString.call(value) === '[object Array]';
+};
 
 /**
   Forces the passed object to be part of an array. If the object is already
@@ -780,9 +770,7 @@ var isArray = Array.isArray || function(value) {
   @return {Array}
 */
 export function makeArray(obj) {
-  if (obj === null || obj === undefined) {
-    return [];
-  }
+  if (obj === null || obj === undefined) { return []; }
   return isArray(obj) ? obj : [obj];
 }
 

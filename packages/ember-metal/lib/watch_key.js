@@ -14,9 +14,7 @@ import {
 
 export function watchKey(obj, keyName, meta) {
   // can't watch length on Array - it is special...
-  if (keyName === 'length' && isArray(obj)) {
-    return;
-  }
+  if (keyName === 'length' && isArray(obj)) { return; }
 
   var m = meta || metaFor(obj);
   var watching = m.watching;
@@ -27,9 +25,7 @@ export function watchKey(obj, keyName, meta) {
 
     var possibleDesc = obj[keyName];
     var desc = (possibleDesc !== null && typeof possibleDesc === 'object' && possibleDesc.isDescriptor) ? possibleDesc : undefined;
-    if (desc && desc.willWatch) {
-      desc.willWatch(obj, keyName);
-    }
+    if (desc && desc.willWatch) { desc.willWatch(obj, keyName); }
 
     if ('function' === typeof obj.willWatchProperty) {
       obj.willWatchProperty(keyName);
@@ -55,9 +51,7 @@ if (Ember.FEATURES.isEnabled('mandatory-setter')) {
     var possibleDesc = descriptor && descriptor.value;
     var isDescriptor = possibleDesc !== null && typeof possibleDesc === 'object' && possibleDesc.isDescriptor;
 
-    if (isDescriptor) {
-      return;
-    }
+    if (isDescriptor) { return; }
 
     // this x in Y deopts, so keeping it in this function is better;
     if (configurable && isWritable && hasValue && keyName in obj) {
@@ -85,9 +79,7 @@ export function unwatchKey(obj, keyName, meta) {
 
     var possibleDesc = obj[keyName];
     var desc = (possibleDesc !== null && typeof possibleDesc === 'object' && possibleDesc.isDescriptor) ? possibleDesc : undefined;
-    if (desc && desc.didUnwatch) {
-      desc.didUnwatch(obj, keyName);
-    }
+    if (desc && desc.didUnwatch) { desc.didUnwatch(obj, keyName); }
 
     if ('function' === typeof obj.didUnwatchProperty) {
       obj.didUnwatchProperty(keyName);
