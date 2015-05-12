@@ -1,11 +1,11 @@
-import Ember from "ember-metal/core"; // FEATURES, deprecate
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import { computed } from "ember-metal/computed";
-import { meta } from "ember-metal/utils";
-import merge from "ember-metal/merge";
+import Ember from 'ember-metal/core'; // FEATURES, deprecate
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import { computed } from 'ember-metal/computed';
+import { meta } from 'ember-metal/utils';
+import merge from 'ember-metal/merge';
 
-import ControllerMixin from "ember-runtime/mixins/controller";
+import ControllerMixin from 'ember-runtime/mixins/controller';
 
 /**
 @module ember
@@ -74,7 +74,9 @@ ControllerMixin.reopen({
     var cacheMeta = {};
     var qpMap = get(this, '_normalizedQueryParams');
     for (var prop in qpMap) {
-      if (!qpMap.hasOwnProperty(prop)) { continue; }
+      if (!qpMap.hasOwnProperty(prop)) {
+        continue;
+      }
 
       var qp = qpMap[prop];
       var scope = qp.scope;
@@ -88,7 +90,7 @@ ControllerMixin.reopen({
         parts: parts, // provided by route if 'model' scope
         values: null, // provided by route
         scope: scope,
-        prefix: "",
+        prefix: '',
         def: get(this, prop)
       };
     }
@@ -103,7 +105,9 @@ ControllerMixin.reopen({
   _updateCacheParams(params) {
     var cacheMeta = get(this, '_cacheMeta');
     for (var prop in cacheMeta) {
-      if (!cacheMeta.hasOwnProperty(prop)) { continue; }
+      if (!cacheMeta.hasOwnProperty(prop)) {
+        continue;
+      }
       var propMeta = cacheMeta[prop];
       propMeta.values = params;
 
@@ -122,10 +126,10 @@ ControllerMixin.reopen({
     @private
   */
   _qpChanged(controller, _prop) {
-    var prop = _prop.substr(0, _prop.length-3);
+    var prop = _prop.substr(0, _prop.length - 3);
     var cacheMeta = get(controller, '_cacheMeta');
     var propCache = cacheMeta[prop];
-    var cacheKey = controller._calculateCacheKey(propCache.prefix || "", propCache.parts, propCache.values);
+    var cacheKey = controller._calculateCacheKey(propCache.prefix || '', propCache.parts, propCache.values);
     var value = get(controller, prop);
 
     // 1. Update model-dep cache
@@ -147,11 +151,11 @@ ControllerMixin.reopen({
   */
   _calculateCacheKey(prefix, _parts, values) {
     var parts = _parts || [];
-    var suffixes = "";
+    var suffixes = '';
     for (var i = 0, len = parts.length; i < len; ++i) {
       var part = parts[i];
       var value = get(values, part);
-      suffixes += "::" + part + ":" + value;
+      suffixes += '::' + part + ':' + value;
     }
     return prefix + suffixes.replace(ALL_PERIODS_REGEX, '-');
   },
@@ -240,7 +244,7 @@ ControllerMixin.reopen({
     @method transitionTo
   */
   transitionTo() {
-    Ember.deprecate("transitionTo is deprecated. Please use transitionToRoute.");
+    Ember.deprecate('transitionTo is deprecated. Please use transitionToRoute.');
     return this.transitionToRoute(...arguments);
   },
 
@@ -312,7 +316,7 @@ ControllerMixin.reopen({
     @method replaceWith
   */
   replaceWith() {
-    Ember.deprecate("replaceWith is deprecated. Please use replaceRoute.");
+    Ember.deprecate('replaceWith is deprecated. Please use replaceRoute.');
     return this.replaceRoute(...arguments);
   }
 });
@@ -324,19 +328,28 @@ function accumulateQueryParamDescriptors(_desc, accum) {
   var tmp;
   if (typeof desc === 'string') {
     tmp = {};
-    tmp[desc] = { as: null };
+    tmp[desc] = {
+      as: null
+    };
     desc = tmp;
   }
 
   for (var key in desc) {
-    if (!desc.hasOwnProperty(key)) { return; }
+    if (!desc.hasOwnProperty(key)) {
+      return;
+    }
 
     var singleDesc = desc[key];
     if (typeof singleDesc === 'string') {
-      singleDesc = { as: singleDesc };
+      singleDesc = {
+        as: singleDesc
+      };
     }
 
-    tmp = accum[key] || { as: null, scope: 'model' };
+    tmp = accum[key] || {
+      as: null,
+      scope: 'model'
+    };
     merge(tmp, singleDesc);
 
     accum[key] = tmp;
@@ -346,7 +359,9 @@ function accumulateQueryParamDescriptors(_desc, accum) {
 function listenForQueryParamChanges(controller) {
   var qpMap = get(controller, '_normalizedQueryParams');
   for (var prop in qpMap) {
-    if (!qpMap.hasOwnProperty(prop)) { continue; }
+    if (!qpMap.hasOwnProperty(prop)) {
+      continue;
+    }
     controller.addObserver(prop + '.[]', controller, controller._qpChanged);
   }
 }

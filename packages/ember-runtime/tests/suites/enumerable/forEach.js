@@ -1,6 +1,6 @@
 import {SuiteModuleBuilder} from 'ember-runtime/tests/suites/suite';
 import {get} from 'ember-metal/property_get';
-import {guidFor} from "ember-metal/utils";
+import {guidFor} from 'ember-metal/utils';
 
 var suite = SuiteModuleBuilder.create();
 
@@ -11,7 +11,9 @@ suite.test('forEach should iterate over list', function() {
   var ary = this.toArray(obj);
   var found = [];
 
-  obj.forEach(function(i) { found.push(i); });
+  obj.forEach(function(i) {
+    found.push(i);
+  });
   deepEqual(found, ary, 'items passed during forEach should match');
 });
 
@@ -26,14 +28,18 @@ suite.test('forEach should iterate over list after mutation', function() {
   var ary = this.toArray(obj);
   var found = [];
 
-  obj.forEach(function(i) { found.push(i); });
+  obj.forEach(function(i) {
+    found.push(i);
+  });
   deepEqual(found, ary, 'items passed during forEach should match');
 
   this.mutate(obj);
   ary = this.toArray(obj);
   found = [];
 
-  obj.forEach(function(i) { found.push(i); });
+  obj.forEach(function(i) {
+    found.push(i);
+  });
   deepEqual(found, ary, 'items passed during forEach should match');
 });
 

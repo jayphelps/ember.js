@@ -3,8 +3,8 @@
 @submodule ember-template-compiler
 */
 
-import Ember from "ember-metal/core";
-import plugins from "ember-template-compiler/plugins";
+import Ember from 'ember-metal/core';
+import plugins from 'ember-template-compiler/plugins';
 
 /**
   @private

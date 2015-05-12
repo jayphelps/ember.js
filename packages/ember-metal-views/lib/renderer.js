@@ -1,9 +1,8 @@
-import run from "ember-metal/run_loop";
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import buildComponentTemplate from "ember-views/system/build-component-template";
-import { indexOf } from "ember-metal/enumerable_utils";
-//import { deprecation } from "ember-views/compat/attrs-proxy";
+import run from 'ember-metal/run_loop';
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import buildComponentTemplate from 'ember-views/system/build-component-template';
+import { indexOf } from 'ember-metal/enumerable_utils';
 
 function Renderer(_helper) {
   this._dom = _helper;
@@ -12,7 +11,7 @@ function Renderer(_helper) {
 Renderer.prototype.prerenderTopLevelView =
   function Renderer_prerenderTopLevelView(view, renderNode) {
     if (view._state === 'inDOM') {
-      throw new Error("You cannot insert a View that has already been rendered");
+      throw new Error('You cannot insert a View that has already been rendered');
     }
     view.ownerView = renderNode.emberView = view;
     view._renderNode = renderNode;
@@ -117,9 +116,9 @@ Renderer.prototype.createElement =
   };
 
 // inBuffer
-Renderer.prototype.willCreateElement = function (/*view*/) {};
+Renderer.prototype.willCreateElement = function(/*view*/) {};
 
-Renderer.prototype.didCreateElement = function (view, element) {
+Renderer.prototype.didCreateElement = function(view, element) {
   if (element) {
     view.element = element;
   }
@@ -129,21 +128,21 @@ Renderer.prototype.didCreateElement = function (view, element) {
   }
 }; // hasElement
 
-Renderer.prototype.willInsertElement = function (view) {
+Renderer.prototype.willInsertElement = function(view) {
   if (view.trigger) { view.trigger('willInsertElement'); }
 }; // will place into DOM
 
-Renderer.prototype.setAttrs = function (view, attrs) {
+Renderer.prototype.setAttrs = function(view, attrs) {
   set(view, 'attrs', attrs);
 }; // set attrs the first time
 
-Renderer.prototype.componentInitAttrs = function (component, attrs) {
+Renderer.prototype.componentInitAttrs = function(component, attrs) {
   set(component, 'attrs', attrs);
   component.trigger('didInitAttrs', { attrs });
   component.trigger('didReceiveAttrs', { attrs });
 }; // set attrs the first time
 
-Renderer.prototype.didInsertElement = function (view) {
+Renderer.prototype.didInsertElement = function(view) {
   if (view._transitionTo) {
     view._transitionTo('inDOM');
   }
@@ -151,15 +150,15 @@ Renderer.prototype.didInsertElement = function (view) {
   if (view.trigger) { view.trigger('didInsertElement'); }
 }; // inDOM // placed into DOM
 
-Renderer.prototype.didUpdate = function (view) {
+Renderer.prototype.didUpdate = function(view) {
   if (view.trigger) { view.trigger('didUpdate'); }
 };
 
-Renderer.prototype.didRender = function (view) {
+Renderer.prototype.didRender = function(view) {
   if (view.trigger) { view.trigger('didRender'); }
 };
 
-Renderer.prototype.updateAttrs = function (view, attrs) {
+Renderer.prototype.updateAttrs = function(view, attrs) {
   if (view.willReceiveAttrs) {
     view.willReceiveAttrs(attrs);
   }
@@ -167,34 +166,34 @@ Renderer.prototype.updateAttrs = function (view, attrs) {
   this.setAttrs(view, attrs);
 }; // setting new attrs
 
-Renderer.prototype.componentUpdateAttrs = function (component, oldAttrs, newAttrs) {
+Renderer.prototype.componentUpdateAttrs = function(component, oldAttrs, newAttrs) {
   set(component, 'attrs', newAttrs);
 
   component.trigger('didUpdateAttrs', { oldAttrs, newAttrs });
   component.trigger('didReceiveAttrs', { oldAttrs, newAttrs });
 };
 
-Renderer.prototype.willUpdate = function (view, attrs) {
+Renderer.prototype.willUpdate = function(view, attrs) {
   if (view.willUpdate) {
     view.willUpdate(attrs);
   }
 };
 
-Renderer.prototype.componentWillUpdate = function (component) {
+Renderer.prototype.componentWillUpdate = function(component) {
   component.trigger('willUpdate');
 };
 
-Renderer.prototype.willRender = function (view) {
+Renderer.prototype.willRender = function(view) {
   if (view.willRender) {
     view.willRender();
   }
 };
 
-Renderer.prototype.componentWillRender = function (component) {
+Renderer.prototype.componentWillRender = function(component) {
   component.trigger('willRender');
 };
 
-Renderer.prototype.remove = function (view, shouldDestroy) {
+Renderer.prototype.remove = function(view, shouldDestroy) {
   this.willDestroyElement(view);
 
   view._willRemoveElement = true;
@@ -216,9 +215,9 @@ Renderer.prototype.renderElementRemoval =
     }
   };
 
-Renderer.prototype.willRemoveElement = function (/*view*/) {};
+Renderer.prototype.willRemoveElement = function(/*view*/) {};
 
-Renderer.prototype.willDestroyElement = function (view) {
+Renderer.prototype.willDestroyElement = function(view) {
   if (view._willDestroyElement) {
     view._willDestroyElement();
   }
@@ -237,7 +236,7 @@ Renderer.prototype.willDestroyElement = function (view) {
   }
 };
 
-Renderer.prototype.didDestroyElement = function (view) {
+Renderer.prototype.didDestroyElement = function(view) {
   view.element = null;
 
   // Views that are being destroyed should never go back to the preRender state.

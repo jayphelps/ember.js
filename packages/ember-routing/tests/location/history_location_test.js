@@ -1,11 +1,13 @@
-import { set } from "ember-metal/property_set";
-import run from "ember-metal/run_loop";
-import HistoryLocation from "ember-routing/location/history_location";
+import { set } from 'ember-metal/property_set';
+import run from 'ember-metal/run_loop';
+import HistoryLocation from 'ember-routing/location/history_location';
 
 var FakeHistory, HistoryTestLocation, location;
 
 function createLocation(options) {
-  if (!options) { options = {}; }
+  if (!options) {
+    options = {};
+  }
   location = HistoryTestLocation.create(options);
 }
 
@@ -30,7 +32,7 @@ function mockBrowserLocation(path) {
   };
 }
 
-QUnit.module("Ember.HistoryLocation", {
+QUnit.module('Ember.HistoryLocation', {
   setup() {
     FakeHistory = {
       state: null,
@@ -52,12 +54,14 @@ QUnit.module("Ember.HistoryLocation", {
 
   teardown() {
     run(function() {
-      if (location) { location.destroy(); }
+      if (location) {
+        location.destroy();
+      }
     });
   }
 });
 
-QUnit.test("HistoryLocation initState does not get fired on init", function() {
+QUnit.test('HistoryLocation initState does not get fired on init', function() {
   expect(1);
 
   HistoryTestLocation.reopen({
@@ -73,7 +77,7 @@ QUnit.test("HistoryLocation initState does not get fired on init", function() {
   createLocation();
 });
 
-QUnit.test("webkit doesn't fire popstate on page load", function() {
+QUnit.test('webkit doesn\'t fire popstate on page load', function() {
   expect(1);
 
   HistoryTestLocation.reopen({
@@ -89,7 +93,7 @@ QUnit.test("webkit doesn't fire popstate on page load", function() {
   location.initState();
 });
 
-QUnit.test("base URL is removed when retrieving the current pathname", function() {
+QUnit.test('base URL is removed when retrieving the current pathname', function() {
   expect(1);
 
   HistoryTestLocation.reopen({
@@ -111,7 +115,7 @@ QUnit.test("base URL is removed when retrieving the current pathname", function(
   location.initState();
 });
 
-QUnit.test("base URL is preserved when moving around", function() {
+QUnit.test('base URL is preserved when moving around', function() {
   expect(1);
 
   HistoryTestLocation.reopen({
@@ -130,7 +134,7 @@ QUnit.test("base URL is preserved when moving around", function() {
   equal(location._historyState.path, '/base/one/two');
 });
 
-QUnit.test("setURL continues to set even with a null state (iframes may set this)", function() {
+QUnit.test('setURL continues to set even with a null state (iframes may set this)', function() {
   expect(1);
 
   createLocation();
@@ -142,7 +146,7 @@ QUnit.test("setURL continues to set even with a null state (iframes may set this
   equal(location._historyState.path, '/three/four');
 });
 
-QUnit.test("replaceURL continues to set even with a null state (iframes may set this)", function() {
+QUnit.test('replaceURL continues to set even with a null state (iframes may set this)', function() {
   expect(1);
 
   createLocation();
@@ -154,7 +158,7 @@ QUnit.test("replaceURL continues to set even with a null state (iframes may set 
   equal(location._historyState.path, '/three/four');
 });
 
-QUnit.test("HistoryLocation.getURL() returns the current url, excluding both rootURL and baseURL", function() {
+QUnit.test('HistoryLocation.getURL() returns the current url, excluding both rootURL and baseURL', function() {
   expect(1);
 
   HistoryTestLocation.reopen({
@@ -172,7 +176,7 @@ QUnit.test("HistoryLocation.getURL() returns the current url, excluding both roo
   equal(location.getURL(), '/foo/bar');
 });
 
-QUnit.test("HistoryLocation.getURL() includes location.search", function() {
+QUnit.test('HistoryLocation.getURL() includes location.search', function() {
   expect(1);
 
   HistoryTestLocation.reopen({
@@ -187,7 +191,7 @@ QUnit.test("HistoryLocation.getURL() includes location.search", function() {
   equal(location.getURL(), '/foo/bar?time=morphin');
 });
 
-QUnit.test("HistoryLocation.getURL() includes location.hash", function() {
+QUnit.test('HistoryLocation.getURL() includes location.hash', function() {
   expect(1);
 
   HistoryTestLocation.reopen({
@@ -202,7 +206,7 @@ QUnit.test("HistoryLocation.getURL() includes location.hash", function() {
   equal(location.getURL(), '/foo/bar#pink-power-ranger');
 });
 
-QUnit.test("HistoryLocation.getURL() includes location.hash and location.search", function() {
+QUnit.test('HistoryLocation.getURL() includes location.hash and location.search', function() {
   expect(1);
 
   HistoryTestLocation.reopen({

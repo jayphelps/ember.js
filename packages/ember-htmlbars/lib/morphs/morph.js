@@ -1,4 +1,4 @@
-import DOMHelper from "dom-helper";
+import DOMHelper from 'dom-helper';
 import o_create from 'ember-metal/platform/create';
 
 var HTMLBarsMorph = DOMHelper.prototype.MorphClass;
@@ -35,13 +35,15 @@ proto.cleanup = function() {
   if (view = this.emberView) {
     if (!view.ownerView.isDestroyingSubtree) {
       view.ownerView.isDestroyingSubtree = true;
-      if (view.parentView) { view.parentView.removeChild(view); }
+      if (view.parentView) {
+        view.parentView.removeChild(view);
+      }
     }
   }
 
   var toDestroy = this.emberToDestroy;
   if (toDestroy) {
-    for (var i=0, l=toDestroy.length; i<l; i++) {
+    for (var i = 0, l = toDestroy.length; i < l; i++) {
       toDestroy[i].destroy();
     }
 

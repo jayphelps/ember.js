@@ -1,11 +1,11 @@
 import {SuiteModuleBuilder} from 'ember-runtime/tests/suites/suite';
-import {get} from "ember-metal/property_get";
+import {get} from 'ember-metal/property_get';
 
 var suite = SuiteModuleBuilder.create();
 
 suite.module('popObject');
 
-suite.test("[].popObject() => [] + returns undefined + NO notify", function() {
+suite.test('[].popObject() => [] + returns undefined + NO notify', function() {
   var obj, observer;
 
   obj = this.newObject([]);
@@ -23,11 +23,11 @@ suite.test("[].popObject() => [] + returns undefined + NO notify", function() {
   equal(observer.validate('lastObject'), false, 'should NOT have notified lastObject');
 });
 
-suite.test("[X].popObject() => [] + notify", function() {
+suite.test('[X].popObject() => [] + notify', function() {
   var obj, before, after, observer, ret;
 
   before = this.newFixture(1);
-  after  = [];
+  after = [];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */
@@ -45,11 +45,11 @@ suite.test("[X].popObject() => [] + notify", function() {
   equal(observer.timesCalled('lastObject'), 1, 'should have notified lastObject once');
 });
 
-suite.test("[A,B,C].popObject() => [A,B] + notify", function() {
+suite.test('[A,B,C].popObject() => [A,B] + notify', function() {
   var obj, before, after, observer, ret;
 
   before = this.newFixture(3);
-  after  = [before[0], before[1]];
+  after = [before[0], before[1]];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */

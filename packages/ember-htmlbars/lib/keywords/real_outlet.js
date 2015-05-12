@@ -3,9 +3,9 @@
 @submodule ember-htmlbars
 */
 
-import { get } from "ember-metal/property_get";
-import ViewNodeManager from "ember-htmlbars/node-managers/view-node-manager";
-import topLevelViewTemplate from "ember-htmlbars/templates/top-level-view";
+import { get } from 'ember-metal/property_get';
+import ViewNodeManager from 'ember-htmlbars/node-managers/view-node-manager';
+import topLevelViewTemplate from 'ember-htmlbars/templates/top-level-view';
 topLevelViewTemplate.meta.revision = 'Ember@VERSION_STRING_PLACEHOLDER';
 
 export default {
@@ -24,11 +24,17 @@ export default {
       toRender.template = topLevelViewTemplate;
     }
 
-    return { outletState: selectedOutletState, hasParentOutlet: env.hasParentOutlet };
+    return {
+      outletState: selectedOutletState,
+      hasParentOutlet: env.hasParentOutlet
+    };
   },
 
   childEnv(state) {
-    return { outletState: state.outletState && state.outletState.outlets, hasParentOutlet: true };
+    return {
+      outletState: state.outletState && state.outletState.outlets,
+      hasParentOutlet: true
+    };
   },
 
   isStable(lastState, nextState) {
@@ -64,7 +70,7 @@ export default {
     template = template || toRender.template && toRender.template.raw;
 
     if (LOG_VIEW_LOOKUPS && ViewClass) {
-      Ember.Logger.info("Rendering " + toRender.name + " with " + ViewClass, { fullName: 'view:' + toRender.name });
+      Ember.Logger.info(`Rendering ${toRender.name} with ${ViewClass}`, { fullName: 'view:' + toRender.name });
     }
 
     var nodeManager = ViewNodeManager.create(renderNode, env, {}, options, parentView, null, null, template);

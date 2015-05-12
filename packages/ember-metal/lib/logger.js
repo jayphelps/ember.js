@@ -1,5 +1,5 @@
-import Ember from "ember-metal/core"; // Ember.imports
-import EmberError from "ember-metal/error";
+import Ember from 'ember-metal/core'; // Ember.imports
+import EmberError from 'ember-metal/error';
 
 function K() { return this; }
 
@@ -38,8 +38,8 @@ function assertPolyfill(test, message) {
   if (!test) {
     try {
       // attempt to preserve the stack
-      throw new EmberError("assertion failed: " + message);
-    } catch(error) {
+      throw new EmberError('assertion failed: ' + message);
+    } catch (error) {
       setTimeout(() => {
         throw error;
       }, 0);
@@ -69,7 +69,7 @@ export default {
    @for Ember.Logger
    @param {*} arguments
   */
-  log:   consoleMethod('log')   || K,
+  log: consoleMethod('log') || K,
 
   /**
    Prints the arguments to the console with a warning icon.
@@ -84,7 +84,7 @@ export default {
    @for Ember.Logger
    @param {*} arguments
   */
-  warn:  consoleMethod('warn')  || K,
+  warn: consoleMethod('warn') || K,
 
   /**
    Prints the arguments to the console with an error icon, red text and a stack trace.
@@ -115,7 +115,7 @@ export default {
    @for Ember.Logger
    @param {*} arguments
   */
-  info:  consoleMethod('info')  || K,
+  info: consoleMethod('info') || K,
 
   /**
    Logs the arguments to the console in blue text.

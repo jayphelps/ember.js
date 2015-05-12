@@ -3,14 +3,16 @@ import { testBoth } from 'ember-metal/tests/props_helper';
 import {
   Binding,
   bind
-} from "ember-metal/binding";
+} from 'ember-metal/binding';
 import run from 'ember-metal/run_loop';
 import { set } from 'ember-metal/property_set';
 import { get } from 'ember-metal/property_get';
 
 function performTest(binding, a, b, get, set, connect) {
   if (connect === undefined) {
-    connect = function() {binding.connect(a);};
+    connect = function() {
+      binding.connect(a);
+    };
   }
 
   ok(!run.currentRunLoop, 'performTest should not have a currentRunLoop');
@@ -24,12 +26,12 @@ function performTest(binding, a, b, get, set, connect) {
   equal(get(b, 'bar'), 'BAR', 'b should have changed');
   //
   // make sure changes sync both ways
-  run(function () {
+  run(function() {
     set(b, 'bar', 'BAZZ');
   });
   equal(get(a, 'foo'), 'BAZZ', 'a should have changed');
 
-  run(function () {
+  run(function() {
     set(a, 'foo', 'BARF');
   });
   equal(get(b, 'bar'), 'BARF', 'a should have changed');
@@ -37,7 +39,7 @@ function performTest(binding, a, b, get, set, connect) {
 
 var originalLookup, lookup, GlobalB;
 
-QUnit.module("Ember.Binding", {
+QUnit.module('Ember.Binding', {
   setup() {
     originalLookup = Ember.lookup;
     Ember.lookup = lookup = {};
@@ -49,7 +51,10 @@ QUnit.module("Ember.Binding", {
 });
 
 testBoth('Connecting a binding between two properties', function(get, set) {
-  var a = { foo: 'FOO', bar: 'BAR' };
+  var a = {
+    foo: 'FOO',
+    bar: 'BAR'
+  };
 
   // a.bar -> a.foo
   var binding = new Binding('foo', 'bar');
@@ -58,8 +63,13 @@ testBoth('Connecting a binding between two properties', function(get, set) {
 });
 
 testBoth('Connecting a binding between two objects', function(get, set) {
-  var b = { bar: 'BAR' };
-  var a = { foo: 'FOO', b: b };
+  var b = {
+    bar: 'BAR'
+  };
+  var a = {
+    foo: 'FOO',
+    b: b
+  };
 
   // b.bar -> a.foo
   var binding = new Binding('foo', 'b.bar');
@@ -68,9 +78,13 @@ testBoth('Connecting a binding between two objects', function(get, set) {
 });
 
 testBoth('Connecting a binding to path', function(get, set) {
-  var a = { foo: 'FOO' };
+  var a = {
+    foo: 'FOO'
+  };
   lookup['GlobalB'] = GlobalB = {
-    b: { bar: 'BAR' }
+    b: {
+      bar: 'BAR'
+    }
   };
 
   var b = get(GlobalB, 'b');
@@ -81,7 +95,9 @@ testBoth('Connecting a binding to path', function(get, set) {
   performTest(binding, a, b, get, set);
 
   // make sure modifications update
-  b = { bar: 'BIFF' };
+  b = {
+    bar: 'BIFF'
+  };
 
   run(function() {
     set(GlobalB, 'b', b);
@@ -91,13 +107,18 @@ testBoth('Connecting a binding to path', function(get, set) {
 });
 
 testBoth('Calling connect more than once', function(get, set) {
-  var b = { bar: 'BAR' };
-  var a = { foo: 'FOO', b: b };
+  var b = {
+    bar: 'BAR'
+  };
+  var a = {
+    foo: 'FOO',
+    b: b
+  };
 
   // b.bar -> a.foo
   var binding = new Binding('foo', 'b.bar');
 
-  performTest(binding, a, b, get, set, function () {
+  performTest(binding, a, b, get, set, function() {
     binding.connect(a);
 
     binding.connect(a);
@@ -106,13 +127,15 @@ testBoth('Calling connect more than once', function(get, set) {
 
 QUnit.test('inherited bindings should sync on create', function() {
   var a;
-  run(function () {
+  run(function() {
     var A = function() {
       bind(this, 'foo', 'bar.baz');
     };
 
     a = new A();
-    set(a, 'bar', { baz: 'BAZ' });
+    set(a, 'bar', {
+      baz: 'BAZ'
+    });
   });
 
   equal(get(a, 'foo'), 'BAZ', 'should have synced binding on new obj');

@@ -45,7 +45,9 @@ suite.test('any should return true if any object matches the callback', function
   var obj = Ember.A([0, 1, 2]);
   var result;
 
-  result = obj.any(function(i) { return !!i; });
+  result = obj.any(function(i) {
+    return !!i;
+  });
   equal(result, true, 'return value of obj.any');
 });
 
@@ -54,7 +56,9 @@ suite.test('any should return false if no object matches the callback', function
   var obj = Ember.A([0, null, false]);
   var result;
 
-  result = obj.any(function(i) { return !!i; });
+  result = obj.any(function(i) {
+    return !!i;
+  });
   equal(result, false, 'return value of obj.any');
 });
 
@@ -63,7 +67,9 @@ suite.test('any should produce correct results even if the matching element is u
   var obj = Ember.A([undefined]);
   var result;
 
-  result = obj.any(function(i) { return true; });
+  result = obj.any(function(i) {
+    return true;
+  });
   equal(result, true, 'return value of obj.any');
 });
 

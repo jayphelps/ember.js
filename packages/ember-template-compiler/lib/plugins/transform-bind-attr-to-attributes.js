@@ -3,8 +3,8 @@
 @submodule ember-htmlbars
 */
 
-import Ember from "ember-metal/core"; // Ember.assert
-import { dasherize } from "ember-template-compiler/system/string";
+import Ember from 'ember-metal/core'; // Ember.assert
+import { dasherize } from 'ember-template-compiler/system/string';
 
 /**
   An HTMLBars AST transformation that replaces all instances of
@@ -80,7 +80,7 @@ TransformBindAttrToAttributes.prototype.transformValue = function transformValue
       case 'SubExpression':
         return b.mustache(value.path, value.params, value.hash);
       default:
-        Ember.assert("Unsupported attribute value type: " + value.type);
+        Ember.assert('Unsupported attribute value type: ' + value.type);
     }
   } else {
     switch (value.type) {
@@ -91,7 +91,7 @@ TransformBindAttrToAttributes.prototype.transformValue = function transformValue
       case 'SubExpression':
         return b.mustache(value.path, value.params, value.hash);
       default:
-        Ember.assert("Unsupported attribute value type: " + value.type);
+        Ember.assert('Unsupported attribute value type: ' + value.type);
     }
   }
 
@@ -152,7 +152,7 @@ TransformBindAttrToAttributes.prototype.parseClass = function parseClass(value) 
         b.string(parts[2])
       ]);
     default:
-      Ember.assert("Unsupported bind-attr class syntax: `" + value + "`");
+      Ember.assert('Unsupported bind-attr class syntax: `' + value + '`');
   }
 };
 

@@ -4,16 +4,16 @@
 */
 
 // Ember.lookup, Ember.BOOTED, Ember.deprecate, Ember.NAME_KEY, Ember.anyUnprocessedMixins
-import Ember from "ember-metal/core";
-import { get } from "ember-metal/property_get";
-import { indexOf } from "ember-metal/array";
+import Ember from 'ember-metal/core';
+import { get } from 'ember-metal/property_get';
+import { indexOf } from 'ember-metal/array';
 import {
   GUID_KEY,
   guidFor
-} from "ember-metal/utils";
-import { Mixin } from "ember-metal/mixin";
+} from 'ember-metal/utils';
+import { Mixin } from 'ember-metal/mixin';
 
-import EmberObject from "ember-runtime/system/object";
+import EmberObject from 'ember-runtime/system/object';
 
 /**
   A Namespace is an object usually used to contain other objects or methods
@@ -42,7 +42,9 @@ var Namespace = EmberObject.extend({
 
   toString() {
     var name = get(this, 'name') || get(this, 'modulePrefix');
-    if (name) { return name; }
+    if (name) {
+      return name;
+    }
 
     findNamespaces();
     return this[NAME_KEY];
@@ -90,7 +92,9 @@ function processNamespace(paths, root, seen) {
 
   // Loop over all of the keys in the namespace, looking for classes
   for (var key in root) {
-    if (!hasOwnProp.call(root, key)) { continue; }
+    if (!hasOwnProp.call(root, key)) {
+      continue;
+    }
     var obj = root[key];
 
     // If we are processing the `Ember` namespace, for example, the
@@ -110,7 +114,9 @@ function processNamespace(paths, root, seen) {
     // Support nested namespaces
     } else if (obj && obj.isNamespace) {
       // Skip aliased namespaces
-      if (seen[guidFor(obj)]) { continue; }
+      if (seen[guidFor(obj)]) {
+        continue;
+      }
       seen[guidFor(obj)] = true;
 
       // Process the child namespace
@@ -136,14 +142,20 @@ function findNamespaces() {
   var lookup = Ember.lookup;
   var obj;
 
-  if (Namespace.PROCESSED) { return; }
+  if (Namespace.PROCESSED) {
+    return;
+  }
 
   for (var prop in lookup) {
     // Only process entities that start with uppercase A-Z
-    if (!STARTS_WITH_UPPERCASE.test(prop)) { continue; }
+    if (!STARTS_WITH_UPPERCASE.test(prop)) {
+      continue;
+    }
 
     // Unfortunately, some versions of IE don't support window.hasOwnProperty
-    if (lookup.hasOwnProperty && !lookup.hasOwnProperty(prop)) { continue; }
+    if (lookup.hasOwnProperty && !lookup.hasOwnProperty(prop)) {
+      continue;
+    }
 
     // At times we are not allowed to access certain properties for security reasons.
     // There are also times where even if we can access them, we are not allowed to access their properties.
@@ -183,9 +195,9 @@ function classToString() {
   } else {
     var str = superClassString(this);
     if (str) {
-      ret = "(subclass of " + str + ")";
+      ret = '(subclass of ' + str + ')';
     } else {
-      ret = "(unknown mixin)";
+      ret = '(unknown mixin)';
     }
     this.toString = makeToString(ret);
   }
@@ -206,7 +218,7 @@ function processAllNamespaces() {
     var namespaces = Namespace.NAMESPACES;
     var namespace;
 
-    for (var i=0, l=namespaces.length; i<l; i++) {
+    for (var i = 0, l = namespaces.length; i < l; i++) {
       namespace = namespaces[i];
       processNamespace([namespace.toString()], namespace, {});
     }
@@ -216,7 +228,9 @@ function processAllNamespaces() {
 }
 
 function makeToString(ret) {
-  return function() { return ret; };
+  return function() {
+    return ret;
+  };
 }
 
 Mixin.prototype.toString = classToString; // ES6TODO: altering imported objects. SBB.

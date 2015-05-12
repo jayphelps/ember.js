@@ -1,7 +1,7 @@
-import { internal, render } from "htmlbars-runtime";
-import getValue from "ember-htmlbars/hooks/get-value";
-import { get } from "ember-metal/property_get";
-import { isGlobal } from "ember-metal/path_cache";
+import { internal, render } from 'htmlbars-runtime';
+import getValue from 'ember-htmlbars/hooks/get-value';
+import { get } from 'ember-metal/property_get';
+import { isGlobal } from 'ember-metal/path_cache';
 
 export default function buildComponentTemplate({ component, layout }, attrs, content) {
   var blockToRender, tagName, meta;
@@ -40,21 +40,26 @@ export default function buildComponentTemplate({ component, layout }, attrs, con
   //   * `undefined` if no component is present
   //   * the falsy value "" if set explicitly on the component
   //   * an actual tagName set explicitly on the component
-  return { createdElement: !!tagName, block: blockToRender };
+  return {
+    createdElement: !!tagName,
+    block: blockToRender
+  };
 }
 
 function blockFor(template, options) {
-  Ember.assert("BUG: Must pass a template to blockFor", !!template);
+  Ember.assert('BUG: Must pass a template to blockFor', !!template);
   return internal.blockFor(render, template, options);
 }
 
 function createContentBlock(template, scope, self, component) {
-  Ember.assert("BUG: buildComponentTemplate can take a scope or a self, but not both", !(scope && self));
+  Ember.assert('BUG: buildComponentTemplate can take a scope or a self, but not both', !(scope && self));
 
   return blockFor(template, {
     scope: scope,
     self: self,
-    options: { view: component }
+    options: {
+      view: component
+    }
   });
 }
 
@@ -84,7 +89,10 @@ function createLayoutBlock(template, yieldTo, self, component, attrs) {
     // should be its own template context.
     self: self || component,
 
-    options: { view: component, attrs: attrs }
+    options: {
+      view: component,
+      attrs: attrs
+    }
   });
 }
 
@@ -92,7 +100,9 @@ function createElementBlock(template, yieldTo, component) {
   return blockFor(template, {
     yieldTo: yieldTo,
     self: component,
-    options: { view: component }
+    options: {
+      view: component
+    }
   });
 }
 
@@ -119,7 +129,7 @@ function normalizeComponentAttributes(component, attrs) {
   var i, l;
 
   if (attributeBindings) {
-    for (i=0, l=attributeBindings.length; i<l; i++) {
+    for (i = 0, l = attributeBindings.length; i < l; i++) {
       var attr = attributeBindings[i];
       var colonIndex = attr.indexOf(':');
 
@@ -165,7 +175,7 @@ function normalizeComponentAttributes(component, attrs) {
   }
 
   if (component.isVisible === false) {
-    var hiddenStyle = ['value', "display: none;"];
+    var hiddenStyle = ['value', 'display: none;'];
     var existingStyle = normalized.style;
 
     if (existingStyle) {
@@ -201,7 +211,7 @@ function normalizeClass(component, attrs) {
   }
 
   if (classNames) {
-    for (i=0, l=classNames.length; i<l; i++) {
+    for (i = 0, l = classNames.length; i < l; i++) {
       normalizedClass.push(classNames[i]);
     }
   }
@@ -218,9 +228,9 @@ function normalizeClass(component, attrs) {
 function normalizeClasses(classes, output) {
   var i, l;
 
-  for (i=0, l=classes.length; i<l; i++) {
+  for (i = 0, l = classes.length; i < l; i++) {
     var className = classes[i];
-    Ember.assert("classNameBindings must not have spaces in them. Multiple class name bindings can be provided as elements of an array, e.g. ['foo', ':bar']", className.indexOf(' ') === -1);
+    Ember.assert('classNameBindings must not have spaces in them. Multiple class name bindings can be provided as elements of an array, e.g. [\'foo\', \':bar\']', className.indexOf(' ') === -1);
 
     var [propName, activeClass, inactiveClass] = className.split(':');
 

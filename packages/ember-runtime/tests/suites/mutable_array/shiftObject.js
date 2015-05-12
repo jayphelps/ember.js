@@ -1,15 +1,15 @@
 import {SuiteModuleBuilder} from 'ember-runtime/tests/suites/suite';
-import {get} from "ember-metal/property_get";
+import {get} from 'ember-metal/property_get';
 
 var suite = SuiteModuleBuilder.create();
 
 suite.module('shiftObject');
 
-suite.test("[].shiftObject() => [] + returns undefined + NO notify", function() {
+suite.test('[].shiftObject() => [] + returns undefined + NO notify', function() {
   var obj, before, after, observer;
 
   before = [];
-  after  = [];
+  after = [];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */
@@ -27,11 +27,11 @@ suite.test("[].shiftObject() => [] + returns undefined + NO notify", function() 
   equal(observer.validate('lastObject'), false, 'should NOT have notified lastObject once');
 });
 
-suite.test("[X].shiftObject() => [] + notify", function() {
+suite.test('[X].shiftObject() => [] + notify', function() {
   var obj, before, after, observer;
 
   before = this.newFixture(1);
-  after  = [];
+  after = [];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */
@@ -48,11 +48,11 @@ suite.test("[X].shiftObject() => [] + notify", function() {
   equal(observer.timesCalled('lastObject'), 1, 'should have notified lastObject once');
 });
 
-suite.test("[A,B,C].shiftObject() => [B,C] + notify", function() {
+suite.test('[A,B,C].shiftObject() => [B,C] + notify', function() {
   var obj, before, after, observer;
 
   before = this.newFixture(3);
-  after  = [before[1], before[2]];
+  after = [before[1], before[2]];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */

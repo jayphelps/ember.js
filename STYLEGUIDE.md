@@ -2,6 +2,7 @@
 
 ## Table Of Contents
 
++ [Strings](#strings)
 + [Objects](#objects)
 + [Array](#arrays)
 + [Variables](#variables)
@@ -17,6 +18,19 @@
 + [Rest Parameters](#rest-parameters)
 + [Destructuring](#destructuring)
 + [Comments](#comments)
+
+## Strings
+
++ Use single quotes, escape when neccesary.
+
+```javascript
+import foo from 'bar';
+Ember.assert('something', true);
+var bar = '';
+var car = 'I\'m escaped'; 
+```
++ Note that this does *not* apply to any files which are pure JSON (e.g. `package.json`), where single quotes are invalid.
+
 
 ## Objects
 

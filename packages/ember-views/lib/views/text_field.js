@@ -2,12 +2,12 @@
 @module ember
 @submodule ember-views
 */
-import Ember from "ember-metal/core";
-import { computed  } from "ember-metal/computed";
-import environment from "ember-metal/environment";
-import create from "ember-metal/platform/create";
-import Component from "ember-views/views/component";
-import TextSupport from "ember-views/mixins/text_support";
+import Ember from 'ember-metal/core';
+import { computed  } from 'ember-metal/computed';
+import environment from 'ember-metal/environment';
+import create from 'ember-metal/platform/create';
+import Component from 'ember-views/views/component';
+import TextSupport from 'ember-views/mixins/text_support';
 
 var inputTypeTestElement;
 var inputTypes = create(null);
@@ -30,7 +30,7 @@ function canSetTypeOfInput(type) {
 
   try {
     inputTypeTestElement.type = type;
-  } catch(e) { }
+  } catch (e) {}
 
   return inputTypes[type] = inputTypeTestElement.type === type;
 }
@@ -87,7 +87,7 @@ export default Component.extend(TextSupport, {
   instrumentDisplay: '{{input type="text"}}',
 
   classNames: ['ember-text-field'],
-  tagName: "input",
+  tagName: 'input',
   attributeBindings: [
     'accept',
     'autocomplete',
@@ -124,7 +124,7 @@ export default Component.extend(TextSupport, {
     @type String
     @default ""
   */
-  value: "",
+  value: '',
 
   /**
     The `type` attribute of the input element.

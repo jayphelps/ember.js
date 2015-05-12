@@ -1,10 +1,10 @@
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import { guidFor } from "ember-metal/utils";
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import { guidFor } from 'ember-metal/utils';
 
-import EmberObject from "ember-runtime/system/object";
-import EmberLocation from "ember-routing/location/api";
-import jQuery from "ember-views/system/jquery";
+import EmberObject from 'ember-runtime/system/object';
+import EmberLocation from 'ember-routing/location/api';
+import jQuery from 'ember-views/system/jquery';
 
 /**
 @module ember
@@ -139,7 +139,9 @@ export default EmberObject.extend({
    @param path {String}
   */
   pushState(path) {
-    var state = { path: path };
+    var state = {
+      path: path
+    };
 
     get(this, 'history').pushState(state, null, path);
 
@@ -157,7 +159,9 @@ export default EmberObject.extend({
    @param path {String}
   */
   replaceState(path) {
-    var state = { path: path };
+    var state = {
+      path: path
+    };
     get(this, 'history').replaceState(state, null, path);
 
     this._historyState = state;
@@ -181,7 +185,9 @@ export default EmberObject.extend({
       // Ignore initial page load popstate event in Chrome
       if (!popstateFired) {
         popstateFired = true;
-        if (this.getURL() === this._previousURL) { return; }
+        if (this.getURL() === this._previousURL) {
+          return;
+        }
       }
       callback(this.getURL());
     });

@@ -1,15 +1,15 @@
-import _default from "ember-views/views/states/default";
-import merge from "ember-metal/merge";
+import _default from 'ember-views/views/states/default';
+import merge from 'ember-metal/merge';
 import create from 'ember-metal/platform/create';
-import jQuery from "ember-views/system/jquery";
+import jQuery from 'ember-views/system/jquery';
 
 /**
 @module ember
 @submodule ember-views
 */
 
-import { get } from "ember-metal/property_get";
-import { internal } from "htmlbars-runtime";
+import { get } from 'ember-metal/property_get';
+import { internal } from 'htmlbars-runtime';
 
 var hasElement = create(_default);
 
@@ -21,9 +21,13 @@ merge(hasElement, {
 
   getElement(view) {
     var parent = get(view, 'parentView');
-    if (parent) { parent = get(parent, 'element'); }
-    if (parent) { return view.findElementInParentElement(parent); }
-    return jQuery("#" + get(view, 'elementId'))[0];
+    if (parent) {
+      parent = get(parent, 'element');
+    }
+    if (parent) {
+      return view.findElementInParentElement(parent);
+    }
+    return jQuery('#' + get(view, 'elementId'))[0];
   },
 
   // once the view has been inserted into the DOM, rerendering is

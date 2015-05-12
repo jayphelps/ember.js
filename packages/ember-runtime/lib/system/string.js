@@ -2,13 +2,13 @@
 @module ember
 @submodule ember-runtime
 */
-import Ember from "ember-metal/core"; // Ember.STRINGS, Ember.FEATURES
+import Ember from 'ember-metal/core'; // Ember.STRINGS, Ember.FEATURES
 import {
   inspect as emberInspect
-} from "ember-metal/utils";
-import { isArray } from "ember-runtime/utils";
+} from 'ember-metal/utils';
+import { isArray } from 'ember-runtime/utils';
 
-import Cache from "ember-metal/cache";
+import Cache from 'ember-metal/cache';
 
 var STRING_DASHERIZE_REGEXP = (/[ _]/g);
 
@@ -25,15 +25,15 @@ var CAMELIZE_CACHE = new Cache(1000, function(key) {
 });
 
 var CLASSIFY_CACHE = new Cache(1000, function(str) {
-  var parts = str.split(".");
+  var parts = str.split('.');
   var out = [];
 
-  for (var i=0, l=parts.length; i<l; i++) {
+  for (var i = 0, l = parts.length; i < l; i++) {
     var camelized = camelize(parts[i]);
     out.push(camelized.charAt(0).toUpperCase() + camelized.substr(1));
   }
 
-  return out.join(".");
+  return out.join('.');
 });
 
 var UNDERSCORE_CACHE = new Cache(1000, function(str) {
@@ -66,7 +66,7 @@ function fmt(str, formats) {
   }
 
   // first, replace any ORDERED replacements.
-  var idx  = 0; // the current index for non-numerical replacements
+  var idx = 0; // the current index for non-numerical replacements
   return str.replace(/%@([0-9]+)?/g, function(s, argIndex) {
     argIndex = (argIndex) ? parseInt(argIndex, 10) - 1 : idx++;
     s = cachedFormats[argIndex];

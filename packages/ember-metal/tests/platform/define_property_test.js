@@ -12,22 +12,22 @@ function isEnumerable(obj, keyName) {
       keys.push(key);
     }
   }
-  return EnumerableUtils.indexOf(keys, keyName)>=0;
+  return EnumerableUtils.indexOf(keys, keyName) >= 0;
 }
 
-QUnit.module("defineProperty()");
+QUnit.module('defineProperty()');
 
-QUnit.test("defining a simple property", function() {
+QUnit.test('defining a simple property', function() {
   var obj = {};
   defineProperty(obj, 'foo', {
-    enumerable:   true,
-    writable:     true,
+    enumerable: true,
+    writable: true,
     value: 'FOO'
   });
 
   equal(obj.foo, 'FOO', 'should have added property');
 
-  obj.foo = "BAR";
+  obj.foo = 'BAR';
   equal(obj.foo, 'BAR', 'writable defined property should be writable');
   equal(isEnumerable(obj, 'foo'), true, 'foo should be enumerable');
 });
@@ -35,8 +35,8 @@ QUnit.test("defining a simple property", function() {
 QUnit.test('defining a read only property', function() {
   var obj = {};
   defineProperty(obj, 'foo', {
-    enumerable:   true,
-    writable:     false,
+    enumerable: true,
+    writable: false,
     value: 'FOO'
   });
 
@@ -45,14 +45,14 @@ QUnit.test('defining a read only property', function() {
   if (hasPropertyAccessors) {
     // cannot set read-only property in strict-mode
     try {
-      obj.foo = "BAR";
-    } catch(e) {
+      obj.foo = 'BAR';
+    } catch (e) {
       // do nothing (assertion still happens in finally)
-    }finally {
+    } finally {
       equal(obj.foo, 'FOO', 'real defined property should not be writable');
     }
   } else {
-    obj.foo = "BAR";
+    obj.foo = 'BAR';
     equal(obj.foo, 'BAR', 'simulated defineProperty should silently work');
   }
 });
@@ -60,8 +60,8 @@ QUnit.test('defining a read only property', function() {
 QUnit.test('defining a non enumerable property', function() {
   var obj = {};
   defineProperty(obj, 'foo', {
-    enumerable:   false,
-    writable:     true,
+    enumerable: false,
+    writable: true,
     value: 'FOO'
   });
 
@@ -103,7 +103,7 @@ if (hasPropertyAccessors) {
   });
 
   QUnit.test('defining getter/setter along with writable', function() {
-    var obj  ={};
+    var obj = {};
     throws(function() {
       defineProperty(obj, 'foo', {
         enumerable: true,
@@ -115,7 +115,7 @@ if (hasPropertyAccessors) {
   });
 
   QUnit.test('defining getter/setter along with value', function() {
-    var obj  ={};
+    var obj = {};
     throws(function() {
       defineProperty(obj, 'foo', {
         enumerable: true,

@@ -3,10 +3,10 @@
 @submodule ember-htmlbars
 */
 
-import Ember from "ember-metal/core";
-import Cache from "ember-metal/cache";
-import makeViewHelper from "ember-htmlbars/system/make-view-helper";
-import HandlebarsCompatibleHelper from "ember-htmlbars/compat/helper";
+import Ember from 'ember-metal/core';
+import Cache from 'ember-metal/cache';
+import makeViewHelper from 'ember-htmlbars/system/make-view-helper';
+import HandlebarsCompatibleHelper from 'ember-htmlbars/compat/helper';
 
 export var ISNT_HELPER_CACHE = new Cache(1000, function(key) {
   return key.indexOf('-') === -1;
@@ -47,8 +47,8 @@ export function findHelper(name, view, env) {
   helper = container.lookup(helperName);
   if (!helper) {
     var componentLookup = container.lookup('component-lookup:main');
-    Ember.assert("Could not find 'component-lookup:main' on the provided container," +
-                 " which is necessary for performing component lookups", componentLookup);
+    Ember.assert('Could not find \'component-lookup:main\' on the provided container,' +
+                 ' which is necessary for performing component lookups', componentLookup);
 
     var Component = componentLookup.lookupFactory(name, container);
     if (Component) {

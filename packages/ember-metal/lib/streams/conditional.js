@@ -1,11 +1,11 @@
-import Stream from "ember-metal/streams/stream";
+import Stream from 'ember-metal/streams/stream';
 import {
   read,
   subscribe,
   unsubscribe,
   isStream
-} from "ember-metal/streams/utils";
-import create from "ember-metal/platform/create";
+} from 'ember-metal/streams/utils';
+import create from 'ember-metal/platform/create';
 
 export default function conditional(test, consequent, alternate) {
   if (isStream(test)) {
@@ -36,14 +36,22 @@ ConditionalStream.prototype.compute = function() {
 
   if (newTestResult !== oldTestResult) {
     switch (oldTestResult) {
-      case true: unsubscribe(this.consequent, this.notify, this); break;
-      case false: unsubscribe(this.alternate, this.notify, this); break;
-      case undefined: subscribe(this.test, this.notify, this);
+      case true:
+        unsubscribe(this.consequent, this.notify, this);
+        break;
+      case false:
+        unsubscribe(this.alternate, this.notify, this);
+        break;
+      case undefined:
+        subscribe(this.test, this.notify, this);
     }
 
     switch (newTestResult) {
-      case true: subscribe(this.consequent, this.notify, this); break;
-      case false: subscribe(this.alternate, this.notify, this);
+      case true:
+        subscribe(this.consequent, this.notify, this);
+        break;
+      case false:
+        subscribe(this.alternate, this.notify, this);
     }
 
     this.oldTestResult = newTestResult;

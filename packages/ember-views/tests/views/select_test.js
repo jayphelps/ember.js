@@ -1,16 +1,16 @@
-import EmberSelect from "ember-views/views/select";
-import EmberObject from "ember-runtime/system/object";
-import run from "ember-metal/run_loop";
-import jQuery from "ember-views/system/jquery";
-import { map } from "ember-metal/enumerable_utils";
-import EventDispatcher from "ember-views/system/event_dispatcher";
+import EmberSelect from 'ember-views/views/select';
+import EmberObject from 'ember-runtime/system/object';
+import run from 'ember-metal/run_loop';
+import jQuery from 'ember-views/system/jquery';
+import { map } from 'ember-metal/enumerable_utils';
+import EventDispatcher from 'ember-views/system/event_dispatcher';
 import SafeString from 'htmlbars-util/safe-string';
 
 var trim = jQuery.trim;
 
 var dispatcher, select;
 
-QUnit.module("Ember.Select", {
+QUnit.module('Ember.Select', {
   setup() {
     dispatcher = EventDispatcher.create();
     dispatcher.setup();
@@ -35,92 +35,114 @@ function selectedOptions() {
   return select.get('childViews').mapBy('selected');
 }
 
-QUnit.test("has 'ember-view' and 'ember-select' CSS classes", function() {
+QUnit.test('has \'ember-view\' and \'ember-select\' CSS classes', function() {
   deepEqual(select.get('classNames'), ['ember-view', 'ember-select']);
 });
 
-QUnit.test("should render", function() {
+QUnit.test('should render', function() {
   append();
 
-  ok(select.$().length, "Select renders");
+  ok(select.$().length, 'Select renders');
 });
 
-QUnit.test("should begin disabled if the disabled attribute is true", function() {
+QUnit.test('should begin disabled if the disabled attribute is true', function() {
   select.set('disabled', true);
   append();
 
-  ok(select.$().is(":disabled"));
+  ok(select.$().is(':disabled'));
 });
 
 // Browsers before IE10 do not support the required property.
 if (document && ('required' in document.createElement('input'))) {
-  QUnit.test("should begin required if the required attribute is true", function() {
+  QUnit.test('should begin required if the required attribute is true', function() {
     select.set('required', true);
     append();
 
     ok(select.element.required, 'required property is truthy');
   });
 
-  QUnit.test("should become required if the required attribute is changed", function() {
+  QUnit.test('should become required if the required attribute is changed', function() {
     append();
     ok(!select.element.required, 'required property is falsy');
 
-    run(function() { select.set('required', true); });
+    run(function() {
+      select.set('required', true);
+    });
     ok(select.element.required, 'required property is truthy');
 
-    run(function() { select.set('required', false); });
+    run(function() {
+      select.set('required', false);
+    });
     ok(!select.element.required, 'required property is falsy');
   });
 }
 
-QUnit.test("should become disabled if the disabled attribute is changed", function() {
+QUnit.test('should become disabled if the disabled attribute is changed', function() {
   append();
   ok(!select.element.disabled, 'disabled property is falsy');
 
-  run(function() { select.set('disabled', true); });
+  run(function() {
+    select.set('disabled', true);
+  });
   ok(select.element.disabled, 'disabled property is truthy');
 
-  run(function() { select.set('disabled', false); });
+  run(function() {
+    select.set('disabled', false);
+  });
   ok(!select.element.disabled, 'disabled property is falsy');
 });
 
-QUnit.test("can have options", function() {
+QUnit.test('can have options', function() {
   select.set('content', Ember.A([1, 2, 3]));
 
   append();
 
-  equal(select.$('option').length, 3, "Should have three options");
+  equal(select.$('option').length, 3, 'Should have three options');
   // IE 8 adds whitespace
-  equal(trim(select.$().text()), "123", "Options should have content");
+  equal(trim(select.$().text()), '123', 'Options should have content');
 });
 
 
-QUnit.test("select tabindex is updated when setting tabindex property of view", function() {
-  run(function() { select.set('tabindex', '4'); });
+QUnit.test('select tabindex is updated when setting tabindex property of view', function() {
+  run(function() {
+    select.set('tabindex', '4');
+  });
   append();
 
-  equal(select.$().attr('tabindex'), "4", "renders select with the tabindex");
+  equal(select.$().attr('tabindex'), '4', 'renders select with the tabindex');
 
-  run(function() { select.set('tabindex', '1'); });
+  run(function() {
+    select.set('tabindex', '1');
+  });
 
-  equal(select.$().attr('tabindex'), "1", "updates select after tabindex changes");
+  equal(select.$().attr('tabindex'), '1', 'updates select after tabindex changes');
 });
 
-QUnit.test("select name is updated when setting name property of view", function() {
-  run(function() { select.set('name', 'foo'); });
+QUnit.test('select name is updated when setting name property of view', function() {
+  run(function() {
+    select.set('name', 'foo');
+  });
   append();
 
-  equal(select.$().attr('name'), "foo", "renders select with the name");
+  equal(select.$().attr('name'), 'foo', 'renders select with the name');
 
-  run(function() { select.set('name', 'bar'); });
+  run(function() {
+    select.set('name', 'bar');
+  });
 
-  equal(select.$().attr('name'), "bar", "updates select after name changes");
+  equal(select.$().attr('name'), 'bar', 'updates select after name changes');
 });
 
-QUnit.test("can specify the property path for an option's label and value", function() {
+QUnit.test('can specify the property path for an option\'s label and value', function() {
   select.set('content', Ember.A([
-    { id: 1, firstName: 'Yehuda' },
-    { id: 2, firstName: 'Tom' }
+    {
+      id: 1,
+      firstName: 'Yehuda'
+    },
+    {
+      id: 2,
+      firstName: 'Tom'
+    }
   ]));
 
   select.set('optionLabelPath', 'content.firstName');
@@ -128,16 +150,24 @@ QUnit.test("can specify the property path for an option's label and value", func
 
   append();
 
-  equal(select.$('option').length, 2, "Should have two options");
+  equal(select.$('option').length, 2, 'Should have two options');
   // IE 8 adds whitespace
-  equal(trim(select.$().text()), "YehudaTom", "Options should have content");
-  deepEqual(map(select.$('option').toArray(), function(el) { return jQuery(el).attr('value'); }), ["1", "2"], "Options should have values");
+  equal(trim(select.$().text()), 'YehudaTom', 'Options should have content');
+  deepEqual(map(select.$('option').toArray(), function(el) {
+    return jQuery(el).attr('value');
+  }), ['1', '2'], 'Options should have values');
 });
 
-QUnit.test("XSS: does not escape label value when it is a SafeString", function() {
+QUnit.test('XSS: does not escape label value when it is a SafeString', function() {
   select.set('content', Ember.A([
-    { id: 1, firstName: new SafeString('<p>Yehuda</p>') },
-    { id: 2, firstName: new SafeString('<p>Tom</p>') }
+    {
+      id: 1,
+      firstName: new SafeString('<p>Yehuda</p>')
+    },
+    {
+      id: 2,
+      firstName: new SafeString('<p>Tom</p>')
+    }
   ]));
 
   select.set('optionLabelPath', 'content.firstName');
@@ -145,18 +175,26 @@ QUnit.test("XSS: does not escape label value when it is a SafeString", function(
 
   append();
 
-  equal(select.$('option').length, 2, "Should have two options");
-  equal(select.$('option[value=1] p').length, 1, "Should have child elements");
+  equal(select.$('option').length, 2, 'Should have two options');
+  equal(select.$('option[value=1] p').length, 1, 'Should have child elements');
 
   // IE 8 adds whitespace
-  equal(trim(select.$().text()), "YehudaTom", "Options should have content");
-  deepEqual(map(select.$('option').toArray(), function(el) { return jQuery(el).attr('value'); }), ["1", "2"], "Options should have values");
+  equal(trim(select.$().text()), 'YehudaTom', 'Options should have content');
+  deepEqual(map(select.$('option').toArray(), function(el) {
+    return jQuery(el).attr('value');
+  }), ['1', '2'], 'Options should have values');
 });
 
-QUnit.test("XSS: escapes label value content", function() {
+QUnit.test('XSS: escapes label value content', function() {
   select.set('content', Ember.A([
-    { id: 1, firstName: '<p>Yehuda</p>' },
-    { id: 2, firstName: '<p>Tom</p>' }
+    {
+      id: 1,
+      firstName: '<p>Yehuda</p>'
+    },
+    {
+      id: 2,
+      firstName: '<p>Tom</p>'
+    }
   ]));
 
   select.set('optionLabelPath', 'content.firstName');
@@ -164,35 +202,55 @@ QUnit.test("XSS: escapes label value content", function() {
 
   append();
 
-  equal(select.$('option').length, 2, "Should have two options");
-  equal(select.$('option[value=1] b').length, 0, "Should have no child elements");
+  equal(select.$('option').length, 2, 'Should have two options');
+  equal(select.$('option[value=1] b').length, 0, 'Should have no child elements');
 
   // IE 8 adds whitespace
-  equal(trim(select.$().text()), "<p>Yehuda</p><p>Tom</p>", "Options should have content");
-  deepEqual(map(select.$('option').toArray(), function(el) { return jQuery(el).attr('value'); }), ["1", "2"], "Options should have values");
+  equal(trim(select.$().text()), '<p>Yehuda</p><p>Tom</p>', 'Options should have content');
+  deepEqual(map(select.$('option').toArray(), function(el) {
+    return jQuery(el).attr('value');
+  }), ['1', '2'], 'Options should have values');
 });
 
-QUnit.test("can retrieve the current selected option when multiple=false", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
+QUnit.test('can retrieve the current selected option when multiple=false', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
 
   select.set('content', Ember.A([yehuda, tom]));
 
   append();
 
-  equal(select.get('selection'), yehuda, "By default, the first option is selected");
+  equal(select.get('selection'), yehuda, 'By default, the first option is selected');
 
   select.$()[0].selectedIndex = 1; // select Tom
   select.$().trigger('change');
 
-  equal(select.get('selection'), tom, "On change, the new option should be selected");
+  equal(select.get('selection'), tom, 'On change, the new option should be selected');
 });
 
-QUnit.test("can retrieve the current selected options when multiple=true", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
+QUnit.test('can retrieve the current selected options when multiple=true', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
 
   select.set('content', Ember.A([yehuda, tom, david, brennain]));
   select.set('multiple', true);
@@ -201,7 +259,7 @@ QUnit.test("can retrieve the current selected options when multiple=true", funct
 
   append();
 
-  deepEqual(select.get('selection'), [], "By default, nothing is selected");
+  deepEqual(select.get('selection'), [], 'By default, nothing is selected');
 
   select.$('option').each(function() {
     if (this.value === 'Tom' || this.value === 'David') {
@@ -211,12 +269,18 @@ QUnit.test("can retrieve the current selected options when multiple=true", funct
 
   select.$().trigger('change');
 
-  deepEqual(select.get('selection'), [tom, david], "On change, the new options should be selected");
+  deepEqual(select.get('selection'), [tom, david], 'On change, the new options should be selected');
 });
 
-QUnit.test("selection can be set when multiple=false", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
+QUnit.test('selection can be set when multiple=false', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom]));
@@ -226,18 +290,26 @@ QUnit.test("selection can be set when multiple=false", function() {
 
   append();
 
-  equal(select.get('selection'), tom, "Initial selection should be correct");
+  equal(select.get('selection'), tom, 'Initial selection should be correct');
 
-  run(function() { select.set('selection', yehuda); });
+  run(function() {
+    select.set('selection', yehuda);
+  });
 
-  equal(select.$()[0].selectedIndex, 0, "After changing it, selection should be correct");
+  equal(select.$()[0].selectedIndex, 0, 'After changing it, selection should be correct');
 });
 
-QUnit.test("selection can be set from a Promise when multiple=false", function() {
+QUnit.test('selection can be set from a Promise when multiple=false', function() {
   expect(1);
 
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom]));
@@ -247,15 +319,24 @@ QUnit.test("selection can be set from a Promise when multiple=false", function()
 
   append();
 
-  equal(select.$()[0].selectedIndex, 1, "Should select from Promise content");
+  equal(select.$()[0].selectedIndex, 1, 'Should select from Promise content');
 });
 
-QUnit.test("selection from a Promise don't overwrite newer selection once resolved, when multiple=false", function() {
+QUnit.test('selection from a Promise don\'t overwrite newer selection once resolved, when multiple=false', function() {
   expect(1);
 
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var seb = { id: 3, firstName: 'Seb' };
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var seb = {
+    id: 3,
+    firstName: 'Seb'
+  };
 
   QUnit.stop();
 
@@ -268,7 +349,7 @@ QUnit.test("selection from a Promise don't overwrite newer selection once resolv
           resolve(tom);
         });
         QUnit.start();
-        equal(select.$()[0].selectedIndex, 2, "Should not select from Promise if newer selection");
+        equal(select.$()[0].selectedIndex, 2, 'Should not select from Promise if newer selection');
       }, 40);
     }));
     select.set('selection', new Ember.RSVP.Promise(function(resolve, reject) {
@@ -283,11 +364,17 @@ QUnit.test("selection from a Promise don't overwrite newer selection once resolv
   append();
 });
 
-QUnit.test("selection from a Promise resolving to null should not select when multiple=false", function() {
+QUnit.test('selection from a Promise resolving to null should not select when multiple=false', function() {
   expect(1);
 
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom]));
@@ -297,14 +384,26 @@ QUnit.test("selection from a Promise resolving to null should not select when mu
 
   append();
 
-  equal(select.$()[0].selectedIndex, -1, "Should not select any object when the Promise resolve to null");
+  equal(select.$()[0].selectedIndex, -1, 'Should not select any object when the Promise resolve to null');
 });
 
-QUnit.test("selection can be set when multiple=true", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
+QUnit.test('selection can be set when multiple=true', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom, david, brennain]));
@@ -314,18 +413,32 @@ QUnit.test("selection can be set when multiple=true", function() {
 
   append();
 
-  deepEqual(select.get('selection'), [tom], "Initial selection should be correct");
+  deepEqual(select.get('selection'), [tom], 'Initial selection should be correct');
 
-  run(function() { select.set('selection', yehuda); });
+  run(function() {
+    select.set('selection', yehuda);
+  });
 
-  deepEqual(select.get('selection'), [yehuda], "After changing it, selection should be correct");
+  deepEqual(select.get('selection'), [yehuda], 'After changing it, selection should be correct');
 });
 
-QUnit.test("selection can be set when multiple=true and prompt", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
+QUnit.test('selection can be set when multiple=true and prompt', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom, david, brennain]));
@@ -336,20 +449,32 @@ QUnit.test("selection can be set when multiple=true and prompt", function() {
 
   append();
 
-  deepEqual(select.get('selection'), [tom], "Initial selection should be correct");
+  deepEqual(select.get('selection'), [tom], 'Initial selection should be correct');
 
   run(function() {
     select.set('selection', yehuda);
   });
 
-  deepEqual(select.get('selection'), [yehuda], "After changing it, selection should be correct");
+  deepEqual(select.get('selection'), [yehuda], 'After changing it, selection should be correct');
 });
 
-QUnit.test("multiple selections can be set when multiple=true", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
+QUnit.test('multiple selections can be set when multiple=true', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom, david, brennain]));
@@ -361,21 +486,37 @@ QUnit.test("multiple selections can be set when multiple=true", function() {
 
   append();
 
-  deepEqual(select.get('selection'), [yehuda, david], "Initial selection should be correct");
+  deepEqual(select.get('selection'), [yehuda, david], 'Initial selection should be correct');
 
-  run(function() { select.set('selection', Ember.A([tom, brennain])); });
+  run(function() {
+    select.set('selection', Ember.A([tom, brennain]));
+  });
 
   deepEqual(
-    select.$(':selected').map(function() { return trim(jQuery(this).text());}).toArray(),
+    select.$(':selected').map(function() {
+      return trim(jQuery(this).text());
+    }).toArray(),
     ['Tom', 'Brennain'],
-    "After changing it, selection should be correct");
+    'After changing it, selection should be correct');
 });
 
-QUnit.test("multiple selections can be set by changing in place the selection array when multiple=true", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
+QUnit.test('multiple selections can be set by changing in place the selection array when multiple=true', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
   var selection = Ember.A([yehuda, tom]);
 
   run(function() {
@@ -387,26 +528,40 @@ QUnit.test("multiple selections can be set by changing in place the selection ar
 
   append();
 
-  deepEqual(select.get('selection'), [yehuda, tom], "Initial selection should be correct");
+  deepEqual(select.get('selection'), [yehuda, tom], 'Initial selection should be correct');
 
   run(function() {
     selection.replace(0, selection.get('length'), Ember.A([david, brennain]));
   });
 
   deepEqual(
-    select.$(':selected').map(function() { return trim(jQuery(this).text());}).toArray(),
+    select.$(':selected').map(function() {
+      return trim(jQuery(this).text());
+    }).toArray(),
     ['David', 'Brennain'],
-    "After updating the selection array in-place, selection should be correct");
+    'After updating the selection array in-place, selection should be correct');
 });
 
 
-QUnit.test("multiple selections can be set indirectly via bindings and in-place when multiple=true (issue #1058)", function() {
+QUnit.test('multiple selections can be set indirectly via bindings and in-place when multiple=true (issue #1058)', function() {
   var indirectContent = EmberObject.create();
 
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
-  var cyril = { id: 5, firstName: 'Cyril' };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
+  var cyril = {
+    id: 5,
+    firstName: 'Cyril'
+  };
 
   run(function() {
     select.destroy(); // Destroy the existing select
@@ -429,23 +584,32 @@ QUnit.test("multiple selections can be set indirectly via bindings and in-place 
     append();
   });
 
-  deepEqual(select.get('content'), [tom, david, brennain], "Initial content should be correct");
-  deepEqual(select.get('selection'), [david], "Initial selection should be correct");
+  deepEqual(select.get('content'), [tom, david, brennain], 'Initial content should be correct');
+  deepEqual(select.get('selection'), [david], 'Initial selection should be correct');
 
   run(function() {
     indirectContent.set('controller.content', Ember.A([david, cyril]));
     indirectContent.set('controller.selection', Ember.A([cyril]));
   });
 
-  deepEqual(select.get('content'), [david, cyril], "After updating bound content, content should be correct");
-  deepEqual(select.get('selection'), [cyril], "After updating bound selection, selection should be correct");
+  deepEqual(select.get('content'), [david, cyril], 'After updating bound content, content should be correct');
+  deepEqual(select.get('selection'), [cyril], 'After updating bound selection, selection should be correct');
 });
 
-QUnit.test("select with group can group options", function() {
+QUnit.test('select with group can group options', function() {
   var content = Ember.A([
-    { firstName: 'Yehuda', organization: 'Tilde' },
-    { firstName: 'Tom', organization: 'Tilde' },
-    { firstName: 'Keith', organization: 'Envato' }
+    {
+      firstName: 'Yehuda',
+      organization: 'Tilde'
+    },
+    {
+      firstName: 'Tom',
+      organization: 'Tilde'
+    },
+    {
+      firstName: 'Keith',
+      organization: 'Envato'
+    }
   ]);
 
   run(function() {
@@ -468,11 +632,23 @@ QUnit.test("select with group can group options", function() {
   equal(trim(select.$('optgroup').last().text()), 'Keith');
 });
 
-QUnit.test("select with group doesn't break options", function() {
+QUnit.test('select with group doesn\'t break options', function() {
   var content = Ember.A([
-    { id: 1, firstName: 'Yehuda', organization: 'Tilde' },
-    { id: 2, firstName: 'Tom', organization: 'Tilde' },
-    { id: 3, firstName: 'Keith', organization: 'Envato' }
+    {
+      id: 1,
+      firstName: 'Yehuda',
+      organization: 'Tilde'
+    },
+    {
+      id: 2,
+      firstName: 'Tom',
+      organization: 'Tilde'
+    },
+    {
+      id: 3,
+      firstName: 'Keith',
+      organization: 'Envato'
+    }
   ]);
 
   run(function() {
@@ -497,8 +673,11 @@ QUnit.test("select with group doesn't break options", function() {
   deepEqual(select.get('selection'), content.get('firstObject'));
 });
 
-QUnit.test("select with group observes its content", function() {
-  var wycats = { firstName: 'Yehuda', organization: 'Tilde' };
+QUnit.test('select with group observes its content', function() {
+  var wycats = {
+    firstName: 'Yehuda',
+    organization: 'Tilde'
+  };
   var content = Ember.A([
     wycats
   ]);
@@ -512,7 +691,10 @@ QUnit.test("select with group observes its content", function() {
   append();
 
   run(function() {
-    content.pushObject({ firstName: 'Keith', organization: 'Envato' });
+    content.pushObject({
+      firstName: 'Keith',
+      organization: 'Envato'
+    });
   });
 
   equal(select.$('optgroup').length, 2);
@@ -528,7 +710,7 @@ QUnit.test("select with group observes its content", function() {
   equal(labels.join(''), 'YehudaKeith');
 });
 
-QUnit.test("select with group whose content is undefined doesn't breaks", function() {
+QUnit.test('select with group whose content is undefined doesn\'t breaks', function() {
 
   var content;
   run(function() {
@@ -542,11 +724,23 @@ QUnit.test("select with group whose content is undefined doesn't breaks", functi
   equal(select.$('optgroup').length, 0);
 });
 
-QUnit.test("selection uses the same array when multiple=true", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
+QUnit.test('selection uses the same array when multiple=true', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
   var selection = Ember.A([yehuda, david]);
 
   run(function() {
@@ -558,22 +752,38 @@ QUnit.test("selection uses the same array when multiple=true", function() {
 
   append();
 
-  deepEqual(select.get('selection'), [yehuda, david], "Initial selection should be correct");
+  deepEqual(select.get('selection'), [yehuda, david], 'Initial selection should be correct');
 
-  select.$('option').each(function() { this.selected = false; });
-  select.$(':contains("Tom"), :contains("David")').each(function() { this.selected = true; });
+  select.$('option').each(function() {
+    this.selected = false;
+  });
+  select.$(':contains("Tom"), :contains("David")').each(function() {
+    this.selected = true;
+  });
 
   select.$().trigger('change');
 
-  deepEqual(select.get('selection'), [tom,david], "On change the selection is updated");
-  deepEqual(selection, [tom,david], "On change the original selection array is updated");
+  deepEqual(select.get('selection'), [tom, david], 'On change the selection is updated');
+  deepEqual(selection, [tom, david], 'On change the original selection array is updated');
 });
 
-QUnit.test("Ember.SelectedOption knows when it is selected when multiple=false", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
+QUnit.test('Ember.SelectedOption knows when it is selected when multiple=false', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom, david, brennain]));
@@ -584,18 +794,32 @@ QUnit.test("Ember.SelectedOption knows when it is selected when multiple=false",
 
   append();
 
-  deepEqual(selectedOptions(), [false, false, true, false], "Initial selection should be correct");
+  deepEqual(selectedOptions(), [false, false, true, false], 'Initial selection should be correct');
 
-  run(function() { select.set('selection', brennain); });
+  run(function() {
+    select.set('selection', brennain);
+  });
 
-  deepEqual(selectedOptions(), [false, false, false, true], "After changing it, selection should be correct");
+  deepEqual(selectedOptions(), [false, false, false, true], 'After changing it, selection should be correct');
 });
 
-QUnit.test("Ember.SelectedOption knows when it is selected when multiple=true", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
-  var david = { id: 3, firstName: 'David' };
-  var brennain = { id: 4, firstName: 'Brennain' };
+QUnit.test('Ember.SelectedOption knows when it is selected when multiple=true', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
+  var david = {
+    id: 3,
+    firstName: 'David'
+  };
+  var brennain = {
+    id: 4,
+    firstName: 'Brennain'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom, david, brennain]));
@@ -606,16 +830,16 @@ QUnit.test("Ember.SelectedOption knows when it is selected when multiple=true", 
 
   append();
 
-  deepEqual(selectedOptions(), [true, false, true, false], "Initial selection should be correct");
+  deepEqual(selectedOptions(), [true, false, true, false], 'Initial selection should be correct');
 
   run(function() {
     select.set('selection', [tom, david]);
   });
 
-  deepEqual(selectedOptions(), [false, true, true, false], "After changing it, selection should be correct");
+  deepEqual(selectedOptions(), [false, true, true, false], 'After changing it, selection should be correct');
 });
 
-QUnit.test("Ember.SelectedOption knows when it is selected when multiple=true and options are primitives", function() {
+QUnit.test('Ember.SelectedOption knows when it is selected when multiple=true and options are primitives', function() {
   run(function() {
     select.set('content', Ember.A([1, 2, 3, 4]));
     select.set('multiple', true);
@@ -624,16 +848,24 @@ QUnit.test("Ember.SelectedOption knows when it is selected when multiple=true an
 
   append();
 
-  deepEqual(selectedOptions(), [true, false, true, false], "Initial selection should be correct");
+  deepEqual(selectedOptions(), [true, false, true, false], 'Initial selection should be correct');
 
-  run(function() { select.set('selection', [2, 3]); });
+  run(function() {
+    select.set('selection', [2, 3]);
+  });
 
-  deepEqual(selectedOptions(), [false, true, true, false], "After changing it, selection should be correct");
+  deepEqual(selectedOptions(), [false, true, true, false], 'After changing it, selection should be correct');
 });
 
-QUnit.test("a prompt can be specified", function() {
-  var yehuda = { id: 1, firstName: 'Yehuda' };
-  var tom = { id: 2, firstName: 'Tom' };
+QUnit.test('a prompt can be specified', function() {
+  var yehuda = {
+    id: 1,
+    firstName: 'Yehuda'
+  };
+  var tom = {
+    id: 2,
+    firstName: 'Tom'
+  };
 
   run(function() {
     select.set('content', Ember.A([yehuda, tom]));
@@ -644,28 +876,30 @@ QUnit.test("a prompt can be specified", function() {
 
   append();
 
-  equal(select.$('option').length, 3, "There should be three options");
-  equal(select.$()[0].selectedIndex, 0, "By default, the prompt is selected in the DOM");
-  equal(trim(select.$('option:selected').text()), 'Pick a person', "By default, the prompt is selected in the DOM");
-  equal(select.$().val(), '', "By default, the prompt has no value");
+  equal(select.$('option').length, 3, 'There should be three options');
+  equal(select.$()[0].selectedIndex, 0, 'By default, the prompt is selected in the DOM');
+  equal(trim(select.$('option:selected').text()), 'Pick a person', 'By default, the prompt is selected in the DOM');
+  equal(select.$().val(), '', 'By default, the prompt has no value');
 
-  equal(select.get('selection'), null, "When the prompt is selected, the selection should be null");
+  equal(select.get('selection'), null, 'When the prompt is selected, the selection should be null');
 
-  run(function() { select.set('selection', tom); });
+  run(function() {
+    select.set('selection', tom);
+  });
 
-  equal(select.$()[0].selectedIndex, 2, "The selectedIndex accounts for the prompt");
+  equal(select.$()[0].selectedIndex, 2, 'The selectedIndex accounts for the prompt');
 
   select.$()[0].selectedIndex = 0;
   select.$().trigger('change');
 
-  equal(select.get('selection'), null, "When the prompt is selected again after another option, the selection should be null");
+  equal(select.get('selection'), null, 'When the prompt is selected again after another option, the selection should be null');
 
   select.$()[0].selectedIndex = 2;
   select.$().trigger('change');
-  equal(select.get('selection'), tom, "Properly accounts for the prompt when DOM change occurs");
+  equal(select.get('selection'), tom, 'Properly accounts for the prompt when DOM change occurs');
 });
 
-QUnit.test("handles null content", function() {
+QUnit.test('handles null content', function() {
   append();
 
   run(function() {
@@ -674,17 +908,19 @@ QUnit.test("handles null content", function() {
     select.set('value', 'also_invalid');
   });
 
-  equal(select.get('element').selectedIndex, -1, "should have no selection");
+  equal(select.get('element').selectedIndex, -1, 'should have no selection');
 
   run(function() {
     select.set('multiple', true);
-    select.set('selection', [{ content: 'invalid' }]);
+    select.set('selection', [{
+      content: 'invalid'
+    }]);
   });
 
-  equal(select.get('element').selectedIndex, -1, "should have no selection");
+  equal(select.get('element').selectedIndex, -1, 'should have no selection');
 });
 
-QUnit.test("valueBinding handles 0 as initiated value (issue #2763)", function() {
+QUnit.test('valueBinding handles 0 as initiated value (issue #2763)', function() {
   var indirectData = EmberObject.create({
     value: 0
   });
@@ -693,7 +929,7 @@ QUnit.test("valueBinding handles 0 as initiated value (issue #2763)", function()
     select.destroy(); // Destroy the existing select
 
     select = EmberSelect.extend({
-      content: Ember.A([1,0]),
+      content: Ember.A([1, 0]),
       indirectData: indirectData,
       valueBinding: 'indirectData.value'
     }).create();
@@ -704,10 +940,10 @@ QUnit.test("valueBinding handles 0 as initiated value (issue #2763)", function()
     });
   });
 
-  equal(select.get('value'), 0, "Value property should equal 0");
+  equal(select.get('value'), 0, 'Value property should equal 0');
 });
 
-QUnit.test("should be able to select an option and then reselect the prompt", function() {
+QUnit.test('should be able to select an option and then reselect the prompt', function() {
   run(function() {
     select.set('content', Ember.A(['one', 'two', 'three']));
     select.set('prompt', 'Select something');
@@ -725,13 +961,25 @@ QUnit.test("should be able to select an option and then reselect the prompt", fu
   equal(select.$()[0].selectedIndex, 0);
 });
 
-QUnit.test("should be able to get the current selection's value", function() {
+QUnit.test('should be able to get the current selection\'s value', function() {
   run(function() {
     select.set('content', Ember.A([
-      { label: 'Yehuda Katz', value: 'wycats' },
-      { label: 'Tom Dale', value: 'tomdale' },
-      { label: 'Peter Wagenet', value: 'wagenet' },
-      { label: 'Erik Bryn', value: 'ebryn' }
+      {
+        label: 'Yehuda Katz',
+        value: 'wycats'
+      },
+      {
+        label: 'Tom Dale',
+        value: 'tomdale'
+      },
+      {
+        label: 'Peter Wagenet',
+        value: 'wagenet'
+      },
+      {
+        label: 'Erik Bryn',
+        value: 'ebryn'
+      }
     ]));
     select.set('optionLabelPath', 'content.label');
     select.set('optionValuePath', 'content.value');
@@ -742,14 +990,26 @@ QUnit.test("should be able to get the current selection's value", function() {
   equal(select.get('value'), 'wycats');
 });
 
-QUnit.test("should be able to set the current selection by value", function() {
-  var ebryn = { label: 'Erik Bryn', value: 'ebryn' };
+QUnit.test('should be able to set the current selection by value', function() {
+  var ebryn = {
+    label: 'Erik Bryn',
+    value: 'ebryn'
+  };
 
   run(function() {
     select.set('content', Ember.A([
-      { label: 'Yehuda Katz', value: 'wycats' },
-      { label: 'Tom Dale', value: 'tomdale' },
-      { label: 'Peter Wagenet', value: 'wagenet' },
+      {
+        label: 'Yehuda Katz',
+        value: 'wycats'
+      },
+      {
+        label: 'Tom Dale',
+        value: 'tomdale'
+      },
+      {
+        label: 'Peter Wagenet',
+        value: 'wagenet'
+      },
       ebryn
     ]));
     select.set('optionLabelPath', 'content.label');

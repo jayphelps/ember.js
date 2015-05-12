@@ -1,5 +1,5 @@
-import {get} from "ember-metal/property_get";
-import EmberObject from "ember-runtime/system/object";
+import {get} from 'ember-metal/property_get';
+import EmberObject from 'ember-runtime/system/object';
 
 QUnit.module('system/core_object/reopen');
 
@@ -7,7 +7,9 @@ QUnit.test('adds new properties to subclass instance', function() {
 
   var Subclass = EmberObject.extend();
   Subclass.reopen({
-    foo() { return 'FOO'; },
+    foo() {
+      return 'FOO';
+    },
     bar: 'BAR'
   });
 
@@ -21,7 +23,9 @@ QUnit.test('reopened properties inherited by subclasses', function() {
   var SubSub = Subclass.extend();
 
   Subclass.reopen({
-    foo() { return 'FOO'; },
+    foo() {
+      return 'FOO';
+    },
     bar: 'BAR'
   });
 
@@ -39,5 +43,5 @@ QUnit.test('allows reopening already instantiated classes', function() {
     trololol: true
   });
 
-  equal(Subclass.create().get('trololol'), true, "reopen works");
+  equal(Subclass.create().get('trololol'), true, 'reopen works');
 });

@@ -3,8 +3,8 @@
  @submodule ember-htmlbars
  */
 
-import { findHelper } from "ember-htmlbars/system/lookup-helper";
-import { handleRedirect } from "htmlbars-runtime/hooks";
+import { findHelper } from 'ember-htmlbars/system/lookup-helper';
+import { handleRedirect } from 'htmlbars-runtime/hooks';
 
 var fakeElement;
 

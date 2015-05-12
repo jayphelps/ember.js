@@ -20,10 +20,10 @@
   `Ember.Map.create()` for symmetry with other Ember classes.
 */
 
-import { guidFor } from "ember-metal/utils";
-import { indexOf } from "ember-metal/array";
-import create from "ember-metal/platform/create";
-import { deprecateProperty } from "ember-metal/deprecate_property";
+import { guidFor } from 'ember-metal/utils';
+import { indexOf } from 'ember-metal/array';
+import create from 'ember-metal/platform/create';
+import { deprecateProperty } from 'ember-metal/deprecate_property';
 
 function missingFunction(fn) {
   throw new TypeError(`${Object.prototype.toString.call(fn)} is not a function`);
@@ -71,7 +71,7 @@ function OrderedSet() {
     this.clear();
     this._silenceRemoveDeprecation = false;
   } else {
-    missingNew("OrderedSet");
+    missingNew('OrderedSet');
   }
 }
 
@@ -182,7 +182,7 @@ OrderedSet.prototype = {
     @param {Function} fn
     @param self
   */
-  forEach(fn /*, ...thisArg*/) {
+  forEach(fn/*, ...thisArg*/ ) {
     if (typeof fn !== 'function') {
       missingFunction(fn);
     }
@@ -258,7 +258,7 @@ function Map() {
     this._values = create(null);
     this.size = 0;
   } else {
-    missingNew("OrderedSet");
+    missingNew('OrderedSet');
   }
 }
 
@@ -390,7 +390,7 @@ Map.prototype = {
     @param {*} self if passed, the `this` value inside the
       callback. By default, `this` is the map.
   */
-  forEach(callback/*, ...thisArg*/) {
+  forEach(callback/*, ...thisArg*/ ) {
     if (typeof callback !== 'function') {
       missingFunction(callback);
     }

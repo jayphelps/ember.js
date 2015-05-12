@@ -8,12 +8,16 @@ var moduleOpts = {
     obj = {
       foo: {
         bar: {
-          baz: { biff: 'BIFF' }
+          baz: {
+            biff: 'BIFF'
+          }
         }
       },
       foothis: {
         bar: {
-          baz: { biff: 'BIFF' }
+          baz: {
+            biff: 'BIFF'
+          }
         }
       },
       falseValue: false,
@@ -24,7 +28,9 @@ var moduleOpts = {
 
     window.Foo = {
       bar: {
-        baz: { biff: 'FooBiff' }
+        baz: {
+          biff: 'FooBiff'
+        }
       }
     };
 
@@ -32,7 +38,9 @@ var moduleOpts = {
 
     window.$foo = {
       bar: {
-        baz: { biff: '$FOOBIFF' }
+        baz: {
+          biff: '$FOOBIFF'
+        }
       }
     };
   },

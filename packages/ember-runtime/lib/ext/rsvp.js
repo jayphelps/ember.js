@@ -2,7 +2,7 @@
 
 import Ember from 'ember-metal/core';
 import Logger from 'ember-metal/logger';
-import run from "ember-metal/run_loop";
+import run from 'ember-metal/run_loop';
 import * as RSVP from 'rsvp';
 
 var testModuleName = 'ember-testing/test';
@@ -23,10 +23,14 @@ var asyncEnd = function() {
 RSVP.configure('async', function(callback, promise) {
   var async = !run.currentRunLoop;
 
-  if (Ember.testing && async) { asyncStart(); }
+  if (Ember.testing && async) {
+    asyncStart();
+  }
 
   run.backburner.schedule('actions', function() {
-    if (Ember.testing && async) { asyncEnd(); }
+    if (Ember.testing && async) {
+      asyncEnd();
+    }
     callback(promise);
   });
 });

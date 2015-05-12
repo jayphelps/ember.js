@@ -4,11 +4,11 @@ var suite = SuiteModuleBuilder.create();
 
 suite.module('clear');
 
-suite.test("[].clear() => [] + notify", function () {
+suite.test('[].clear() => [] + notify', function() {
   var obj, before, after, observer;
 
   before = [];
-  after  = [];
+  after = [];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */
@@ -25,11 +25,11 @@ suite.test("[].clear() => [] + notify", function () {
   equal(observer.validate('lastObject'), false, 'should NOT have notified lastObject once');
 });
 
-suite.test("[X].clear() => [] + notify", function () {
+suite.test('[X].clear() => [] + notify', function() {
   var obj, before, after, observer;
 
   before = this.newFixture(1);
-  after  = [];
+  after = [];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */

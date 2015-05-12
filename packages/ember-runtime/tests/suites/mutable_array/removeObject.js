@@ -4,18 +4,18 @@ var suite = SuiteModuleBuilder.create();
 
 suite.module('removeObject');
 
-suite.test("should return receiver", function() {
+suite.test('should return receiver', function() {
   var before, obj;
   before = this.newFixture(3);
-  obj    = this.newObject(before);
+  obj = this.newObject(before);
   equal(obj.removeObject(before[1]), obj, 'should return receiver');
 });
 
-suite.test("[A,B,C].removeObject(B) => [A,C] + notify", function() {
+suite.test('[A,B,C].removeObject(B) => [A,C] + notify', function() {
   var obj, before, after, observer;
 
   before = this.newFixture(3);
-  after  = [before[0], before[2]];
+  after = [before[0], before[2]];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */
@@ -35,12 +35,12 @@ suite.test("[A,B,C].removeObject(B) => [A,C] + notify", function() {
   }
 });
 
-suite.test("[A,B,C].removeObject(D) => [A,B,C]", function() {
+suite.test('[A,B,C].removeObject(D) => [A,B,C]', function() {
   var obj, before, after, observer, item;
 
   before = this.newFixture(3);
-  after  = before;
-  item   = this.newFixture(1)[0];
+  after = before;
+  item = this.newFixture(1)[0];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */

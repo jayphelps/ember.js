@@ -7,7 +7,9 @@ TransformSingleArgEach.prototype.transform = function TransformSingleArgEach_tra
   var walker = new this.syntax.Walker();
 
   walker.visit(ast, function(node) {
-    if (!validate(node)) { return; }
+    if (!validate(node)) {
+      return;
+    }
 
     node.params.push(b.path('this'));
   });

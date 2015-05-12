@@ -1,28 +1,30 @@
-import { set } from "ember-metal/property_set";
-import keys from "ember-metal/keys";
+import { set } from 'ember-metal/property_set';
+import keys from 'ember-metal/keys';
 import {
   addObserver,
   removeObserver
-} from "ember-metal/observer";
+} from 'ember-metal/observer';
 
-function K() { return this; }
+function K() {
+  return this;
+}
 
-QUnit.module("Fetch Keys ");
+QUnit.module('Fetch Keys ');
 
-QUnit.test("should get a key array for a specified object", function() {
+QUnit.test('should get a key array for a specified object', function() {
   var object1 = {};
 
-  object1.names = "Rahul";
-  object1.age = "23";
-  object1.place = "Mangalore";
+  object1.names = 'Rahul';
+  object1.age = '23';
+  object1.place = 'Mangalore';
 
   var object2 = keys(object1);
 
-  deepEqual(object2, ['names','age','place']);
+  deepEqual(object2, ['names', 'age', 'place']);
 });
 
 // This test is for IE8.
-QUnit.test("should get a key array for property that is named the same as prototype property", function() {
+QUnit.test('should get a key array for property that is named the same as prototype property', function() {
   var object1 = {
     toString() {}
   };
@@ -32,8 +34,9 @@ QUnit.test("should get a key array for property that is named the same as protot
   deepEqual(object2, ['toString']);
 });
 
-QUnit.test('should not contain properties declared in the prototype', function () {
-  function Beer() { }
+QUnit.test('should not contain properties declared in the prototype', function() {
+  function Beer() {
+  }
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -41,8 +44,9 @@ QUnit.test('should not contain properties declared in the prototype', function (
   deepEqual(keys(beer), []);
 });
 
-QUnit.test('should return properties that were set after object creation', function () {
-  function Beer() { }
+QUnit.test('should return properties that were set after object creation', function() {
+  function Beer() {
+  }
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -54,8 +58,9 @@ QUnit.test('should return properties that were set after object creation', funct
 
 QUnit.module('Keys behavior with observers');
 
-QUnit.test('should not leak properties on the prototype', function () {
-  function Beer() { }
+QUnit.test('should not leak properties on the prototype', function() {
+  function Beer() {
+  }
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -65,8 +70,9 @@ QUnit.test('should not leak properties on the prototype', function () {
   removeObserver(beer, 'type', K);
 });
 
-QUnit.test('observing a non existent property', function () {
-  function Beer() { }
+QUnit.test('observing a non existent property', function() {
+  function Beer() {
+  }
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -81,8 +87,9 @@ QUnit.test('observing a non existent property', function () {
   removeObserver(beer, 'brand', K);
 });
 
-QUnit.test('with observers switched on and off', function () {
-  function Beer() { }
+QUnit.test('with observers switched on and off', function() {
+  function Beer() {
+  }
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -93,8 +100,9 @@ QUnit.test('with observers switched on and off', function () {
   deepEqual(keys(beer), []);
 });
 
-QUnit.test('observers switched on and off with setter in between', function () {
-  function Beer() { }
+QUnit.test('observers switched on and off with setter in between', function() {
+  function Beer() {
+  }
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -106,8 +114,9 @@ QUnit.test('observers switched on and off with setter in between', function () {
   deepEqual(keys(beer), ['type']);
 });
 
-QUnit.test('observer switched on and off and then setter', function () {
-  function Beer() { }
+QUnit.test('observer switched on and off and then setter', function() {
+  function Beer() {
+  }
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();

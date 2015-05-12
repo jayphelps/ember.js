@@ -5,13 +5,13 @@
 @submodule ember-htmlbars
 */
 
-import Ember from "ember-metal/core";
-import ComponentLookup from "ember-views/component_lookup";
-import jQuery from "ember-views/system/jquery";
-import EmberError from "ember-metal/error";
-import { onLoad } from "ember-runtime/system/lazy_load";
-import htmlbarsCompile from "ember-template-compiler/system/compile";
-import environment from "ember-metal/environment";
+import Ember from 'ember-metal/core';
+import ComponentLookup from 'ember-views/component_lookup';
+import jQuery from 'ember-views/system/jquery';
+import EmberError from 'ember-metal/error';
+import { onLoad } from 'ember-runtime/system/lazy_load';
+import htmlbarsCompile from 'ember-template-compiler/system/compile';
+import environment from 'ember-metal/environment';
 
 /**
 @module ember
@@ -37,8 +37,7 @@ import environment from "ember-metal/environment";
 function bootstrap(ctx) {
   var selectors = 'script[type="text/x-handlebars"], script[type="text/x-raw-handlebars"]';
 
-  jQuery(selectors, ctx)
-    .each(function() {
+  jQuery(selectors, ctx).each(function() {
     // Get a reference to the script tag
     var script = jQuery(this);
 
@@ -59,7 +58,7 @@ function bootstrap(ctx) {
 
     // Check if template of same name already exists
     if (Ember.TEMPLATES[templateName] !== undefined) {
-      throw new EmberError('Template named "' + templateName  + '" already exists.');
+      throw new EmberError('Template named "' + templateName + '" already exists.');
     }
 
     // For templates which have a name, we save them and then remove them from the DOM
@@ -92,7 +91,7 @@ function registerComponentLookup(registry) {
 onLoad('Ember.Application', function(Application) {
   Application.initializer({
     name: 'domTemplates',
-    initialize: environment.hasDOM ? _bootstrap : function() { }
+    initialize: environment.hasDOM ? _bootstrap : function() {}
   });
 
   Application.initializer({

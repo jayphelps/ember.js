@@ -14,7 +14,9 @@ function validateAliasMethod(obj) {
 
 QUnit.test('methods of another name are aliased when the mixin is applied', function() {
   var MyMixin = Mixin.create({
-    fooMethod() { return 'FOO'; },
+    fooMethod() {
+      return 'FOO';
+    },
     barMethod: aliasMethod('fooMethod')
   });
 
@@ -25,7 +27,9 @@ QUnit.test('methods of another name are aliased when the mixin is applied', func
 QUnit.test('should follow aliasMethods all the way down', function() {
   var MyMixin = Mixin.create({
     bar: aliasMethod('foo'), // put first to break ordered iteration
-    baz() { return 'baz'; },
+    baz() {
+      return 'baz';
+    },
     foo: aliasMethod('baz')
   });
 
@@ -35,7 +39,9 @@ QUnit.test('should follow aliasMethods all the way down', function() {
 
 QUnit.test('should alias methods from other dependent mixins', function() {
   var BaseMixin = Mixin.create({
-    fooMethod() { return 'FOO'; }
+    fooMethod() {
+      return 'FOO';
+    }
   });
 
   var MyMixin = Mixin.create(BaseMixin, {
@@ -48,7 +54,9 @@ QUnit.test('should alias methods from other dependent mixins', function() {
 
 QUnit.test('should alias methods from other mixins applied at same time', function() {
   var BaseMixin = Mixin.create({
-    fooMethod() { return 'FOO'; }
+    fooMethod() {
+      return 'FOO';
+    }
   });
 
   var MyMixin = Mixin.create({
@@ -61,7 +69,9 @@ QUnit.test('should alias methods from other mixins applied at same time', functi
 
 QUnit.test('should alias methods from mixins already applied on object', function() {
   var BaseMixin = Mixin.create({
-    quxMethod() { return 'qux'; }
+    quxMethod() {
+      return 'qux';
+    }
   });
 
   var MyMixin = Mixin.create({
@@ -70,7 +80,9 @@ QUnit.test('should alias methods from mixins already applied on object', functio
   });
 
   var obj = {
-    fooMethod() { return 'FOO'; }
+    fooMethod() {
+      return 'FOO';
+    }
   };
 
   BaseMixin.apply(obj);

@@ -1,8 +1,8 @@
 import {
   meta as metaFor,
   isArray
-} from "ember-metal/utils";
-import { ChainNode } from "ember-metal/chains";
+} from 'ember-metal/utils';
+import { ChainNode } from 'ember-metal/chains';
 
 // get the chains for the current object. If the current object has
 // chains inherited from the proto they will be cloned and reconfigured for
@@ -20,7 +20,9 @@ function chainsFor(obj, meta) {
 
 export function watchPath(obj, keyPath, meta) {
   // can't watch length on Array - it is special...
-  if (keyPath === 'length' && isArray(obj)) { return; }
+  if (keyPath === 'length' && isArray(obj)) {
+    return;
+  }
 
   var m = meta || metaFor(obj);
   var watching = m.watching;

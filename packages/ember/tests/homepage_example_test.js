@@ -1,6 +1,6 @@
-import "ember";
+import 'ember';
 
-import EmberHandlebars from "ember-htmlbars/compat";
+import EmberHandlebars from 'ember-htmlbars/compat';
 
 var compile = EmberHandlebars.compile;
 
@@ -8,8 +8,8 @@ var App, $fixture;
 
 function setupExample() {
   // setup templates
-  Ember.TEMPLATES.application = compile("{{outlet}}");
-  Ember.TEMPLATES.index = compile("<h1>People</h1><ul>{{#each person in model}}<li>Hello, <b>{{person.fullName}}</b>!</li>{{/each}}</ul>");
+  Ember.TEMPLATES.application = compile('{{outlet}}');
+  Ember.TEMPLATES.index = compile('<h1>People</h1><ul>{{#each person in model}}<li>Hello, <b>{{person.fullName}}</b>!</li>{{/each}}</ul>');
 
 
   App.Person = Ember.Object.extend({
@@ -17,7 +17,7 @@ function setupExample() {
     lastName: null,
 
     fullName: Ember.computed('firstName', 'lastName', function() {
-      return this.get('firstName') + " " + this.get('lastName');
+      return this.get('firstName') + ' ' + this.get('lastName');
     })
   });
 
@@ -25,12 +25,12 @@ function setupExample() {
     model() {
       var people = Ember.A([
         App.Person.create({
-          firstName: "Tom",
-          lastName: "Dale"
+          firstName: 'Tom',
+          lastName: 'Dale'
         }),
         App.Person.create({
-          firstName: "Yehuda",
-          lastName: "Katz"
+          firstName: 'Yehuda',
+          lastName: 'Katz'
         })
       ]);
       return people;
@@ -38,11 +38,11 @@ function setupExample() {
   });
 }
 
-QUnit.module("Homepage Example", {
+QUnit.module('Homepage Example', {
   setup() {
     Ember.run(function() {
       App = Ember.Application.create({
-        name: "App",
+        name: 'App',
         rootElement: '#qunit-fixture'
       });
       App.deferReadiness();
@@ -70,7 +70,7 @@ QUnit.module("Homepage Example", {
 });
 
 
-QUnit.test("The example renders correctly", function() {
+QUnit.test('The example renders correctly', function() {
   Ember.run(App, 'advanceReadiness');
 
   equal($fixture.find('h1:contains(People)').length, 1);

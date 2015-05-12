@@ -1,10 +1,10 @@
-import Ember from "ember-metal/core";
-import create from "ember-metal/platform/create";
-import { getFirstKey, getTailPath } from "ember-metal/path_cache";
-import { addObserver, removeObserver } from "ember-metal/observer";
+import Ember from 'ember-metal/core';
+import create from 'ember-metal/platform/create';
+import { getFirstKey, getTailPath } from 'ember-metal/path_cache';
+import { addObserver, removeObserver } from 'ember-metal/observer';
 import { isStream } from 'ember-metal/streams/utils';
-import Subscriber from "ember-metal/streams/subscriber";
-import Dependency from "ember-metal/streams/dependency";
+import Subscriber from 'ember-metal/streams/subscriber';
+import Dependency from 'ember-metal/streams/dependency';
 
 /**
   @module ember-metal
@@ -199,11 +199,11 @@ Stream.prototype = {
   },
 
   compute() {
-    throw new Error("Stream error: compute not implemented");
+    throw new Error('Stream error: compute not implemented');
   },
 
   setValue() {
-    throw new Error("Stream error: setValue not implemented");
+    throw new Error('Stream error: setValue not implemented');
   },
 
   notify() {
@@ -218,7 +218,7 @@ Stream.prototype = {
   },
 
   subscribe(callback, context) {
-    Ember.assert("You tried to subscribe to a stream but the callback provided was not a function.", typeof callback === 'function');
+    Ember.assert('You tried to subscribe to a stream but the callback provided was not a function.', typeof callback === 'function');
 
     var subscriber = new Subscriber(callback, context, this);
     if (this.subscriberHead === null) {
@@ -233,7 +233,9 @@ Stream.prototype = {
     var stream = this;
     return function(prune) {
       subscriber.removeFrom(stream);
-      if (prune) { stream.prune(); }
+      if (prune) {
+        stream.prune();
+      }
     };
   },
 
@@ -288,7 +290,7 @@ Stream.prototype = {
       var dependencies = this.dependencies;
 
       if (dependencies) {
-        for (var i=0, l=dependencies.length; i<l; i++) {
+        for (var i = 0, l = dependencies.length; i < l; i++) {
           dependencies[i](prune);
         }
       }
@@ -309,7 +311,7 @@ Stream.wrap = function(value, Kind, param) {
 
 function makeLabel(label) {
   if (label === undefined) {
-    return "(no label)";
+    return '(no label)';
   } else {
     return label;
   }

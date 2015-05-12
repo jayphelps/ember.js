@@ -251,7 +251,7 @@ run.end = function() {
   @param {Object} [arguments*] Optional arguments to be passed to the queued method.
   @return {void}
 */
-run.schedule = function(/* queue, target, method */) {
+run.schedule = function(/* queue, target, method */ ) {
   checkAutoRun();
   backburner.schedule(...arguments);
 };
@@ -313,7 +313,7 @@ run.sync = function() {
   @param {Number} wait Number of milliseconds to wait.
   @return {*} Timer information for use in cancelling, see `run.cancel`.
 */
-run.later = function(/*target, method*/) {
+run.later = function(/*target, method*/ ) {
   return backburner.later(...arguments);
 };
 
@@ -386,7 +386,7 @@ run.once = function(...args) {
   @param {Object} [args*] Optional arguments to pass to the timeout.
   @return {Object} Timer information for use in cancelling, see `run.cancel`.
 */
-run.scheduleOnce = function(/*queue, target, method*/) {
+run.scheduleOnce = function(/*queue, target, method*/ ) {
   checkAutoRun();
   return backburner.scheduleOnce(...arguments);
 };
@@ -640,6 +640,6 @@ function checkAutoRun() {
 */
 run._addQueue = function(name, after) {
   if (indexOf.call(run.queues, name) === -1) {
-    run.queues.splice(indexOf.call(run.queues, after)+1, 0, name);
+    run.queues.splice(indexOf.call(run.queues, after) + 1, 0, name);
   }
 };

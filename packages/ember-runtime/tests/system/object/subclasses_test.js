@@ -1,12 +1,12 @@
-import run from "ember-metal/run_loop";
-import {computed} from "ember-metal/computed";
-import EmberObject from "ember-runtime/system/object";
+import run from 'ember-metal/run_loop';
+import {computed} from 'ember-metal/computed';
+import EmberObject from 'ember-runtime/system/object';
 
 QUnit.module('system/object/subclasses');
 
-QUnit.test('chains should copy forward to subclasses when prototype created', function () {
+QUnit.test('chains should copy forward to subclasses when prototype created', function() {
   var ObjectWithChains, objWithChains, SubWithChains, SubSub, subSub;
-  run(function () {
+  run(function() {
     ObjectWithChains = EmberObject.extend({
       obj: {
         a: 'a',
@@ -29,7 +29,7 @@ QUnit.test('chains should copy forward to subclasses when prototype created', fu
     subSub = SubSub.create();
   });
   equal(subSub.get('greeting'), 'hi world');
-  run(function () {
+  run(function() {
     objWithChains.set('obj.hi', 'hello');
   });
   equal(subSub.get('greeting'), 'hello world');

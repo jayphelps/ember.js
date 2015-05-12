@@ -1,6 +1,6 @@
-import merge from "ember-metal/merge";
-import Stream from "ember-metal/streams/stream";
-import create from "ember-metal/platform/create";
+import merge from 'ember-metal/merge';
+import Stream from 'ember-metal/streams/stream';
+import create from 'ember-metal/platform/create';
 
 function ProxyStream(source, label) {
   this.init(label);

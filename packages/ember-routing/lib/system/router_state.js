@@ -1,6 +1,6 @@
-import Ember from "ember-metal/core";
-import EmberObject from "ember-runtime/system/object";
-import merge from "ember-metal/merge";
+import Ember from 'ember-metal/core';
+import EmberObject from 'ember-runtime/system/object';
+import merge from 'ember-metal/merge';
 
 var RouterState = EmberObject.extend({
   emberRouter: null,
@@ -9,7 +9,9 @@ var RouterState = EmberObject.extend({
 
   isActiveIntent(routeName, models, queryParams, queryParamsMustMatch) {
     var state = this.routerJsState;
-    if (!this.routerJs.isActiveIntent(routeName, models, null, state)) { return false; }
+    if (!this.routerJs.isActiveIntent(routeName, models, null, state)) {
+      return false;
+    }
 
     var emptyQueryParams = Ember.isEmpty(Ember.keys(queryParams));
 
@@ -28,10 +30,14 @@ var RouterState = EmberObject.extend({
 function shallowEqual(a, b) {
   var k;
   for (k in a) {
-    if (a.hasOwnProperty(k) && a[k] !== b[k]) { return false; }
+    if (a.hasOwnProperty(k) && a[k] !== b[k]) {
+      return false;
+    }
   }
   for (k in b) {
-    if (b.hasOwnProperty(k) && a[k] !== b[k]) { return false; }
+    if (b.hasOwnProperty(k) && a[k] !== b[k]) {
+      return false;
+    }
   }
   return true;
 }

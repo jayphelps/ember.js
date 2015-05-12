@@ -1,12 +1,12 @@
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import { watch } from "ember-metal/watching";
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import { watch } from 'ember-metal/watching';
 import {
   hasPropertyAccessors,
   defineProperty
-} from "ember-metal/platform/define_property";
+} from 'ember-metal/platform/define_property';
 import create from 'ember-metal/platform/create';
-import { meta as metaFor } from "ember-metal/utils";
+import { meta as metaFor } from 'ember-metal/utils';
 
 QUnit.module('mandatory-setters');
 
@@ -35,12 +35,27 @@ if (Ember.FEATURES.isEnabled('mandatory-setter')) {
 
       var obj = { };
 
-      defineProperty(obj, 'a', { value: true });
-      defineProperty(obj, 'b', { value: false });
-      defineProperty(obj, 'c', { value: undefined });
-      defineProperty(obj, 'd', { value: undefined, writable: false });
-      defineProperty(obj, 'e', { value: undefined, configurable: false });
-      defineProperty(obj, 'f', { value: undefined, configurable: true });
+      defineProperty(obj, 'a', {
+        value: true
+      });
+      defineProperty(obj, 'b', {
+        value: false
+      });
+      defineProperty(obj, 'c', {
+        value: undefined
+      });
+      defineProperty(obj, 'd', {
+        value: undefined,
+        writable: false
+      });
+      defineProperty(obj, 'e', {
+        value: undefined,
+        configurable: false
+      });
+      defineProperty(obj, 'f', {
+        value: undefined,
+        configurable: true
+      });
 
       watch(obj, 'a');
       watch(obj, 'b');
@@ -60,7 +75,9 @@ if (Ember.FEATURES.isEnabled('mandatory-setter')) {
     QUnit.test('should not setup mandatory-setter if setter is already setup on property', function() {
       expect(2);
 
-      var obj = { someProp: null };
+      var obj = {
+        someProp: null
+      };
 
       defineProperty(obj, 'someProp', {
         set(value) {

@@ -3,8 +3,8 @@
 @submodule ember-htmlbars
 */
 
-import { hooks } from "htmlbars-runtime";
-import o_create from "ember-metal/platform/create";
+import { hooks } from 'htmlbars-runtime';
+import o_create from 'ember-metal/platform/create';
 
 /**
  @private

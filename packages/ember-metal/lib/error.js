@@ -1,4 +1,4 @@
-import create from "ember-metal/platform/create";
+import create from 'ember-metal/platform/create';
 
 var errorProps = [
   'description',

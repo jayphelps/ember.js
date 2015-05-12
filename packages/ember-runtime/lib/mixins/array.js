@@ -31,7 +31,7 @@ import { isWatching } from 'ember-metal/watching';
 
 function arrayObserversHelper(obj, target, opts, operation, notify) {
   var willChange = (opts && opts.willChange) || 'arrayWillChange';
-  var didChange  = (opts && opts.didChange) || 'arrayDidChange';
+  var didChange = (opts && opts.didChange) || 'arrayDidChange';
   var hasObservers = get(obj, 'hasArrayObservers');
 
   if (hasObservers === notify) {
@@ -306,7 +306,7 @@ export default Mixin.create(Enumerable, {
     var idx;
 
     if (startAt === undefined || startAt >= len) {
-      startAt = len-1;
+      startAt = len - 1;
     }
 
     if (startAt < 0) {
@@ -488,7 +488,7 @@ export default Mixin.create(Enumerable, {
       propertyDidChange(this, 'firstObject');
     }
 
-    if (this.objectAt(length-1) !== cachedLast) {
+    if (this.objectAt(length - 1) !== cachedLast) {
       propertyWillChange(this, 'lastObject');
       propertyDidChange(this, 'lastObject');
     }

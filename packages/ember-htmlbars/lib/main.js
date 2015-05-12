@@ -1,40 +1,40 @@
-import Ember from "ember-metal/core";
+import Ember from 'ember-metal/core';
 
 import {
   precompile,
   compile,
   template,
   registerPlugin
-} from "ember-template-compiler";
+} from 'ember-template-compiler';
 
-import makeViewHelper from "ember-htmlbars/system/make-view-helper";
-import makeBoundHelper from "ember-htmlbars/system/make_bound_helper";
+import makeViewHelper from 'ember-htmlbars/system/make-view-helper';
+import makeBoundHelper from 'ember-htmlbars/system/make_bound_helper';
 
 import {
   registerHelper
-} from "ember-htmlbars/helpers";
+} from 'ember-htmlbars/helpers';
 import {
   ifHelper,
   unlessHelper
-} from "ember-htmlbars/helpers/if_unless";
-import withHelper from "ember-htmlbars/helpers/with";
-import locHelper from "ember-htmlbars/helpers/loc";
-import logHelper from "ember-htmlbars/helpers/log";
-import eachHelper from "ember-htmlbars/helpers/each";
-import bindAttrClassHelper from "ember-htmlbars/helpers/-bind-attr-class";
-import normalizeClassHelper from "ember-htmlbars/helpers/-normalize-class";
-import concatHelper from "ember-htmlbars/helpers/-concat";
-import joinClassesHelper from "ember-htmlbars/helpers/-join-classes";
-import legacyEachWithControllerHelper from "ember-htmlbars/helpers/-legacy-each-with-controller";
-import DOMHelper from "ember-htmlbars/system/dom-helper";
+} from 'ember-htmlbars/helpers/if_unless';
+import withHelper from 'ember-htmlbars/helpers/with';
+import locHelper from 'ember-htmlbars/helpers/loc';
+import logHelper from 'ember-htmlbars/helpers/log';
+import eachHelper from 'ember-htmlbars/helpers/each';
+import bindAttrClassHelper from 'ember-htmlbars/helpers/-bind-attr-class';
+import normalizeClassHelper from 'ember-htmlbars/helpers/-normalize-class';
+import concatHelper from 'ember-htmlbars/helpers/-concat';
+import joinClassesHelper from 'ember-htmlbars/helpers/-join-classes';
+import legacyEachWithControllerHelper from 'ember-htmlbars/helpers/-legacy-each-with-controller';
+import DOMHelper from 'ember-htmlbars/system/dom-helper';
 
 // importing adds template bootstrapping
 // initializer to enable embedded templates
-import "ember-htmlbars/system/bootstrap";
+import 'ember-htmlbars/system/bootstrap';
 
 // importing ember-htmlbars/compat updates the
 // Ember.Handlebars global if htmlbars is enabled
-import "ember-htmlbars/compat";
+import 'ember-htmlbars/compat';
 
 registerHelper('if', ifHelper);
 registerHelper('unless', unlessHelper);

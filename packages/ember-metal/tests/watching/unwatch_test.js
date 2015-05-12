@@ -2,9 +2,9 @@ import { testBoth } from 'ember-metal/tests/props_helper';
 import {
   watch,
   unwatch
-} from "ember-metal/watching";
+} from 'ember-metal/watching';
 import { defineProperty } from 'ember-metal/properties';
-import { addListener } from "ember-metal/events";
+import { addListener } from 'ember-metal/events';
 import { computed } from 'ember-metal/computed';
 import { set } from 'ember-metal/property_set';
 
@@ -54,7 +54,9 @@ testBoth('unwatching a computed property - regular get/set', function(get, set) 
 
 testBoth('unwatching a regular property - regular get/set', function(get, set) {
 
-  var obj = { foo: 'BIFF' };
+  var obj = {
+    foo: 'BIFF'
+  };
   addListeners(obj, 'foo');
 
   watch(obj, 'foo');
@@ -71,7 +73,9 @@ testBoth('unwatching a regular property - regular get/set', function(get, set) {
 
 QUnit.test('unwatching should be nested', function() {
 
-  var obj = { foo: 'BIFF' };
+  var obj = {
+    foo: 'BIFF'
+  };
   addListeners(obj, 'foo');
 
   watch(obj, 'foo');
@@ -95,7 +99,9 @@ QUnit.test('unwatching should be nested', function() {
 
 testBoth('unwatching "length" property on an object', function(get, set) {
 
-  var obj = { foo: 'RUN' };
+  var obj = {
+    foo: 'RUN'
+  };
   addListeners(obj, 'length');
 
   // Can watch length when it is undefined

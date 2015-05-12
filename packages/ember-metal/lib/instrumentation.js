@@ -1,5 +1,5 @@
-import Ember from "ember-metal/core";
-import { tryCatchFinally } from "ember-metal/utils";
+import Ember from 'ember-metal/core';
+import { tryCatchFinally } from 'ember-metal/utils';
 
 /**
   The purpose of the Ember Instrumentation module is
@@ -54,7 +54,7 @@ var populateListeners = function(name) {
   var listeners = [];
   var subscriber;
 
-  for (var i=0, l=subscribers.length; i<l; i++) {
+  for (var i = 0, l = subscribers.length; i < l; i++) {
     subscriber = subscribers[i];
     if (subscriber.regex.test(name)) {
       listeners.push(subscriber.object);
@@ -95,7 +95,7 @@ export function instrument(name, _payload, callback, binding) {
     return callback.call(binding);
   }
   var payload = _payload || {};
-  var finalizer = _instrumentStart(name, function () {
+  var finalizer = _instrumentStart(name, function() {
     return payload;
   });
   if (finalizer) {
@@ -128,7 +128,7 @@ export function _instrumentStart(name, _payload) {
   var STRUCTURED_PROFILE = Ember.STRUCTURED_PROFILE;
   var timeName;
   if (STRUCTURED_PROFILE) {
-    timeName = name + ": " + payload.object;
+    timeName = name + ': ' + payload.object;
     console.time(timeName);
   }
 
@@ -136,7 +136,7 @@ export function _instrumentStart(name, _payload) {
   var beforeValues = new Array(l);
   var i, listener;
   var timestamp = time();
-  for (i=0; i<l; i++) {
+  for (i = 0; i < l; i++) {
     listener = listeners[i];
     beforeValues[i] = listener.before(name, timestamp, payload);
   }
@@ -144,7 +144,7 @@ export function _instrumentStart(name, _payload) {
   return function _instrumentEnd() {
     var i, l, listener;
     var timestamp = time();
-    for (i=0, l=listeners.length; i<l; i++) {
+    for (i = 0, l = listeners.length; i < l; i++) {
       listener = listeners[i];
       listener.after(name, timestamp, payload, beforeValues[i]);
     }
@@ -167,25 +167,25 @@ export function _instrumentStart(name, _payload) {
   @return {Subscriber}
 */
 export function subscribe(pattern, object) {
-  var paths = pattern.split(".");
+  var paths = pattern.split('.');
   var path;
   var regex = [];
 
-  for (var i=0, l=paths.length; i<l; i++) {
+  for (var i = 0, l = paths.length; i < l; i++) {
     path = paths[i];
-    if (path === "*") {
-      regex.push("[^\\.]*");
+    if (path === '*') {
+      regex.push('[^\\.]*');
     } else {
       regex.push(path);
     }
   }
 
-  regex = regex.join("\\.");
-  regex = regex + "(\\..*)?";
+  regex = regex.join('\\.');
+  regex = regex + '(\\..*)?';
 
   var subscriber = {
     pattern: pattern,
-    regex: new RegExp("^" + regex + "$"),
+    regex: new RegExp('^' + regex + '$'),
     object: object
   };
 
@@ -206,7 +206,7 @@ export function subscribe(pattern, object) {
 export function unsubscribe(subscriber) {
   var index;
 
-  for (var i=0, l=subscribers.length; i<l; i++) {
+  for (var i = 0, l = subscribers.length; i < l; i++) {
     if (subscribers[i] === subscriber) {
       index = i;
     }

@@ -1,17 +1,21 @@
-import { computed } from "ember-metal/computed";
-import { get as emberGet } from "ember-metal/property_get";
-import { observer } from "ember-metal/mixin";
-import { testWithDefault } from "ember-metal/tests/props_helper";
-import EmberObject from "ember-runtime/system/object";
+import { computed } from 'ember-metal/computed';
+import { get as emberGet } from 'ember-metal/property_get';
+import { observer } from 'ember-metal/mixin';
+import { testWithDefault } from 'ember-metal/tests/props_helper';
+import EmberObject from 'ember-runtime/system/object';
 
-function K() { return this; }
+function K() {
+  return this;
+}
 
 QUnit.module('EmberObject computed property');
 
 testWithDefault('computed property on instance', function(get, set) {
 
   var MyClass = EmberObject.extend({
-    foo: computed(function() { return 'FOO'; })
+    foo: computed(function() {
+      return 'FOO';
+    })
   });
 
   equal(get(new MyClass(), 'foo'), 'FOO');
@@ -22,11 +26,15 @@ testWithDefault('computed property on instance', function(get, set) {
 testWithDefault('computed property on subclass', function(get, set) {
 
   var MyClass = EmberObject.extend({
-    foo: computed(function() { return 'FOO'; })
+    foo: computed(function() {
+      return 'FOO';
+    })
   });
 
   var Subclass = MyClass.extend({
-    foo: computed(function() { return 'BAR'; })
+    foo: computed(function() {
+      return 'BAR';
+    })
   });
 
   equal(get(new Subclass(), 'foo'), 'BAR');
@@ -37,7 +45,9 @@ testWithDefault('computed property on subclass', function(get, set) {
 testWithDefault('replacing computed property with regular val', function(get, set) {
 
   var MyClass = EmberObject.extend({
-    foo: computed(function() { return 'FOO'; })
+    foo: computed(function() {
+      return 'FOO';
+    })
   });
 
   var Subclass = MyClass.extend({
@@ -54,13 +64,15 @@ testWithDefault('complex depndent keys', function(get, set) {
 
     init() {
       this._super.apply(this, arguments);
-      set(this, 'bar', { baz: 'BIFF' });
+      set(this, 'bar', {
+        baz: 'BIFF'
+      });
     },
 
     count: 0,
 
     foo: computed(function() {
-      set(this, 'count', get(this, 'count')+1);
+      set(this, 'count', get(this, 'count') + 1);
       return emberGet(get(this, 'bar'), 'baz') + ' ' + get(this, 'count');
     }).property('bar.baz')
 
@@ -93,13 +105,15 @@ testWithDefault('complex dependent keys changing complex dependent keys', functi
 
     init() {
       this._super.apply(this, arguments);
-      set(this, 'bar', { baz: 'BIFF' });
+      set(this, 'bar', {
+        baz: 'BIFF'
+      });
     },
 
     count: 0,
 
     foo: computed(function() {
-      set(this, 'count', get(this, 'count')+1);
+      set(this, 'count', get(this, 'count') + 1);
       return emberGet(get(this, 'bar'), 'baz') + ' ' + get(this, 'count');
     }).property('bar.baz')
 
@@ -109,13 +123,15 @@ testWithDefault('complex dependent keys changing complex dependent keys', functi
 
     init() {
       this._super.apply(this, arguments);
-      set(this, 'bar2', { baz: 'BIFF2' });
+      set(this, 'bar2', {
+        baz: 'BIFF2'
+      });
     },
 
     count: 0,
 
     foo: computed(function() {
-      set(this, 'count', get(this, 'count')+1);
+      set(this, 'count', get(this, 'count') + 1);
       return emberGet(get(this, 'bar2'), 'baz') + ' ' + get(this, 'count');
     }).property('bar2.baz')
   });
@@ -131,57 +147,49 @@ testWithDefault('complex dependent keys changing complex dependent keys', functi
   equal(get(obj2, 'foo'), 'BLARG 2', 'should invalidate property');
 });
 
-QUnit.test("can retrieve metadata for a computed property", function() {
+QUnit.test('can retrieve metadata for a computed property', function() {
   var MyClass = EmberObject.extend({
-    computedProperty: computed(function() {
-    }).meta({ key: 'keyValue' })
+    computedProperty: computed(function() {}).meta({
+      key: 'keyValue'
+    })
   });
 
-  equal(emberGet(MyClass.metaForProperty('computedProperty'), 'key'), 'keyValue', "metadata saved on the computed property can be retrieved");
+  equal(emberGet(MyClass.metaForProperty('computedProperty'), 'key'), 'keyValue', 'metadata saved on the computed property can be retrieved');
 
   var ClassWithNoMetadata = EmberObject.extend({
-    computedProperty: computed(function() {
-    }).volatile(),
+    computedProperty: computed(function() {}).volatile(),
 
     staticProperty: 12
   });
 
-  equal(typeof ClassWithNoMetadata.metaForProperty('computedProperty'), "object", "returns empty hash if no metadata has been saved");
+  equal(typeof ClassWithNoMetadata.metaForProperty('computedProperty'), 'object', 'returns empty hash if no metadata has been saved');
 
   expectAssertion(function() {
     ClassWithNoMetadata.metaForProperty('nonexistentProperty');
-  }, "metaForProperty() could not find a computed property with key 'nonexistentProperty'.");
+  }, 'metaForProperty() could not find a computed property with key \'nonexistentProperty\'.');
 
   expectAssertion(function() {
     ClassWithNoMetadata.metaForProperty('staticProperty');
-  }, "metaForProperty() could not find a computed property with key 'staticProperty'.");
+  }, 'metaForProperty() could not find a computed property with key \'staticProperty\'.');
 });
 
-QUnit.test("can iterate over a list of computed properties for a class", function() {
+QUnit.test('can iterate over a list of computed properties for a class', function() {
   var MyClass = EmberObject.extend({
-    foo: computed(function() {
+    foo: computed(function() {}),
 
-    }),
+    fooDidChange: observer('foo', function() {}),
 
-    fooDidChange: observer('foo', function() {
-
-    }),
-
-    bar: computed(function() {
-
-    })
+    bar: computed(function() {})
   });
 
   var SubClass = MyClass.extend({
-    baz: computed(function() {
-
-    })
+    baz: computed(function() {})
   });
 
   SubClass.reopen({
-    bat: computed(function() {
-
-    }).meta({ iAmBat: true })
+    bat: computed(function() {}).meta({
+      iAmBat: true
+    })
   });
 
   var list = [];
@@ -190,7 +198,7 @@ QUnit.test("can iterate over a list of computed properties for a class", functio
     list.push(name);
   });
 
-  deepEqual(list.sort(), ['bar', 'foo'], "watched and unwatched computed properties are iterated");
+  deepEqual(list.sort(), ['bar', 'foo'], 'watched and unwatched computed properties are iterated');
 
   list = [];
 
@@ -198,22 +206,22 @@ QUnit.test("can iterate over a list of computed properties for a class", functio
     list.push(name);
 
     if (name === 'bat') {
-      deepEqual(meta, { iAmBat: true });
+      deepEqual(meta, {
+        iAmBat: true
+      });
     } else {
       deepEqual(meta, {});
     }
   });
 
-  deepEqual(list.sort(), ['bar', 'bat', 'baz', 'foo'], "all inherited properties are included");
+  deepEqual(list.sort(), ['bar', 'bat', 'baz', 'foo'], 'all inherited properties are included');
 });
 
-QUnit.test("list of properties updates when an additional property is added (such cache busting)", function() {
+QUnit.test('list of properties updates when an additional property is added (such cache busting)', function() {
   var MyClass = EmberObject.extend({
     foo: computed(K),
 
-    fooDidChange: observer('foo', function() {
-
-    }),
+    fooDidChange: observer('foo', function() {}),
 
     bar: computed(K)
   });

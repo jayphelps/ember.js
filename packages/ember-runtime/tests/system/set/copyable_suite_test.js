@@ -1,5 +1,5 @@
 import CopyableTests from 'ember-runtime/tests/suites/copyable';
-import Set from "ember-runtime/system/set";
+import Set from 'ember-runtime/system/set';
 import {generateGuid} from 'ember-metal/utils';
 import {get} from 'ember-metal/property_get';
 

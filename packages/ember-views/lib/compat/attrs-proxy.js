@@ -1,24 +1,24 @@
-import { get } from "ember-metal/property_get";
-//import { set } from "ember-metal/property_set";
-import { Mixin } from "ember-metal/mixin";
-import { on } from "ember-metal/events";
-import { symbol } from "ember-metal/utils";
-import objectKeys from "ember-metal/keys";
-import { PROPERTY_DID_CHANGE } from "ember-metal/property_events";
-//import run from "ember-metal/run_loop";
+import { get } from 'ember-metal/property_get';
+//import { set } from 'ember-metal/property_set';
+import { Mixin } from 'ember-metal/mixin';
+import { on } from 'ember-metal/events';
+import { symbol } from 'ember-metal/utils';
+import objectKeys from 'ember-metal/keys';
+import { PROPERTY_DID_CHANGE } from 'ember-metal/property_events';
+//import run from 'ember-metal/run_loop';
 
 import {
   addObserver,
   removeObserver,
   addBeforeObserver,
   removeBeforeObserver
-} from "ember-metal/observer";
+} from 'ember-metal/observer';
 
 export function deprecation(key) {
   return `You tried to look up an attribute directly on the component. This is deprecated. Use attrs.${key} instead.`;
 }
 
-export let MUTABLE_CELL = symbol("MUTABLE_CELL");
+export let MUTABLE_CELL = symbol('MUTABLE_CELL');
 
 function isCell(val) {
   return val && val[MUTABLE_CELL];
@@ -39,7 +39,9 @@ let AttrsProxyMixin = {
 
   getAttr(key) {
     let attrs = this.attrs;
-    if (!attrs) { return; }
+    if (!attrs) {
+      return;
+    }
     return this.getAttrFor(attrs, key);
   },
 
@@ -60,7 +62,9 @@ let AttrsProxyMixin = {
   },
 
   willWatchProperty(key) {
-    if (key === 'attrs') { return; }
+    if (key === 'attrs') {
+      return;
+    }
 
     let attrsKey = `attrs.${key}`;
     addBeforeObserver(this, attrsKey, null, attrsWillChange);
@@ -68,7 +72,9 @@ let AttrsProxyMixin = {
   },
 
   didUnwatchProperty(key) {
-    if (key === 'attrs') { return; }
+    if (key === 'attrs') {
+      return;
+    }
 
     let attrsKey = `attrs.${key}`;
     removeBeforeObserver(this, attrsKey, null, attrsWillChange);
@@ -78,7 +84,7 @@ let AttrsProxyMixin = {
   legacyDidReceiveAttrs: on('didReceiveAttrs', function() {
     var keys = objectKeys(this.attrs);
 
-    for (var i=0, l=keys.length; i<l; i++) {
+    for (var i = 0, l = keys.length; i < l; i++) {
       // Only issue the deprecation if it wasn't already issued when
       // setting attributes initially.
       if (!(keys[i] in this)) {

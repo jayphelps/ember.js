@@ -1,19 +1,21 @@
-import Ember from "ember-metal/core";
-import run from "ember-metal/run_loop";
-import { observersFor } from "ember-metal/observer";
-import { changeProperties } from "ember-metal/property_events";
-import { SafeString } from "ember-htmlbars/utils/string";
+import Ember from 'ember-metal/core';
+import run from 'ember-metal/run_loop';
+import { observersFor } from 'ember-metal/observer';
+import { changeProperties } from 'ember-metal/property_events';
+import { SafeString } from 'ember-htmlbars/utils/string';
 
-import EmberView from "ember-views/views/view";
+import EmberView from 'ember-views/views/view';
 
 var originalLookup = Ember.lookup;
 var lookup, view;
 
 var appendView = function() {
-  run(function() { view.appendTo('#qunit-fixture'); });
+  run(function() {
+    view.appendTo('#qunit-fixture');
+  });
 };
 
-QUnit.module("EmberView - Attribute Bindings", {
+QUnit.module('EmberView - Attribute Bindings', {
   setup() {
     Ember.lookup = lookup = {};
   },
@@ -28,7 +30,7 @@ QUnit.module("EmberView - Attribute Bindings", {
   }
 });
 
-QUnit.test("should render attribute bindings", function() {
+QUnit.test('should render attribute bindings', function() {
   view = EmberView.create({
     attributeBindings: ['type', 'destroyed', 'exists', 'nothing', 'notDefined', 'notNumber', 'explosions'],
 
@@ -42,13 +44,13 @@ QUnit.test("should render attribute bindings", function() {
     view.createElement();
   });
 
-  equal(view.$().attr('type'), 'submit', "updates type attribute");
-  ok(view.$().attr('exists'), "adds exists attribute when true");
-  ok(!view.$().attr('nothing'), "removes nothing attribute when null");
-  equal(view.$().attr('notDefined'), undefined, "removes notDefined attribute when undefined");
+  equal(view.$().attr('type'), 'submit', 'updates type attribute');
+  ok(view.$().attr('exists'), 'adds exists attribute when true');
+  ok(!view.$().attr('nothing'), 'removes nothing attribute when null');
+  equal(view.$().attr('notDefined'), undefined, 'removes notDefined attribute when undefined');
 });
 
-QUnit.test("should normalize case for attribute bindings", function() {
+QUnit.test('should normalize case for attribute bindings', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['disAbled'],
@@ -59,10 +61,10 @@ QUnit.test("should normalize case for attribute bindings", function() {
     view.createElement();
   });
 
-  ok(view.$().prop('disabled'), "sets property with correct case");
+  ok(view.$().prop('disabled'), 'sets property with correct case');
 });
 
-QUnit.test("should render attribute bindings on input", function() {
+QUnit.test('should render attribute bindings on input', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['type', 'isDisabled:disabled'],
@@ -75,11 +77,11 @@ QUnit.test("should render attribute bindings on input", function() {
     view.createElement();
   });
 
-  equal(view.$().attr('type'), 'submit', "updates type attribute");
-  ok(view.$().prop('disabled'), "supports customizing attribute name for Boolean values");
+  equal(view.$().attr('type'), 'submit', 'updates type attribute');
+  ok(view.$().prop('disabled'), 'supports customizing attribute name for Boolean values');
 });
 
-QUnit.test("should update attribute bindings", function() {
+QUnit.test('should update attribute bindings', function() {
   view = EmberView.create({
     attributeBindings: ['type', 'color:data-color', 'exploded', 'collapsed', 'times'],
     type: 'reset',
@@ -93,10 +95,10 @@ QUnit.test("should update attribute bindings", function() {
     view.createElement();
   });
 
-  equal(view.$().attr('type'), 'reset', "adds type attribute");
-  equal(view.$().attr('data-color'), 'red', "attr value set with ternary");
-  equal(view.$().attr('exploded'), 'bang', "adds exploded attribute when it has a value");
-  ok(!view.$().attr('collapsed'), "does not add null attribute");
+  equal(view.$().attr('type'), 'reset', 'adds type attribute');
+  equal(view.$().attr('data-color'), 'red', 'attr value set with ternary');
+  equal(view.$().attr('exploded'), 'bang', 'adds exploded attribute when it has a value');
+  ok(!view.$().attr('collapsed'), 'does not add null attribute');
   equal(view.$().attr('times'), '15', 'sets an integer to an attribute');
 
   run(function() {
@@ -107,14 +109,14 @@ QUnit.test("should update attribute bindings", function() {
     view.set('times', 16);
   });
 
-  equal(view.$().attr('type'), 'submit', "adds type attribute");
-  equal(view.$().attr('data-color'), 'blue', "attr value set with ternary");
-  ok(!view.$().attr('exploded'), "removed exploded attribute when it is null");
-  ok(view.$().attr('collapsed'), "swish", "adds an attribute when it has a value");
+  equal(view.$().attr('type'), 'submit', 'adds type attribute');
+  equal(view.$().attr('data-color'), 'blue', 'attr value set with ternary');
+  ok(!view.$().attr('exploded'), 'removed exploded attribute when it is null');
+  ok(view.$().attr('collapsed'), 'swish', 'adds an attribute when it has a value');
   equal(view.$().attr('times'), '16', 'updates an integer attribute');
 });
 
-QUnit.test("should update attribute bindings on input (boolean)", function() {
+QUnit.test('should update attribute bindings on input (boolean)', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['disabled'],
@@ -125,16 +127,16 @@ QUnit.test("should update attribute bindings on input (boolean)", function() {
     view.createElement();
   });
 
-  ok(view.$().prop('disabled'), "adds disabled property when true");
+  ok(view.$().prop('disabled'), 'adds disabled property when true');
 
   run(function() {
     view.set('disabled', false);
   });
 
-  ok(!view.$().prop('disabled'), "updates disabled property when false");
+  ok(!view.$().prop('disabled'), 'updates disabled property when false');
 });
 
-QUnit.test("should update attribute bindings on input (raw number prop)", function() {
+QUnit.test('should update attribute bindings on input (raw number prop)', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['size'],
@@ -145,16 +147,16 @@ QUnit.test("should update attribute bindings on input (raw number prop)", functi
     view.createElement();
   });
 
-  equal(view.$().prop('size'), 20, "adds size property");
+  equal(view.$().prop('size'), 20, 'adds size property');
 
   run(function() {
     view.set('size', 10);
   });
 
-  equal(view.$().prop('size'), 10, "updates size property");
+  equal(view.$().prop('size'), 10, 'updates size property');
 });
 
-QUnit.test("should update attribute bindings on input (name)", function() {
+QUnit.test('should update attribute bindings on input (name)', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['name'],
@@ -165,16 +167,16 @@ QUnit.test("should update attribute bindings on input (name)", function() {
     view.createElement();
   });
 
-  equal(view.$().prop('name'), 'bloody-awful', "adds name property");
+  equal(view.$().prop('name'), 'bloody-awful', 'adds name property');
 
   run(function() {
     view.set('name', 'simply-grand');
   });
 
-  equal(view.$().prop('name'), 'simply-grand', "updates name property");
+  equal(view.$().prop('name'), 'simply-grand', 'updates name property');
 });
 
-QUnit.test("should update attribute bindings with micro syntax", function() {
+QUnit.test('should update attribute bindings with micro syntax', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['isDisabled:disabled'],
@@ -185,15 +187,15 @@ QUnit.test("should update attribute bindings with micro syntax", function() {
   run(function() {
     view.createElement();
   });
-  ok(view.$().prop('disabled'), "adds disabled property when true");
+  ok(view.$().prop('disabled'), 'adds disabled property when true');
 
   run(function() {
     view.set('isDisabled', false);
   });
-  ok(!view.$().prop('disabled'), "updates disabled property when false");
+  ok(!view.$().prop('disabled'), 'updates disabled property when false');
 });
 
-QUnit.test("should allow namespaced attributes in micro syntax", function () {
+QUnit.test('should allow namespaced attributes in micro syntax', function() {
   view = EmberView.create({
     attributeBindings: ['xlinkHref:xlink:href'],
     xlinkHref: '/foo.png'
@@ -202,15 +204,15 @@ QUnit.test("should allow namespaced attributes in micro syntax", function () {
   run(function() {
     view.createElement();
   });
-  equal(view.$().attr('xlink:href'), '/foo.png', "namespaced attribute is set");
+  equal(view.$().attr('xlink:href'), '/foo.png', 'namespaced attribute is set');
 
-  run(function () {
+  run(function() {
     view.set('xlinkHref', '/bar.png');
   });
-  equal(view.$().attr('xlink:href'), '/bar.png', "namespaced attribute is updated");
+  equal(view.$().attr('xlink:href'), '/bar.png', 'namespaced attribute is updated');
 });
 
-QUnit.test("should update attribute bindings on svg", function() {
+QUnit.test('should update attribute bindings on svg', function() {
   view = EmberView.create({
     attributeBindings: ['viewBox'],
     viewBox: null
@@ -220,23 +222,25 @@ QUnit.test("should update attribute bindings on svg", function() {
     view.createElement();
   });
 
-  equal(view.$().attr('viewBox'), null, "viewBox can be null");
+  equal(view.$().attr('viewBox'), null, 'viewBox can be null');
 
   run(function() {
     view.set('viewBox', '0 0 100 100');
   });
 
-  equal(view.$().attr('viewBox'), '0 0 100 100', "viewBox can be updated");
+  equal(view.$().attr('viewBox'), '0 0 100 100', 'viewBox can be updated');
 });
 
 // This comes into play when using the {{#each}} helper. If the
 // passed array item is a String, it will be converted into a
 // String object instead of a normal string.
-QUnit.test("should allow binding to String objects", function() {
+QUnit.test('should allow binding to String objects', function() {
   view = EmberView.create({
     attributeBindings: ['foo'],
     // JSHint doesn't like `new String` so we'll create it the same way it gets created in practice
-    foo: (function() { return this; }).call("bar")
+    foo: (function() {
+      return this;
+    }).call('bar')
   });
 
   run(function() {
@@ -244,16 +248,16 @@ QUnit.test("should allow binding to String objects", function() {
   });
 
 
-  equal(view.$().attr('foo'), 'bar', "should convert String object to bare string");
+  equal(view.$().attr('foo'), 'bar', 'should convert String object to bare string');
 
   run(function() {
     view.set('foo', null);
   });
 
-  ok(!view.$().attr('foo'), "removes foo attribute when null");
+  ok(!view.$().attr('foo'), 'removes foo attribute when null');
 });
 
-QUnit.test("should teardown observers on rerender", function() {
+QUnit.test('should teardown observers on rerender', function() {
   view = EmberView.create({
     attributeBindings: ['foo'],
     classNameBindings: ['foo'],
@@ -271,7 +275,7 @@ QUnit.test("should teardown observers on rerender", function() {
   equal(observersFor(view, 'foo').length, 1, 'observer count after rerender remains one');
 });
 
-QUnit.test("handles attribute bindings for properties", function() {
+QUnit.test('handles attribute bindings for properties', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['checked'],
@@ -295,25 +299,25 @@ QUnit.test("handles attribute bindings for properties", function() {
   equal(!!view.$().prop('checked'), false, 'changes to unchecked');
 });
 
-QUnit.test("handles `undefined` value for properties", function() {
+QUnit.test('handles `undefined` value for properties', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['value'],
-    value: "test"
+    value: 'test'
   });
 
   appendView();
 
-  equal(view.$().prop('value'), "test", "value is defined");
+  equal(view.$().prop('value'), 'test', 'value is defined');
 
   run(function() {
     view.set('value', undefined);
   });
 
-  equal(view.$().prop('value'), '', "value is blank");
+  equal(view.$().prop('value'), '', 'value is blank');
 });
 
-QUnit.test("handles null value for attributes on text fields", function() {
+QUnit.test('handles null value for attributes on text fields', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['value']
@@ -323,16 +327,16 @@ QUnit.test("handles null value for attributes on text fields", function() {
 
   view.$().attr('value', 'test');
 
-  equal(view.$().attr('value'), "test", "value is defined");
+  equal(view.$().attr('value'), 'test', 'value is defined');
 
   run(function() {
     view.set('value', null);
   });
 
-  equal(!!view.$().prop('value'), false, "value is not defined");
+  equal(!!view.$().prop('value'), false, 'value is not defined');
 });
 
-QUnit.test("handles a 0 value attribute on text fields", function() {
+QUnit.test('handles a 0 value attribute on text fields', function() {
   view = EmberView.create({
     tagName: 'input',
     attributeBindings: ['value']
@@ -341,15 +345,15 @@ QUnit.test("handles a 0 value attribute on text fields", function() {
   appendView();
 
   view.$().attr('value', 'test');
-  equal(view.$().attr('value'), "test", "value is defined");
+  equal(view.$().attr('value'), 'test', 'value is defined');
 
   run(function() {
     view.set('value', 0);
   });
-  strictEqual(view.$().prop('value'), "0", "value should be 0");
+  strictEqual(view.$().prop('value'), '0', 'value should be 0');
 });
 
-QUnit.test("attributeBindings should not fail if view has been removed", function() {
+QUnit.test('attributeBindings should not fail if view has been removed', function() {
   run(function() {
     view = EmberView.create({
       attributeBindings: ['checked'],
@@ -367,13 +371,13 @@ QUnit.test("attributeBindings should not fail if view has been removed", functio
         view.remove();
       });
     });
-  } catch(e) {
+  } catch (e) {
     error = e;
   }
   ok(!error, error);
 });
 
-QUnit.test("attributeBindings should not fail if view has been destroyed", function() {
+QUnit.test('attributeBindings should not fail if view has been destroyed', function() {
   run(function() {
     view = EmberView.create({
       attributeBindings: ['checked'],
@@ -391,13 +395,13 @@ QUnit.test("attributeBindings should not fail if view has been destroyed", funct
         view.destroy();
       });
     });
-  } catch(e) {
+  } catch (e) {
     error = e;
   }
   ok(!error, error);
 });
 
-QUnit.test("asserts if an attributeBinding is setup on class", function() {
+QUnit.test('asserts if an attributeBinding is setup on class', function() {
   view = EmberView.create({
     attributeBindings: ['class']
   });
@@ -411,40 +415,40 @@ QUnit.test("asserts if an attributeBinding is setup on class", function() {
   view._renderNode = null;
 });
 
-QUnit.test("blacklists href bindings based on protocol", function() {
+QUnit.test('blacklists href bindings based on protocol', function() {
   /* jshint scripturl:true */
 
   view = EmberView.create({
     tagName: 'a',
     attributeBindings: ['href'],
-    href: "javascript:alert('foo')"
+    href: 'javascript:alert(\'foo\')'
   });
 
   appendView();
 
-  equal(view.$().attr('href'), "unsafe:javascript:alert('foo')", "value property sanitized");
+  equal(view.$().attr('href'), 'unsafe:javascript:alert(\'foo\')', 'value property sanitized');
 
   run(function() {
     view.set('href', new SafeString(view.get('href')));
   });
 
-  equal(view.$().attr('href'), "javascript:alert('foo')", "value is not defined");
+  equal(view.$().attr('href'), 'javascript:alert(\'foo\')', 'value is not defined');
 });
 
-QUnit.test("attributeBindings should be overridable", function() {
+QUnit.test('attributeBindings should be overridable', function() {
   var ParentView = EmberView.extend({
     attributeBindings: ['href'],
-    href: "an href"
+    href: 'an href'
   });
 
   var ChildView = ParentView.extend({
     attributeBindings: ['newHref:href'],
-    newHref: "a new href"
+    newHref: 'a new href'
   });
 
   view = ChildView.create();
 
   appendView();
 
-  equal(view.$().attr('href'), "a new href", "expect value from subclass attribute binding");
+  equal(view.$().attr('href'), 'a new href', 'expect value from subclass attribute binding');
 });

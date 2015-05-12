@@ -1,18 +1,24 @@
-import {get} from "ember-metal/property_get";
-import EmberObject from "ember-runtime/system/object";
+import {get} from 'ember-metal/property_get';
+import EmberObject from 'ember-runtime/system/object';
 
 QUnit.module('EmberObject.extend');
 
 QUnit.test('Basic extend', function() {
-  var SomeClass = EmberObject.extend({ foo: 'BAR' });
-  ok(SomeClass.isClass, "A class has isClass of true");
+  var SomeClass = EmberObject.extend({
+    foo: 'BAR'
+  });
+  ok(SomeClass.isClass, 'A class has isClass of true');
   var obj = new SomeClass();
   equal(obj.foo, 'BAR');
 });
 
 QUnit.test('Sub-subclass', function() {
-  var SomeClass = EmberObject.extend({ foo: 'BAR' });
-  var AnotherClass = SomeClass.extend({ bar: 'FOO' });
+  var SomeClass = EmberObject.extend({
+    foo: 'BAR'
+  });
+  var AnotherClass = SomeClass.extend({
+    bar: 'FOO'
+  });
   var obj = new AnotherClass();
   equal(obj.foo, 'BAR');
   equal(obj.bar, 'FOO');
@@ -21,10 +27,14 @@ QUnit.test('Sub-subclass', function() {
 QUnit.test('Overriding a method several layers deep', function() {
   var SomeClass = EmberObject.extend({
     fooCnt: 0,
-    foo() { this.fooCnt++; },
+    foo() {
+      this.fooCnt++;
+    },
 
     barCnt: 0,
-    bar() { this.barCnt++; }
+    bar() {
+      this.barCnt++;
+    }
   });
 
   var AnotherClass = SomeClass.extend({
@@ -64,15 +74,22 @@ QUnit.test('Overriding a method several layers deep', function() {
 });
 
 QUnit.test('With concatenatedProperties', function() {
-  var SomeClass = EmberObject.extend({ things: 'foo', concatenatedProperties: ['things'] });
-  var AnotherClass = SomeClass.extend({ things: 'bar' });
-  var YetAnotherClass = SomeClass.extend({ things: 'baz' });
+  var SomeClass = EmberObject.extend({
+    things: 'foo',
+    concatenatedProperties: ['things']
+  });
+  var AnotherClass = SomeClass.extend({
+    things: 'bar'
+  });
+  var YetAnotherClass = SomeClass.extend({
+    things: 'baz'
+  });
   var some = new SomeClass();
   var another = new AnotherClass();
   var yetAnother = new YetAnotherClass();
   deepEqual(some.get('things'), ['foo'], 'base class should have just its value');
-  deepEqual(another.get('things'), ['foo', 'bar'], "subclass should have base class' and its own");
-  deepEqual(yetAnother.get('things'), ['foo', 'baz'], "subclass should have base class' and its own");
+  deepEqual(another.get('things'), ['foo', 'bar'], 'subclass should have base class\' and its own');
+  deepEqual(yetAnother.get('things'), ['foo', 'baz'], 'subclass should have base class\' and its own');
 });
 
 QUnit.test('With concatenatedProperties class properties', function() {
@@ -82,14 +99,18 @@ QUnit.test('With concatenatedProperties class properties', function() {
     things: 'foo'
   });
   var AnotherClass = SomeClass.extend();
-  AnotherClass.reopenClass({ things: 'bar' });
+  AnotherClass.reopenClass({
+    things: 'bar'
+  });
   var YetAnotherClass = SomeClass.extend();
-  YetAnotherClass.reopenClass({ things: 'baz' });
+  YetAnotherClass.reopenClass({
+    things: 'baz'
+  });
   var some = new SomeClass();
   var another = new AnotherClass();
   var yetAnother = new YetAnotherClass();
   deepEqual(get(some.constructor, 'things'), ['foo'], 'base class should have just its value');
-  deepEqual(get(another.constructor, 'things'), ['foo', 'bar'], "subclass should have base class' and its own");
-  deepEqual(get(yetAnother.constructor, 'things'), ['foo', 'baz'], "subclass should have base class' and its own");
+  deepEqual(get(another.constructor, 'things'), ['foo', 'bar'], 'subclass should have base class\' and its own');
+  deepEqual(get(yetAnother.constructor, 'things'), ['foo', 'baz'], 'subclass should have base class\' and its own');
 });
 

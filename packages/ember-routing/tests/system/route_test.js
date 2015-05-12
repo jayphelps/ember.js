@@ -1,9 +1,9 @@
-import { runDestroy } from "ember-runtime/tests/utils";
-import Registry from "container/registry";
-import Service from "ember-runtime/system/service";
-import EmberObject from "ember-runtime/system/object";
-import EmberRoute from "ember-routing/system/route";
-import inject from "ember-runtime/inject";
+import { runDestroy } from 'ember-runtime/tests/utils';
+import Registry from 'container/registry';
+import Service from 'ember-runtime/system/service';
+import EmberObject from 'ember-runtime/system/object';
+import EmberRoute from 'ember-routing/system/route';
+import inject from 'ember-runtime/inject';
 
 var route, routeOne, routeTwo, lookupHash;
 
@@ -15,12 +15,12 @@ function teardown() {
   runDestroy(route);
 }
 
-QUnit.module("Ember.Route", {
+QUnit.module('Ember.Route', {
   setup: setup,
   teardown: teardown
 });
 
-QUnit.test("default store utilizes the container to acquire the model factory", function() {
+QUnit.test('default store utilizes the container to acquire the model factory', function() {
   expect(4);
 
   var Post = EmberObject.extend();
@@ -38,7 +38,7 @@ QUnit.test("default store utilizes the container to acquire the model factory", 
     },
 
     lookupFactory(fullName) {
-      equal(fullName, "model:post", "correct factory was looked up");
+      equal(fullName, 'model:post', 'correct factory was looked up');
 
       return Post;
     }
@@ -46,11 +46,13 @@ QUnit.test("default store utilizes the container to acquire the model factory", 
 
   route.set('_qp', null);
 
-  equal(route.model({ post_id: 1 }), post);
+  equal(route.model({
+    post_id: 1
+  }), post);
   equal(route.findModel('post', 1), post, '#findModel returns the correct post');
 });
 
-QUnit.test("'store' can be injected by data persistence frameworks", function() {
+QUnit.test('\'store\' can be injected by data persistence frameworks', function() {
   expect(8);
   runDestroy(route);
 
@@ -76,11 +78,13 @@ QUnit.test("'store' can be injected by data persistence frameworks", function() 
 
   route = container.lookup('route:index');
 
-  equal(route.model({ post_id: 1 }), post, '#model returns the correct post');
+  equal(route.model({
+    post_id: 1
+  }), post, '#model returns the correct post');
   equal(route.findModel('post', 1), post, '#findModel returns the correct post');
 });
 
-QUnit.test("assert if 'store.find' method is not found", function() {
+QUnit.test('assert if \'store.find\' method is not found', function() {
   expect(1);
   runDestroy(route);
 
@@ -98,7 +102,7 @@ QUnit.test("assert if 'store.find' method is not found", function() {
   }, 'Post has no method `find`.');
 });
 
-QUnit.test("asserts if model class is not found", function() {
+QUnit.test('asserts if model class is not found', function() {
   expect(1);
   runDestroy(route);
 
@@ -109,11 +113,13 @@ QUnit.test("asserts if model class is not found", function() {
   route = container.lookup('route:index');
 
   expectAssertion(function() {
-    route.model({ post_id: 1 });
-  }, "You used the dynamic segment post_id in your route undefined, but undefined.Post did not exist and you did not override your route's `model` hook.");
+    route.model({
+      post_id: 1
+    });
+  }, 'You used the dynamic segment post_id in your route undefined, but undefined.Post did not exist and you did not override your route\'s `model` hook.');
 });
 
-QUnit.test("'store' does not need to be injected", function() {
+QUnit.test('\'store\' does not need to be injected', function() {
   expect(1);
 
   runDestroy(route);
@@ -126,18 +132,22 @@ QUnit.test("'store' does not need to be injected", function() {
   route = container.lookup('route:index');
 
   ignoreAssertion(function() {
-    route.model({ post_id: 1 });
+    route.model({
+      post_id: 1
+    });
   });
 
   ok(true, 'no error was raised');
 });
 
-QUnit.test("modelFor doesn't require the router", function() {
+QUnit.test('modelFor doesn\'t require the router', function() {
   var registry = new Registry();
   var container = registry.container();
   route.container = container;
 
-  var foo = { name: 'foo' };
+  var foo = {
+    name: 'foo'
+  };
 
   var fooRoute = EmberRoute.extend({
     container: container,
@@ -150,7 +160,7 @@ QUnit.test("modelFor doesn't require the router", function() {
 });
 
 
-QUnit.test(".send just calls an action if the router is absent", function() {
+QUnit.test('.send just calls an action if the router is absent', function() {
   expect(7);
   var route = EmberRoute.createWithMixins({
     actions: {
@@ -162,7 +172,7 @@ QUnit.test(".send just calls an action if the router is absent", function() {
       },
 
       returnsFalse() {
-        ok(true, "returnsFalse was called");
+        ok(true, 'returnsFalse was called');
         return false;
       }
     }
@@ -174,34 +184,49 @@ QUnit.test(".send just calls an action if the router is absent", function() {
 });
 
 
-QUnit.module("Ember.Route serialize", {
+QUnit.module('Ember.Route serialize', {
   setup: setup,
   teardown: teardown
 });
 
-QUnit.test("returns the models properties if params does not include *_id", function() {
-  var model = { id: 2, firstName: 'Ned', lastName: 'Ryerson' };
+QUnit.test('returns the models properties if params does not include *_id', function() {
+  var model = {
+    id: 2,
+    firstName: 'Ned',
+    lastName: 'Ryerson'
+  };
 
-  deepEqual(route.serialize(model, ['firstName', 'lastName']), { firstName: 'Ned', lastName: 'Ryerson' }, "serialized correctly");
+  deepEqual(route.serialize(model, ['firstName', 'lastName']), {
+    firstName: 'Ned',
+    lastName: 'Ryerson'
+  }, 'serialized correctly');
 });
 
-QUnit.test("returns model.id if params include *_id", function() {
-  var model = { id: 2 };
+QUnit.test('returns model.id if params include *_id', function() {
+  var model = {
+    id: 2
+  };
 
-  deepEqual(route.serialize(model, ['post_id']), { post_id: 2 }, "serialized correctly");
+  deepEqual(route.serialize(model, ['post_id']), {
+    post_id: 2
+  }, 'serialized correctly');
 });
 
-QUnit.test("returns checks for existence of model.post_id before trying model.id", function() {
-  var model = { post_id: 3 };
+QUnit.test('returns checks for existence of model.post_id before trying model.id', function() {
+  var model = {
+    post_id: 3
+  };
 
-  deepEqual(route.serialize(model, ['post_id']), { post_id: 3 }, "serialized correctly");
+  deepEqual(route.serialize(model, ['post_id']), {
+    post_id: 3
+  }, 'serialized correctly');
 });
 
-QUnit.test("returns undefined if model is not set", function() {
-  equal(route.serialize(undefined, ['post_id']), undefined, "serialized correctly");
+QUnit.test('returns undefined if model is not set', function() {
+  equal(route.serialize(undefined, ['post_id']), undefined, 'serialized correctly');
 });
 
-QUnit.module("Ember.Route interaction", {
+QUnit.module('Ember.Route interaction', {
   setup() {
     var container = {
       lookup(fullName) {
@@ -209,8 +234,14 @@ QUnit.module("Ember.Route interaction", {
       }
     };
 
-    routeOne = EmberRoute.create({ container: container, routeName: 'one' });
-    routeTwo = EmberRoute.create({ container: container, routeName: 'two' });
+    routeOne = EmberRoute.create({
+      container: container,
+      routeName: 'one'
+    });
+    routeTwo = EmberRoute.create({
+      container: container,
+      routeName: 'two'
+    });
 
     lookupHash = {
       'route:one': routeOne,
@@ -224,7 +255,7 @@ QUnit.module("Ember.Route interaction", {
   }
 });
 
-QUnit.test("controllerFor uses route's controllerName if specified", function() {
+QUnit.test('controllerFor uses route\'s controllerName if specified', function() {
   var testController = {};
   lookupHash['controller:test'] = testController;
 
@@ -235,7 +266,7 @@ QUnit.test("controllerFor uses route's controllerName if specified", function() 
 
 QUnit.module('Route injected properties');
 
-QUnit.test("services can be injected into routes", function() {
+QUnit.test('services can be injected into routes', function() {
   var registry = new Registry();
   var container = registry.container();
 
@@ -248,5 +279,5 @@ QUnit.test("services can be injected into routes", function() {
   var appRoute = container.lookup('route:application');
   var authService = container.lookup('service:auth');
 
-  equal(authService, appRoute.get('authService'), "service.auth is injected");
+  equal(authService, appRoute.get('authService'), 'service.auth is injected');
 });

@@ -3,18 +3,20 @@
 @submodule ember-views
 */
 
-import { get } from "ember-metal/property_get";
+import { get } from 'ember-metal/property_get';
 import { Mixin } from 'ember-metal/mixin';
-import merge from "ember-metal/merge";
+import merge from 'ember-metal/merge';
 import {
   cloneStates,
   states as viewStates
-} from "ember-views/views/states";
+} from 'ember-views/views/states';
 
 var states = cloneStates(viewStates);
 
 merge(states._default, {
-  rerenderIfNeeded() { return this; }
+  rerenderIfNeeded() {
+    return this;
+  }
 });
 
 merge(states.inDOM, {

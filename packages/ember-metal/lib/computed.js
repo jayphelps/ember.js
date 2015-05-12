@@ -1,22 +1,22 @@
-import { set } from "ember-metal/property_set";
+import { set } from 'ember-metal/property_set';
 import {
   meta,
   inspect
-} from "ember-metal/utils";
-import expandProperties from "ember-metal/expand_properties";
-import EmberError from "ember-metal/error";
+} from 'ember-metal/utils';
+import expandProperties from 'ember-metal/expand_properties';
+import EmberError from 'ember-metal/error';
 import {
   Descriptor,
   defineProperty
-} from "ember-metal/properties";
+} from 'ember-metal/properties';
 import {
   propertyWillChange,
   propertyDidChange
-} from "ember-metal/property_events";
+} from 'ember-metal/property_events';
 import {
   addDependentKeys,
   removeDependentKeys
-} from "ember-metal/dependent_keys";
+} from 'ember-metal/dependent_keys';
 
 /**
 @module ember-metal
@@ -24,7 +24,7 @@ import {
 
 var metaFor = meta;
 
-function UNDEFINED() { }
+function UNDEFINED() {}
 
 // ..........................................................
 // COMPUTED PROPERTY
@@ -112,13 +112,13 @@ function UNDEFINED() { }
 */
 function ComputedProperty(config, opts) {
   this.isDescriptor = true;
-  if (Ember.FEATURES.isEnabled("new-computed-syntax")) {
-    if (typeof config === "function") {
+  if (Ember.FEATURES.isEnabled('new-computed-syntax')) {
+    if (typeof config === 'function') {
       config.__ember_arity = config.length;
       this._getter = config;
       if (config.__ember_arity > 1) {
-        Ember.deprecate("Using the same function as getter and setter is deprecated.", false, {
-          url: "http://emberjs.com/deprecations/v1.x/#toc_computed-properties-with-a-shared-getter-and-setter"
+        Ember.deprecate('Using the same function as getter and setter is deprecated.', false, {
+          url: 'http://emberjs.com/deprecations/v1.x/#toc_computed-properties-with-a-shared-getter-and-setter'
         });
         this._setter = config;
       }
@@ -141,10 +141,10 @@ function ComputedProperty(config, opts) {
   this._suspended = undefined;
   this._meta = undefined;
 
-  Ember.deprecate("Passing opts.cacheable to the CP constructor is deprecated. Invoke `volatile()` on the CP instead.", !opts || !opts.hasOwnProperty('cacheable'));
-  this._cacheable = (opts && opts.cacheable !== undefined) ? opts.cacheable : true;   // TODO: Set always to `true` once this deprecation is gone.
+  Ember.deprecate('Passing opts.cacheable to the CP constructor is deprecated. Invoke `volatile()` on the CP instead.', !opts || !opts.hasOwnProperty('cacheable'));
+  this._cacheable = (opts && opts.cacheable !== undefined) ? opts.cacheable : true; // TODO: Set always to `true` once this deprecation is gone.
   this._dependentKeys = opts && opts.dependentKeys;
-  Ember.deprecate("Passing opts.readOnly to the CP constructor is deprecated. All CPs are writable by default. You can invoke `readOnly()` on the CP to change this.", !opts || !opts.hasOwnProperty('readOnly'));
+  Ember.deprecate('Passing opts.readOnly to the CP constructor is deprecated. All CPs are writable by default. You can invoke `readOnly()` on the CP to change this.', !opts || !opts.hasOwnProperty('readOnly'));
   this._readOnly = opts && (opts.readOnly !== undefined || !!opts.readOnly) || false; // TODO: Set always to `false` once this deprecation is gone.
 }
 
@@ -218,7 +218,7 @@ ComputedPropertyPrototype.volatile = function() {
 ComputedPropertyPrototype.readOnly = function(readOnly) {
   Ember.deprecate('Passing arguments to ComputedProperty.readOnly() is deprecated.', arguments.length === 0);
   this._readOnly = readOnly === undefined || !!readOnly; // Force to true once this deprecation is gone
-  Ember.assert("Computed properties that define a setter using the new syntax cannot be read-only", !(this._readOnly && this._setter && this._setter !== this._getter));
+  Ember.assert('Computed properties that define a setter using the new syntax cannot be read-only', !(this._readOnly && this._setter && this._setter !== this._getter));
   return this;
 };
 
@@ -313,7 +313,7 @@ ComputedPropertyPrototype.didChange = function(obj, keyName) {
 };
 
 function finishChains(chainNodes) {
-  for (var i=0, l=chainNodes.length; i<l; i++) {
+  for (var i = 0, l = chainNodes.length; i < l; i++) {
     chainNodes[i].didChange(null);
   }
 }
@@ -441,10 +441,10 @@ ComputedPropertyPrototype.set = function computedPropertySetWithSuspend(obj, key
 };
 
 ComputedPropertyPrototype._set = function computedPropertySet(obj, keyName, value) {
-  var cacheable      = this._cacheable;
-  var setter         = this._setter;
-  var meta           = metaFor(obj, cacheable);
-  var cache          = meta.cache;
+  var cacheable = this._cacheable;
+  var setter = this._setter;
+  var meta = metaFor(obj, cacheable);
+  var cache = meta.cache;
   var hadCachedValue = false;
 
   var cachedValue, ret;
@@ -514,7 +514,9 @@ ComputedPropertyPrototype.teardown = function(obj, keyName) {
       removeDependentKeys(this, obj, keyName, meta);
     }
 
-    if (this._cacheable) { delete meta.cache[keyName]; }
+    if (this._cacheable) {
+      delete meta.cache[keyName];
+    }
   }
 
   return null; // no value to restore
@@ -561,7 +563,7 @@ ComputedPropertyPrototype.teardown = function(obj, keyName) {
   (if prototype extensions are enabled, which is the default behavior):
 
   ```js
-  fullName: function () {
+  fullName: function() {
     return this.get('firstName') + ' ' + this.get('lastName');
   }.property('firstName', 'lastName')
   ```
@@ -584,12 +586,12 @@ function computed(func) {
 
   var cp = new ComputedProperty(func);
   // jscs:disable
-  if (Ember.FEATURES.isEnabled("new-computed-syntax")) {
+  if (Ember.FEATURES.isEnabled('new-computed-syntax')) {
     // Empty block on purpose
   } else {
     // jscs:enable
-    if (typeof func !== "function") {
-      throw new EmberError("Computed Property declared without a property function");
+    if (typeof func !== 'function') {
+      throw new EmberError('Computed Property declared without a property function');
     }
   }
 

@@ -1,7 +1,7 @@
-import lookupHelper, { findHelper } from "ember-htmlbars/system/lookup-helper";
-import ComponentLookup from "ember-views/component_lookup";
-import Registry from "container/registry";
-import Component from "ember-views/views/component";
+import lookupHelper, { findHelper } from 'ember-htmlbars/system/lookup-helper';
+import ComponentLookup from 'ember-views/component_lookup';
+import Registry from 'container/registry';
+import Component from 'ember-views/views/component';
 
 function generateEnv(helpers, container) {
   return {
@@ -25,7 +25,7 @@ QUnit.module('ember-htmlbars: lookupHelper hook');
 
 QUnit.test('looks for helpers in the provided `env.helpers`', function() {
   var env = generateEnv({
-    'flubarb'() { }
+    'flubarb'() {}
   });
 
   var actual = lookupHelper('flubarb', null, env);
@@ -94,7 +94,7 @@ QUnit.test('wraps helper from container in a Handlebars compat helper', function
   var fakeParams = [];
   var fakeHash = {};
   var fakeOptions = {
-    morph: { update() { } },
+    morph: { update() {} },
     template: {},
     inverse: {}
   };

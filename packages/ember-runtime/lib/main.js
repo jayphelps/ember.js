@@ -17,7 +17,7 @@ import Namespace from 'ember-runtime/system/namespace';
 import EmberObject from 'ember-runtime/system/object';
 import TrackedArray from 'ember-runtime/system/tracked_array';
 import SubArray from 'ember-runtime/system/subarray';
-import { Container, Registry } from "ember-runtime/system/container";
+import { Container, Registry } from 'ember-runtime/system/container';
 import ArrayProxy from 'ember-runtime/system/array_proxy';
 import ObjectProxy from 'ember-runtime/system/object_proxy';
 import CoreObject from 'ember-runtime/system/core_object';
@@ -84,8 +84,8 @@ import ControllerMixin from 'ember-runtime/mixins/controller';
 
 import Service from 'ember-runtime/system/service';
 
-import RSVP from 'ember-runtime/ext/rsvp';     // just for side effect of extending Ember.RSVP
-import 'ember-runtime/ext/string';   // just for side effect of extending String.prototype
+import RSVP from 'ember-runtime/ext/rsvp'; // just for side effect of extending Ember.RSVP
+import 'ember-runtime/ext/string'; // just for side effect of extending String.prototype
 import 'ember-runtime/ext/function'; // just for side effect of extending Function.prototype
 
 import { typeOf, isArray } from 'ember-runtime/utils';
@@ -125,8 +125,8 @@ Ember.ArrayComputedProperty = ArrayComputedProperty;
 Ember.reduceComputed = reduceComputed;
 Ember.ReduceComputedProperty = ReduceComputedProperty;
 
-Ember.typeOf    = typeOf;
-Ember.isArray   = isArray;
+Ember.typeOf = typeOf;
+Ember.isArray = isArray;
 
 // ES6TODO: this seems a less than ideal way/place to add properties to Ember.computed
 var EmComputed = Ember.computed;

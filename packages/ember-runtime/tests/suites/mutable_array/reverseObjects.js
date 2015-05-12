@@ -5,11 +5,11 @@ var suite = SuiteModuleBuilder.create();
 
 suite.module('reverseObjects');
 
-suite.test("[A,B,C].reverseObjects() => [] + notify", function () {
+suite.test('[A,B,C].reverseObjects() => [] + notify', function() {
   var obj, before, after, observer;
 
   before = this.newFixture(3);
-  after  = [before[2], before[1], before[0]];
+  after = [before[2], before[1], before[0]];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */

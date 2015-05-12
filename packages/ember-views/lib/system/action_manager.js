@@ -3,7 +3,8 @@
 @submodule ember-views
 */
 
-function ActionManager() {}
+function ActionManager() {
+}
 
 /**
   Global action id hash.

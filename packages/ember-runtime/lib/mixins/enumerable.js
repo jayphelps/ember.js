@@ -620,8 +620,8 @@ export default Mixin.create({
   */
   every(callback, target) {
     return !this.find(function(x, idx, i) {
-      return !callback.call(target, x, idx, i);
-    });
+        return !callback.call(target, x, idx, i);
+      });
   },
 
   /**
@@ -703,9 +703,9 @@ export default Mixin.create({
     }
 
     for (idx = 0; idx < len && !found; idx++) {
-      next  = this.nextObject(idx, last, context);
+      next = this.nextObject(idx, last, context);
       found = callback.call(target, next, idx, this);
-      last  = next;
+      last = next;
     }
 
     next = last = null;
@@ -957,7 +957,9 @@ export default Mixin.create({
     @return this
   */
   '[]': computed({
-    get(key) { return this; }
+    get(key) {
+      return this;
+    }
   }),
 
   // ..........................................................
@@ -975,7 +977,7 @@ export default Mixin.create({
   */
   addEnumerableObserver(target, opts) {
     var willChange = (opts && opts.willChange) || 'enumerableWillChange';
-    var didChange  = (opts && opts.didChange) || 'enumerableDidChange';
+    var didChange = (opts && opts.didChange) || 'enumerableDidChange';
     var hasObservers = get(this, 'hasEnumerableObservers');
 
     if (!hasObservers) {
@@ -1002,7 +1004,7 @@ export default Mixin.create({
   */
   removeEnumerableObserver(target, opts) {
     var willChange = (opts && opts.willChange) || 'enumerableWillChange';
-    var didChange  = (opts && opts.didChange) || 'enumerableDidChange';
+    var didChange = (opts && opts.didChange) || 'enumerableDidChange';
     var hasObservers = get(this, 'hasEnumerableObservers');
 
     if (hasObservers) {

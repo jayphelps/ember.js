@@ -7,13 +7,19 @@ TransformItemClass.prototype.transform = function TransformItemClass_transform(a
   var walker = new this.syntax.Walker();
 
   walker.visit(ast, function(node) {
-    if (!validate(node)) { return; }
+    if (!validate(node)) {
+      return;
+    }
 
     each(node.hash.pairs, function(pair) {
-      let { key, value } = pair;
+      let {key, value} = pair;
 
-      if (key !== 'itemClass') { return; }
-      if (value.type === 'StringLiteral') { return; }
+      if (key !== 'itemClass') {
+        return;
+      }
+      if (value.type === 'StringLiteral') {
+        return;
+      }
 
       let propName = value.original;
       let params = [value];
@@ -31,11 +37,11 @@ TransformItemClass.prototype.transform = function TransformItemClass_transform(a
 
 function validate(node) {
   return (node.type === 'BlockStatement' || node.type === 'MustacheStatement') &&
-         node.path.original === 'collection';
+    node.path.original === 'collection';
 }
 
 function each(list, callback) {
-  for (var i=0, l=list.length; i<l; i++) {
+  for (var i = 0, l = list.length; i < l; i++) {
     callback(list[i]);
   }
 }

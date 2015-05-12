@@ -1,7 +1,7 @@
-import Ember from "ember-metal/core";
+import Ember from 'ember-metal/core';
 // import Test from "ember-testing/test";  // ES6TODO: fix when cycles are supported
-import QUnitAdapter from "ember-testing/adapters/qunit";
-import jQuery from "ember-views/system/jquery";
+import QUnitAdapter from 'ember-testing/adapters/qunit';
+import jQuery from 'ember-views/system/jquery';
 
 var Test, requests;
 
@@ -11,7 +11,7 @@ function incrementAjaxPendingRequests(_, xhr) {
 }
 
 function decrementAjaxPendingRequests(_, xhr) {
-  for (var i=0;i<requests.length;i++) {
+  for (var i = 0; i < requests.length; i++) {
     if (xhr === requests[i]) {
       requests.splice(i, 1);
     }
@@ -31,7 +31,9 @@ function decrementAjaxPendingRequests(_, xhr) {
   @since 1.5.0
 */
 export default function setupForTesting() {
-  if (!Test) { Test = requireModule('ember-testing/test')['default']; }
+  if (!Test) {
+    Test = requireModule('ember-testing/test')['default'];
+  }
 
   Ember.testing = true;
 

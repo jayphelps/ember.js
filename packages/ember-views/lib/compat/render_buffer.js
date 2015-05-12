@@ -3,11 +3,11 @@
 @submodule ember-views
 */
 
-import jQuery from "ember-views/system/jquery";
-import Ember from "ember-metal/core";
+import jQuery from 'ember-views/system/jquery';
+import Ember from 'ember-metal/core';
 import o_create from 'ember-metal/platform/create';
-import { normalizeProperty } from "dom-helper/prop";
-import { canSetNameOnInputs } from "ember-views/system/platform";
+import { normalizeProperty } from 'dom-helper/prop';
+import { canSetNameOnInputs } from 'ember-views/system/platform';
 
 // The HTML spec allows for "omitted start tags". These tags are optional
 // when their intended child is the first thing in the parent tag. For
@@ -63,7 +63,9 @@ function ClassSet() {
 
 ClassSet.prototype = {
   add(string) {
-    if (this.seen[string] === true) { return; }
+    if (this.seen[string] === true) {
+      return;
+    }
     this.seen[string] = true;
 
     this.list.push(string);
@@ -92,20 +94,22 @@ function escapeAttribute(value) {
   // Stolen shamelessly from Handlebars
 
   var escape = {
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#x27;",
-    "`": "&#x60;"
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    '\'': '&#x27;',
+    '`': '&#x60;'
   };
 
   var escapeChar = function(chr) {
-    return escape[chr] || "&amp;";
+    return escape[chr] || '&amp;';
   };
 
   var string = value.toString();
 
-  if (!POSSIBLE_CHARS_REGEXP.test(string)) { return string; }
+  if (!POSSIBLE_CHARS_REGEXP.test(string)) {
+    return string;
+  }
   return string.replace(BAD_CHARS_REGEXP, escapeChar);
 }
 
@@ -135,7 +139,7 @@ var RenderBuffer = function(domHelper) {
   this.childViews = [];
   this.attrNodes = [];
 
-  Ember.assert("RenderBuffer requires a DOM helper to be passed to its constructor.", !!domHelper);
+  Ember.assert('RenderBuffer requires a DOM helper to be passed to its constructor.', !!domHelper);
 
   this.dom = domHelper;
 };
@@ -263,7 +267,7 @@ RenderBuffer.prototype = {
   pushChildView(view) {
     var index = this.childViews.length;
     this.childViews[index] = view;
-    this.push("<script id='morph-"+index+"' type='text/x-placeholder'>\x3C/script>");
+    this.push('<script id=\'morph-' + index + '\' type=\'text/x-placeholder\'>\x3C/script>');
   },
 
   pushAttrNode(node) {
@@ -274,14 +278,14 @@ RenderBuffer.prototype = {
   hydrateMorphs(contextualElement) {
     var childViews = this.childViews;
     var el = this._element;
-    for (var i=0,l=childViews.length; i<l; i++) {
+    for (var i = 0, l = childViews.length; i < l; i++) {
       var childView = childViews[i];
-      var ref = el.querySelector('#morph-'+i);
+      var ref = el.querySelector('#morph-' + i);
 
       Ember.assert('An error occurred while setting up template bindings. Please check ' +
-                   (((childView && childView.parentView && childView._parentView._debugTemplateName ? '"' + childView._parentView._debugTemplateName + '" template ' : ''))
-                   )  + 'for invalid markup or bindings within HTML comments.',
-                   ref);
+      (((childView && childView.parentView && childView._parentView._debugTemplateName ? '"' + childView._parentView._debugTemplateName + '" template ' : ''))
+      ) + 'for invalid markup or bindings within HTML comments.',
+        ref);
 
       var parent = ref.parentNode;
 
@@ -306,10 +310,10 @@ RenderBuffer.prototype = {
       if (this.buffer === null) {
         this.buffer = '';
       }
-      Ember.assert("A string cannot be pushed into the buffer after a fragment", !this.buffer.nodeType);
+      Ember.assert('A string cannot be pushed into the buffer after a fragment', !this.buffer.nodeType);
       this.buffer += content;
     } else {
-      Ember.assert("A fragment cannot be pushed into a buffer that contains content", !this.buffer);
+      Ember.assert('A fragment cannot be pushed into a buffer that contains content', !this.buffer);
       this.buffer = content;
     }
     return this;
@@ -385,7 +389,9 @@ RenderBuffer.prototype = {
   */
   removeAttr(name) {
     var attributes = this.elementAttributes;
-    if (attributes) { delete attributes[name]; }
+    if (attributes) {
+      delete attributes[name];
+    }
 
     return this;
   },
@@ -420,7 +426,9 @@ RenderBuffer.prototype = {
   */
   removeProp(name) {
     var properties = this.elementProperties;
-    if (properties) { delete properties[name]; }
+    if (properties) {
+      delete properties[name];
+    }
 
     return this;
   },
@@ -452,7 +460,7 @@ RenderBuffer.prototype = {
 
     if (!canSetNameOnInputs && attrs && attrs.name) {
       // IE allows passing a tag to createElement. See note on `canSetNameOnInputs` above as well.
-      tagString = '<'+stripTagName(tagName)+' name="'+escapeAttribute(attrs.name)+'">';
+      tagString = '<' + stripTagName(tagName) + ' name="' + escapeAttribute(attrs.name) + '">';
     } else {
       tagString = tagName;
     }
@@ -509,7 +517,7 @@ RenderBuffer.prototype = {
 
     if (this._element && this.attrNodes.length > 0) {
       var i, l, attrMorph, attrNode;
-      for (i=0, l=this.attrNodes.length; i<l; i++) {
+      for (i = 0, l = this.attrNodes.length; i < l; i++) {
         attrNode = this.attrNodes[i];
         attrMorph = this.dom.createAttrMorph(this._element, attrNode.attrName);
         attrNode._morph = attrMorph;
@@ -567,9 +575,9 @@ RenderBuffer.prototype = {
 
   outerContextualElement() {
     if (this._outerContextualElement === undefined) {
-      Ember.deprecate("The render buffer expects an outer contextualElement to exist." +
-                      " This ensures DOM that requires context is correctly generated (tr, SVG tags)." +
-                      " Defaulting to document.body, but this will be removed in the future");
+      Ember.deprecate('The render buffer expects an outer contextualElement to exist.' +
+        ' This ensures DOM that requires context is correctly generated (tr, SVG tags).' +
+        ' Defaulting to document.body, but this will be removed in the future');
       this.outerContextualElement = document.body;
     }
     return this._outerContextualElement;

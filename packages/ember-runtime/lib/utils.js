@@ -6,14 +6,14 @@ import {isArray as _isArray} from 'ember-metal/utils';
 // TYPING & ARRAY MESSAGING
 //
 var TYPE_MAP = {
-  '[object Boolean]':  'boolean',
-  '[object Number]':   'number',
-  '[object String]':   'string',
+  '[object Boolean]': 'boolean',
+  '[object Number]': 'number',
+  '[object String]': 'string',
   '[object Function]': 'function',
-  '[object Array]':    'array',
-  '[object Date]':     'date',
-  '[object RegExp]':   'regexp',
-  '[object Object]':   'object'
+  '[object Array]': 'array',
+  '[object Date]': 'date',
+  '[object RegExp]': 'regexp',
+  '[object Object]': 'object'
 };
 
 var toString = Object.prototype.toString;
@@ -42,13 +42,23 @@ var toString = Object.prototype.toString;
   @return {Boolean} true if the passed object is an array or Array-like
 */
 export function isArray(obj) {
-  if (!obj || obj.setInterval) { return false; }
-  if (_isArray(obj)) { return true; }
-  if (EmberArray.detect(obj)) { return true; }
+  if (!obj || obj.setInterval) {
+    return false;
+  }
+  if (_isArray(obj)) {
+    return true;
+  }
+  if (EmberArray.detect(obj)) {
+    return true;
+  }
 
   let type = typeOf(obj);
-  if ('array' === type) { return true; }
-  if ((obj.length !== undefined) && 'object' === type) { return true; }
+  if ('array' === type) {
+    return true;
+  }
+  if ((obj.length !== undefined) && 'object' === type) {
+    return true;
+  }
   return false;
 }
 
@@ -105,8 +115,12 @@ export function isArray(obj) {
   @return {String} the type
 */
 export function typeOf(item) {
-  if (item === null) { return 'null'; }
-  if (item === undefined) { return 'undefined'; }
+  if (item === null) {
+    return 'null';
+  }
+  if (item === undefined) {
+    return 'undefined';
+  }
   var ret = TYPE_MAP[toString.call(item)] || 'object';
 
   if (ret === 'function') {

@@ -15,7 +15,7 @@ function ArrayComputedProperty() {
   ReduceComputedProperty.apply(this, arguments);
 
   this._getter = (function(reduceFunc) {
-    return function (propertyName) {
+    return function(propertyName) {
       if (!cp._hasInstanceMeta(this, propertyName)) {
         // When we recompute an array computed property, we need already
         // retrieved arrays to be updated; we can't simply empty the cache and
@@ -36,17 +36,17 @@ function ArrayComputedProperty() {
 
 ArrayComputedProperty.prototype = o_create(ReduceComputedProperty.prototype);
 
-ArrayComputedProperty.prototype.initialValue = function () {
+ArrayComputedProperty.prototype.initialValue = function() {
   return Ember.A();
 };
 
-ArrayComputedProperty.prototype.resetValue = function (array) {
+ArrayComputedProperty.prototype.resetValue = function(array) {
   array.clear();
   return array;
 };
 
 // This is a stopgap to keep the reference counts correct with lazy CPs.
-ArrayComputedProperty.prototype.didChange = function (obj, keyName) {
+ArrayComputedProperty.prototype.didChange = function(obj, keyName) {
   return;
 };
 

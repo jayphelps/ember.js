@@ -45,12 +45,14 @@ TransformWithAsToHash.prototype.transform = function TransformWithAsToHash_trans
       }
 
       Ember.deprecate(
-        "Using {{with}} without block syntax is deprecated. " +
-        "Please use standard block form (`{{#with foo as |bar|}}`) " +
-        (moduleName ? " in `" + moduleName + "` " : "") +
-        "instead.",
+        'Using {{with}} without block syntax is deprecated. ' +
+        'Please use standard block form (`{{#with foo as |bar|}}`) ' +
+        (moduleName ? ' in `' + moduleName + '` ' : '') +
+        'instead.',
         false,
-        { url: "http://emberjs.com/deprecations/v1.x/#toc_code-as-code-sytnax-for-code-with-code" }
+        {
+          url: 'http://emberjs.com/deprecations/v1.x/#toc_code-as-code-sytnax-for-code-with-code'
+        }
       );
 
       var removedParams = node.params.splice(1, 2);

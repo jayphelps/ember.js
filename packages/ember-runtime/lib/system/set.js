@@ -2,28 +2,28 @@
 @module ember
 @submodule ember-runtime
 */
-import Ember from "ember-metal/core"; // Ember.isNone, Ember.A
+import Ember from 'ember-metal/core'; // Ember.isNone, Ember.A
 
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import { guidFor } from "ember-metal/utils";
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import { guidFor } from 'ember-metal/utils';
 import isNone from 'ember-metal/is_none';
-import { fmt } from "ember-runtime/system/string";
-import CoreObject from "ember-runtime/system/core_object";
-import MutableEnumerable from "ember-runtime/mixins/mutable_enumerable";
-import Enumerable from "ember-runtime/mixins/enumerable";
-import Copyable from "ember-runtime/mixins/copyable";
+import { fmt } from 'ember-runtime/system/string';
+import CoreObject from 'ember-runtime/system/core_object';
+import MutableEnumerable from 'ember-runtime/mixins/mutable_enumerable';
+import Enumerable from 'ember-runtime/mixins/enumerable';
+import Copyable from 'ember-runtime/mixins/copyable';
 import {
   Freezable,
   FROZEN_ERROR
-} from "ember-runtime/mixins/freezable";
-import EmberError from "ember-metal/error";
+} from 'ember-runtime/mixins/freezable';
+import EmberError from 'ember-metal/error';
 import {
   propertyWillChange,
   propertyDidChange
-} from "ember-metal/property_events";
-import { aliasMethod } from "ember-metal/mixin";
-import { computed } from "ember-metal/computed";
+} from 'ember-metal/property_events';
+import { aliasMethod } from 'ember-metal/mixin';
+import { computed } from 'ember-metal/computed';
 
 /**
   An unordered collection of objects.
@@ -153,10 +153,14 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
     @return {Ember.Set} An empty Set
   */
   clear() {
-    if (this.isFrozen) { throw new EmberError(FROZEN_ERROR); }
+    if (this.isFrozen) {
+      throw new EmberError(FROZEN_ERROR);
+    }
 
     var len = get(this, 'length');
-    if (len === 0) { return this; }
+    if (len === 0) {
+      return this;
+    }
 
     var guid;
 
@@ -164,7 +168,7 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
     propertyWillChange(this, 'firstObject');
     propertyWillChange(this, 'lastObject');
 
-    for (var i=0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
       guid = guidFor(this[i]);
       delete this[guid];
       delete this[i];
@@ -273,7 +277,7 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
       throw new EmberError(FROZEN_ERROR);
     }
 
-    var obj = this.length > 0 ? this[this.length-1] : null;
+    var obj = this.length > 0 ? this[this.length - 1] : null;
     this.remove(obj);
     return obj;
   },
@@ -388,7 +392,7 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
 
   // more optimized version
   lastObject: computed(function() {
-    return this.length > 0 ? this[this.length-1] : undefined;
+    return this.length > 0 ? this[this.length - 1] : undefined;
   }),
 
   // implements Ember.MutableEnumerable
@@ -402,11 +406,11 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
     }
 
     var guid = guidFor(obj);
-    var idx  = this[guid];
-    var len  = get(this, 'length');
+    var idx = this[guid];
+    var len = get(this, 'length');
     var added;
 
-    if (idx>=0 && idx<len && (this[idx] === obj)) {
+    if (idx >= 0 && idx < len && (this[idx] === obj)) {
       return this; // added
     }
 
@@ -418,7 +422,7 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
     len = get(this, 'length');
     this[guid] = len;
     this[len] = obj;
-    set(this, 'length', len+1);
+    set(this, 'length', len + 1);
 
     propertyDidChange(this, 'lastObject');
     this.enumerableContentDidChange(null, added);
@@ -437,33 +441,41 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
     }
 
     var guid = guidFor(obj);
-    var idx  = this[guid];
+    var idx = this[guid];
     var len = get(this, 'length');
     var isFirst = idx === 0;
-    var isLast = idx === len-1;
+    var isLast = idx === len - 1;
     var last, removed;
 
 
-    if (idx>=0 && idx<len && (this[idx] === obj)) {
+    if (idx >= 0 && idx < len && (this[idx] === obj)) {
       removed = [obj];
 
       this.enumerableContentWillChange(removed, null);
-      if (isFirst) { propertyWillChange(this, 'firstObject'); }
-      if (isLast) { propertyWillChange(this, 'lastObject'); }
+      if (isFirst) {
+        propertyWillChange(this, 'firstObject');
+      }
+      if (isLast) {
+        propertyWillChange(this, 'lastObject');
+      }
 
       // swap items - basically move the item to the end so it can be removed
-      if (idx < len-1) {
-        last = this[len-1];
+      if (idx < len - 1) {
+        last = this[len - 1];
         this[idx] = last;
         this[guidFor(last)] = idx;
       }
 
       delete this[guid];
-      delete this[len-1];
-      set(this, 'length', len-1);
+      delete this[len - 1];
+      set(this, 'length', len - 1);
 
-      if (isFirst) { propertyDidChange(this, 'firstObject'); }
-      if (isLast) { propertyDidChange(this, 'lastObject'); }
+      if (isFirst) {
+        propertyDidChange(this, 'firstObject');
+      }
+      if (isLast) {
+        propertyDidChange(this, 'lastObject');
+      }
       this.enumerableContentDidChange(removed, null);
     }
 
@@ -472,7 +484,7 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
 
   // optimized version
   contains(obj) {
-    return this[guidFor(obj)]>=0;
+    return this[guidFor(obj)] >= 0;
   },
 
   copy() {
@@ -496,6 +508,6 @@ export default CoreObject.extend(MutableEnumerable, Copyable, Freezable, {
     for (idx = 0; idx < len; idx++) {
       array[idx] = this[idx];
     }
-    return fmt("Ember.Set<%@>", [array.join(',')]);
+    return fmt('Ember.Set<%@>', [array.join(',')]);
   }
 });

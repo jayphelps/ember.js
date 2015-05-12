@@ -1,6 +1,6 @@
 import MutableEnumerableTests from 'ember-runtime/tests/suites/mutable_enumerable';
-import Set from "ember-runtime/system/set";
-import {get} from "ember-metal/property_get";
+import Set from 'ember-runtime/system/set';
+import {get} from 'ember-metal/property_get';
 
 MutableEnumerableTests.extend({
 
@@ -11,7 +11,7 @@ MutableEnumerableTests.extend({
     ary = ary ? ary.slice() : this.newFixture(3);
 
     ignoreDeprecation(function() {
-      ret =  new Set();
+      ret = new Set();
       ret.addObjects(ary);
     });
 
@@ -20,7 +20,7 @@ MutableEnumerableTests.extend({
 
   mutate(obj) {
     ignoreDeprecation(function() {
-      obj.addObject(get(obj, 'length')+1);
+      obj.addObject(get(obj, 'length') + 1);
     });
   },
 

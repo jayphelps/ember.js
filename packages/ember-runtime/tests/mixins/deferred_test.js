@@ -3,14 +3,14 @@
 import Ember from 'ember-metal/core';
 import run from 'ember-metal/run_loop';
 import EmberObject from 'ember-runtime/system/object';
-import Deferred from "ember-runtime/mixins/deferred";
+import Deferred from 'ember-runtime/mixins/deferred';
 
 var originalDeprecate;
 
-QUnit.module("Deferred", {
+QUnit.module('Deferred', {
   setup() {
     originalDeprecate = Ember.deprecate;
-    Ember.deprecate = function() { };
+    Ember.deprecate = function() {};
   },
 
   teardown() {
@@ -18,7 +18,7 @@ QUnit.module("Deferred", {
   }
 });
 
-QUnit.test("can resolve deferred", function() {
+QUnit.test('can resolve deferred', function() {
   var deferred;
   var count = 0;
 
@@ -32,10 +32,10 @@ QUnit.test("can resolve deferred", function() {
 
   run(deferred, 'resolve', deferred);
 
-  equal(count, 1, "was fulfilled");
+  equal(count, 1, 'was fulfilled');
 });
 
-QUnit.test("can reject deferred", function() {
+QUnit.test('can reject deferred', function() {
 
   var deferred;
   var count = 0;
@@ -50,10 +50,10 @@ QUnit.test("can reject deferred", function() {
 
   run(deferred, 'reject');
 
-  equal(count, 1, "fail callback was called");
+  equal(count, 1, 'fail callback was called');
 });
 
-QUnit.test("can resolve with then", function() {
+QUnit.test('can resolve with then', function() {
 
   var deferred;
   var count1 = 0;
@@ -71,11 +71,11 @@ QUnit.test("can resolve with then", function() {
 
   run(deferred, 'resolve', deferred);
 
-  equal(count1, 1, "then were resolved");
-  equal(count2, 0, "then was not rejected");
+  equal(count1, 1, 'then were resolved');
+  equal(count2, 0, 'then was not rejected');
 });
 
-QUnit.test("can reject with then", function() {
+QUnit.test('can reject with then', function() {
 
   var deferred;
   var count1 = 0;
@@ -93,11 +93,11 @@ QUnit.test("can reject with then", function() {
 
   run(deferred, 'reject');
 
-  equal(count1, 0, "then was not resolved");
-  equal(count2, 1, "then were rejected");
+  equal(count1, 0, 'then was not resolved');
+  equal(count2, 1, 'then were rejected');
 });
 
-QUnit.test("can call resolve multiple times", function() {
+QUnit.test('can call resolve multiple times', function() {
 
   var deferred;
   var count = 0;
@@ -116,10 +116,10 @@ QUnit.test("can call resolve multiple times", function() {
     deferred.resolve(deferred);
   });
 
-  equal(count, 1, "calling resolve multiple times has no effect");
+  equal(count, 1, 'calling resolve multiple times has no effect');
 });
 
-QUnit.test("resolve prevent reject", function() {
+QUnit.test('resolve prevent reject', function() {
   var deferred;
   var resolved = false;
   var rejected = false;
@@ -137,11 +137,11 @@ QUnit.test("resolve prevent reject", function() {
   run(deferred, 'resolve', deferred);
   run(deferred, 'reject');
 
-  equal(resolved, true, "is resolved");
-  equal(rejected, false, "is not rejected");
+  equal(resolved, true, 'is resolved');
+  equal(rejected, false, 'is not rejected');
 });
 
-QUnit.test("reject prevent resolve", function() {
+QUnit.test('reject prevent resolve', function() {
   var deferred;
   var resolved = false;
   var rejected = false;
@@ -159,11 +159,11 @@ QUnit.test("reject prevent resolve", function() {
   run(deferred, 'reject');
   run(deferred, 'reject', deferred);
 
-  equal(resolved, false, "is not resolved");
-  equal(rejected, true, "is rejected");
+  equal(resolved, false, 'is not resolved');
+  equal(rejected, true, 'is rejected');
 });
 
-QUnit.test("will call callbacks if they are added after resolution", function() {
+QUnit.test('will call callbacks if they are added after resolution', function() {
 
   var deferred;
   var count1 = 0;
@@ -188,10 +188,10 @@ QUnit.test("will call callbacks if they are added after resolution", function() 
     });
   });
 
-  equal(count1, 2, "callbacks called after resolution");
+  equal(count1, 2, 'callbacks called after resolution');
 });
 
-QUnit.test("then is chainable", function() {
+QUnit.test('then is chainable', function() {
   var deferred;
   var count = 0;
 
@@ -207,12 +207,12 @@ QUnit.test("then is chainable", function() {
 
   run(deferred, 'resolve', deferred);
 
-  equal(count, 1, "chained callback was called");
+  equal(count, 1, 'chained callback was called');
 });
 
 
 
-QUnit.test("can self fulfill", function() {
+QUnit.test('can self fulfill', function() {
   expect(1);
   var deferred;
 
@@ -221,14 +221,14 @@ QUnit.test("can self fulfill", function() {
   });
 
   deferred.then(function(value) {
-    equal(value, deferred, "successfully resolved to itself");
+    equal(value, deferred, 'successfully resolved to itself');
   });
 
   run(deferred, 'resolve', deferred);
 });
 
 
-QUnit.test("can self reject", function() {
+QUnit.test('can self reject', function() {
   expect(1);
   var deferred;
 
@@ -239,13 +239,13 @@ QUnit.test("can self reject", function() {
   deferred.then(function() {
     ok(false, 'should not fulfill');
   }, function(value) {
-    equal(value, deferred, "successfully rejected to itself");
+    equal(value, deferred, 'successfully rejected to itself');
   });
 
   run(deferred, 'reject', deferred);
 });
 
-QUnit.test("can fulfill to a custom value", function() {
+QUnit.test('can fulfill to a custom value', function() {
   expect(1);
   var deferred;
   var obj = {};
@@ -255,14 +255,14 @@ QUnit.test("can fulfill to a custom value", function() {
   });
 
   deferred.then(function(value) {
-    equal(value, obj, "successfully resolved to given value");
+    equal(value, obj, 'successfully resolved to given value');
   });
 
   run(deferred, 'resolve', obj);
 });
 
 
-QUnit.test("can chain self fulfilling objects", function() {
+QUnit.test('can chain self fulfilling objects', function() {
   expect(2);
   var firstDeferred, secondDeferred;
 
@@ -272,10 +272,10 @@ QUnit.test("can chain self fulfilling objects", function() {
   });
 
   firstDeferred.then(function(value) {
-    equal(value, firstDeferred, "successfully resolved to the first deferred");
+    equal(value, firstDeferred, 'successfully resolved to the first deferred');
     return secondDeferred;
   }).then(function(value) {
-    equal(value, secondDeferred, "successfully resolved to the second deferred");
+    equal(value, secondDeferred, 'successfully resolved to the second deferred');
   });
 
   run(function() {
@@ -284,7 +284,7 @@ QUnit.test("can chain self fulfilling objects", function() {
   });
 });
 
-QUnit.test("can do multi level assimilation", function() {
+QUnit.test('can do multi level assimilation', function() {
   expect(1);
   var firstDeferred, secondDeferred;
   var firstDeferredResolved = false;
@@ -299,7 +299,7 @@ QUnit.test("can do multi level assimilation", function() {
   });
 
   secondDeferred.then(function() {
-    ok(firstDeferredResolved, "first deferred already resolved");
+    ok(firstDeferredResolved, 'first deferred already resolved');
   });
 
   run(secondDeferred, 'resolve', firstDeferred);
@@ -307,7 +307,7 @@ QUnit.test("can do multi level assimilation", function() {
 });
 
 
-QUnit.test("can handle rejection without rejection handler", function() {
+QUnit.test('can handle rejection without rejection handler', function() {
   expect(2);
 
   var reason = 'some reason';
@@ -326,7 +326,7 @@ QUnit.test("can handle rejection without rejection handler", function() {
   run(deferred, 'reject', reason);
 });
 
-QUnit.test("can handle fulfillment without  fulfillment handler", function() {
+QUnit.test('can handle fulfillment without  fulfillment handler', function() {
   expect(2);
 
   var fulfillment = 'some fulfillment';
@@ -346,7 +346,7 @@ QUnit.test("can handle fulfillment without  fulfillment handler", function() {
 });
 
 if (!EmberDev.runningProdBuild) {
-  QUnit.test("causes a deprecation warning when used", function() {
+  QUnit.test('causes a deprecation warning when used', function() {
     var deferred, deprecationMade;
     var obj = {};
 
@@ -358,7 +358,7 @@ if (!EmberDev.runningProdBuild) {
     equal(deprecationMade, undefined, 'no deprecation was made on init');
 
     deferred.then(function(value) {
-      equal(value, obj, "successfully resolved to given value");
+      equal(value, obj, 'successfully resolved to given value');
     });
     equal(deprecationMade, 'Usage of Ember.DeferredMixin or Ember.Deferred is deprecated.');
 

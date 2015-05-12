@@ -3,17 +3,17 @@
 @submodule ember-routing-views
 */
 
-import Ember from "ember-metal/core"; // FEATURES, Logger, assert
+import Ember from 'ember-metal/core'; // FEATURES, Logger, assert
 
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import { computed } from "ember-metal/computed";
-import { isSimpleClick } from "ember-views/system/utils";
-import EmberComponent from "ember-views/views/component";
-import inject from "ember-runtime/inject";
-import ControllerMixin from "ember-runtime/mixins/controller";
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import { computed } from 'ember-metal/computed';
+import { isSimpleClick } from 'ember-views/system/utils';
+import EmberComponent from 'ember-views/views/component';
+import inject from 'ember-runtime/inject';
+import ControllerMixin from 'ember-runtime/mixins/controller';
 
-import linkToTemplate from "ember-htmlbars/templates/link-to";
+import linkToTemplate from 'ember-htmlbars/templates/link-to';
 linkToTemplate.meta.revision = 'Ember@VERSION_STRING_PLACEHOLDER';
 
 var linkViewClassNameBindings = ['active', 'loading', 'disabled'];
@@ -220,7 +220,9 @@ var LinkComponent = EmberComponent.extend({
       return false;
     },
     set(key, value) {
-      if (value !== undefined) { this.set('_isDisabled', value); }
+      if (value !== undefined) {
+        this.set('_isDisabled', value);
+      }
 
       return value ? get(this, 'disabledClass') : false;
     }
@@ -247,21 +249,27 @@ var LinkComponent = EmberComponent.extend({
   willBeActive: computed('_routing.targetState', function() {
     var routing = get(this, '_routing');
     var targetState = get(routing, 'targetState');
-    if (get(routing, 'currentState') === targetState) { return; }
+    if (get(routing, 'currentState') === targetState) {
+      return;
+    }
 
     return !!computeActive(this, targetState);
   }),
 
   transitioningIn: computed('active', 'willBeActive', function() {
     var willBeActive = get(this, 'willBeActive');
-    if (typeof willBeActive === 'undefined') { return false; }
+    if (typeof willBeActive === 'undefined') {
+      return false;
+    }
 
     return !get(this, 'active') && willBeActive && 'ember-transitioning-in';
   }),
 
   transitioningOut: computed('active', 'willBeActive', function() {
     var willBeActive = get(this, 'willBeActive');
-    if (typeof willBeActive === 'undefined') { return false; }
+    if (typeof willBeActive === 'undefined') {
+      return false;
+    }
 
     return get(this, 'active') && !willBeActive && 'ember-transitioning-out';
   }),
@@ -274,7 +282,9 @@ var LinkComponent = EmberComponent.extend({
     @param {Event} event
   */
   _invoke(event) {
-    if (!isSimpleClick(event)) { return true; }
+    if (!isSimpleClick(event)) {
+      return true;
+    }
 
     if (this.attrs.preventDefault !== false) {
       var targetAttribute = this.attrs.target;
@@ -283,12 +293,16 @@ var LinkComponent = EmberComponent.extend({
       }
     }
 
-    if (this.attrs.bubbles === false) { event.stopPropagation(); }
+    if (this.attrs.bubbles === false) {
+      event.stopPropagation();
+    }
 
-    if (get(this, '_isDisabled')) { return false; }
+    if (get(this, '_isDisabled')) {
+      return false;
+    }
 
     if (get(this, 'loading')) {
-      Ember.Logger.warn("This link-to is in an inactive loading state because at least one of its parameters presently has a null/undefined value, or the provided route name is invalid.");
+      Ember.Logger.warn('This link-to is in an inactive loading state because at least one of its parameters presently has a null/undefined value, or the provided route name is invalid.');
       return false;
     }
 
@@ -312,12 +326,16 @@ var LinkComponent = EmberComponent.extend({
     @property href
   **/
   href: computed('models', 'targetRouteName', '_routing.currentState', function computeLinkViewHref() {
-    if (get(this, 'tagName') !== 'a') { return; }
+    if (get(this, 'tagName') !== 'a') {
+      return;
+    }
 
     var targetRouteName = get(this, 'targetRouteName');
     var models = get(this, 'models');
 
-    if (get(this, 'loading')) { return get(this, 'loadingHref'); }
+    if (get(this, 'loading')) {
+      return get(this, 'loadingHref');
+    }
 
     var routing = get(this, '_routing');
     return routing.generateURL(targetRouteName, models, get(this, 'queryParams.values'));
@@ -350,7 +368,7 @@ var LinkComponent = EmberComponent.extend({
     // Do not mutate params in place
     var params = attrs.params.slice();
 
-    Ember.assert("You must provide one or more parameters to the link-to helper.", params.length);
+    Ember.assert('You must provide one or more parameters to the link-to helper.', params.length);
 
     var lastParam = params[params.length - 1];
 
@@ -429,10 +447,14 @@ var LinkComponent = EmberComponent.extend({
   }
 });
 
-LinkComponent.toString = function() { return "LinkComponent"; };
+LinkComponent.toString = function() {
+  return 'LinkComponent';
+};
 
 function computeActive(view, routerState) {
-  if (get(view, 'loading')) { return false; }
+  if (get(view, 'loading')) {
+    return false;
+  }
 
   var currentWhen = get(view, 'currentWhen');
   var isCurrentWhenSpecified = !!currentWhen;
@@ -448,8 +470,10 @@ function computeActive(view, routerState) {
 }
 
 function modelsAreLoaded(models) {
-  for (var i=0, l=models.length; i<l; i++) {
-    if (models[i] == null) { return false; }
+  for (var i = 0, l = models.length; i < l; i++) {
+    if (models[i] == null) {
+      return false;
+    }
   }
 
   return true;
@@ -463,11 +487,15 @@ function isActiveForRoute(view, routeName, isCurrentWhenSpecified, routerState) 
 function getResolvedQueryParams(queryParamsObject, targetRouteName) {
   var resolvedQueryParams = {};
 
-  if (!queryParamsObject) { return resolvedQueryParams; }
+  if (!queryParamsObject) {
+    return resolvedQueryParams;
+  }
 
   var values = queryParamsObject.values;
   for (var key in values) {
-    if (!values.hasOwnProperty(key)) { continue; }
+    if (!values.hasOwnProperty(key)) {
+      continue;
+    }
     resolvedQueryParams[key] = values[key];
   }
 

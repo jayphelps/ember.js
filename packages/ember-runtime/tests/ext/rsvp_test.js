@@ -1,7 +1,7 @@
 /* global Promise:true */
 
-import run from "ember-metal/run_loop";
-import RSVP from "ember-runtime/ext/rsvp";
+import run from 'ember-metal/run_loop';
+import RSVP from 'ember-runtime/ext/rsvp';
 
 QUnit.module('Ember.RSVP');
 
@@ -15,8 +15,8 @@ QUnit.test('Ensure that errors thrown from within a promise are sent to the cons
       });
     });
     ok(false, 'expected assertion to be thrown');
-  } catch(e) {
-    equal(e, error, "error was re-thrown");
+  } catch (e) {
+    equal(e, error, 'error was re-thrown');
   }
 });
 
@@ -27,7 +27,7 @@ var Promise = RSVP.Promise;
 var EmberTest;
 var EmberTesting;
 
-QUnit.module("Deferred RSVP's async + Testing", {
+QUnit.module('Deferred RSVP\'s async + Testing', {
   setup() {
     EmberTest = Ember.Test;
     EmberTesting = Ember.testing;
@@ -50,11 +50,11 @@ QUnit.module("Deferred RSVP's async + Testing", {
     asyncEnded = 0;
 
     Ember.testing = EmberTesting;
-    Ember.Test =  EmberTest;
+    Ember.Test = EmberTest;
   }
 });
 
-QUnit.test("given `Ember.testing = true`, correctly informs the test suite about async steps", function() {
+QUnit.test('given `Ember.testing = true`, correctly informs the test suite about async steps', function() {
   expect(19);
 
   ok(!run.currentRunLoop, 'expect no run-loop');
@@ -111,7 +111,9 @@ QUnit.test("given `Ember.testing = true`, correctly informs the test suite about
 
 QUnit.test('TransitionAborted errors are not re-thrown', function() {
   expect(1);
-  var fakeTransitionAbort = { name: 'TransitionAborted' };
+  var fakeTransitionAbort = {
+    name: 'TransitionAborted'
+  };
 
   run(RSVP, 'reject', fakeTransitionAbort);
 
@@ -122,7 +124,7 @@ QUnit.test('rejections like jqXHR which have errorThrown property work', functio
   expect(2);
 
   var wasEmberTesting = Ember.testing;
-  var wasOnError      = Ember.onerror;
+  var wasOnError = Ember.onerror;
 
   try {
     Ember.testing = false;
@@ -131,7 +133,7 @@ QUnit.test('rejections like jqXHR which have errorThrown property work', functio
       equal(error.__reason_with_error_thrown__, jqXHR, 'also retains a helpful reference to the rejection reason');
     };
 
-    var actualError = new Error("OMG what really happened");
+    var actualError = new Error('OMG what really happened');
     var jqXHR = {
       errorThrown: actualError
     };
@@ -148,7 +150,7 @@ QUnit.test('rejections where the errorThrown is a string should wrap the sting i
   expect(2);
 
   var wasEmberTesting = Ember.testing;
-  var wasOnError      = Ember.onerror;
+  var wasOnError = Ember.onerror;
 
   try {
     Ember.testing = false;
@@ -157,7 +159,7 @@ QUnit.test('rejections where the errorThrown is a string should wrap the sting i
       equal(error.__reason_with_error_thrown__, jqXHR, 'also retains a helpful reference to the rejection reason');
     };
 
-    var actualError = "OMG what really happened";
+    var actualError = 'OMG what really happened';
     var jqXHR = {
       errorThrown: actualError
     };

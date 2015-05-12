@@ -6,8 +6,12 @@ QUnit.test('scheduling item in queue should defer until finished', function() {
   var cnt = 0;
 
   run(function() {
-    run.schedule('actions', function() { cnt++; });
-    run.schedule('actions', function() { cnt++; });
+    run.schedule('actions', function() {
+      cnt++;
+    });
+    run.schedule('actions', function() {
+      cnt++;
+    });
     equal(cnt, 0, 'should not run action yet');
   });
 
@@ -19,11 +23,15 @@ QUnit.test('nested runs should queue each phase independently', function() {
   var cnt = 0;
 
   run(function() {
-    run.schedule('actions', function() { cnt++; });
+    run.schedule('actions', function() {
+      cnt++;
+    });
     equal(cnt, 0, 'should not run action yet');
 
     run(function() {
-      run.schedule('actions', function() { cnt++; });
+      run.schedule('actions', function() {
+        cnt++;
+      });
     });
     equal(cnt, 1, 'should not run action yet');
 

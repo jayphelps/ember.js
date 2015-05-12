@@ -1,23 +1,23 @@
 import {SuiteModuleBuilder} from 'ember-runtime/tests/suites/suite';
-import {fmt} from "ember-runtime/system/string";
+import {fmt} from 'ember-runtime/system/string';
 
 var suite = SuiteModuleBuilder.create();
 
 suite.module('objectAt');
 
-suite.test("should return object at specified index", function() {
+suite.test('should return object at specified index', function() {
   var expected = this.newFixture(3);
-  var obj      = this.newObject(expected);
-  var len      = expected.length;
+  var obj = this.newObject(expected);
+  var len = expected.length;
   var idx;
 
-  for (idx=0;idx<len;idx++) {
+  for (idx = 0; idx < len; idx++) {
     equal(obj.objectAt(idx), expected[idx], fmt('obj.objectAt(%@) should match', [idx]));
   }
 
 });
 
-suite.test("should return undefined when requesting objects beyond index", function() {
+suite.test('should return undefined when requesting objects beyond index', function() {
   var obj;
 
   obj = this.newObject(this.newFixture(3));

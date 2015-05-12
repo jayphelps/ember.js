@@ -1,17 +1,17 @@
-import Ember from "ember-metal/core"; // Ember.lookup
-import EmberView from "ember-views/views/view";
-import handlebarsGet from "ember-htmlbars/compat/handlebars-get";
-import { Registry } from "ember-runtime/system/container";
-import { runAppend, runDestroy } from "ember-runtime/tests/utils";
+import Ember from 'ember-metal/core'; // Ember.lookup
+import EmberView from 'ember-views/views/view';
+import handlebarsGet from 'ember-htmlbars/compat/handlebars-get';
+import { Registry } from 'ember-runtime/system/container';
+import { runAppend, runDestroy } from 'ember-runtime/tests/utils';
 
-import EmberHandlebars from "ember-htmlbars/compat";
+import EmberHandlebars from 'ember-htmlbars/compat';
 
 var compile = EmberHandlebars.compile;
 
 var originalLookup = Ember.lookup;
 var TemplateTests, registry, container, lookup, view;
 
-QUnit.module("ember-htmlbars: compat - Ember.Handlebars.get", {
+QUnit.module('ember-htmlbars: compat - Ember.Handlebars.get', {
   setup() {
     Ember.lookup = lookup = {};
     registry = new Registry();

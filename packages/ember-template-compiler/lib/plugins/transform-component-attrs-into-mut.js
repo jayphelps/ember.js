@@ -13,10 +13,12 @@ TransformComponentAttrsIntoMut.prototype.transform = function TransformBindAttrT
   var walker = new this.syntax.Walker();
 
   walker.visit(ast, function(node) {
-    if (!validate(node)) { return; }
+    if (!validate(node)) {
+      return;
+    }
 
     each(node.hash.pairs, function(pair) {
-      let { value } = pair;
+      let {value} = pair;
 
       if (value.type === 'PathExpression') {
         pair.value = b.sexpr(b.path('@mut'), [pair.value]);
@@ -32,7 +34,7 @@ function validate(node) {
 }
 
 function each(list, callback) {
-  for (var i=0, l=list.length; i<l; i++) {
+  for (var i = 0, l = list.length; i < l; i++) {
     callback(list[i]);
   }
 }

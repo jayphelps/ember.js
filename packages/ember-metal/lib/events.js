@@ -1,19 +1,19 @@
 // Remove "use strict"; from transpiled module until
 // https://bugs.webkit.org/show_bug.cgi?id=138038 is fixed
 //
-"REMOVE_USE_STRICT: true";
+'REMOVE_USE_STRICT: true';
 
 /**
 @module ember-metal
 */
-import Ember from "ember-metal/core";
+import Ember from 'ember-metal/core';
 import {
   meta as metaFor,
   tryFinally,
   apply,
   applyStr
-} from "ember-metal/utils";
-import create from "ember-metal/platform/create";
+} from 'ember-metal/utils';
+import create from 'ember-metal/platform/create';
 
 /* listener flags */
 var ONCE = 1;
@@ -43,7 +43,7 @@ function indexOf(array, target, method) {
   // hashes are added to the end of the event array
   // so it makes sense to start searching at the end
   // of the array and search in reverse
-  for (var i = array.length - 3 ; i >=0; i -= 3) {
+  for (var i = array.length - 3; i >= 0; i -= 3) {
     if (target === array[i] && method === array[i + 1]) {
       index = i;
       break;
@@ -90,8 +90,8 @@ export function accumulateListeners(obj, eventName, otherActions) {
 
   for (var i = actions.length - 3; i >= 0; i -= 3) {
     var target = actions[i];
-    var method = actions[i+1];
-    var flags = actions[i+2];
+    var method = actions[i + 1];
+    var flags = actions[i + 2];
     var actionIndex = indexOf(otherActions, target, method);
 
     if (actionIndex === -1) {
@@ -115,7 +115,7 @@ export function accumulateListeners(obj, eventName, otherActions) {
   @param {Boolean} once A flag whether a function should only be called once
 */
 export function addListener(obj, eventName, target, method, once) {
-  Ember.assert("You must pass at least an object and event name to Ember.addListener", !!obj && !!eventName);
+  Ember.assert('You must pass at least an object and event name to Ember.addListener', !!obj && !!eventName);
 
   if (!method && 'function' === typeof target) {
     method = target;
@@ -154,7 +154,7 @@ export function addListener(obj, eventName, target, method, once) {
   @param {Function|String} method A function or the name of a function to be called on `target`
 */
 function removeListener(obj, eventName, target, method) {
-  Ember.assert("You must pass at least an object and event name to Ember.removeListener", !!obj && !!eventName);
+  Ember.assert('You must pass at least an object and event name to Ember.removeListener', !!obj && !!eventName);
 
   if (!method && 'function' === typeof target) {
     method = target;
@@ -183,7 +183,7 @@ function removeListener(obj, eventName, target, method) {
 
     if (!actions) { return; }
     for (var i = actions.length - 3; i >= 0; i -= 3) {
-      _removeListener(actions[i], actions[i+1]);
+      _removeListener(actions[i], actions[i + 1]);
     }
   }
 }
@@ -216,11 +216,18 @@ export function suspendListener(obj, eventName, target, method, callback) {
   var actionIndex = indexOf(actions, target, method);
 
   if (actionIndex !== -1) {
-    actions[actionIndex+2] |= SUSPENDED; // mark the action as suspended
+    actions[actionIndex + 2] |= SUSPENDED; // mark the action as suspended
   }
 
-  function tryable() { return callback.call(target); }
-  function finalizer() { if (actionIndex !== -1) { actions[actionIndex+2] &= ~SUSPENDED; } }
+  function tryable() {
+    return callback.call(target);
+  }
+  
+  function finalizer() {
+    if (actionIndex !== -1) {
+      actions[actionIndex + 2] &= ~SUSPENDED;
+    }
+  }
 
   return tryFinally(tryable, finalizer);
 }
@@ -248,24 +255,26 @@ export function suspendListeners(obj, eventNames, target, method, callback) {
   var actionsList = [];
   var eventName, actions, i, l;
 
-  for (i=0, l=eventNames.length; i<l; i++) {
+  for (i = 0, l = eventNames.length; i < l; i++) {
     eventName = eventNames[i];
     actions = actionsFor(obj, eventName);
     var actionIndex = indexOf(actions, target, method);
 
     if (actionIndex !== -1) {
-      actions[actionIndex+2] |= SUSPENDED;
+      actions[actionIndex + 2] |= SUSPENDED;
       suspendedActions.push(actionIndex);
       actionsList.push(actions);
     }
   }
 
-  function tryable() { return callback.call(target); }
+  function tryable() {
+    return callback.call(target);
+  }
 
   function finalizer() {
     for (var i = 0, l = suspendedActions.length; i < l; i++) {
       var actionIndex = suspendedActions[i];
-      actionsList[i][actionIndex+2] &= ~SUSPENDED;
+      actionsList[i][actionIndex + 2] &= ~SUSPENDED;
     }
   }
 
@@ -287,7 +296,7 @@ export function watchedEvents(obj) {
   if (listeners) {
     for (var eventName in listeners) {
       if (eventName !== '__source__' &&
-          listeners[eventName]) {
+        listeners[eventName]) {
         ret.push(eventName);
       }
     }
@@ -324,8 +333,8 @@ export function sendEvent(obj, eventName, params, actions) {
 
   for (var i = actions.length - 3; i >= 0; i -= 3) { // looping in reverse for once listeners
     var target = actions[i];
-    var method = actions[i+1];
-    var flags = actions[i+2];
+    var method = actions[i + 1];
+    var flags = actions[i + 2];
 
     if (!method) { continue; }
     if (flags & SUSPENDED) { continue; }
@@ -378,7 +387,7 @@ export function listenersFor(obj, eventName) {
 
   for (var i = 0, l = actions.length; i < l; i += 3) {
     var target = actions[i];
-    var method = actions[i+1];
+    var method = actions[i + 1];
     ret.push([target, method]);
   }
 

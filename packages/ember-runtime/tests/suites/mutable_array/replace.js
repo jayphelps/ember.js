@@ -4,7 +4,7 @@ var suite = SuiteModuleBuilder.create();
 
 suite.module('replace');
 
-suite.test("[].replace(0,0,'X') => ['X'] + notify", function() {
+suite.test('[].replace(0,0,\'X\') => [\'X\'] + notify', function() {
 
   var obj, exp, observer;
   exp = this.newFixture(1);
@@ -23,12 +23,12 @@ suite.test("[].replace(0,0,'X') => ['X'] + notify", function() {
   equal(observer.timesCalled('lastObject'), 1, 'should have notified lastObject once');
 });
 
-suite.test("[A,B,C,D].replace(1,2,X) => [A,X,D] + notify", function() {
+suite.test('[A,B,C,D].replace(1,2,X) => [A,X,D] + notify', function() {
   var obj, observer, before, replace, after;
 
-  before  = this.newFixture(4);
+  before = this.newFixture(4);
   replace = this.newFixture(1);
-  after   = [before[0], replace[0], before[3]];
+  after = [before[0], replace[0], before[3]];
 
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
@@ -46,12 +46,12 @@ suite.test("[A,B,C,D].replace(1,2,X) => [A,X,D] + notify", function() {
   equal(observer.validate('lastObject'), false, 'should NOT have notified lastObject once');
 });
 
-suite.test("[A,B,C,D].replace(1,2,[X,Y]) => [A,X,Y,D] + notify", function() {
+suite.test('[A,B,C,D].replace(1,2,[X,Y]) => [A,X,Y,D] + notify', function() {
   var obj, observer, before, replace, after;
 
-  before  = this.newFixture(4);
+  before = this.newFixture(4);
   replace = this.newFixture(2);
-  after   = [before[0], replace[0], replace[1], before[3]];
+  after = [before[0], replace[0], replace[1], before[3]];
 
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
@@ -69,12 +69,12 @@ suite.test("[A,B,C,D].replace(1,2,[X,Y]) => [A,X,Y,D] + notify", function() {
   equal(observer.validate('lastObject'), false, 'should NOT have notified lastObject once');
 });
 
-suite.test("[A,B].replace(1,0,[X,Y]) => [A,X,Y,B] + notify", function() {
+suite.test('[A,B].replace(1,0,[X,Y]) => [A,X,Y,B] + notify', function() {
   var obj, observer, before, replace, after;
 
-  before  = this.newFixture(2);
+  before = this.newFixture(2);
   replace = this.newFixture(2);
-  after   = [before[0], replace[0], replace[1], before[1]];
+  after = [before[0], replace[0], replace[1], before[1]];
 
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
@@ -92,11 +92,11 @@ suite.test("[A,B].replace(1,0,[X,Y]) => [A,X,Y,B] + notify", function() {
   equal(observer.validate('lastObject'), false, 'should NOT have notified lastObject once');
 });
 
-suite.test("[A,B,C,D].replace(2,2) => [A,B] + notify", function() {
+suite.test('[A,B,C,D].replace(2,2) => [A,B] + notify', function() {
   var obj, observer, before, after;
 
-  before  = this.newFixture(4);
-  after   = [before[0], before[1]];
+  before = this.newFixture(4);
+  after = [before[0], before[1]];
 
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');

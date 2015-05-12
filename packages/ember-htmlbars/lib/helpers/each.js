@@ -1,6 +1,6 @@
-import { get } from "ember-metal/property_get";
-import { forEach } from "ember-metal/enumerable_utils";
-import normalizeSelf from "ember-htmlbars/utils/normalize-self";
+import { get } from 'ember-metal/property_get';
+import { forEach } from 'ember-metal/enumerable_utils';
+import normalizeSelf from 'ember-htmlbars/utils/normalize-self';
 
 export default function eachHelper(params, hash, blocks) {
   var list = params[0];
@@ -8,7 +8,9 @@ export default function eachHelper(params, hash, blocks) {
 
   // TODO: Correct falsy semantics
   if (!list || get(list, 'length') === 0) {
-    if (blocks.inverse.yield) { blocks.inverse.yield(); }
+    if (blocks.inverse.yield) {
+      blocks.inverse.yield();
+    }
     return;
   }
 
@@ -24,4 +26,4 @@ export default function eachHelper(params, hash, blocks) {
   });
 }
 
-export var deprecation = "Using the context switching form of {{each}} is deprecated. Please use the keyword form (`{{#each items as |item|}}`) instead.";
+export var deprecation = 'Using the context switching form of {{each}} is deprecated. Please use the keyword form (`{{#each items as |item|}}`) instead.';

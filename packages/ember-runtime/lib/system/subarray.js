@@ -1,5 +1,5 @@
-import EmberError from "ember-metal/error";
-import EnumerableUtils from "ember-metal/enumerable_utils";
+import EmberError from 'ember-metal/error';
+import EnumerableUtils from 'ember-metal/enumerable_utils';
 
 var RETAIN = 'r';
 var FILTER = 'f';
@@ -20,7 +20,9 @@ export default SubArray;
   @namespace Ember
 */
 function SubArray(length) {
-  if (arguments.length < 1) { length = 0; }
+  if (arguments.length < 1) {
+    length = 0;
+  }
 
   if (length > 0) {
     this._operations = [new Operation(RETAIN, length)];
@@ -78,7 +80,7 @@ SubArray.prototype = {
         returnValue = seenInSubArray;
       }
 
-      self._composeAt(self._operations.length-1);
+      self._composeAt(self._operations.length - 1);
     });
 
     return returnValue;
@@ -98,7 +100,7 @@ SubArray.prototype = {
     var returnValue = -1;
     var self = this;
 
-    this._findOperation(index, function (operation, operationIndex, rangeStart, rangeEnd, seenInSubArray) {
+    this._findOperation(index, function(operation, operationIndex, rangeStart, rangeEnd, seenInSubArray) {
       if (operation.type === RETAIN) {
         returnValue = seenInSubArray + (index - rangeStart);
       }
@@ -110,7 +112,7 @@ SubArray.prototype = {
         self._composeAt(operationIndex);
       }
     }, function() {
-      throw new EmberError("Can't remove an item that has never been added.");
+      throw new EmberError('Can\'t remove an item that has never been added.');
     });
 
     return returnValue;
@@ -149,27 +151,27 @@ SubArray.prototype = {
     }
 
     if (index > 0) {
-      otherOp = this._operations[index-1];
+      otherOp = this._operations[index - 1];
       if (otherOp.type === op.type) {
         op.count += otherOp.count;
-        this._operations.splice(index-1, 1);
+        this._operations.splice(index - 1, 1);
         --index;
       }
     }
 
-    if (index < this._operations.length-1) {
-      otherOp = this._operations[index+1];
+    if (index < this._operations.length - 1) {
+      otherOp = this._operations[index + 1];
       if (otherOp.type === op.type) {
         op.count += otherOp.count;
-        this._operations.splice(index+1, 1);
+        this._operations.splice(index + 1, 1);
       }
     }
   },
 
   toString() {
-    var str = "";
-    EnumerableUtils.forEach(this._operations, function (operation) {
-      str += " " + operation.type + ":" + operation.count;
+    var str = '';
+    EnumerableUtils.forEach(this._operations, function(operation) {
+      str += ' ' + operation.type + ':' + operation.count;
     });
     return str.substring(1);
   }

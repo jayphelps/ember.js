@@ -11,7 +11,9 @@ function commonSetup() {
   obj = {
     foo: {
       bar: {
-        baz: { biff: 'BIFF' }
+        baz: {
+          biff: 'BIFF'
+        }
       }
     }
   };
@@ -19,13 +21,17 @@ function commonSetup() {
   Ember.lookup = {
     Foo: {
       bar: {
-        baz: { biff: 'FooBiff' }
+        baz: {
+          biff: 'FooBiff'
+        }
       }
     },
 
     $foo: {
       bar: {
-        baz: { biff: '$FOOBIFF' }
+        baz: {
+          biff: '$FOOBIFF'
+        }
       }
     }
   };
@@ -42,7 +48,11 @@ QUnit.module('set with path', {
 });
 
 QUnit.test('[Foo, bar] -> Foo.bar', function() {
-  Ember.lookup.Foo = { toString() { return 'Foo'; } }; // Behave like an Ember.Namespace
+  Ember.lookup.Foo = {
+    toString() {
+      return 'Foo';
+    }
+  }; // Behave like an Ember.Namespace
 
   set(Ember.lookup.Foo, 'bar', 'baz');
   equal(get(Ember.lookup.Foo, 'bar'), 'baz');
@@ -53,23 +63,23 @@ QUnit.test('[Foo, bar] -> Foo.bar', function() {
 // LOCAL PATHS
 
 QUnit.test('[obj, foo] -> obj.foo', function() {
-  set(obj, 'foo', "BAM");
-  equal(get(obj, 'foo'), "BAM");
+  set(obj, 'foo', 'BAM');
+  equal(get(obj, 'foo'), 'BAM');
 });
 
 QUnit.test('[obj, foo.bar] -> obj.foo.bar', function() {
-  set(obj, 'foo.bar', "BAM");
-  equal(get(obj, 'foo.bar'), "BAM");
+  set(obj, 'foo.bar', 'BAM');
+  equal(get(obj, 'foo.bar'), 'BAM');
 });
 
 QUnit.test('[obj, this.foo] -> obj.foo', function() {
-  set(obj, 'this.foo', "BAM");
-  equal(get(obj, 'foo'), "BAM");
+  set(obj, 'this.foo', 'BAM');
+  equal(get(obj, 'foo'), 'BAM');
 });
 
 QUnit.test('[obj, this.foo.bar] -> obj.foo.bar', function() {
-  set(obj, 'this.foo.bar', "BAM");
-  equal(get(obj, 'foo.bar'), "BAM");
+  set(obj, 'this.foo.bar', 'BAM');
+  equal(get(obj, 'foo.bar'), 'BAM');
 });
 
 // ..........................................................
@@ -77,41 +87,41 @@ QUnit.test('[obj, this.foo.bar] -> obj.foo.bar', function() {
 //
 
 QUnit.test('[null, Foo.bar] -> Foo.bar', function() {
-  set(null, 'Foo.bar', "BAM");
-  equal(get(Ember.lookup.Foo, 'bar'), "BAM");
+  set(null, 'Foo.bar', 'BAM');
+  equal(get(Ember.lookup.Foo, 'bar'), 'BAM');
 });
 
 // ..........................................................
 // DEPRECATED
 //
 
-QUnit.module("set with path - deprecated", {
+QUnit.module('set with path - deprecated', {
   setup: commonSetup,
   teardown: commonTeardown
 });
 
 QUnit.test('[null, bla] gives a proper exception message', function() {
   expectAssertion(function() {
-    set(null, 'bla', "BAM");
+    set(null, 'bla', 'BAM');
   }, /You need to provide an object and key to `set`/);
 });
 
 QUnit.test('[obj, bla.bla] gives a proper exception message', function() {
-  var exceptionMessage = 'Property set failed: object in path \"bla\" could not be found or was destroyed.';
+  var exceptionMessage = 'Property set failed: object in path "bla" could not be found or was destroyed.';
   try {
-    set(obj, 'bla.bla', "BAM");
-  } catch(ex) {
+    set(obj, 'bla.bla', 'BAM');
+  } catch (ex) {
     equal(ex.message, exceptionMessage);
   }
 });
 
 QUnit.test('[obj, foo.baz.bat] -> EXCEPTION', function() {
   throws(function() {
-    set(obj, 'foo.baz.bat', "BAM");
+    set(obj, 'foo.baz.bat', 'BAM');
   }, Error);
 });
 
 QUnit.test('[obj, foo.baz.bat] -> EXCEPTION', function() {
-  trySet(obj, 'foo.baz.bat', "BAM");
-  ok(true, "does not raise");
+  trySet(obj, 'foo.baz.bat', 'BAM');
+  ok(true, 'does not raise');
 });

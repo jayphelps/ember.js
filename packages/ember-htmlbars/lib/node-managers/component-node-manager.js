@@ -1,20 +1,20 @@
-import Ember from "ember-metal/core";
-import { assign } from "ember-metal/merge";
-import buildComponentTemplate from "ember-views/system/build-component-template";
-import lookupComponent from "ember-htmlbars/utils/lookup-component";
-import getCellOrValue from "ember-htmlbars/hooks/get-cell-or-value";
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import setProperties from "ember-metal/set_properties";
-import { MUTABLE_CELL } from "ember-views/compat/attrs-proxy";
-import SafeString from "htmlbars-util/safe-string";
-import { instrument } from "ember-htmlbars/system/instrumentation-support";
+import Ember from 'ember-metal/core';
+import { assign } from 'ember-metal/merge';
+import buildComponentTemplate from 'ember-views/system/build-component-template';
+import lookupComponent from 'ember-htmlbars/utils/lookup-component';
+import getCellOrValue from 'ember-htmlbars/hooks/get-cell-or-value';
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import setProperties from 'ember-metal/set_properties';
+import { MUTABLE_CELL } from 'ember-views/compat/attrs-proxy';
+import SafeString from 'htmlbars-util/safe-string';
+import { instrument } from 'ember-htmlbars/system/instrumentation-support';
 
 // In theory this should come through the env, but it should
 // be safe to import this until we make the hook system public
 // and it gets actively used in addons or other downstream
 // libraries.
-import getValue from "ember-htmlbars/hooks/get-value";
+import getValue from 'ember-htmlbars/hooks/get-value';
 
 function ComponentNodeManager(component, scope, renderNode, attrs, block, expectElement) {
   this.component = component;
@@ -41,7 +41,7 @@ ComponentNodeManager.create = function(renderNode, env, options) {
   // the container.
   let { component, layout } = lookupComponent(env.container, tagName);
 
-  Ember.assert('HTMLBars error: Could not find component named "' + tagName + '" (no component or template with that name was found)', function() {
+  Ember.assert(`HTMLBars error: Could not find component named "${tagName}" (no component or template with that name was found)`, function() {
     return component || layout;
   });
 
@@ -123,7 +123,7 @@ function extractLegacyTemplate(_templates, componentTemplate) {
   // There is no block template provided but the component has a
   // `template` property.
   if ((!templates || !templates.default) && componentTemplate) {
-    Ember.deprecate("Using deprecated `template` property on a Component.");
+    Ember.deprecate('Using deprecated `template` property on a Component.');
     templates = { default: componentTemplate.raw };
   } else {
     templates = _templates;
@@ -233,7 +233,7 @@ export function createComponent(_component, options, renderNode, env, attrs = {}
   let props = assign({}, options);
   let hasSuppliedController = 'controller' in attrs; // 2.0TODO remove
 
-  Ember.deprecate("controller= is deprecated", !hasSuppliedController);
+  Ember.deprecate('controller= is deprecated', !hasSuppliedController);
 
   props.attrs = snapshot;
 

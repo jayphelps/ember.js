@@ -1,7 +1,7 @@
 // Remove "use strict"; from transpiled module until
 // https://bugs.webkit.org/show_bug.cgi?id=138038 is fixed
 //
-"REMOVE_USE_STRICT: true";
+'REMOVE_USE_STRICT: true';
 
 /**
   @module ember
@@ -10,17 +10,17 @@
 
 // using ember-metal/lib/main here to ensure that ember-debug is setup
 // if present
-import Ember from "ember-metal";
-import merge from "ember-metal/merge";
+import Ember from 'ember-metal';
+import merge from 'ember-metal/merge';
 // Ember.assert, Ember.config
 
 // NOTE: this object should never be included directly. Instead use `Ember.Object`.
 // We only define this separately so that `Ember.Set` can depend on it.
-import { get } from "ember-metal/property_get";
+import { get } from 'ember-metal/property_get';
 import {
   guidFor,
   apply
-} from "ember-metal/utils";
+} from 'ember-metal/utils';
 import o_create from 'ember-metal/platform/create';
 import {
   generateGuid,
@@ -28,30 +28,30 @@ import {
   NEXT_SUPER_PROPERTY,
   meta,
   makeArray
-} from "ember-metal/utils";
-import { finishChains } from "ember-metal/chains";
-import { sendEvent } from "ember-metal/events";
+} from 'ember-metal/utils';
+import { finishChains } from 'ember-metal/chains';
+import { sendEvent } from 'ember-metal/events';
 import {
   IS_BINDING,
   Mixin,
   REQUIRED
-} from "ember-metal/mixin";
-import { indexOf } from "ember-metal/enumerable_utils";
-import EmberError from "ember-metal/error";
-import { defineProperty as o_defineProperty } from "ember-metal/platform/define_property";
-import keys from "ember-metal/keys";
-import ActionHandler from "ember-runtime/mixins/action_handler";
-import { defineProperty } from "ember-metal/properties";
-import { Binding } from "ember-metal/binding";
-import { ComputedProperty, computed } from "ember-metal/computed";
-import InjectedProperty from "ember-metal/injected_property";
+} from 'ember-metal/mixin';
+import { indexOf } from 'ember-metal/enumerable_utils';
+import EmberError from 'ember-metal/error';
+import { defineProperty as o_defineProperty } from 'ember-metal/platform/define_property';
+import keys from 'ember-metal/keys';
+import ActionHandler from 'ember-runtime/mixins/action_handler';
+import { defineProperty } from 'ember-metal/properties';
+import { Binding } from 'ember-metal/binding';
+import { ComputedProperty, computed } from 'ember-metal/computed';
+import InjectedProperty from 'ember-metal/injected_property';
 import run from 'ember-metal/run_loop';
-import { destroy } from "ember-metal/watching";
+import { destroy } from 'ember-metal/watching';
 import {
   K
 } from 'ember-metal/core';
-import { hasPropertyAccessors } from "ember-metal/platform/define_property";
-import { validatePropertyInjections } from "ember-runtime/inject";
+import { hasPropertyAccessors } from 'ember-metal/platform/define_property';
+import { validatePropertyInjections } from 'ember-runtime/inject';
 
 var schedule = run.schedule;
 var applyMixin = Mixin._apply;
@@ -94,13 +94,15 @@ function makeCtor() {
       for (var i = 0, l = props.length; i < l; i++) {
         var properties = props[i];
 
-        Ember.assert("Ember.Object.create no longer supports mixing in other definitions, use createWithMixins instead.", !(properties instanceof Mixin));
+        Ember.assert('Ember.Object.create no longer supports mixing in other definitions, use createWithMixins instead.', !(properties instanceof Mixin));
 
         if (typeof properties !== 'object' && properties !== undefined) {
-          throw new EmberError("Ember.Object.create only accepts objects.");
+          throw new EmberError('Ember.Object.create only accepts objects.');
         }
 
-        if (!properties) { continue; }
+        if (!properties) {
+          continue;
+        }
 
         var keyNames = keys(properties);
 
@@ -121,15 +123,15 @@ function makeCtor() {
           var possibleDesc = this[keyName];
           var desc = (possibleDesc !== null && typeof possibleDesc === 'object' && possibleDesc.isDescriptor) ? possibleDesc : undefined;
 
-          Ember.assert("Ember.Object.create no longer supports defining computed properties. Define computed properties using extend() or reopen() before calling create().", !(value instanceof ComputedProperty));
-          Ember.assert("Ember.Object.create no longer supports defining methods that call _super.", !(typeof value === 'function' && value.toString().indexOf('._super') !== -1));
-          Ember.assert("`actions` must be provided at extend time, not at create " +
-                       "time, when Ember.ActionHandler is used (i.e. views, " +
-                       "controllers & routes).", !((keyName === 'actions') && ActionHandler.detect(this)));
+          Ember.assert('Ember.Object.create no longer supports defining computed properties. Define computed properties using extend() or reopen() before calling create().', !(value instanceof ComputedProperty));
+          Ember.assert('Ember.Object.create no longer supports defining methods that call _super.', !(typeof value === 'function' && value.toString().indexOf('._super') !== -1));
+          Ember.assert('`actions` must be provided at extend time, not at create ' +
+            'time, when Ember.ActionHandler is used (i.e. views, ' +
+            'controllers & routes).', !((keyName === 'actions') && ActionHandler.detect(this)));
 
           if (concatenatedProperties &&
-              concatenatedProperties.length > 0 &&
-              indexOf(concatenatedProperties, keyName) >= 0) {
+            concatenatedProperties.length > 0 &&
+            indexOf(concatenatedProperties, keyName) >= 0) {
             var baseValue = this[keyName];
 
             if (baseValue) {
@@ -144,8 +146,8 @@ function makeCtor() {
           }
 
           if (mergedProperties &&
-              mergedProperties.length &&
-              indexOf(mergedProperties, keyName) >= 0) {
+            mergedProperties.length &&
+            indexOf(mergedProperties, keyName) >= 0) {
             var originalValue = this[keyName];
 
             value = merge(originalValue, value);
@@ -203,12 +205,18 @@ function makeCtor() {
 
     wasApplied = false;
   };
-  Class._initMixins = function(args) { initMixins = args; };
-  Class._initProperties = function(args) { initProperties = args; };
+  Class._initMixins = function(args) {
+    initMixins = args;
+  };
+  Class._initProperties = function(args) {
+    initProperties = args;
+  };
 
   Class.proto = function() {
     var superclass = Class.superclass;
-    if (superclass) { superclass.proto(); }
+    if (superclass) {
+      superclass.proto();
+    }
 
     if (!wasApplied) {
       wasApplied = true;
@@ -227,7 +235,9 @@ function makeCtor() {
   @namespace Ember
 */
 var CoreObject = makeCtor();
-CoreObject.toString = function() { return "Ember.CoreObject"; };
+CoreObject.toString = function() {
+  return 'Ember.CoreObject';
+};
 CoreObject.PrototypeMixin = Mixin.create({
   reopen(...args) {
     applyMixin(this, args, true);
@@ -265,7 +275,7 @@ CoreObject.PrototypeMixin = Mixin.create({
   init() {},
   __defineNonEnumerable(property) {
     o_defineProperty(this, property.name, property.descriptor);
-    //this[property.name] = property.descriptor.value;
+    // this[property.name] = property.descriptor.value;
   },
 
   /**
@@ -372,7 +382,9 @@ CoreObject.PrototypeMixin = Mixin.create({
     @return {Ember.Object} receiver
   */
   destroy() {
-    if (this.isDestroying) { return; }
+    if (this.isDestroying) {
+      return;
+    }
     this.isDestroying = true;
 
     schedule('actions', this, this.willDestroy);
@@ -395,13 +407,17 @@ CoreObject.PrototypeMixin = Mixin.create({
     @method _scheduledDestroy
   */
   _scheduledDestroy() {
-    if (this.isDestroyed) { return; }
+    if (this.isDestroyed) {
+      return;
+    }
     destroy(this);
     this.isDestroyed = true;
   },
 
   bind(to, from) {
-    if (!(from instanceof Binding)) { from = Binding.from(from); }
+    if (!(from instanceof Binding)) {
+      from = Binding.from(from);
+    }
     from.to(to).connect(this);
     return from;
   },
@@ -444,8 +460,8 @@ CoreObject.PrototypeMixin = Mixin.create({
   */
   toString() {
     var hasToStringExtension = typeof this.toStringExtension === 'function';
-    var extension = hasToStringExtension ? ":" + this.toStringExtension() : '';
-    var ret = '<'+this.constructor.toString()+':'+guidFor(this)+extension+'>';
+    var extension = hasToStringExtension ? ':' + this.toStringExtension() : '';
+    var ret = '<' + this.constructor.toString() + ':' + guidFor(this) + extension + '>';
 
     this.toString = makeToString(ret);
     return ret;
@@ -455,7 +471,9 @@ CoreObject.PrototypeMixin = Mixin.create({
 CoreObject.PrototypeMixin.ownerConstructor = CoreObject;
 
 function makeToString(ret) {
-  return function() { return ret; };
+  return function() {
+    return ret;
+  };
 }
 
 CoreObject.__super__ = null;
@@ -562,7 +580,7 @@ var ClassMixinProps = {
     reopen.apply(Class.PrototypeMixin, arguments);
 
     Class.superclass = this;
-    Class.__super__  = this.prototype;
+    Class.__super__ = this.prototype;
 
     proto = Class.prototype = o_create(this.prototype);
     proto.constructor = Class;
@@ -731,9 +749,13 @@ var ClassMixinProps = {
   },
 
   detect(obj) {
-    if ('function' !== typeof obj) { return false; }
+    if ('function' !== typeof obj) {
+      return false;
+    }
     while (obj) {
-      if (obj===this) { return true; }
+      if (obj === this) {
+        return true;
+      }
       obj = obj.superclass;
     }
     return false;
@@ -776,7 +798,7 @@ var ClassMixinProps = {
     var possibleDesc = proto[key];
     var desc = (possibleDesc !== null && typeof possibleDesc === 'object' && possibleDesc.isDescriptor) ? possibleDesc : undefined;
 
-    Ember.assert("metaForProperty() could not find a computed property with key '"+key+"'.", !!desc && desc instanceof ComputedProperty);
+    Ember.assert('metaForProperty() could not find a computed property with key \'' + key + '\'.', !!desc && desc instanceof ComputedProperty);
     return desc._meta || {};
   },
 
@@ -823,7 +845,7 @@ var ClassMixinProps = {
 };
 
 function injectedPropertyAssertion() {
-  Ember.assert("Injected properties are invalid", validatePropertyInjections(this));
+  Ember.assert('Injected properties are invalid', validatePropertyInjections(this));
 }
 
 Ember.runInDebug(function() {
@@ -868,7 +890,9 @@ ClassMixin.apply(CoreObject);
 
 CoreObject.reopen({
   didDefineProperty(proto, key, value) {
-    if (hasCachedComputedProperties === false) { return; }
+    if (hasCachedComputedProperties === false) {
+      return;
+    }
     if (value instanceof Ember.ComputedProperty) {
       var cache = Ember.meta(this.constructor).cache;
 

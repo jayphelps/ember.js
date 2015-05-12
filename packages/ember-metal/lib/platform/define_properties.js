@@ -7,7 +7,7 @@ var defineProperties = Object.defineProperties;
 if (!defineProperties) {
   defineProperties = function defineProperties(object, properties) {
     for (var property in properties) {
-      if (properties.hasOwnProperty(property) && property !== "__proto__") {
+      if (properties.hasOwnProperty(property) && property !== '__proto__') {
         defineProperty(object, property, properties[property]);
       }
     }

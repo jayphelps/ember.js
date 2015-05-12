@@ -9,14 +9,16 @@ TransformOldClassBindingSyntax.prototype.transform = function TransformOldClassB
   var walker = new this.syntax.Walker();
 
   walker.visit(ast, function(node) {
-    if (!validate(node)) { return; }
+    if (!validate(node)) {
+      return;
+    }
 
     let allOfTheMicrosyntaxes = [];
     let allOfTheMicrosyntaxIndexes = [];
     let classPair;
 
     each(node.hash.pairs, (pair, index) => {
-      let { key } = pair;
+      let {key} = pair;
 
       if (key === 'classBinding' || key === 'classNameBindings') {
         allOfTheMicrosyntaxIndexes.push(index);
@@ -26,7 +28,9 @@ TransformOldClassBindingSyntax.prototype.transform = function TransformOldClassB
       }
     });
 
-    if (allOfTheMicrosyntaxes.length === 0) { return; }
+    if (allOfTheMicrosyntaxes.length === 0) {
+      return;
+    }
 
     let classValue = [];
 
@@ -41,12 +45,12 @@ TransformOldClassBindingSyntax.prototype.transform = function TransformOldClassB
       node.hash.pairs.splice(index, 1);
     });
 
-    each(allOfTheMicrosyntaxes, ({ value, loc }) => {
+    each(allOfTheMicrosyntaxes, ({value, loc}) => {
       let sexprs = [];
 
-      let sourceInformation = "";
+      let sourceInformation = '';
       if (loc) {
-        let { start, source } = loc;
+        let {start, source} = loc;
 
         sourceInformation = `@ ${start.line}:${start.column} in ${source || '(inline)'}`;
       }
@@ -71,7 +75,7 @@ TransformOldClassBindingSyntax.prototype.transform = function TransformOldClassB
 };
 
 function buildSexprs(microsyntax, sexprs, b) {
-  for (var i=0, l=microsyntax.length; i<l; i++) {
+  for (var i = 0, l = microsyntax.length; i < l; i++) {
     let [propName, activeClass, inactiveClass] = microsyntax[i];
     let sexpr;
 
@@ -114,7 +118,7 @@ function validate(node) {
 }
 
 function each(list, callback) {
-  for (var i=0, l=list.length; i<l; i++) {
+  for (var i = 0, l = list.length; i < l; i++) {
     callback(list[i], i);
   }
 }
@@ -122,7 +126,7 @@ function each(list, callback) {
 function parseMicrosyntax(string) {
   var segments = string.split(' ');
 
-  for (var i=0, l=segments.length; i<l; i++) {
+  for (var i = 0, l = segments.length; i < l; i++) {
     segments[i] = segments[i].split(':');
   }
 

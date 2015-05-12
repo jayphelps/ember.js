@@ -9,20 +9,24 @@ TransformOldBindingSyntax.prototype.transform = function TransformOldBindingSynt
   var walker = new this.syntax.Walker();
 
   walker.visit(ast, function(node) {
-    if (!validate(node)) { return; }
+    if (!validate(node)) {
+      return;
+    }
 
     each(node.hash.pairs, function(pair) {
-      let { key, value } = pair;
+      let {key, value} = pair;
 
       var sourceInformation = '';
 
       if (pair.loc) {
-        let { start, source } = pair.loc;
+        let {start, source} = pair.loc;
 
         sourceInformation = `@ ${start.line}:${start.column} in ${source || '(inline)'}`;
       }
 
-      if (key === 'classBinding') { return; }
+      if (key === 'classBinding') {
+        return;
+      }
 
       Ember.assert(`Setting 'attributeBindings' via template helpers is not allowed ${sourceInformation}`, key !== 'attributeBindings');
 
@@ -47,7 +51,7 @@ function validate(node) {
 }
 
 function each(list, callback) {
-  for (var i=0, l=list.length; i<l; i++) {
+  for (var i = 0, l = list.length; i < l; i++) {
     callback(list[i]);
   }
 }

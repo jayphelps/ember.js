@@ -27,7 +27,9 @@ function wait(callback, maxWaitCount) {
 // the timer already expired.
 function pauseUntil(time) {
   // jscs:disable
-  while (+new Date() < time) { /* do nothing - sleeping */ }
+  while (+new Date() < time) {
+    /* do nothing - sleeping */
+  }
   // jscs:enable
 }
 
@@ -43,7 +45,9 @@ asyncTest('should invoke after specified period of time - function only', functi
   var invoked = false;
 
   run(function() {
-    run.later(function() { invoked = true; }, 100);
+    run.later(function() {
+      invoked = true;
+    }, 100);
   });
 
   wait(function() {
@@ -54,10 +58,14 @@ asyncTest('should invoke after specified period of time - function only', functi
 
 asyncTest('should invoke after specified period of time - target/method', function() {
 
-  var obj = { invoked: false };
+  var obj = {
+    invoked: false
+  };
 
   run(function() {
-    run.later(obj, function() { this.invoked = true; }, 100);
+    run.later(obj, function() {
+      this.invoked = true;
+    }, 100);
   });
 
   wait(function() {
@@ -68,10 +76,14 @@ asyncTest('should invoke after specified period of time - target/method', functi
 
 asyncTest('should invoke after specified period of time - target/method/args', function() {
 
-  var obj = { invoked: 0 };
+  var obj = {
+    invoked: 0
+  };
 
   run(function() {
-    run.later(obj, function(amt) { this.invoked += amt; }, 10, 100);
+    run.later(obj, function(amt) {
+      this.invoked += amt;
+    }, 10, 100);
   });
 
   wait(function() {
@@ -81,7 +93,9 @@ asyncTest('should invoke after specified period of time - target/method/args', f
 });
 
 asyncTest('should always invoke within a separate runloop', function() {
-  var obj = { invoked: 0 };
+  var obj = {
+    invoked: 0
+  };
   var firstRunLoop, secondRunLoop;
 
   run(function() {
@@ -95,15 +109,15 @@ asyncTest('should always invoke within a separate runloop', function() {
     pauseUntil(+new Date() + 100);
   });
 
-  ok(firstRunLoop, "first run loop captured");
-  ok(!run.currentRunLoop, "shouldn't be in a run loop after flush");
-  equal(obj.invoked, 0, "shouldn't have invoked later item yet");
+  ok(firstRunLoop, 'first run loop captured');
+  ok(!run.currentRunLoop, 'shouldn\'t be in a run loop after flush');
+  equal(obj.invoked, 0, 'shouldn\'t have invoked later item yet');
 
   wait(function() {
     QUnit.start();
-    equal(obj.invoked, 10, "should have invoked later item");
-    ok(secondRunLoop, "second run loop took place");
-    ok(secondRunLoop !== firstRunLoop, "two different run loops took place");
+    equal(obj.invoked, 10, 'should have invoked later item');
+    ok(secondRunLoop, 'second run loop took place');
+    ok(secondRunLoop !== firstRunLoop, 'two different run loops took place');
   });
 });
 
@@ -176,12 +190,12 @@ asyncTest('inception calls to run.later should run callbacks in separate run loo
 
     run.later(function() {
       ok(run.currentRunLoop && run.currentRunLoop !== runLoop,
-         'first later callback has own run loop');
+        'first later callback has own run loop');
       runLoop = run.currentRunLoop;
 
       run.later(function() {
         ok(run.currentRunLoop && run.currentRunLoop !== runLoop,
-           'second later callback has own run loop');
+          'second later callback has own run loop');
         finished = true;
       }, 40);
     }, 40);

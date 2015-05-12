@@ -9,17 +9,25 @@ suite.test('invoke should call on each object that implements', function() {
   var cnt, ary, obj;
 
   function F(amt) {
-    cnt += amt===undefined ? 1 : amt;
+    cnt += amt === undefined ? 1 : amt;
   }
   cnt = 0;
   ary = [
-    { foo: F },
-    EmberObject.create({ foo: F }),
+    {
+      foo: F
+    },
+    EmberObject.create({
+      foo: F
+    }),
 
     // NOTE: does not impl foo - invoke should just skip
-    EmberObject.create({ bar: F }),
+    EmberObject.create({
+      bar: F
+    }),
 
-    { foo: F }
+    {
+      foo: F
+    }
   ];
 
   obj = this.newObject(ary);

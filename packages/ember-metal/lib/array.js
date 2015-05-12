@@ -22,7 +22,7 @@ var defineNativeShim = function(nativeFunc, shim) {
 var map = defineNativeShim(ArrayPrototype.map, function(fun, ...thisp) {
   //"use strict";
 
-  if (this === void 0 || this === null || typeof fun !== "function") {
+  if (this === void 0 || this === null || typeof fun !== 'function') {
     throw new TypeError();
   }
 
@@ -43,7 +43,7 @@ var map = defineNativeShim(ArrayPrototype.map, function(fun, ...thisp) {
 var forEach = defineNativeShim(ArrayPrototype.forEach, function(fun, ...thisp) {
   //"use strict";
 
-  if (this === void 0 || this === null || typeof fun !== "function") {
+  if (this === void 0 || this === null || typeof fun !== 'function') {
     throw new TypeError();
   }
 
@@ -77,7 +77,7 @@ var lastIndexOf = defineNativeShim(ArrayPrototype.lastIndexOf, function(obj, fro
   var idx;
 
   if (fromIndex === undefined) {
-    fromIndex = len-1;
+    fromIndex = len - 1;
   } else {
     fromIndex = (fromIndex < 0) ? Math.ceil(fromIndex) : Math.floor(fromIndex);
   }

@@ -1,10 +1,10 @@
-import Ember from "ember-metal/core";
-import { get } from "ember-metal/property_get";
-import EmberError from "ember-metal/error";
-import run from "ember-metal/run_loop";
-import jQuery from "ember-views/system/jquery";
-import Test from "ember-testing/test";
-import RSVP from "ember-runtime/ext/rsvp";
+import Ember from 'ember-metal/core';
+import { get } from 'ember-metal/property_get';
+import EmberError from 'ember-metal/error';
+import run from 'ember-metal/run_loop';
+import jQuery from 'ember-views/system/jquery';
+import Test from 'ember-testing/test';
+import RSVP from 'ember-runtime/ext/rsvp';
 
 /**
 * @module ember
@@ -34,7 +34,7 @@ function currentURL(app) {
 
 function pauseTest() {
   Test.adapter.asyncStart();
-  return new Ember.RSVP.Promise(function() { }, 'TestAdapter paused promise');
+  return new Ember.RSVP.Promise(function() {}, 'TestAdapter paused promise');
 }
 
 function focus(el) {
@@ -87,7 +87,7 @@ function check(app, selector, context) {
   var type = $el.prop('type');
 
   Ember.assert('To check \'' + selector +
-      '\', the input must be a checkbox', type === 'checkbox');
+    '\', the input must be a checkbox', type === 'checkbox');
 
   if (!$el.prop('checked')) {
     app.testHelpers.click(selector, context);
@@ -101,7 +101,7 @@ function uncheck(app, selector, context) {
   var type = $el.prop('type');
 
   Ember.assert('To uncheck \'' + selector +
-      '\', the input must be a checkbox', type === 'checkbox');
+    '\', the input must be a checkbox', type === 'checkbox');
 
   if ($el.prop('checked')) {
     app.testHelpers.click(selector, context);
@@ -122,7 +122,7 @@ function triggerEvent(app, selector, contextOrType, typeOrOptions, possibleOptio
     options = {};
   } else if (arity === 4) {
     // context and options are optional, so this is
-    if (typeof typeOrOptions === "object") {  // either
+    if (typeof typeOrOptions === 'object') { // either
       // app, selector, type, options
       context = null;
       type = contextOrType;
@@ -160,7 +160,10 @@ function keyEvent(app, selector, contextOrType, typeOrKeyCode, keyCode) {
     type = typeOrKeyCode;
   }
 
-  return app.testHelpers.triggerEvent(selector, context, type, { keyCode: keyCode, which: keyCode });
+  return app.testHelpers.triggerEvent(selector, context, type, {
+    keyCode: keyCode,
+    which: keyCode
+  });
 }
 
 function fillIn(app, selector, contextOrText, text) {
@@ -181,7 +184,7 @@ function fillIn(app, selector, contextOrText, text) {
 function findWithAssert(app, selector, context) {
   var $el = app.testHelpers.find(selector, context);
   if ($el.length === 0) {
-    throw new EmberError("Element " + selector + " not found.");
+    throw new EmberError('Element ' + selector + ' not found.');
   }
   return $el;
 }
@@ -206,18 +209,24 @@ function wait(app, value) {
 
       // 1. If the router is loading, keep polling
       var routerIsLoading = router.router && !!router.router.activeTransition;
-      if (routerIsLoading) { return; }
+      if (routerIsLoading) {
+        return;
+      }
 
       // 2. If there are pending Ajax requests, keep polling
-      if (Test.pendingAjaxRequests) { return; }
+      if (Test.pendingAjaxRequests) {
+        return;
+      }
 
       // 3. If there are scheduled timers or we are inside of a run loop, keep polling
-      if (run.hasScheduledTimers() || run.currentRunLoop) { return; }
+      if (run.hasScheduledTimers() || run.currentRunLoop) {
+        return;
+      }
       if (Test.waiters && Test.waiters.any(function(waiter) {
-        var context = waiter[0];
-        var callback = waiter[1];
-        return !callback.call(context);
-      })) {
+          var context = waiter[0];
+          var callback = waiter[1];
+          return !callback.call(context);
+        })) {
         return;
       }
       // Stop polling

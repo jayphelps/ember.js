@@ -5,19 +5,19 @@ var suite = SuiteModuleBuilder.create();
 
 suite.module('addObject');
 
-suite.test("should return receiver", function() {
+suite.test('should return receiver', function() {
   var before, obj;
   before = this.newFixture(3);
-  obj    = this.newObject(before);
+  obj = this.newObject(before);
   equal(obj.addObject(before[1]), obj, 'should return receiver');
 });
 
-suite.test("[A,B].addObject(C) => [A,B,C] + notify", function() {
+suite.test('[A,B].addObject(C) => [A,B,C] + notify', function() {
   var obj, before, after, observer, item;
 
   before = this.newFixture(2);
-  item   = this.newFixture(1)[0];
-  after  = [before[0], before[1], item];
+  item = this.newFixture(1)[0];
+  after = [before[0], before[1], item];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', 'length', 'firstObject', 'lastObject');
   get(obj, 'firstObject');
@@ -37,12 +37,12 @@ suite.test("[A,B].addObject(C) => [A,B,C] + notify", function() {
   }
 });
 
-suite.test("[A,B,C].addObject(A) => [A,B,C] + NO notify", function() {
+suite.test('[A,B,C].addObject(A) => [A,B,C] + NO notify', function() {
   var obj, before, after, observer, item;
 
   before = this.newFixture(3);
-  after  = before;
-  item   = before[0];
+  after = before;
+  item = before[0];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', 'length', 'firstObject', 'lastObject');
 

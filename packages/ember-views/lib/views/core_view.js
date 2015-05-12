@@ -1,19 +1,21 @@
-import Renderer from "ember-metal-views/renderer";
+import Renderer from 'ember-metal-views/renderer';
 
 import {
   cloneStates,
   states
-} from "ember-views/views/states";
-import EmberObject from "ember-runtime/system/object";
-import Evented from "ember-runtime/mixins/evented";
-import ActionHandler from "ember-runtime/mixins/action_handler";
+} from 'ember-views/views/states';
+import EmberObject from 'ember-runtime/system/object';
+import Evented from 'ember-runtime/mixins/evented';
+import ActionHandler from 'ember-runtime/mixins/action_handler';
 
-import { get } from "ember-metal/property_get";
+import { get } from 'ember-metal/property_get';
 
-import { typeOf } from "ember-runtime/utils";
-import { internal } from "htmlbars-runtime";
+import { typeOf } from 'ember-runtime/utils';
+import { internal } from 'htmlbars-runtime';
 
-function K() { return this; }
+function K() {
+  return this;
+}
 
 // Normally, the renderer is injected by the container when the view is looked
 // up. However, if someone creates a view without looking it up via the
@@ -109,15 +111,19 @@ var CoreView = EmberObject.extend(Evented, ActionHandler, {
   destroy() {
     var parent = this.parentView;
 
-    if (!this._super(...arguments)) { return; }
+    if (!this._super(...arguments)) {
+      return;
+    }
 
     this.currentState.cleanup(this);
 
     if (!this.ownerView.isDestroyingSubtree) {
       this.ownerView.isDestroyingSubtree = true;
-      if (parent) { parent.removeChild(this); }
+      if (parent) {
+        parent.removeChild(this);
+      }
       if (this._renderNode) {
-        Ember.assert("BUG: Render node exists without concomitant env.", this.ownerView.env);
+        Ember.assert('BUG: Render node exists without concomitant env.', this.ownerView.env);
         internal.clearMorph(this._renderNode, this.ownerView.env, true);
       }
       this.ownerView.isDestroyingSubtree = false;
@@ -144,7 +150,7 @@ export var DeprecatedCoreView = CoreView.extend({
 
 var _domHelper;
 function domHelper() {
-  return _domHelper = _domHelper || Ember.__loader.require("ember-htmlbars/system/dom-helper")['default'];
+  return _domHelper = _domHelper || Ember.__loader.require('ember-htmlbars/system/dom-helper')['default'];
 }
 
 export default CoreView;

@@ -1,12 +1,12 @@
-import Ember from "ember-metal/core"; // assert
-import { get } from "ember-metal/property_get";
-import EmberError from "ember-metal/error";
+import Ember from 'ember-metal/core'; // assert
+import { get } from 'ember-metal/property_get';
+import EmberError from 'ember-metal/error';
 import create from 'ember-metal/platform/create';
-import { isStream, read } from "ember-metal/streams/utils";
-import { camelize } from "ember-runtime/system/string";
-import generateController from "ember-routing/system/generate_controller";
-import { generateControllerFactory } from "ember-routing/system/generate_controller";
-import ViewNodeManager from "ember-htmlbars/node-managers/view-node-manager";
+import { isStream, read } from 'ember-metal/streams/utils';
+import { camelize } from 'ember-runtime/system/string';
+import generateController from 'ember-routing/system/generate_controller';
+import { generateControllerFactory } from 'ember-routing/system/generate_controller';
+import ViewNodeManager from 'ember-htmlbars/node-managers/view-node-manager';
 
 export default {
   willRender(renderNode, env) {
@@ -20,7 +20,7 @@ export default {
     var name = params[0];
 
     Ember.assert(
-      "The first argument of {{render}} must be quoted, e.g. {{render \"sidebar\"}}.",
+      'The first argument of {{render}} must be quoted, e.g. {{render "sidebar"}}.',
       typeof name === 'string'
     );
 
@@ -33,7 +33,9 @@ export default {
   },
 
   childEnv(state) {
-    return { outletState: state.childOutletState };
+    return {
+      outletState: state.childOutletState
+    };
   },
 
   isStable(lastState, nextState) {
@@ -59,19 +61,19 @@ export default {
     var router = container.lookup('router:main');
 
     Ember.assert(
-      "The second argument of {{render}} must be a path, e.g. {{render \"post\" post}}.",
+      'The second argument of {{render}} must be a path, e.g. {{render "post" post}}.',
       params.length < 2 || isStream(params[1])
     );
 
     if (params.length === 1) {
       // use the singleton controller
       Ember.assert(
-        "You can only use the {{render}} helper once without a model object as " +
-        "its second argument, as in {{render \"post\" post}}.",
+        'You can only use the {{render}} helper once without a model object as ' +
+        'its second argument, as in {{render "post" post}}.',
         !router || !router._lookupActiveComponentNode(name)
       );
     } else if (params.length !== 2) {
-      throw new EmberError("You must pass a templateName to render");
+      throw new EmberError('You must pass a templateName to render');
     }
 
     // # legacy namespace
@@ -80,9 +82,9 @@ export default {
 
     var templateName = 'template:' + name;
     Ember.assert(
-      "You used `{{render '" + name + "'}}`, but '" + name + "' can not be " +
-      "found as either a template or a view.",
-      container._registry.has("view:" + name) || container._registry.has(templateName) || !!template
+      'You used `{{render \'' + name + '\'}}`, but \'' + name + '\' can not be ' +
+      'found as either a template or a view.',
+      container._registry.has('view:' + name) || container._registry.has(templateName) || !!template
     );
 
     var view = container.lookup('view:' + name);
@@ -108,8 +110,8 @@ export default {
       delete hash.controller;
 
       Ember.assert(
-        "The controller name you supplied '" + controllerName + "' " +
-        "did not resolve to a controller.",
+        'The controller name you supplied \'' + controllerName + '\' ' +
+        'did not resolve to a controller.',
         container._registry.has(controllerFullName)
       );
     } else {
@@ -123,7 +125,7 @@ export default {
     // choose name
     if (params.length > 1) {
       var factory = container.lookupFactory(controllerFullName) ||
-                    generateControllerFactory(container, controllerName);
+        generateControllerFactory(container, controllerName);
 
       controller = factory.create({
         model: read(context),
@@ -134,7 +136,7 @@ export default {
       node.addDestruction(controller);
     } else {
       controller = container.lookup(controllerFullName) ||
-                   generateController(container, controllerName);
+        generateController(container, controllerName);
 
       controller.setProperties({
         target: parentController,
@@ -182,13 +184,19 @@ export default {
 
 function childOutletState(name, env) {
   var topLevel = env.view.ownerView;
-  if (!topLevel || !topLevel.outletState) { return; }
+  if (!topLevel || !topLevel.outletState) {
+    return;
+  }
 
   var outletState = topLevel.outletState;
-  if (!outletState.main) { return; }
+  if (!outletState.main) {
+    return;
+  }
 
   var selectedOutletState = outletState.main.outlets['__ember_orphans__'];
-  if (!selectedOutletState) { return; }
+  if (!selectedOutletState) {
+    return;
+  }
   var matched = selectedOutletState.outlets[name];
   if (matched) {
     var childState = create(null);

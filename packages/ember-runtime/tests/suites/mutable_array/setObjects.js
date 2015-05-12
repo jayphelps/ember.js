@@ -4,11 +4,11 @@ var suite = SuiteModuleBuilder.create();
 
 suite.module('setObjects');
 
-suite.test("[A,B,C].setObjects([]) = > [] + notify", function() {
+suite.test('[A,B,C].setObjects([]) = > [] + notify', function() {
   var obj, before, after, observer;
 
   before = this.newFixture(3);
-  after  = [];
+  after = [];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */
@@ -25,11 +25,11 @@ suite.test("[A,B,C].setObjects([]) = > [] + notify", function() {
   equal(observer.timesCalled('lastObject'), 1, 'should have notified lastObject once');
 });
 
-suite.test("[A,B,C].setObjects([D, E, F, G]) = > [D, E, F, G] + notify", function() {
+suite.test('[A,B,C].setObjects([D, E, F, G]) = > [D, E, F, G] + notify', function() {
   var obj, before, after, observer;
 
   before = this.newFixture(3);
-  after  = this.newFixture(4);
+  after = this.newFixture(4);
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */

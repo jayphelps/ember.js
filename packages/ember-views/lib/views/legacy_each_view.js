@@ -2,12 +2,12 @@
 //This is a fallback path for the `{{#each}}` helper that supports deprecated
 //behavior such as itemController.
 
-import legacyEachTemplate from "ember-htmlbars/templates/legacy-each";
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import { computed } from "ember-metal/computed";
-import View from "ember-views/views/view";
-import { CONTAINER_MAP } from "ember-views/views/collection_view";
+import legacyEachTemplate from 'ember-htmlbars/templates/legacy-each';
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import { computed } from 'ember-metal/computed';
+import View from 'ember-views/views/view';
+import { CONTAINER_MAP } from 'ember-views/views/collection_view';
 
 export default View.extend({
   template: legacyEachTemplate,

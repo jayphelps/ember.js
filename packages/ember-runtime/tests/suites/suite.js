@@ -1,9 +1,9 @@
-import EmberObject from "ember-runtime/system/object";
+import EmberObject from 'ember-runtime/system/object';
 import {
   guidFor
-} from "ember-metal/utils";
-import { get } from "ember-metal/property_get";
-import { forEach } from "ember-metal/enumerable_utils";
+} from 'ember-metal/utils';
+import { get } from 'ember-metal/property_get';
+import { forEach } from 'ember-metal/enumerable_utils';
 
 /**
   @class
@@ -73,7 +73,7 @@ Suite.reopenClass({
     this.reopen({
       run() {
         this._super.apply(this, arguments);
-        var title = get(this, 'name')+': '+desc;
+        var title = get(this, 'name') + ': ' + desc;
         var ctx = this;
         QUnit.module(title, {
           setup() {
@@ -101,7 +101,9 @@ Suite.reopenClass({
         if (!func) {
           QUnit.test(name); // output warning
         } else {
-          QUnit.test(name, function() { func.call(ctx); });
+          QUnit.test(name, function() {
+            func.call(ctx);
+          });
         }
       }
     });
@@ -109,8 +111,12 @@ Suite.reopenClass({
 
   // convert to guids to minimize logging.
   same(actual, exp, message) {
-    actual = (actual && actual.map) ? actual.map(function(x) { return guidFor(x); }) : actual;
-    exp = (exp && exp.map) ? exp.map(function(x) { return guidFor(x); }) : exp;
+    actual = (actual && actual.map) ? actual.map(function(x) {
+      return guidFor(x);
+    }) : actual;
+    exp = (exp && exp.map) ? exp.map(function(x) {
+      return guidFor(x);
+    }) : exp;
     return deepEqual(actual, exp, message);
   },
 
@@ -135,7 +141,9 @@ var SuiteModuleBuilder = EmberObject.extend({
     this._tests = [];
   },
 
-  module(name) { this._module = name; },
+  module(name) {
+    this._module = name;
+  },
 
   test(name, func) {
     this._tests.push([name, func]);

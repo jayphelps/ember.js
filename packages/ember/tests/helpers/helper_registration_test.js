@@ -1,6 +1,6 @@
-import "ember";
+import 'ember';
 
-import EmberHandlebars from "ember-htmlbars/compat";
+import EmberHandlebars from 'ember-htmlbars/compat';
 
 var compile, helpers, makeBoundHelper;
 compile = EmberHandlebars.compile;
@@ -11,11 +11,11 @@ var makeViewHelper = EmberHandlebars.makeViewHelper;
 var App, registry, container;
 
 function reverseHelper(value) {
-  return arguments.length > 1 ? value.split('').reverse().join('') : "--";
+  return arguments.length > 1 ? value.split('').reverse().join('') : '--';
 }
 
 
-QUnit.module("Application Lifecycle - Helper Registration", {
+QUnit.module('Application Lifecycle - Helper Registration', {
   teardown() {
     Ember.run(function() {
       if (App) {
@@ -44,7 +44,9 @@ var boot = function(callback) {
     registry = App.registry;
     container = App.__container__;
 
-    if (callback) { callback(); }
+    if (callback) {
+      callback();
+    }
   });
 
   var router = container.lookup('router:main');
@@ -55,41 +57,41 @@ var boot = function(callback) {
   });
 };
 
-QUnit.test("Unbound dashed helpers registered on the container can be late-invoked", function() {
+QUnit.test('Unbound dashed helpers registered on the container can be late-invoked', function() {
 
-  Ember.TEMPLATES.application = compile("<div id='wrapper'>{{x-borf}} {{x-borf YES}}</div>");
+  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{x-borf}} {{x-borf YES}}</div>');
 
   boot(function() {
     registry.register('helper:x-borf', function(val) {
-      return arguments.length > 1 ? val : "BORF";
+      return arguments.length > 1 ? val : 'BORF';
     });
   });
 
-  equal(Ember.$('#wrapper').text(), "BORF YES", "The helper was invoked from the container");
-  ok(!helpers['x-borf'], "Container-registered helper doesn't wind up on global helpers hash");
+  equal(Ember.$('#wrapper').text(), 'BORF YES', 'The helper was invoked from the container');
+  ok(!helpers['x-borf'], 'Container-registered helper doesn\'t wind up on global helpers hash');
 });
 
 // need to make `makeBoundHelper` for HTMLBars
-QUnit.test("Bound helpers registered on the container can be late-invoked", function() {
-  Ember.TEMPLATES.application = compile("<div id='wrapper'>{{x-reverse}} {{x-reverse foo}}</div>");
+QUnit.test('Bound helpers registered on the container can be late-invoked', function() {
+  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{x-reverse}} {{x-reverse foo}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
-      foo: "alex"
+      foo: 'alex'
     }));
     registry.register('helper:x-reverse', makeBoundHelper(reverseHelper));
   });
 
-  equal(Ember.$('#wrapper').text(), "-- xela", "The bound helper was invoked from the container");
-  ok(!helpers['x-reverse'], "Container-registered helper doesn't wind up on global helpers hash");
+  equal(Ember.$('#wrapper').text(), '-- xela', 'The bound helper was invoked from the container');
+  ok(!helpers['x-reverse'], 'Container-registered helper doesn\'t wind up on global helpers hash');
 });
 
-QUnit.test("Bound `makeViewHelper` helpers registered on the container can be used", function() {
-  Ember.TEMPLATES.application = compile("<div id='wrapper'>{{x-foo}} {{x-foo name=foo}}</div>");
+QUnit.test('Bound `makeViewHelper` helpers registered on the container can be used', function() {
+  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{x-foo}} {{x-foo name=foo}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
-      foo: "alex"
+      foo: 'alex'
     }));
 
     registry.register('helper:x-foo', makeViewHelper(Ember.Component.extend({
@@ -97,26 +99,26 @@ QUnit.test("Bound `makeViewHelper` helpers registered on the container can be us
     })));
   });
 
-  equal(Ember.$('#wrapper').text(), "woot!! woot!!alex", "The helper was invoked from the container");
+  equal(Ember.$('#wrapper').text(), 'woot!! woot!!alex', 'The helper was invoked from the container');
 });
 
 // we have unit tests for this in ember-htmlbars/tests/system/lookup-helper
 // and we are not going to recreate the handlebars helperMissing concept
-QUnit.test("Undashed helpers registered on the container can not (presently) be invoked", function() {
+QUnit.test('Undashed helpers registered on the container can not (presently) be invoked', function() {
 
   // Note: the reason we're not allowing undashed helpers is to avoid
   // a possible perf hit in hot code paths, i.e. _triageMustache.
   // We only presently perform container lookups if prop.indexOf('-') >= 0
 
-  Ember.TEMPLATES.application = compile("<div id='wrapper'>{{omg}}|{{omg 'GRRR'}}|{{yorp}}|{{yorp 'ahh'}}</div>");
+  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{omg}}|{{omg \'GRRR\'}}|{{yorp}}|{{yorp \'ahh\'}}</div>');
 
   expectAssertion(function() {
     boot(function() {
       registry.register('helper:omg', function() {
-        return "OMG";
+        return 'OMG';
       });
       registry.register('helper:yorp', makeBoundHelper(function() {
-        return "YORP";
+        return 'YORP';
       }));
     });
   }, /A helper named 'omg' could not be found/);

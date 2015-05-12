@@ -1,10 +1,10 @@
-import Ember from "ember-metal/core"; // FEATURES
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import { tryInvoke } from "ember-metal/utils";
+import Ember from 'ember-metal/core'; // FEATURES
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import { tryInvoke } from 'ember-metal/utils';
 
-import EmberObject from "ember-runtime/system/object";
-import environment from "ember-metal/environment";
+import EmberObject from 'ember-runtime/system/object';
+import environment from 'ember-metal/environment';
 
 import {
   supportsHashChange,
@@ -14,7 +14,7 @@ import {
   getQuery,
   getFullPath,
   replacePath
-} from "ember-routing/location/util";
+} from 'ember-routing/location/util';
 
 /**
 @module ember
@@ -114,7 +114,7 @@ export default EmberObject.extend({
     var rootURL = this.rootURL;
 
     Ember.assert('rootURL must end with a trailing forward slash e.g. "/app/"',
-                 rootURL.charAt(rootURL.length-1) === '/');
+      rootURL.charAt(rootURL.length - 1) === '/');
 
     var implementation = detectImplementation({
       location: this.location,
@@ -155,7 +155,7 @@ export default EmberObject.extend({
 function delegateToConcreteImplementation(methodName) {
   return function(...args) {
     var concreteImplementation = get(this, 'concreteImplementation');
-    Ember.assert("AutoLocation's detect() method should be called before calling any other hooks.", !!concreteImplementation);
+    Ember.assert('AutoLocation\'s detect() method should be called before calling any other hooks.', !!concreteImplementation);
     return tryInvoke(concreteImplementation, methodName, args);
   };
 }
@@ -195,7 +195,9 @@ function detectImplementation(options) {
       return 'history';
     } else {
       if (currentPath.substr(0, 2) === '/#') {
-        history.replaceState({ path: historyPath }, null, historyPath);
+        history.replaceState({
+          path: historyPath
+        }, null, historyPath);
         implementation = 'history';
       } else {
         cancelRouterSetup = true;

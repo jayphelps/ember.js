@@ -2,20 +2,20 @@
 @module ember-metal
 */
 
-import Ember from "ember-metal/core";
-import EmberError from "ember-metal/error";
+import Ember from 'ember-metal/core';
+import EmberError from 'ember-metal/error';
 import {
   isGlobal as detectIsGlobal,
   isPath,
   hasThis as pathHasThis
-} from "ember-metal/path_cache";
-import { hasPropertyAccessors } from "ember-metal/platform/define_property";
-import { symbol } from "ember-metal/utils";
+} from 'ember-metal/path_cache';
+import { hasPropertyAccessors } from 'ember-metal/platform/define_property';
+import { symbol } from 'ember-metal/utils';
 
 var FIRST_KEY = /^([^\.]+)/;
 
-export let INTERCEPT_GET = symbol("INTERCEPT_GET");
-export let UNHANDLED_GET = symbol("UNHANDLED_GET");
+export let INTERCEPT_GET = symbol('INTERCEPT_GET');
+export let UNHANDLED_GET = symbol('UNHANDLED_GET');
 
 // ..........................................................
 // GET AND SET
@@ -116,7 +116,7 @@ export function get(obj, keyName) {
   @return {Array} a temporary array with the normalized target/path pair.
 */
 export function normalizeTuple(target, path) {
-  var hasThis  = pathHasThis(path);
+  var hasThis = pathHasThis(path);
   var isGlobal = !hasThis && detectIsGlobal(path);
   var key;
 
@@ -135,7 +135,7 @@ export function normalizeTuple(target, path) {
   if (isGlobal && isPath(path)) {
     key = path.match(FIRST_KEY)[0];
     target = get(target, key);
-    path   = path.slice(key.length+1);
+    path = path.slice(key.length + 1);
   }
 
   // must return some kind of path to be valid else other things will break.
@@ -146,7 +146,7 @@ export function normalizeTuple(target, path) {
 
 
 function validateIsPath(path) {
-  if (!path || path.length===0) {
+  if (!path || path.length === 0) {
     throw new EmberError(`Object in path ${path} could not be found or was destroyed.`);
   }
 }
@@ -164,7 +164,7 @@ export function _getPath(root, path) {
     tuple.length = 0;
   }
 
-  parts = path.split(".");
+  parts = path.split('.');
   len = parts.length;
   for (idx = 0; root != null && idx < len; idx++) {
     root = get(root, parts[idx], true);

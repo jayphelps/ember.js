@@ -1,9 +1,9 @@
 // Remove "use strict"; from transpiled module until
 // https://bugs.webkit.org/show_bug.cgi?id=138038 is fixed
 //
-"REMOVE_USE_STRICT: true";
+'REMOVE_USE_STRICT: true';
 
-import Ember from "ember-metal/core";
+import Ember from 'ember-metal/core';
 import o_create from 'ember-metal/platform/create';
 import {
   hasPropertyAccessors,
@@ -48,8 +48,8 @@ export function uuid() {
 var GUID_PREFIX = 'ember';
 
 // Used for guid generation...
-var numberCache  = [];
-var stringCache  = {};
+var numberCache = [];
+var stringCache = {};
 
 /**
   Strongly hint runtimes to intern the provided string.
@@ -123,12 +123,12 @@ export function symbol(debugName) {
   @type String
   @final
 */
-var GUID_KEY = intern('__ember' + (+ new Date()));
+var GUID_KEY = intern('__ember' + (+new Date()));
 
 export var GUID_DESC = {
-  writable:     true,
+  writable: true,
   configurable: true,
-  enumerable:   false,
+  enumerable: false,
   value: null
 };
 
@@ -225,11 +225,11 @@ export function guidFor(obj) {
 
   // special cases where we don't want to add a key to object
   if (obj === undefined) {
-    return "(undefined)";
+    return '(undefined)';
   }
 
   if (obj === null) {
-    return "(null)";
+    return '(null)';
   }
 
   var ret;
@@ -241,7 +241,7 @@ export function guidFor(obj) {
       ret = numberCache[obj];
 
       if (!ret) {
-        ret = numberCache[obj] = 'nu'+obj;
+        ret = numberCache[obj] = 'nu' + obj;
       }
 
       return ret;
@@ -318,7 +318,7 @@ if (!canDefineNonEnumerableProperties) {
 
   // Without non-enumerable properties, meta objects will be output in JSON
   // unless explicitly suppressed
-  Meta.prototype.toJSON = function() { };
+  Meta.prototype.toJSON = function() {};
 }
 
 // Placeholder for non-writable metas.
@@ -350,7 +350,7 @@ if (Ember.FEATURES.isEnabled('mandatory-setter')) {
 */
 function meta(obj, writable) {
   var ret = obj.__ember_meta__;
-  if (writable===false) {
+  if (writable === false) {
     return ret || EMPTY_META;
   }
 
@@ -380,10 +380,10 @@ function meta(obj, writable) {
     }
 
     ret = o_create(ret);
-    ret.watching  = o_create(ret.watching);
-    ret.cache     = undefined;
+    ret.watching = o_create(ret.watching);
+    ret.cache = undefined;
     ret.cacheMeta = undefined;
-    ret.source    = obj;
+    ret.source = obj;
 
     if (Ember.FEATURES.isEnabled('mandatory-setter')) {
       if (hasPropertyAccessors) {
@@ -441,19 +441,25 @@ export function setMeta(obj, property, value) {
     shared with its constructor
 */
 export function metaPath(obj, path, writable) {
-  Ember.deprecate("Ember.metaPath is deprecated and will be removed from future releases.");
+  Ember.deprecate('Ember.metaPath is deprecated and will be removed from future releases.');
   var _meta = meta(obj, writable);
   var keyName, value;
 
-  for (var i=0, l=path.length; i<l; i++) {
+  for (var i = 0, l = path.length; i < l; i++) {
     keyName = path[i];
     value = _meta[keyName];
 
     if (!value) {
-      if (!writable) { return undefined; }
-      value = _meta[keyName] = { __ember_source__: obj };
+      if (!writable) {
+        return undefined;
+      }
+      value = _meta[keyName] = {
+        __ember_source__: obj
+      };
     } else if (value.__ember_source__ !== obj) {
-      if (!writable) { return undefined; }
+      if (!writable) {
+        return undefined;
+      }
       value = _meta[keyName] = o_create(value);
       value.__ember_source__ = obj;
     }
@@ -480,7 +486,7 @@ export function metaPath(obj, path, writable) {
 export function wrap(func, superFunc) {
   function superWrapper() {
     var ret;
-    var sup  = this && this.__nextSuper;
+    var sup = this && this.__nextSuper;
     var length = arguments.length;
 
     if (this) {
@@ -567,8 +573,7 @@ var needsFinallyFix = (function() {
   var count = 0;
   try {
     // jscs:disable
-    try {
-    } finally {
+    try {} finally {
       count++;
       throw new Error('needsFinallyFixTest');
     }
@@ -623,7 +628,9 @@ if (needsFinallyFix) {
       }
     }
 
-    if (finalError) { throw finalError; }
+    if (finalError) {
+      throw finalError;
+    }
 
     return (finalResult === undefined) ? result : finalResult;
   };
@@ -644,7 +651,7 @@ if (needsFinallyFix) {
 }
 
 var deprecatedTryFinally = function() {
-  Ember.deprecate("tryFinally is deprecated. Please use JavaScript's native try/finally.", false);
+  Ember.deprecate('tryFinally is deprecated. Please use JavaScript\'s native try/finally.', false);
   return tryFinally.apply(this, arguments);
 };
 
@@ -697,7 +704,7 @@ if (needsFinallyFix) {
 
     try {
       result = tryable.call(binding);
-    } catch(error) {
+    } catch (error) {
       result = catchable.call(binding, error);
     } finally {
       try {
@@ -707,7 +714,9 @@ if (needsFinallyFix) {
       }
     }
 
-    if (finalError) { throw finalError; }
+    if (finalError) {
+      throw finalError;
+    }
 
     return (finalResult === undefined) ? result : finalResult;
   };
@@ -719,7 +728,7 @@ if (needsFinallyFix) {
 
     try {
       result = tryable.call(binding);
-    } catch(error) {
+    } catch (error) {
       result = catchable.call(binding, error);
     } finally {
       finalResult = finalizer.call(binding);
@@ -730,7 +739,7 @@ if (needsFinallyFix) {
 }
 
 var deprecatedTryCatchFinally = function() {
-  Ember.deprecate("tryCatchFinally is deprecated. Please use JavaScript's native try/catch/finally.", false);
+  Ember.deprecate('tryCatchFinally is deprecated. Please use JavaScript\'s native try/catch/finally.', false);
   return tryCatchFinally.apply(this, arguments);
 };
 
@@ -741,12 +750,12 @@ var deprecatedTryCatchFinally = function() {
 var toString = Object.prototype.toString;
 
 var isArray = Array.isArray || function(value) {
-  return value !== null &&
-         value !== undefined &&
-         typeof value === 'object' &&
-         typeof value.length === 'number' &&
-         toString.call(value) === '[object Array]';
-};
+    return value !== null &&
+      value !== undefined &&
+      typeof value === 'object' &&
+      typeof value.length === 'number' &&
+      toString.call(value) === '[object Array]';
+  };
 
 /**
   Forces the passed object to be part of an array. If the object is already
@@ -771,7 +780,9 @@ var isArray = Array.isArray || function(value) {
   @return {Array}
 */
 export function makeArray(obj) {
-  if (obj === null || obj === undefined) { return []; }
+  if (obj === null || obj === undefined) {
+    return [];
+  }
   return isArray(obj) ? obj : [obj];
 }
 
@@ -800,7 +811,7 @@ export function inspect(obj) {
   }
   // for non objects
   if (typeof obj !== 'object') {
-    return ''+obj;
+    return '' + obj;
   }
   // overridden toString
   if (typeof obj.toString === 'function' && obj.toString !== toString) {
@@ -813,17 +824,21 @@ export function inspect(obj) {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) {
       v = obj[key];
-      if (v === 'toString') { continue; } // ignore useless items
-      if (typeof v === 'function') { v = "function() { ... }"; }
+      if (v === 'toString') {
+        continue;
+      } // ignore useless items
+      if (typeof v === 'function') {
+        v = 'function() { ... }';
+      }
 
       if (v && typeof v.toString !== 'function') {
-        ret.push(key + ": " + toString.call(v));
+        ret.push(key + ': ' + toString.call(v));
       } else {
-        ret.push(key + ": " + v);
+        ret.push(key + ': ' + v);
       }
     }
   }
-  return "{" + ret.join(", ") + "}";
+  return '{' + ret.join(', ') + '}';
 }
 
 // The following functions are intentionally minified to keep the functions
@@ -835,7 +850,9 @@ export function inspect(obj) {
 */
 export function apply(t, m, a) {
   var l = a && a.length;
-  if (!a || !l) { return m.call(t); }
+  if (!a || !l) {
+    return m.call(t);
+  }
   switch (l) {
     case 1:  return m.call(t, a[0]);
     case 2:  return m.call(t, a[0], a[1]);
@@ -853,7 +870,9 @@ export function apply(t, m, a) {
 */
 export function applyStr(t, m, a) {
   var l = a && a.length;
-  if (!a || !l) { return t[m](); }
+  if (!a || !l) {
+    return t[m]();
+  }
   switch (l) {
     case 1:  return t[m](a[0]);
     case 2:  return t[m](a[0], a[1]);

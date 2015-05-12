@@ -3,13 +3,13 @@
 @submodule ember-routing
 */
 
-import Service from "ember-runtime/system/service";
+import Service from 'ember-runtime/system/service';
 
-import { get } from "ember-metal/property_get";
-import { readOnly } from "ember-metal/computed_macros";
-import { routeArgs } from "ember-routing/utils";
-import keys from "ember-metal/keys";
-import merge from "ember-metal/merge";
+import { get } from 'ember-metal/property_get';
+import { readOnly } from 'ember-metal/computed_macros';
+import { routeArgs } from 'ember-routing/utils';
+import keys from 'ember-metal/keys';
+import merge from 'ember-metal/merge';
 
 /** @private
   The Routing service is used by LinkView, and provides facilities for
@@ -65,7 +65,7 @@ var RoutingService = Service.extend({
     var router = get(this, 'router');
 
     var handlers = router.router.recognizer.handlersFor(routeName);
-    var leafName = handlers[handlers.length-1].handler;
+    var leafName = handlers[handlers.length - 1].handler;
     var maximumContexts = numberOfContextsAcceptedByHandler(routeName, handlers);
 
     // NOTE: any ugliness in the calculation of activeness is largely

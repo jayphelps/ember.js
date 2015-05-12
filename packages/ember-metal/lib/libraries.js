@@ -1,8 +1,8 @@
-import Ember from "ember-metal/core";
+import Ember from 'ember-metal/core';
 import {
   forEach,
   indexOf
-} from "ember-metal/enumerable_utils";
+} from 'ember-metal/enumerable_utils';
 
 /**
   Helper class that allows you to register your library with Ember.
@@ -67,7 +67,7 @@ Libraries.prototype = {
   }
 };
 
-if (Ember.FEATURES.isEnabled("ember-libraries-isregistered")) {
+if (Ember.FEATURES.isEnabled('ember-libraries-isregistered')) {
   Libraries.prototype.isRegistered = function(name) {
     return !!this._getLibraryByName(name);
   };

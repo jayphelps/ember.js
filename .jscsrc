@@ -33,6 +33,7 @@
   "disallowTrailingWhitespace": true,
   "disallowTrailingComma": true,
   "requireSpaceBeforeBlockStatements": true,
+  "validateQuoteMarks": "'",
   "validateIndentation": 2,
   "validateParameterSeparator": ", ",
   "requireSpaceBeforeKeywords": [

@@ -1,8 +1,8 @@
-import Ember from "ember-metal/core"; // Ember.FEATURES, Ember.Test
-import { get } from "ember-metal/property_get";
-import { Mixin } from "ember-metal/mixin";
-import { computed } from "ember-metal/computed";
-import RSVP from "ember-runtime/ext/rsvp";
+import Ember from 'ember-metal/core'; // Ember.FEATURES, Ember.Test
+import { get } from 'ember-metal/property_get';
+import { Mixin } from 'ember-metal/mixin';
+import { computed } from 'ember-metal/computed';
+import RSVP from 'ember-runtime/ext/rsvp';
 
 /**
 @module ember
@@ -68,7 +68,9 @@ export default Mixin.create({
   },
 
   _deferred: computed(function() {
-    Ember.deprecate('Usage of Ember.DeferredMixin or Ember.Deferred is deprecated.', this._suppressDeferredDeprecation, { url: 'http://emberjs.com/guides/deprecations/#toc_deprecate-ember-deferredmixin-and-ember-deferred' });
+    Ember.deprecate('Usage of Ember.DeferredMixin or Ember.Deferred is deprecated.', this._suppressDeferredDeprecation, {
+      url: 'http://emberjs.com/guides/deprecations/#toc_deprecate-ember-deferredmixin-and-ember-deferred'
+    });
 
     return RSVP.defer('Ember: DeferredMixin - ' + this);
   })

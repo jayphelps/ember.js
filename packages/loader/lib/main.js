@@ -4,7 +4,9 @@ var mainContext = this;
 (function() {
 
   Ember = this.Ember = this.Ember || {};
-  if (typeof Ember === 'undefined') { Ember = {}; };
+  if (typeof Ember === 'undefined') {
+    Ember = {};
+  }
 
   if (typeof Ember.__loader === 'undefined') {
     var registry = {};
@@ -21,7 +23,7 @@ var mainContext = this;
         value.callback = callback;
       }
 
-        registry[name] = value;
+      registry[name] = value;
     };
 
     requirejs = require = requireModule = function(name) {
@@ -51,7 +53,7 @@ var mainContext = this;
       var reified = [];
       var length = deps.length;
 
-      for (var i=0; i<length; i++) {
+      for (var i = 0; i < length; i++) {
         if (deps[i] === 'exports') {
           reified.push(exports);
         } else {
@@ -62,7 +64,7 @@ var mainContext = this;
       callback.apply(this, reified);
 
       return exports;
-    };
+    }
 
     function resolve(child, name) {
       if (child.charAt(0) !== '.') {
@@ -71,7 +73,7 @@ var mainContext = this;
       var parts = child.split('/');
       var parentBase = name.split('/').slice(0, -1);
 
-      for (var i=0, l=parts.length; i<l; i++) {
+      for (var i = 0, l = parts.length; i < l; i++) {
         var part = parts[i];
 
         if (part === '..') {

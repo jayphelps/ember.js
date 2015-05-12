@@ -4,19 +4,19 @@
 @submodule ember-views
 */
 
-import Ember from "ember-metal/core"; // Ember.assert
-import ContainerView from "ember-views/views/container_view";
-import View from "ember-views/views/view";
-import EmberArray from "ember-runtime/mixins/array";
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import { fmt } from "ember-runtime/system/string";
-import { computed } from "ember-metal/computed";
+import Ember from 'ember-metal/core'; // Ember.assert
+import ContainerView from 'ember-views/views/container_view';
+import View from 'ember-views/views/view';
+import EmberArray from 'ember-runtime/mixins/array';
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import { fmt } from 'ember-runtime/system/string';
+import { computed } from 'ember-metal/computed';
 import {
   observer,
   beforeObserver
-} from "ember-metal/mixin";
-import { readViewFactory } from "ember-views/streams/utils";
+} from 'ember-metal/mixin';
+import { readViewFactory } from 'ember-views/streams/utils';
 
 /**
   `Ember.CollectionView` is an `Ember.View` descendent responsible for managing
@@ -239,7 +239,9 @@ var CollectionView = ContainerView.extend({
   _contentWillChange: beforeObserver('content', function() {
     var content = this.get('content');
 
-    if (content) { content.removeArrayObserver(this); }
+    if (content) {
+      content.removeArrayObserver(this);
+    }
     var len = content ? get(content, 'length') : 0;
     this.arrayWillChange(content, 0, len);
   }),
@@ -272,7 +274,7 @@ var CollectionView = ContainerView.extend({
     @method _assertArrayLike
   */
   _assertArrayLike(content) {
-    Ember.assert(fmt("an Ember.CollectionView's content must implement Ember.Array. You passed %@", [content]), EmberArray.detect(content));
+    Ember.assert(fmt('an Ember.CollectionView\'s content must implement Ember.Array. You passed %@', [content]), EmberArray.detect(content));
   },
 
   /**
@@ -281,10 +283,14 @@ var CollectionView = ContainerView.extend({
     @method destroy
   */
   destroy() {
-    if (!this._super(...arguments)) { return; }
+    if (!this._super(...arguments)) {
+      return;
+    }
 
     var content = get(this, 'content');
-    if (content) { content.removeArrayObserver(this); }
+    if (content) {
+      content.removeArrayObserver(this);
+    }
 
     if (this._createdEmptyView) {
       this._createdEmptyView.destroy();
@@ -336,7 +342,7 @@ var CollectionView = ContainerView.extend({
 
       itemViewClass = readViewFactory(itemViewClass, this.container);
 
-      for (idx = start; idx < start+added; idx++) {
+      for (idx = start; idx < start + added; idx++) {
         item = content.objectAt(idx);
         itemViewProps._context = this.keyword ? this.get('context') : item;
         itemViewProps.content = item;
@@ -364,7 +370,7 @@ var CollectionView = ContainerView.extend({
       if (Ember.FEATURES.isEnabled('ember-htmlbars-each-with-index')) {
         if (this.blockParams > 1) {
           var childViews = this.childViews;
-          for (idx = start+added; idx < len; idx++) {
+          for (idx = start + added; idx < len; idx++) {
             view = childViews[idx];
             set(view, 'contentIndex', idx);
           }
@@ -407,7 +413,7 @@ var CollectionView = ContainerView.extend({
     this._itemViewProps = itemProps;
     var childViews = get(this, 'childViews');
 
-    for (var i=0, l=childViews.length; i<l; i++) {
+    for (var i = 0, l = childViews.length; i < l; i++) {
       childViews[i].setProperties(itemProps);
     }
 
@@ -436,12 +442,16 @@ var CollectionView = ContainerView.extend({
     // if an inverse has been provided via an `{{else}}`.
     if (inverse && actualEmpty) {
       if (actualEmpty.extend) {
-        return actualEmpty.extend({ template: inverse });
+        return actualEmpty.extend({
+          template: inverse
+        });
       } else {
         set(actualEmpty, 'template', inverse);
       }
     } else if (inverse && emptyViewClass) {
-      return emptyViewClass.extend({ template: inverse });
+      return emptyViewClass.extend({
+        template: inverse
+      });
     }
 
     return actualEmpty;

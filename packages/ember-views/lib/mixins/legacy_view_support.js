@@ -3,8 +3,8 @@
 @submodule ember-views
 */
 import Ember from 'ember-metal/core';
-import { Mixin } from "ember-metal/mixin";
-import { get } from "ember-metal/property_get";
+import { Mixin } from 'ember-metal/mixin';
+import { get } from 'ember-metal/property_get';
 
 /**
   @class LegacyViewSupport
@@ -66,12 +66,14 @@ var LegacyViewSupport = Mixin.create({
     @deprecated
   */
   nearestChildOf(klass) {
-    Ember.deprecate("nearestChildOf has been deprecated.");
+    Ember.deprecate('nearestChildOf has been deprecated.');
 
     var view = get(this, 'parentView');
 
     while (view) {
-      if (get(view, 'parentView') instanceof klass) { return view; }
+      if (get(view, 'parentView') instanceof klass) {
+        return view;
+      }
       view = get(view, 'parentView');
     }
   },
@@ -86,11 +88,13 @@ var LegacyViewSupport = Mixin.create({
     @deprecated
   */
   nearestInstanceOf(klass) {
-    Ember.deprecate("nearestInstanceOf is deprecated and will be removed from future releases. Use nearestOfType.");
+    Ember.deprecate('nearestInstanceOf is deprecated and will be removed from future releases. Use nearestOfType.');
     var view = get(this, 'parentView');
 
     while (view) {
-      if (view instanceof klass) { return view; }
+      if (view instanceof klass) {
+        return view;
+      }
       view = get(view, 'parentView');
     }
   }

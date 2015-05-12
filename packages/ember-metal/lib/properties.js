@@ -2,13 +2,13 @@
 @module ember-metal
 */
 
-import Ember from "ember-metal/core";
-import { meta as metaFor } from "ember-metal/utils";
+import Ember from 'ember-metal/core';
+import { meta as metaFor } from 'ember-metal/utils';
 import {
   defineProperty as objectDefineProperty,
   hasPropertyAccessors
 } from 'ember-metal/platform/define_property';
-import { overrideChains } from "ember-metal/property_events";
+import { overrideChains } from 'ember-metal/property_events';
 // ..........................................................
 // DESCRIPTOR
 //

@@ -1,15 +1,15 @@
 import {
   guidFor,
   tryFinally
-} from "ember-metal/utils";
+} from 'ember-metal/utils';
 import {
   sendEvent,
   accumulateListeners
-} from "ember-metal/events";
-import ObserverSet from "ember-metal/observer_set";
-import { symbol } from "ember-metal/utils";
+} from 'ember-metal/events';
+import ObserverSet from 'ember-metal/observer_set';
+import { symbol } from 'ember-metal/utils';
 
-export let PROPERTY_DID_CHANGE = symbol("PROPERTY_DID_CHANGE");
+export let PROPERTY_DID_CHANGE = symbol('PROPERTY_DID_CHANGE');
 
 var beforeObserverSet = new ObserverSet();
 var observerSet = new ObserverSet();
@@ -175,7 +175,7 @@ function iterDeps(method, obj, deps, depKey, seen, meta) {
 
   if (deps) {
     keys = keysOf(deps);
-    for (i=0; i<keys.length; i++) {
+    for (i = 0; i < keys.length; i++) {
       key = keys[i];
       possibleDesc = obj[key];
       desc = (possibleDesc !== null && typeof possibleDesc === 'object' && possibleDesc.isDescriptor) ? possibleDesc : undefined;
@@ -204,7 +204,7 @@ function chainsWillChange(obj, keyName, m) {
   }
 
   for (i = 0, l = events.length; i < l; i += 2) {
-    propertyWillChange(events[i], events[i+1]);
+    propertyWillChange(events[i], events[i + 1]);
   }
 }
 
@@ -227,7 +227,7 @@ function chainsDidChange(obj, keyName, m, suppressEvents) {
   }
 
   for (i = 0, l = events.length; i < l; i += 2) {
-    propertyDidChange(events[i], events[i+1]);
+    propertyDidChange(events[i], events[i + 1]);
   }
 }
 
@@ -250,7 +250,7 @@ function beginPropertyChanges() {
 */
 function endPropertyChanges() {
   deferred--;
-  if (deferred<=0) {
+  if (deferred <= 0) {
     beforeObserverSet.clear();
     observerSet.flush();
   }

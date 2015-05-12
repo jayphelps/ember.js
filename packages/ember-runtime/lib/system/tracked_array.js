@@ -1,5 +1,5 @@
-import { get } from "ember-metal/property_get";
-import { forEach } from "ember-metal/enumerable_utils";
+import { get } from 'ember-metal/property_get';
+import { forEach } from 'ember-metal/enumerable_utils';
 
 var RETAIN = 'r';
 var INSERT = 'i';
@@ -18,7 +18,9 @@ export default TrackedArray;
   the initial items for the starting state of retain:n.
 */
 function TrackedArray(items) {
-  if (arguments.length < 1) { items = []; }
+  if (arguments.length < 1) {
+    items = [];
+  }
 
   var length = get(items, 'length');
 
@@ -44,7 +46,9 @@ TrackedArray.prototype = {
   */
   addItems(index, newItems) {
     var count = get(newItems, 'length');
-    if (count < 1) { return; }
+    if (count < 1) {
+      return;
+    }
 
     var match = this._findArrayOperation(index);
     var arrayOperation = match.operation;
@@ -80,7 +84,9 @@ TrackedArray.prototype = {
     @param count
   */
   removeItems(index, count) {
-    if (count < 1) { return; }
+    if (count < 1) {
+      return;
+    }
 
     var match = this._findArrayOperation(index);
     var arrayOperationIndex = match.index;
@@ -119,7 +125,7 @@ TrackedArray.prototype = {
     var items = [];
     var offset = 0;
 
-    forEach(this._operations, function (arrayOperation, operationIndex) {
+    forEach(this._operations, function(arrayOperation, operationIndex) {
       callback(arrayOperation.items, offset, arrayOperation.type, operationIndex);
 
       if (arrayOperation.type !== DELETE) {
@@ -143,15 +149,17 @@ TrackedArray.prototype = {
   _findArrayOperation(index) {
     var split = false;
     var arrayOperationIndex, arrayOperation,
-        arrayOperationRangeStart, arrayOperationRangeEnd,
-        len;
+      arrayOperationRangeStart, arrayOperationRangeEnd,
+      len;
 
     // OPTIMIZE: we could search these faster if we kept a balanced tree.
     // find leftmost arrayOperation to the right of `index`
     for (arrayOperationIndex = arrayOperationRangeStart = 0, len = this._operations.length; arrayOperationIndex < len; ++arrayOperationIndex) {
       arrayOperation = this._operations[arrayOperationIndex];
 
-      if (arrayOperation.type === DELETE) { continue; }
+      if (arrayOperation.type === DELETE) {
+        continue;
+      }
 
       arrayOperationRangeEnd = arrayOperationRangeStart + arrayOperation.count - 1;
 
@@ -183,8 +191,8 @@ TrackedArray.prototype = {
   // see SubArray for a better implementation.
   _composeInsert(index) {
     var newArrayOperation = this._operations[index];
-    var leftArrayOperation = this._operations[index-1]; // may be undefined
-    var rightArrayOperation = this._operations[index+1]; // may be undefined
+    var leftArrayOperation = this._operations[index - 1]; // may be undefined
+    var rightArrayOperation = this._operations[index + 1]; // may be undefined
     var leftOp = leftArrayOperation && leftArrayOperation.type;
     var rightOp = rightArrayOperation && rightArrayOperation.type;
 
@@ -213,7 +221,7 @@ TrackedArray.prototype = {
   _composeDelete(index) {
     var arrayOperation = this._operations[index];
     var deletesToGo = arrayOperation.count;
-    var leftArrayOperation = this._operations[index-1]; // may be undefined
+    var leftArrayOperation = this._operations[index - 1]; // may be undefined
     var leftOp = leftArrayOperation && leftArrayOperation.type;
     var nextArrayOperation;
     var nextOp;
@@ -267,7 +275,7 @@ TrackedArray.prototype = {
     if (arrayOperation.count > 0) {
       // compose our new delete with possibly several operations to the right of
       // disparate types
-      this._operations.splice(index+1, i-1-index);
+      this._operations.splice(index + 1, i - 1 - index);
     } else {
       // The delete operation can go away; it has merely reduced some other
       // operation, as in d:3 i:4; it may also have eliminated that operation,
@@ -279,9 +287,9 @@ TrackedArray.prototype = {
   },
 
   toString() {
-    var str = "";
-    forEach(this._operations, function (operation) {
-      str += " " + operation.type + ":" + operation.count;
+    var str = '';
+    forEach(this._operations, function(operation) {
+      str += ' ' + operation.type + ':' + operation.count;
     });
     return str.substring(1);
   }

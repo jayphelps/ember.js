@@ -1,6 +1,6 @@
-import "ember";
+import 'ember';
 
-QUnit.module("Global API Tests");
+QUnit.module('Global API Tests');
 
 function confirmExport(property) {
   QUnit.test('confirm ' + property + ' is exported', function() {

@@ -2,11 +2,11 @@
 @module ember-metal
 */
 
-import Ember from "ember-metal/core";
-import { hasPropertyAccessors } from "ember-metal/platform/define_property";
-import { defineProperty } from "ember-metal/properties";
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
+import Ember from 'ember-metal/core';
+import { hasPropertyAccessors } from 'ember-metal/platform/define_property';
+import { defineProperty } from 'ember-metal/properties';
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
 
 
 /**

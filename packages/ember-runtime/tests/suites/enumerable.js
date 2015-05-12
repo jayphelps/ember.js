@@ -1,8 +1,8 @@
 import { Suite } from 'ember-runtime/tests/suites/suite';
-import EmberObject from "ember-runtime/system/object";
-import {guidFor, generateGuid} from "ember-metal/utils";
-import {computed} from "ember-metal/computed";
-import {get} from "ember-metal/property_get";
+import EmberObject from 'ember-runtime/system/object';
+import {guidFor, generateGuid} from 'ember-metal/utils';
+import {computed} from 'ember-metal/computed';
+import {get} from 'ember-metal/property_get';
 import { addBeforeObserver } from 'ember-metal/observer';
 
 var ObserverClass = EmberObject.extend({
@@ -10,7 +10,7 @@ var ObserverClass = EmberObject.extend({
   _keysBefore: null,
   _keys: null,
   _values: null,
-  _before : null,
+  _before: null,
   _after: null,
 
   isEnabled: true,
@@ -22,7 +22,9 @@ var ObserverClass = EmberObject.extend({
 
 
   propertyWillChange(target, key) {
-    if (this._keysBefore[key] === undefined) { this._keysBefore[key] = 0; }
+    if (this._keysBefore[key] === undefined) {
+      this._keysBefore[key] = 0;
+    }
     this._keysBefore[key]++;
   },
 
@@ -31,7 +33,9 @@ var ObserverClass = EmberObject.extend({
     later analysis.
   */
   propertyDidChange(target, key, value) {
-    if (this._keys[key] === undefined) { this._keys[key] = 0; }
+    if (this._keys[key] === undefined) {
+      this._keys[key] = 0;
+    }
     this._keys[key]++;
     this._values[key] = value;
   },
@@ -53,8 +57,8 @@ var ObserverClass = EmberObject.extend({
 
   observeBefore(obj) {
     var keys = Array.prototype.slice.call(arguments, 1);
-    var loc  = keys.length;
-    while (--loc>=0) {
+    var loc = keys.length;
+    while (--loc >= 0) {
       addBeforeObserver(obj, keys[loc], this, 'propertyWillChange');
     }
 
@@ -73,7 +77,7 @@ var ObserverClass = EmberObject.extend({
   observe(obj) {
     if (obj.addObserver) {
       var keys = Array.prototype.slice.call(arguments, 1);
-      var loc  = keys.length;
+      var loc = keys.length;
 
       while (--loc >= 0) {
         obj.addObserver(keys[loc], this, 'propertyDidChange');
@@ -105,7 +109,7 @@ var ObserverClass = EmberObject.extend({
       return false;
     }
 
-    if (arguments.length>1) {
+    if (arguments.length > 1) {
       return this._values[key] === value;
     } else {
       return true;
@@ -266,11 +270,11 @@ var EnumerableTests = Suite.extend({
   */
   newObserver(obj) {
     var ret = get(this, 'observerClass').create();
-    if (arguments.length>0) {
+    if (arguments.length > 0) {
       ret.observeBefore.apply(ret, arguments);
     }
 
-    if (arguments.length>0) {
+    if (arguments.length > 0) {
       ret.observe.apply(ret, arguments);
     }
 

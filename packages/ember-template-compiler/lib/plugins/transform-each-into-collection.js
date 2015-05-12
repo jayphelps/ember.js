@@ -52,11 +52,11 @@ function validate(node) {
     return any(node.hash.pairs, pair => {
       let key = pair.key;
       return key === 'itemController' ||
-             key === 'itemView' ||
-             key === 'itemViewClass' ||
-             key === 'tagName' ||
-             key === 'emptyView' ||
-             key === 'emptyViewClass';
+        key === 'itemView' ||
+        key === 'itemViewClass' ||
+        key === 'tagName' ||
+        key === 'emptyView' ||
+        key === 'emptyViewClass';
     });
   }
 
@@ -64,7 +64,7 @@ function validate(node) {
 }
 
 function any(list, predicate) {
-  for (var i=0, l=list.length; i<l; i++) {
+  for (let i = 0, l = list.length; i < l; i++) {
     if (predicate(list[i])) { return list[i]; }
   }
 

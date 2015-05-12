@@ -5,11 +5,13 @@
 import {
   Mixin,
   observer
-} from "ember-metal/mixin";
-import { get } from "ember-metal/property_get";
-import run from "ember-metal/run_loop";
+} from 'ember-metal/mixin';
+import { get } from 'ember-metal/property_get';
+import run from 'ember-metal/run_loop';
 
-function K() { return this; }
+function K() {
+  return this;
+}
 
 /**
   @class VisibilitySupport
@@ -36,7 +38,9 @@ var VisibilitySupport = Mixin.create({
     @private
   */
   _isVisibleDidChange: observer('isVisible', function() {
-    if (this._isVisible === get(this, 'isVisible')) { return ; }
+    if (this._isVisible === get(this, 'isVisible')) {
+      return;
+    }
     run.scheduleOnce('render', this, this._toggleVisibility);
   }),
 
@@ -44,17 +48,23 @@ var VisibilitySupport = Mixin.create({
     var $el = this.$();
     var isVisible = get(this, 'isVisible');
 
-    if (this._isVisible === isVisible) { return ; }
+    if (this._isVisible === isVisible) {
+      return;
+    }
 
     // It's important to keep these in sync, even if we don't yet have
     // an element in the DOM to manipulate:
     this._isVisible = isVisible;
 
-    if (!$el) { return; }
+    if (!$el) {
+      return;
+    }
 
     $el.toggle(isVisible);
 
-    if (this._isAncestorHidden()) { return; }
+    if (this._isAncestorHidden()) {
+      return;
+    }
 
     if (isVisible) {
       this._notifyBecameVisible();
@@ -90,7 +100,9 @@ var VisibilitySupport = Mixin.create({
     var parent = get(this, 'parentView');
 
     while (parent) {
-      if (get(parent, 'isVisible') === false) { return true; }
+      if (get(parent, 'isVisible') === false) {
+        return true;
+      }
 
       parent = get(parent, 'parentView');
     }

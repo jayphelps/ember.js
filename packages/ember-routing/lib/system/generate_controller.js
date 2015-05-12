@@ -1,6 +1,6 @@
-import Ember from "ember-metal/core"; // Logger
-import { get } from "ember-metal/property_get";
-import { isArray } from "ember-runtime/utils";
+import Ember from 'ember-metal/core'; // Logger
+import { get } from 'ember-metal/property_get';
+import { isArray } from 'ember-runtime/utils';
 
 /**
 @module ember
@@ -69,7 +69,9 @@ export default function generateController(container, controllerName, context) {
   var instance = container.lookup(fullName);
 
   if (get(instance, 'namespace.LOG_ACTIVE_GENERATION')) {
-    Ember.Logger.info(`generated -> ${fullName}`, { fullName: fullName });
+    Ember.Logger.info(`generated -> ${fullName}`, {
+      fullName: fullName
+    });
   }
 
   return instance;

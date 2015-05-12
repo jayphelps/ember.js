@@ -1,10 +1,10 @@
-import { get } from "ember-metal/property_get";
-import run from "ember-metal/run_loop";
-import { dasherize } from "ember-runtime/system/string";
-import Namespace from "ember-runtime/system/namespace";
-import EmberObject from "ember-runtime/system/object";
-import { A as emberA } from "ember-runtime/system/native_array";
-import Application from "ember-application/system/application";
+import { get } from 'ember-metal/property_get';
+import run from 'ember-metal/run_loop';
+import { dasherize } from 'ember-runtime/system/string';
+import Namespace from 'ember-runtime/system/namespace';
+import EmberObject from 'ember-runtime/system/object';
+import { A as emberA } from 'ember-runtime/system/native_array';
+import Application from 'ember-application/system/application';
 
 /**
 @module ember
@@ -145,7 +145,7 @@ export default EmberObject.extend({
     typesAdded(typesToSend);
 
     var release = () => {
-      releaseMethods.forEach((fn) => fn() );
+      releaseMethods.forEach((fn) => fn());
       this.releaseMethods.removeObject(release);
     };
     this.releaseMethods.pushObject(release);
@@ -209,11 +209,18 @@ export default EmberObject.extend({
       }
     };
 
-    var observer = { didChange: contentDidChange, willChange() { return this; } };
+    var observer = {
+      didChange: contentDidChange,
+      willChange() {
+        return this;
+      }
+    };
     records.addArrayObserver(this, observer);
 
     release = () => {
-      releaseMethods.forEach(function(fn) { fn(); });
+      releaseMethods.forEach(function(fn) {
+        fn();
+      });
       records.removeArrayObserver(this, observer);
       this.releaseMethods.removeObject(release);
     };
@@ -285,7 +292,9 @@ export default EmberObject.extend({
       didChange() {
         run.scheduleOnce('actions', this, onChange);
       },
-      willChange() { return this; }
+      willChange() {
+        return this;
+      }
     };
 
     records.addArrayObserver(this, observer);

@@ -14,7 +14,7 @@ var TestMutableEnumerable = EmberObject.extend(MutableEnumerable, {
   _content: null,
 
   addObject(obj) {
-    if (indexOf(this._content, obj)>=0) {
+    if (indexOf(this._content, obj) >= 0) {
       return this;
     }
 
@@ -25,7 +25,7 @@ var TestMutableEnumerable = EmberObject.extend(MutableEnumerable, {
 
   removeObject(obj) {
     var idx = indexOf(this._content, obj);
-    if (idx<0) {
+    if (idx < 0) {
       return this;
     }
 
@@ -40,7 +40,7 @@ var TestMutableEnumerable = EmberObject.extend(MutableEnumerable, {
   },
 
   nextObject(idx) {
-    return idx>=get(this, 'length') ? undefined : this._content[idx];
+    return idx >= get(this, 'length') ? undefined : this._content[idx];
   },
 
   length: computed(function() {

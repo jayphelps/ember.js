@@ -2,7 +2,7 @@ import {
   readArray,
   readHash,
   isStream
-} from "ember-metal/streams/utils";
+} from 'ember-metal/streams/utils';
 
 /**
 @module ember
@@ -45,7 +45,7 @@ export default function makeBoundHelper(fn, ...dependentKeys) {
     isHTMLBars: true,
 
     helperFunction(params, hash, templates) {
-      Ember.assert("registerBoundHelper-generated helpers do not support use with Handlebars blocks.", !templates.template.yield);
+      Ember.assert('registerBoundHelper-generated helpers do not support use with Handlebars blocks.', !templates.template.yield);
 
       var args = readArray(params);
       var properties = new Array(params.length);
@@ -60,7 +60,13 @@ export default function makeBoundHelper(fn, ...dependentKeys) {
         }
       }
 
-      args.push({ hash: readHash(hash) , templates, data: { properties } });
+      args.push({
+        hash: readHash(hash),
+        templates,
+        data: {
+          properties
+        }
+      });
       return fn.apply(undefined, args);
     }
   };

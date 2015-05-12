@@ -9,7 +9,9 @@ import { computed } from 'ember-metal/computed';
 import { observer as emberObserver } from 'ember-metal/mixin';
 
 
-function K() { return this; }
+function K() {
+  return this;
+}
 
 
 /*
@@ -25,7 +27,7 @@ var TestEnumerable = EmberObject.extend(Enumerable, {
   },
 
   addObject(obj) {
-    if (indexOf(this._content, obj)>=0) {
+    if (indexOf(this._content, obj) >= 0) {
       return this;
     }
 
@@ -59,7 +61,7 @@ EnumerableTests.extend({
 
   // allows for testing of the basic enumerable after an internal mutation
   mutate(obj) {
-    obj.addObject(obj._content.length+1);
+    obj.addObject(obj._content.length + 1);
   },
 
   toArray(obj) {
@@ -70,44 +72,44 @@ EnumerableTests.extend({
 
 QUnit.module('Ember.Enumerable');
 
-QUnit.test("should apply Ember.Array to return value of map", function() {
+QUnit.test('should apply Ember.Array to return value of map', function() {
   var x = EmberObject.createWithMixins(Enumerable);
   var y = x.map(K);
-  equal(EmberArray.detect(y), true, "should have mixin applied");
+  equal(EmberArray.detect(y), true, 'should have mixin applied');
 });
 
-QUnit.test("should apply Ember.Array to return value of filter", function() {
+QUnit.test('should apply Ember.Array to return value of filter', function() {
   var x = EmberObject.createWithMixins(Enumerable);
   var y = x.filter(K);
-  equal(EmberArray.detect(y), true, "should have mixin applied");
+  equal(EmberArray.detect(y), true, 'should have mixin applied');
 });
 
-QUnit.test("should apply Ember.Array to return value of invoke", function() {
+QUnit.test('should apply Ember.Array to return value of invoke', function() {
   var x = EmberObject.createWithMixins(Enumerable);
   var y = x.invoke(K);
-  equal(EmberArray.detect(y), true, "should have mixin applied");
+  equal(EmberArray.detect(y), true, 'should have mixin applied');
 });
 
-QUnit.test("should apply Ember.Array to return value of toArray", function() {
+QUnit.test('should apply Ember.Array to return value of toArray', function() {
   var x = EmberObject.createWithMixins(Enumerable);
   var y = x.toArray(K);
-  equal(EmberArray.detect(y), true, "should have mixin applied");
+  equal(EmberArray.detect(y), true, 'should have mixin applied');
 });
 
-QUnit.test("should apply Ember.Array to return value of without", function() {
+QUnit.test('should apply Ember.Array to return value of without', function() {
   var x = EmberObject.createWithMixins(Enumerable, {
     contains() {
       return true;
     }
   });
   var y = x.without(K);
-  equal(EmberArray.detect(y), true, "should have mixin applied");
+  equal(EmberArray.detect(y), true, 'should have mixin applied');
 });
 
-QUnit.test("should apply Ember.Array to return value of uniq", function() {
+QUnit.test('should apply Ember.Array to return value of uniq', function() {
   var x = EmberObject.createWithMixins(Enumerable);
   var y = x.uniq(K);
-  equal(EmberArray.detect(y), true, "should have mixin applied");
+  equal(EmberArray.detect(y), true, 'should have mixin applied');
 });
 
 QUnit.test('any', function() {
@@ -118,7 +120,9 @@ QUnit.test('any', function() {
   }, {
     color: 'white'
   }]);
-  var foundWhite = kittens.any(function(kitten) { return kitten.color === 'white'; });
+  var foundWhite = kittens.any(function(kitten) {
+    return kitten.color === 'white';
+  });
   var foundWhite2 = kittens.isAny('color', 'white');
 
   equal(foundWhite, true);
@@ -126,13 +130,13 @@ QUnit.test('any', function() {
 });
 
 QUnit.test('any with NaN', function() {
-  var numbers = Ember.A([1,2,NaN,4]);
+  var numbers = Ember.A([1, 2, NaN, 4]);
 
   var hasNaN = numbers.any(function(n) {
     return isNaN(n);
   });
 
-  equal(hasNaN, true, "works when matching NaN");
+  equal(hasNaN, true, 'works when matching NaN');
 });
 
 QUnit.test('every', function() {
@@ -151,7 +155,9 @@ QUnit.test('every', function() {
     color: 'white'
   }]);
   var allWhite = false;
-  var whiteKittenPredicate = function(kitten) { return kitten.color === 'white'; };
+  var whiteKittenPredicate = function(kitten) {
+    return kitten.color === 'white';
+  };
 
   allWhite = allColorsKittens.every(whiteKittenPredicate);
   equal(allWhite, false);

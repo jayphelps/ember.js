@@ -1,15 +1,15 @@
 /* globals EmberDev */
 
-import Ember from "ember-metal/core";
-import EmberView from "ember-views/views/view";
-import compile from "ember-template-compiler/system/compile";
-import { SafeString } from "ember-htmlbars/utils/string";
-import { runAppend, runDestroy } from "ember-runtime/tests/utils";
-import { styleWarning } from "ember-htmlbars/morphs/attr-morph";
+import Ember from 'ember-metal/core';
+import EmberView from 'ember-views/views/view';
+import compile from 'ember-template-compiler/system/compile';
+import { SafeString } from 'ember-htmlbars/utils/string';
+import { runAppend, runDestroy } from 'ember-runtime/tests/utils';
+import { styleWarning } from 'ember-htmlbars/morphs/attr-morph';
 
 var view, originalWarn, warnings;
 
-QUnit.module("ember-htmlbars: style attribute", {
+QUnit.module('ember-htmlbars: style attribute', {
   setup() {
     warnings = [];
     originalWarn = Ember.warn;

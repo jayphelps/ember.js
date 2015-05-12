@@ -3,11 +3,11 @@
 @submodule ember-views
 */
 import Ember from 'ember-metal/core';
-import { Mixin } from "ember-metal/mixin";
-import { removeObject } from "ember-metal/enumerable_utils";
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import setProperties from "ember-metal/set_properties";
+import { Mixin } from 'ember-metal/mixin';
+import { removeObject } from 'ember-metal/enumerable_utils';
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import setProperties from 'ember-metal/set_properties';
 
 var EMPTY_ARRAY = [];
 
@@ -52,7 +52,9 @@ var ViewChildViewsSupport = Mixin.create({
     // If we're destroying, the entire subtree will be
     // freed, and the DOM will be handled separately,
     // so no need to mess with childViews.
-    if (this.isDestroying) { return; }
+    if (this.isDestroying) {
+      return;
+    }
 
     // update parent node
     this.unlinkChild(view);
@@ -79,7 +81,7 @@ var ViewChildViewsSupport = Mixin.create({
   */
   createChildView(maybeViewClass, _attrs) {
     if (!maybeViewClass) {
-      throw new TypeError("createChildViews first argument must exist");
+      throw new TypeError('createChildViews first argument must exist');
     }
 
     if (maybeViewClass.isView && maybeViewClass.parentView === this && maybeViewClass.container === this.container) {
@@ -102,7 +104,7 @@ var ViewChildViewsSupport = Mixin.create({
       var fullName = 'view:' + maybeViewClass;
       var ViewKlass = this.container.lookupFactory(fullName);
 
-      Ember.assert("Could not find view: '" + fullName + "'", !!ViewKlass);
+      Ember.assert('Could not find view: \'' + fullName + '\'', !!ViewKlass);
 
       view = ViewKlass.create(attrs);
     } else {

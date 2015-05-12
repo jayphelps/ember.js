@@ -5,19 +5,19 @@ var suite = SuiteModuleBuilder.create();
 
 suite.module('unshiftObject');
 
-suite.test("returns unshifted object", function() {
+suite.test('returns unshifted object', function() {
   var obj = this.newObject([]);
   var item = this.newFixture(1)[0];
   equal(obj.unshiftObject(item), item, 'should return unshifted object');
 });
 
 
-suite.test("[].unshiftObject(X) => [X] + notify", function() {
+suite.test('[].unshiftObject(X) => [X] + notify', function() {
   var obj, before, after, item, observer;
 
   before = [];
   item = this.newFixture(1)[0];
-  after  = [item];
+  after = [item];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */
@@ -34,12 +34,12 @@ suite.test("[].unshiftObject(X) => [X] + notify", function() {
   equal(observer.timesCalled('lastObject'), 1, 'should have notified lastObject once');
 });
 
-suite.test("[A,B,C].unshiftObject(X) => [X,A,B,C] + notify", function() {
+suite.test('[A,B,C].unshiftObject(X) => [X,A,B,C] + notify', function() {
   var obj, before, after, item, observer;
 
   before = this.newFixture(3);
   item = this.newFixture(1)[0];
-  after  = [item, before[0], before[1], before[2]];
+  after = [item, before[0], before[1], before[2]];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */
@@ -57,12 +57,12 @@ suite.test("[A,B,C].unshiftObject(X) => [X,A,B,C] + notify", function() {
   equal(observer.validate('lastObject'), false, 'should NOT have notified lastObject');
 });
 
-suite.test("[A,B,C].unshiftObject(A) => [A,A,B,C] + notify", function() {
+suite.test('[A,B,C].unshiftObject(A) => [A,A,B,C] + notify', function() {
   var obj, before, after, item, observer;
 
   before = this.newFixture(3);
   item = before[0]; // note same object as current head. should end up twice
-  after  = [item, before[0], before[1], before[2]];
+  after = [item, before[0], before[1], before[2]];
   obj = this.newObject(before);
   observer = this.newObserver(obj, '[]', '@each', 'length', 'firstObject', 'lastObject');
   obj.getProperties('firstObject', 'lastObject'); /* Prime the cache */

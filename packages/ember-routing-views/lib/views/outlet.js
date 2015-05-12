@@ -3,8 +3,8 @@
 @submodule ember-routing-views
 */
 
-import View from "ember-views/views/view";
-import topLevelViewTemplate from "ember-htmlbars/templates/top-level-view";
+import View from 'ember-views/views/view';
+import topLevelViewTemplate from 'ember-htmlbars/templates/top-level-view';
 topLevelViewTemplate.meta.revision = 'Ember@VERSION_STRING_PLACEHOLDER';
 
 export var CoreOutletView = View.extend({
@@ -16,7 +16,9 @@ export var CoreOutletView = View.extend({
   },
 
   setOutletState(state) {
-    this.outletState = { main: state };
+    this.outletState = {
+      main: state
+    };
 
     if (this.env) {
       this.env.outletState = this.outletState;
@@ -38,4 +40,6 @@ export var CoreOutletView = View.extend({
   }
 });
 
-export var OutletView = CoreOutletView.extend({ tagName: '' });
+export var OutletView = CoreOutletView.extend({
+  tagName: ''
+});

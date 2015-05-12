@@ -1,16 +1,16 @@
-import Ember from "ember-metal/core"; // Ember.Logger, Ember.LOG_BINDINGS, assert
-import { get } from "ember-metal/property_get";
-import { trySet } from "ember-metal/property_set";
-import { guidFor } from "ember-metal/utils";
+import Ember from 'ember-metal/core'; // Ember.Logger, Ember.LOG_BINDINGS, assert
+import { get } from 'ember-metal/property_get';
+import { trySet } from 'ember-metal/property_set';
+import { guidFor } from 'ember-metal/utils';
 import {
   addObserver,
   removeObserver,
   _suspendObserver
-} from "ember-metal/observer";
-import run from "ember-metal/run_loop";
+} from 'ember-metal/observer';
+import run from 'ember-metal/run_loop';
 import {
   isGlobal as isGlobalPath
-} from "ember-metal/path_cache";
+} from 'ember-metal/path_cache';
 
 
 // ES6TODO: where is Ember.lookup defined?
@@ -56,7 +56,7 @@ function getWithGlobals(obj, path) {
 function Binding(toPath, fromPath) {
   this._direction = undefined;
   this._from = fromPath;
-  this._to   = toPath;
+  this._to = toPath;
   this._readyToSync = undefined;
   this._oneWay = undefined;
 }
@@ -221,7 +221,7 @@ Binding.prototype = {
     // if we haven't scheduled the binding yet, schedule it
     if (existingDir === undefined) {
       run.schedule('sync', this, this._sync, obj);
-      this._direction  = dir;
+      this._direction = dir;
     }
 
     // If both a 'back' and 'fwd' sync have been scheduled on the same object,
@@ -255,7 +255,7 @@ Binding.prototype = {
       if (this._oneWay) {
         trySet(obj, toPath, fromValue);
       } else {
-        _suspendObserver(obj, toPath, this, this.toDidChange, function () {
+        _suspendObserver(obj, toPath, this, this.toDidChange, function() {
           trySet(obj, toPath, fromValue);
         });
       }
@@ -265,7 +265,7 @@ Binding.prototype = {
       if (log) {
         Ember.Logger.log(' ', this.toString(), '<-', toValue, obj);
       }
-      _suspendObserver(obj, fromPath, this, this.fromDidChange, function () {
+      _suspendObserver(obj, fromPath, this, this.fromDidChange, function() {
         trySet(isGlobalPath(fromPath) ? Ember.lookup : obj, fromPath, toValue);
       });
     }

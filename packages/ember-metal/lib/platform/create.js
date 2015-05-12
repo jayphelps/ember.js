@@ -1,7 +1,7 @@
 // Remove "use strict"; from transpiled module until
 // https://bugs.webkit.org/show_bug.cgi?id=138038 is fixed
 //
-"REMOVE_USE_STRICT: true";
+'REMOVE_USE_STRICT: true';
 
 import defineProperties from 'ember-metal/platform/define_properties';
 
@@ -31,7 +31,7 @@ if (!(Object.create && !Object.create(null).hasOwnProperty)) {
   // Object.prototype.__proto__ === null
   if (supportsProto || typeof document === 'undefined') {
     createEmpty = function() {
-      return { "__proto__": null };
+      return { '__proto__': null };
     };
   } else {
     // In old IE __proto__ can't be used to manually set `null`, nor does
@@ -69,18 +69,18 @@ if (!(Object.create && !Object.create(null).hasOwnProperty)) {
   create = Object.create = function create(prototype, properties) {
 
     var object;
-    function Type() {}  // An empty constructor.
+    function Type() {} // An empty constructor.
 
     if (prototype === null) {
       object = createEmpty();
     } else {
-      if (typeof prototype !== "object" && typeof prototype !== "function") {
+      if (typeof prototype !== 'object' && typeof prototype !== 'function') {
         // In the native implementation `parent` can be `null`
         // OR *any* `instanceof Object`  (Object|Function|Array|RegExp|etc)
         // Use `typeof` tho, b/c in old IE, DOM elements are not `instanceof Object`
         // like they are in modern browsers. Using `Object.create` on DOM elements
         // is...err...probably inappropriate, but the native version allows for it.
-        throw new TypeError("Object prototype may only be an Object or null"); // same msg as Chrome
+        throw new TypeError('Object prototype may only be an Object or null'); // same msg as Chrome
       }
 
       Type.prototype = prototype;

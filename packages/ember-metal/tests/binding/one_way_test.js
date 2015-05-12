@@ -1,15 +1,19 @@
 import { set } from 'ember-metal/property_set';
 import { get } from 'ember-metal/property_get';
 import run from 'ember-metal/run_loop';
-import { oneWay } from "ember-metal/binding";
+import { oneWay } from 'ember-metal/binding';
 
 var MyApp;
 
 QUnit.module('system/mixin/binding/oneWay_test', {
   setup() {
     MyApp = {
-      foo: { value: 'FOO' },
-      bar: { value: 'BAR' }
+      foo: {
+        value: 'FOO'
+      },
+      bar: {
+        value: 'BAR'
+      }
     };
   },
 

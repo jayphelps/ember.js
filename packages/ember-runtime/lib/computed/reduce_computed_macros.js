@@ -225,7 +225,9 @@ export function map(dependentKey, callback) {
   @return {Ember.ComputedProperty} an array mapped to the specified key
 */
 export function mapBy(dependentKey, propertyKey) {
-  var callback = function(item) { return get(item, propertyKey); };
+  var callback = function(item) {
+    return get(item, propertyKey);
+  };
   return map(dependentKey + '.@each.' + propertyKey, callback);
 }
 
@@ -477,7 +479,7 @@ export function intersect() {
       }
 
       if (++itemCounts[itemGuid][dependentGuid] === 1 &&
-          numberOfDependentArrays === keys(itemCounts[itemGuid]).length) {
+        numberOfDependentArrays === keys(itemCounts[itemGuid]).length) {
         array.addObject(item);
       }
 
@@ -614,7 +616,7 @@ function binarySearch(array, item, low, high) {
 
 
   if (res < 0) {
-    return this.binarySearch(array, item, mid+1, high);
+    return this.binarySearch(array, item, mid + 1, high);
   } else if (res > 0) {
     return this.binarySearch(array, item, low, mid);
   }
@@ -708,7 +710,7 @@ function customSort(itemsKey, comparator) {
         var index, item;
         var waiting = instanceMeta.waitingInsertions;
         instanceMeta.waitingInsertions = [];
-        for (var i=0; i<waiting.length; i++) {
+        for (var i = 0; i < waiting.length; i++) {
           item = waiting[i];
           index = instanceMeta.binarySearch(array, item);
           array.insertAt(index, item);
@@ -745,14 +747,14 @@ function propertySort(itemsKey, sortPropertiesKey) {
         var sortProperty, idx, asc;
 
         Ember.assert('Cannot sort: \'' + sortPropertiesKey + '\' is not an array.',
-                     isArray(sortPropertyDefinitions));
+          isArray(sortPropertyDefinitions));
 
         changeMeta.property.clearItemPropertyKeys(itemsKey);
 
-        forEach(sortPropertyDefinitions, function (sortPropertyDefinition) {
+        forEach(sortPropertyDefinitions, function(sortPropertyDefinition) {
           if ((idx = sortPropertyDefinition.indexOf(':')) !== -1) {
             sortProperty = sortPropertyDefinition.substring(0, idx);
-            asc = sortPropertyDefinition.substring(idx+1).toLowerCase() !== 'desc';
+            asc = sortPropertyDefinition.substring(idx + 1).toLowerCase() !== 'desc';
           } else {
             sortProperty = sortPropertyDefinition;
             asc = true;
@@ -778,7 +780,7 @@ function propertySort(itemsKey, sortPropertiesKey) {
       addObserver(this, sortPropertiesKey, updateSortPropertiesOnce);
       setupSortProperties.call(this);
 
-      instanceMeta.order = function (itemA, itemB) {
+      instanceMeta.order = function(itemA, itemB) {
         var sortProperty, result, asc;
         var keyA = this.keyFor(itemA);
         var keyB = this.keyFor(itemB);

@@ -1,9 +1,9 @@
-import {set} from "ember-metal/property_set";
-import {get} from "ember-metal/property_get";
-import {Mixin} from "ember-metal/mixin";
+import {set} from 'ember-metal/property_set';
+import {get} from 'ember-metal/property_get';
+import {Mixin} from 'ember-metal/mixin';
 import create from 'ember-metal/platform/create';
-import { Binding } from "ember-metal/binding";
-import run from "ember-metal/run_loop";
+import { Binding } from 'ember-metal/binding';
+import run from 'ember-metal/run_loop';
 
 QUnit.module('system/mixin/binding_test');
 
@@ -13,7 +13,11 @@ QUnit.test('Defining a property ending in Binding should setup binding when appl
     fooBinding: 'bar.baz'
   });
 
-  var obj = { bar: { baz: 'BIFF' } };
+  var obj = {
+    bar: {
+      baz: 'BIFF'
+    }
+  };
 
   run(function() {
     MyMixin.apply(obj);
@@ -33,7 +37,11 @@ QUnit.test('Defining a property ending in Binding should apply to prototype chil
     });
   });
 
-  obj = { bar: { baz: 'BIFF' } };
+  obj = {
+    bar: {
+      baz: 'BIFF'
+    }
+  };
 
   run(function() {
     MyMixin.apply(obj);

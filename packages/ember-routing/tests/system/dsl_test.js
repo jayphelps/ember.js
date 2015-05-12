@@ -1,9 +1,9 @@
-import EmberRouter from "ember-routing/system/router";
-import { forEach } from "ember-metal/enumerable_utils";
+import EmberRouter from 'ember-routing/system/router';
+import { forEach } from 'ember-metal/enumerable_utils';
 
 var Router;
 
-QUnit.module("Ember Router DSL", {
+QUnit.module('Ember Router DSL', {
   setup() {
     Router = EmberRouter.extend();
   },
@@ -12,7 +12,7 @@ QUnit.module("Ember Router DSL", {
   }
 });
 
-QUnit.test("should fail when using a reserved route name", function() {
+QUnit.test('should fail when using a reserved route name', function() {
   var reservedNames = ['array', 'basic', 'object', 'application'];
 
   expect(reservedNames.length * 2);
@@ -28,7 +28,7 @@ QUnit.test("should fail when using a reserved route name", function() {
 
       var router = Router.create();
       router._initRouterJs();
-    }, "'" + reservedName + "' cannot be used as a route name.");
+    }, '\'' + reservedName + '\' cannot be used as a route name.');
 
     expectAssertion(function() {
       Router = EmberRouter.extend();
@@ -39,12 +39,12 @@ QUnit.test("should fail when using a reserved route name", function() {
 
       var router = Router.create();
       router._initRouterJs();
-    }, "'" + reservedName + "' cannot be used as a resource name.");
+    }, '\'' + reservedName + '\' cannot be used as a resource name.');
 
   });
 });
 
-QUnit.test("should reset namespace if nested with resource", function() {
+QUnit.test('should reset namespace if nested with resource', function() {
   Router = Router.map(function() {
     this.resource('bleep', function() {
       this.resource('bloop', function() {
@@ -61,7 +61,7 @@ QUnit.test("should reset namespace if nested with resource", function() {
   ok(router.router.recognizer.names['blork'], 'nested resources do not contain parent name');
 });
 
-QUnit.test("should retain resource namespace if nested with routes", function() {
+QUnit.test('should retain resource namespace if nested with routes', function() {
   Router = Router.map(function() {
     this.route('bleep', function() {
       this.route('bloop', function() {
@@ -79,33 +79,33 @@ QUnit.test("should retain resource namespace if nested with routes", function() 
 });
 
 // jscs:disable validateIndentation
-if (Ember.FEATURES.isEnabled("ember-routing-named-substates")) {
+if (Ember.FEATURES.isEnabled('ember-routing-named-substates')) {
 
-QUnit.test("should add loading and error routes if _isRouterMapResult is true", function() {
-  Router.map(function() {
-    this.route('blork');
+  QUnit.test('should add loading and error routes if _isRouterMapResult is true', function() {
+    Router.map(function() {
+      this.route('blork');
+    });
+
+    var router = Router.create();
+    router._initRouterJs(true);
+
+    ok(router.router.recognizer.names['blork'], 'main route was created');
+    ok(router.router.recognizer.names['blork_loading'], 'loading route was added');
+    ok(router.router.recognizer.names['blork_error'], 'error route was added');
   });
 
-  var router = Router.create();
-  router._initRouterJs(true);
+  QUnit.test('should not add loading and error routes if _isRouterMapResult is false', function() {
+    Router.map(function() {
+      this.route('blork');
+    });
 
-  ok(router.router.recognizer.names['blork'], 'main route was created');
-  ok(router.router.recognizer.names['blork_loading'], 'loading route was added');
-  ok(router.router.recognizer.names['blork_error'], 'error route was added');
-});
+    var router = Router.create();
+    router._initRouterJs(false);
 
-QUnit.test("should not add loading and error routes if _isRouterMapResult is false", function() {
-  Router.map(function() {
-    this.route('blork');
+    ok(router.router.recognizer.names['blork'], 'main route was created');
+    ok(!router.router.recognizer.names['blork_loading'], 'loading route was not added');
+    ok(!router.router.recognizer.names['blork_error'], 'error route was not added');
   });
-
-  var router = Router.create();
-  router._initRouterJs(false);
-
-  ok(router.router.recognizer.names['blork'], 'main route was created');
-  ok(!router.router.recognizer.names['blork_loading'], 'loading route was not added');
-  ok(!router.router.recognizer.names['blork_error'], 'error route was not added');
-});
 
 }
 // jscs:enable validateIndentation

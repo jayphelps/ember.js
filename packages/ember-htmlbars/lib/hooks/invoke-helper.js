@@ -1,7 +1,5 @@
 import Ember from 'ember-metal/core'; // Ember.assert
-import getValue from "ember-htmlbars/hooks/get-value";
-
-
+import getValue from 'ember-htmlbars/hooks/get-value';
 
 export default function invokeHelper(morph, env, scope, visitor, _params, _hash, helper, templates, context) {
   var params, hash;
@@ -11,8 +9,8 @@ export default function invokeHelper(morph, env, scope, visitor, _params, _hash,
     hash = getHashValues(_hash);
     return { value: helper.call(context, params, hash, templates) };
   } else if (helper.isLegacyViewHelper) {
-    Ember.assert("You can only pass attributes (such as name=value) not bare " +
-                 "values to a helper for a View found in '" + helper.viewClass + "'", _params.length === 0);
+    Ember.assert('You can only pass attributes (such as name=value) not bare ' +
+                 `values to a helper for a View found in '${helper.viewClass}'`, _params.length === 0);
 
     env.hooks.keyword('view', morph, env, scope, [helper.viewClass], _hash, templates.template.raw, null, visitor);
     return { handled: true };
@@ -26,7 +24,7 @@ export default function invokeHelper(morph, env, scope, visitor, _params, _hash,
 // are pure functions that can only work with values.
 function getArrayValues(params) {
   let out = [];
-  for (let i=0, l=params.length; i<l; i++) {
+  for (let i = 0, l = params.length; i < l; i++) {
     out.push(getValue(params[i]));
   }
 

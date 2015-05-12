@@ -3,10 +3,10 @@
 @submodule ember-htmlbars
 */
 
-import subscribe from "ember-htmlbars/utils/subscribe";
-import { isArray } from "ember-runtime/utils";
-import { chain, read, readArray, isStream, addDependency } from "ember-metal/streams/utils";
-import { findHelper } from "ember-htmlbars/system/lookup-helper";
+import subscribe from 'ember-htmlbars/utils/subscribe';
+import { isArray } from 'ember-runtime/utils';
+import { chain, read, readArray, isStream, addDependency } from 'ember-metal/streams/utils';
+import { findHelper } from 'ember-htmlbars/system/lookup-helper';
 
 export default function linkRenderNode(renderNode, env, scope, path, params, hash) {
   if (renderNode.streamUnsubscribers) {
@@ -19,9 +19,14 @@ export default function linkRenderNode(renderNode, env, scope, path, params, has
     keyword.link(renderNode.state, params, hash);
   } else {
     switch (path) {
-      case 'unbound': return true;
-      case 'if': params[0] = shouldDisplay(params[0]); break;
-      case 'each': params[0] = eachParam(params[0]); break;
+      case 'unbound':
+        return true;
+      case 'if':
+        params[0] = shouldDisplay(params[0]);
+        break;
+      case 'each':
+        params[0] = eachParam(params[0]);
+        break;
       default:
         helper = findHelper(path, scope.view, env);
 

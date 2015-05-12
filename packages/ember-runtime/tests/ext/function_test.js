@@ -1,11 +1,11 @@
-import { testBoth } from "ember-metal/tests/props_helper";
+import { testBoth } from 'ember-metal/tests/props_helper';
 
 QUnit.module('Function.prototype.observes() helper');
 
 testBoth('global observer helper takes multiple params', function(get, set) {
 
   if (Ember.EXTEND_PROTOTYPES === false) {
-    ok("undefined" === typeof Function.prototype.observes, 'Function.prototype helper disabled');
+    ok('undefined' === typeof Function.prototype.observes, 'Function.prototype helper disabled');
     return;
   }
 
@@ -14,7 +14,7 @@ testBoth('global observer helper takes multiple params', function(get, set) {
     count: 0,
 
     foo: function() {
-      set(this, 'count', get(this, 'count')+1);
+      set(this, 'count', get(this, 'count') + 1);
     }.observes('bar', 'baz')
 
   });
@@ -22,8 +22,8 @@ testBoth('global observer helper takes multiple params', function(get, set) {
   var obj = Ember.mixin({}, MyMixin);
   equal(get(obj, 'count'), 0, 'should not invoke observer immediately');
 
-  set(obj, 'bar', "BAZ");
-  set(obj, 'baz', "BAZ");
+  set(obj, 'bar', 'BAZ');
+  set(obj, 'baz', 'BAZ');
   equal(get(obj, 'count'), 2, 'should invoke observer after change');
 });
 
@@ -32,7 +32,7 @@ QUnit.module('Function.prototype.on() helper');
 testBoth('sets up an event listener, and can trigger the function on multiple events', function(get, set) {
 
   if (Ember.EXTEND_PROTOTYPES === false) {
-    ok("undefined" === typeof Function.prototype.on, 'Function.prototype helper disabled');
+    ok('undefined' === typeof Function.prototype.on, 'Function.prototype helper disabled');
     return;
   }
 
@@ -41,7 +41,7 @@ testBoth('sets up an event listener, and can trigger the function on multiple ev
     count: 0,
 
     foo: function() {
-      set(this, 'count', get(this, 'count')+1);
+      set(this, 'count', get(this, 'count') + 1);
     }.on('bar', 'baz')
 
   });
@@ -66,7 +66,7 @@ testBoth('can be chained with observes', function(get, set) {
     count: 0,
     bay: 'bay',
     foo: function() {
-      set(this, 'count', get(this, 'count')+1);
+      set(this, 'count', get(this, 'count') + 1);
     }.observes('bay').on('bar')
   });
 
@@ -83,7 +83,7 @@ QUnit.module('Function.prototype.property() helper');
 testBoth('sets up a ComputedProperty', function(get, set) {
 
   if (Ember.EXTEND_PROTOTYPES === false) {
-    ok("undefined" === typeof Function.prototype.property, 'Function.prototype helper disabled');
+    ok('undefined' === typeof Function.prototype.property, 'Function.prototype helper disabled');
     return;
   }
 
@@ -95,12 +95,15 @@ testBoth('sets up a ComputedProperty', function(get, set) {
     }.property('firstName', 'lastName')
   });
 
-  var obj = MyClass.create({ firstName: 'Fred', lastName: 'Flinstone' });
+  var obj = MyClass.create({
+    firstName: 'Fred',
+    lastName: 'Flinstone'
+  });
   equal(get(obj, 'fullName'), 'Fred Flinstone', 'should return the computed value');
 
-  set(obj, 'firstName', "Wilma");
+  set(obj, 'firstName', 'Wilma');
   equal(get(obj, 'fullName'), 'Wilma Flinstone', 'should return the new computed value');
 
-  set(obj, 'lastName', "");
+  set(obj, 'lastName', '');
   equal(get(obj, 'fullName'), 'Wilma ', 'should return the new computed value');
 });

@@ -4,5 +4,7 @@
 */
 
 export default function cleanupRenderNode(renderNode) {
-  if (renderNode.cleanup) { renderNode.cleanup(); }
+  if (renderNode.cleanup) {
+    renderNode.cleanup();
+  }
 }

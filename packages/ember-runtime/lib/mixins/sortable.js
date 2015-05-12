@@ -3,23 +3,23 @@
 @submodule ember-runtime
 */
 
-import Ember from "ember-metal/core"; // Ember.assert, Ember.A
+import Ember from 'ember-metal/core'; // Ember.assert, Ember.A
 
-import { get } from "ember-metal/property_get";
-import { forEach } from "ember-metal/enumerable_utils";
-import MutableEnumerable from "ember-runtime/mixins/mutable_enumerable";
-import compare from "ember-runtime/compare";
+import { get } from 'ember-metal/property_get';
+import { forEach } from 'ember-metal/enumerable_utils';
+import MutableEnumerable from 'ember-runtime/mixins/mutable_enumerable';
+import compare from 'ember-runtime/compare';
 import {
   addObserver,
   removeObserver
-} from "ember-metal/observer";
-import { computed } from "ember-metal/computed";
-import { notEmpty } from "ember-metal/computed_macros";
+} from 'ember-metal/observer';
+import { computed } from 'ember-metal/computed';
+import { notEmpty } from 'ember-metal/computed_macros';
 import {
   Mixin,
   beforeObserver,
   observer
-} from "ember-metal/mixin"; //ES6TODO: should we access these directly from their package or from how their exposed in ember-metal?
+} from 'ember-metal/mixin'; //ES6TODO: should we access these directly from their package or from how their exposed in ember-metal?
 
 /**
   `Ember.SortableMixin` provides a standard interface for array proxies
@@ -124,7 +124,7 @@ export default Mixin.create(MutableEnumerable, {
     var sortAscending = get(this, 'sortAscending');
     var sortFunction = get(this, 'sortFunction');
 
-    Ember.assert("you need to define `sortProperties`", !!sortProperties);
+    Ember.assert('you need to define `sortProperties`', !!sortProperties);
 
     forEach(sortProperties, function(propertyName) {
       if (result === 0) {
@@ -224,7 +224,7 @@ export default Mixin.create(MutableEnumerable, {
 
     if (isSorted) {
       var arrangedContent = get(this, 'arrangedContent');
-      var removedObjects = array.slice(idx, idx+removedCount);
+      var removedObjects = array.slice(idx, idx + removedCount);
       var sortProperties = get(this, 'sortProperties');
 
       forEach(removedObjects, function(item) {
@@ -244,7 +244,7 @@ export default Mixin.create(MutableEnumerable, {
     var sortProperties = get(this, 'sortProperties');
 
     if (isSorted) {
-      var addedObjects = array.slice(idx, idx+addedCount);
+      var addedObjects = array.slice(idx, idx + addedCount);
 
       forEach(addedObjects, function(item) {
         this.insertItemSorted(item);
@@ -295,7 +295,7 @@ export default Mixin.create(MutableEnumerable, {
     res = this.orderBy(midItem, item);
 
     if (res < 0) {
-      return this._binarySearch(item, mid+1, high);
+      return this._binarySearch(item, mid + 1, high);
     } else if (res > 0) {
       return this._binarySearch(item, low, mid);
     }

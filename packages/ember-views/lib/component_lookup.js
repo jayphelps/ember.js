@@ -1,6 +1,6 @@
 import Ember from 'ember-metal/core';
-import EmberObject from "ember-runtime/system/object";
-import { ISNT_HELPER_CACHE } from "ember-htmlbars/system/lookup-helper";
+import EmberObject from 'ember-runtime/system/object';
+import { ISNT_HELPER_CACHE } from 'ember-htmlbars/system/lookup-helper';
 
 export default EmberObject.extend({
   invalidName(name) {

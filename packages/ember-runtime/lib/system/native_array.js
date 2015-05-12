@@ -3,21 +3,21 @@
 @submodule ember-runtime
 */
 
-import Ember from "ember-metal/core"; // Ember.EXTEND_PROTOTYPES
+import Ember from 'ember-metal/core'; // Ember.EXTEND_PROTOTYPES
 
-import { get } from "ember-metal/property_get";
+import { get } from 'ember-metal/property_get';
 import {
-  _replace as replace,
-  forEach
-} from "ember-metal/enumerable_utils";
-import { Mixin } from "ember-metal/mixin";
-import { indexOf, lastIndexOf } from "ember-metal/array";
-import EmberArray from "ember-runtime/mixins/array";
-import MutableArray from "ember-runtime/mixins/mutable_array";
-import Observable from "ember-runtime/mixins/observable";
-import Copyable from "ember-runtime/mixins/copyable";
-import { FROZEN_ERROR } from "ember-runtime/mixins/freezable";
-import copy from "ember-runtime/copy";
+_replace as replace,
+forEach
+} from 'ember-metal/enumerable_utils';
+import { Mixin } from 'ember-metal/mixin';
+import { indexOf, lastIndexOf } from 'ember-metal/array';
+import EmberArray from 'ember-runtime/mixins/array';
+import MutableArray from 'ember-runtime/mixins/mutable_array';
+import Observable from 'ember-runtime/mixins/observable';
+import Copyable from 'ember-runtime/mixins/copyable';
+import { FROZEN_ERROR } from 'ember-runtime/mixins/freezable';
+import copy from 'ember-runtime/copy';
 
 // Add Ember.Array to Array.prototype. Remove methods with native
 // implementations and supply some more optimized versions of generic methods
@@ -41,7 +41,7 @@ var NativeArray = Mixin.create(MutableArray, Observable, Copyable, {
   // because length is a built-in property we need to know to just get the
   // original property.
   get(key) {
-    if (key==='length') {
+    if (key === 'length') {
       return this.length;
     } else if ('number' === typeof key) {
       return this[key];
@@ -80,7 +80,7 @@ var NativeArray = Mixin.create(MutableArray, Observable, Copyable, {
   // If you ask for an unknown property, then try to collect the value
   // from member items.
   unknownProperty(key, value) {
-    var ret;// = this.reducedProperty(key, value);
+    var ret; // = this.reducedProperty(key, value);
     if (value !== undefined && ret === undefined) {
       ret = this[key] = value;
     }
@@ -93,7 +93,9 @@ var NativeArray = Mixin.create(MutableArray, Observable, Copyable, {
 
   copy(deep) {
     if (deep) {
-      return this.map(function(item) { return copy(item, true); });
+      return this.map(function(item) {
+        return copy(item, true);
+      });
     }
 
     return this.slice();
@@ -139,7 +141,9 @@ NativeArray = NativeArray.without.apply(NativeArray, ignore);
   @return {Ember.NativeArray}
 */
 var A = function(arr) {
-  if (arr === undefined) { arr = []; }
+  if (arr === undefined) {
+    arr = [];
+  }
   return EmberArray.detect(arr) ? arr : NativeArray.apply(arr);
 };
 
@@ -165,7 +169,9 @@ var A = function(arr) {
 NativeArray.activate = function() {
   NativeArray.apply(Array.prototype);
 
-  A = function(arr) { return arr || []; };
+  A = function(arr) {
+    return arr || [];
+  };
 };
 
 if (Ember.EXTEND_PROTOTYPES === true || Ember.EXTEND_PROTOTYPES.Array) {

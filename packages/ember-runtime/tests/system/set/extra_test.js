@@ -1,14 +1,14 @@
-import EnumerableUtils from "ember-metal/enumerable_utils";
-import {get} from "ember-metal/property_get";
-import {addObserver} from "ember-metal/observer";
-import Set from "ember-runtime/system/set";
+import EnumerableUtils from 'ember-metal/enumerable_utils';
+import {get} from 'ember-metal/property_get';
+import {addObserver} from 'ember-metal/observer';
+import Set from 'ember-runtime/system/set';
 
 QUnit.module('Set.init');
 
 QUnit.test('passing an array to new Set() should instantiate w/ items', function() {
   var aSet;
 
-  var ary  = [1,2,3];
+  var ary = [1, 2, 3];
   var count = 0;
 
   ignoreDeprecation(function() {
@@ -17,7 +17,7 @@ QUnit.test('passing an array to new Set() should instantiate w/ items', function
 
   equal(get(aSet, 'length'), 3, 'should have three items');
   aSet.forEach(function(x) {
-    ok(EnumerableUtils.indexOf(ary, x)>=0, 'should find passed item in array');
+    ok(EnumerableUtils.indexOf(ary, x) >= 0, 'should find passed item in array');
     count++;
   });
   equal(count, 3, 'iterating should have returned three objects');
@@ -30,13 +30,15 @@ QUnit.test('should clear a set of its content', function() {
   var count = 0;
 
   ignoreDeprecation(function() {
-    aSet = new Set([1,2,3]);
+    aSet = new Set([1, 2, 3]);
   });
 
   equal(get(aSet, 'length'), 3, 'should have three items');
   ok(get(aSet, 'firstObject'), 'firstObject should return an object');
   ok(get(aSet, 'lastObject'), 'lastObject should return an object');
-  addObserver(aSet, '[]', function() { count++; });
+  addObserver(aSet, '[]', function() {
+    count++;
+  });
 
   aSet.clear();
   equal(get(aSet, 'length'), 0, 'should have 0 items');
@@ -45,7 +47,9 @@ QUnit.test('should clear a set of its content', function() {
   equal(get(aSet, 'lastObject'), null, 'lastObject should return nothing');
 
   count = 0;
-  aSet.forEach(function() { count++; });
+  aSet.forEach(function() {
+    count++;
+  });
   equal(count, 0, 'iterating over items should not invoke callback');
 
 });
@@ -61,13 +65,13 @@ QUnit.test('calling pop should return an object and remove it', function() {
   var count = 0;
 
   ignoreDeprecation(function() {
-    aSet = new Set([1,2,3]);
+    aSet = new Set([1, 2, 3]);
   });
 
-  while (count<10 && (obj = aSet.pop())) {
+  while (count < 10 && (obj = aSet.pop())) {
     equal(aSet.contains(obj), false, 'set should no longer contain object');
     count++;
-    equal(get(aSet, 'length'), 3-count, 'length should be shorter');
+    equal(get(aSet, 'length'), 3 - count, 'length should be shorter');
   }
 
   equal(count, 3, 'should only pop 3 objects');

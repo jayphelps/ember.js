@@ -1,10 +1,10 @@
 /*global __fail__*/
 
-import Ember from "ember-metal/core";
-import EmberError from "ember-metal/error";
-import Logger from "ember-metal/logger";
+import Ember from 'ember-metal/core';
+import EmberError from 'ember-metal/error';
+import Logger from 'ember-metal/logger';
 
-import environment from "ember-metal/environment";
+import environment from 'ember-metal/environment';
 
 /**
 Ember Debug
@@ -51,7 +51,7 @@ Ember.assert = function(desc, test) {
   }
 
   if (throwAssertion) {
-    throw new EmberError("Assertion Failed: " + desc);
+    throw new EmberError('Assertion Failed: ' + desc);
   }
 };
 
@@ -67,7 +67,7 @@ Ember.assert = function(desc, test) {
 */
 Ember.warn = function(message, test) {
   if (!test) {
-    Logger.warn("WARNING: "+message);
+    Logger.warn('WARNING: ' + message);
     if ('trace' in Logger) {
       Logger.trace();
     }
@@ -86,7 +86,7 @@ Ember.warn = function(message, test) {
   @param {String} message A debug message to display.
 */
 Ember.debug = function(message) {
-  Logger.debug("DEBUG: "+message);
+  Logger.debug('DEBUG: ' + message);
 };
 
 /**
@@ -143,11 +143,11 @@ Ember.deprecate = function(message, test, options) {
                           replace(/^\(/gm, '{anonymous}(').split('\n');
     }
 
-    stackStr = "\n    " + stack.slice(2).join("\n    ");
+    stackStr = '\n    ' + stack.slice(2).join('\n    ');
     message = message + stackStr;
   }
 
-  Logger.warn("DEPRECATION: "+message);
+  Logger.warn('DEPRECATION: ' + message);
 };
 
 
@@ -240,7 +240,7 @@ if (!Ember.testing) {
   var isChrome = environment.isChrome;
 
   if (typeof window !== 'undefined' && (isFirefox || isChrome) && window.addEventListener) {
-    window.addEventListener("load", function() {
+    window.addEventListener('load', function() {
       if (document.documentElement && document.documentElement.dataset && !document.documentElement.dataset.emberExtension) {
         var downloadURL;
 

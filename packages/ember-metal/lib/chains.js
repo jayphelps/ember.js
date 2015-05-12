@@ -1,8 +1,8 @@
-import Ember from "ember-metal/core"; // warn, assert, etc;
-import { get, normalizeTuple } from "ember-metal/property_get";
-import { meta as metaFor } from "ember-metal/utils";
-import { forEach } from "ember-metal/array";
-import { watchKey, unwatchKey } from "ember-metal/watch_key";
+import Ember from 'ember-metal/core'; // warn, assert, etc;
+import { get, normalizeTuple } from 'ember-metal/property_get';
+import { meta as metaFor } from 'ember-metal/utils';
+import { forEach } from 'ember-metal/array';
+import { watchKey, unwatchKey } from 'ember-metal/watch_key';
 
 var warn = Ember.warn;
 var FIRST_KEY = /^([^\.]+)/;
@@ -82,7 +82,7 @@ function removeChainWatcher(obj, keyName, node) {
 // pass null for parent and key and object for value.
 function ChainNode(parent, key, value) {
   this._parent = parent;
-  this._key    = key;
+  this._key = key;
 
   // _watching is true when calling get(this._parent, this._key) will
   // return the value of this node.
@@ -122,7 +122,7 @@ function lazyGet(obj, key) {
     return;
   }
 
-  if (key === "@each") {
+  if (key === '@each') {
     return get(obj, key);
   }
 
@@ -189,7 +189,7 @@ ChainNode.prototype = {
     // the path was a local path
     if (tuple[0] && tuple[0] === obj) {
       path = tuple[1];
-      key  = firstKey(path);
+      key = firstKey(path);
       path = path.slice(key.length + 1);
 
     // global path, but object does not exist yet.
@@ -201,8 +201,8 @@ ChainNode.prototype = {
 
     // global path, and object already exists
     } else {
-      src  = tuple[0];
-      key  = path.slice(0, 0 - (tuple[1].length + 1));
+      src = tuple[0];
+      key = path.slice(0, 0 - (tuple[1].length + 1));
       path = tuple[1];
     }
 
@@ -224,11 +224,11 @@ ChainNode.prototype = {
     tuple = normalizeTuple(obj, path);
     if (tuple[0] === obj) {
       path = tuple[1];
-      key  = firstKey(path);
+      key = firstKey(path);
       path = path.slice(key.length + 1);
     } else {
-      src  = tuple[0];
-      key  = path.slice(0, 0 - (tuple[1].length + 1));
+      src = tuple[0];
+      key = path.slice(0, 0 - (tuple[1].length + 1));
       path = tuple[1];
     }
 
@@ -265,7 +265,7 @@ ChainNode.prototype = {
 
     // unchain rest of path first...
     if (path && path.length > 1) {
-      var nextKey  = firstKey(path);
+      var nextKey = firstKey(path);
       var nextPath = path.slice(nextKey.length + 1);
       node.unchain(nextKey, nextPath);
     }
@@ -339,7 +339,7 @@ ChainNode.prototype = {
         this._object = obj;
         addChainWatcher(obj, this._key, this);
       }
-      this._value  = undefined;
+      this._value = undefined;
 
       // Special-case: the EachProxy relies on immediate evaluation to
       // establish its observers.

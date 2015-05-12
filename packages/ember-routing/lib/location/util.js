@@ -93,8 +93,8 @@ export function supportsHistory(userAgent, history) {
   // We only want Android 2, stock browser, and not Chrome which identifies
   // itself as 'Mobile Safari' as well
   if (userAgent.indexOf('Android 2') !== -1 &&
-      userAgent.indexOf('Mobile Safari') !== -1 &&
-      userAgent.indexOf('Chrome') === -1) {
+    userAgent.indexOf('Mobile Safari') !== -1 &&
+    userAgent.indexOf('Chrome') === -1) {
     return false;
   }
 

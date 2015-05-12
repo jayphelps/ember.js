@@ -95,7 +95,7 @@ if (hasES5CompliantDefineProperty && typeof document !== 'undefined') {
     try {
       defineProperty(document.createElement('div'), 'definePropertyOnDOM', {});
       return true;
-    } catch(e) { }
+    } catch (e) {}
 
     return false;
   })();
@@ -104,10 +104,10 @@ if (hasES5CompliantDefineProperty && typeof document !== 'undefined') {
     defineProperty = function(obj, keyName, desc) {
       var isNode;
 
-      if (typeof Node === "object") {
+      if (typeof Node === 'object') {
         isNode = obj instanceof Node;
       } else {
-        isNode = typeof obj === "object" && typeof obj.nodeType === "number" && typeof obj.nodeName === "string";
+        isNode = typeof obj === 'object' && typeof obj.nodeType === 'number' && typeof obj.nodeName === 'string';
       }
 
       if (isNode) {

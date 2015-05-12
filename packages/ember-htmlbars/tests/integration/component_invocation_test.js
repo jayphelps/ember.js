@@ -1,11 +1,11 @@
-import EmberView from "ember-views/views/view";
-import Registry from "container/registry";
-import jQuery from "ember-views/system/jquery";
-import compile from "ember-template-compiler/system/compile";
+import EmberView from 'ember-views/views/view';
+import Registry from 'container/registry';
+import jQuery from 'ember-views/system/jquery';
+import compile from 'ember-template-compiler/system/compile';
 import ComponentLookup from 'ember-views/component_lookup';
-import Component from "ember-views/views/component";
-import { runAppend, runDestroy } from "ember-runtime/tests/utils";
-import run from "ember-metal/run_loop";
+import Component from 'ember-views/views/component';
+import { runAppend, runDestroy } from 'ember-runtime/tests/utils';
+import run from 'ember-metal/run_loop';
 
 var registry, container, view;
 
@@ -104,7 +104,7 @@ QUnit.test('rerendering component with attrs from parent', function() {
   view = EmberView.extend({
     template: compile('{{non-block someProp=view.someProp}}'),
     container: container,
-    someProp: "wycats"
+    someProp: 'wycats'
   }).create();
 
   runAppend(view);
@@ -118,14 +118,14 @@ QUnit.test('rerendering component with attrs from parent', function() {
   });
 
   equal(jQuery('#qunit-fixture').text(), 'In layout - someProp: tomdale');
-  equal(didReceiveAttrs, 2, "The didReceiveAttrs hook fired again");
-  equal(willUpdate, 1, "The willUpdate hook fired once");
+  equal(didReceiveAttrs, 2, 'The didReceiveAttrs hook fired again');
+  equal(willUpdate, 1, 'The willUpdate hook fired once');
 
   Ember.run(view, 'rerender');
 
   equal(jQuery('#qunit-fixture').text(), 'In layout - someProp: tomdale');
-  equal(didReceiveAttrs, 3, "The didReceiveAttrs hook fired again");
-  equal(willUpdate, 2, "The willUpdate hook fired again");
+  equal(didReceiveAttrs, 3, 'The didReceiveAttrs hook fired again');
+  equal(willUpdate, 2, 'The willUpdate hook fired again');
 });
 
 

@@ -3,16 +3,16 @@
 @submodule ember-htmlbars
 */
 
-import lookupHelper from "ember-htmlbars/system/lookup-helper";
-import merge from "ember-metal/merge";
-import Stream from "ember-metal/streams/stream";
-import create from "ember-metal/platform/create";
+import lookupHelper from 'ember-htmlbars/system/lookup-helper';
+import merge from 'ember-metal/merge';
+import Stream from 'ember-metal/streams/stream';
+import create from 'ember-metal/platform/create';
 import {
   readArray,
   readHash,
   labelsFor,
   labelFor
-} from "ember-metal/streams/utils";
+} from 'ember-metal/streams/utils';
 
 export default function subexpr(env, scope, helperName, params, hash) {
   // TODO: Keywords and helper invocation should be integrated into
@@ -38,14 +38,18 @@ function labelForSubexpr(params, hash, helperName) {
     var paramsLabels = labelsForParams(params);
     var hashLabels = labelsForHash(hash);
     var label = `(${helperName}`;
-    if (paramsLabels) { label += ` ${paramsLabels}`; }
-    if (hashLabels) { label += ` ${hashLabels}`; }
+    if (paramsLabels) {
+      label += ` ${paramsLabels}`;
+    }
+    if (hashLabels) {
+      label += ` ${hashLabels}`;
+    }
     return `${label})`;
   };
 }
 
 function labelsForParams(params) {
-  return labelsFor(params).join(" ");
+  return labelsFor(params).join(' ');
 }
 
 function labelsForHash(hash) {
@@ -55,7 +59,7 @@ function labelsForHash(hash) {
     out.push(`${prop}=${labelFor(hash[prop])}`);
   }
 
-  return out.join(" ");
+  return out.join(' ');
 }
 
 function SubexprStream(params, hash, helper, label) {

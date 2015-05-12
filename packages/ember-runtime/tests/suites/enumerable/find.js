@@ -34,7 +34,7 @@ suite.test('every should stop invoking when you return true', function() {
     found.push(i);
     return --cnt >= 0;
   });
-  equal(result, ary[exp-1], 'return value of obj.find');
+  equal(result, ary[exp - 1], 'return value of obj.find');
   equal(found.length, exp, 'should invoke proper number of times');
   deepEqual(found, ary.slice(0, -2), 'items passed during find() should match');
 });
@@ -49,8 +49,14 @@ suite.test('should return first object of property matches', function() {
   var ary, obj;
 
   ary = [
-    { foo: 'foo', bar: 'BAZ' },
-    EmberObject.create({ foo: 'foo', bar: 'bar' })
+    {
+      foo: 'foo',
+      bar: 'BAZ'
+    },
+    EmberObject.create({
+      foo: 'foo',
+      bar: 'bar'
+    })
   ];
 
   obj = this.newObject(ary);
@@ -63,8 +69,14 @@ suite.test('should return first object with truthy prop', function() {
   var ary, obj;
 
   ary = [
-    { foo: 'foo', bar: false },
-    EmberObject.create({ foo: 'bar', bar: true })
+    {
+      foo: 'foo',
+      bar: false
+    },
+    EmberObject.create({
+      foo: 'bar',
+      bar: true
+    })
   ];
 
   obj = this.newObject(ary);
@@ -78,28 +90,37 @@ suite.test('should return first null property match', function() {
   var ary, obj;
 
   ary = [
-    { foo: null, bar: 'BAZ' },
-    EmberObject.create({ foo: null, bar: null })
+    {
+      foo: null,
+      bar: 'BAZ'
+    },
+    EmberObject.create({
+      foo: null,
+      bar: null
+    })
   ];
 
   obj = this.newObject(ary);
 
-  equal(obj.findBy('foo', null), ary[0], "findBy('foo', null)");
-  equal(obj.findBy('bar', null), ary[1], "findBy('bar', null)");
+  equal(obj.findBy('foo', null), ary[0], 'findBy(\'foo\', null)');
+  equal(obj.findBy('bar', null), ary[1], 'findBy(\'bar\', null)');
 });
 
 suite.test('should return first undefined property match', function() {
   var ary, obj;
 
   ary = [
-    { foo: undefined, bar: 'BAZ' },
+    {
+      foo: undefined,
+      bar: 'BAZ'
+    },
     EmberObject.create({ })
   ];
 
   obj = this.newObject(ary);
 
-  equal(obj.findBy('foo', undefined), ary[0], "findBy('foo', undefined)");
-  equal(obj.findBy('bar', undefined), ary[1], "findBy('bar', undefined)");
+  equal(obj.findBy('foo', undefined), ary[0], 'findBy(\'foo\', undefined)');
+  equal(obj.findBy('bar', undefined), ary[1], 'findBy(\'bar\', undefined)');
 });
 
 suite.test('should be aliased to findProperty', function() {

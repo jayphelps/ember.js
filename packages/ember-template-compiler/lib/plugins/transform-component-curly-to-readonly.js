@@ -13,11 +13,17 @@ TransformComponentCurlyToReadonly.prototype.transform = function TransformCompon
   var walker = new this.syntax.Walker();
 
   walker.visit(ast, function(node) {
-    if (!validate(node)) { return; }
+    if (!validate(node)) {
+      return;
+    }
 
     each(node.attributes, function(attr) {
-      if (attr.value.type !== 'MustacheStatement') { return; }
-      if (attr.value.params.length || attr.value.hash.pairs.length) { return; }
+      if (attr.value.type !== 'MustacheStatement') {
+        return;
+      }
+      if (attr.value.params.length || attr.value.hash.pairs.length) {
+        return;
+      }
 
       attr.value = b.mustache(b.path('readonly'), [attr.value.path], null, !attr.value.escape);
     });
@@ -31,7 +37,7 @@ function validate(node) {
 }
 
 function each(list, callback) {
-  for (var i=0, l=list.length; i<l; i++) {
+  for (var i = 0, l = list.length; i < l; i++) {
     callback(list[i]);
   }
 }

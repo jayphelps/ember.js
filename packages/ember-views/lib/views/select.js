@@ -9,21 +9,21 @@ import {
   indexesOf,
   replace,
   map
-} from "ember-metal/enumerable_utils";
+} from 'ember-metal/enumerable_utils';
 
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
-import View from "ember-views/views/view";
-import { isArray } from "ember-runtime/utils";
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
+import View from 'ember-views/views/view';
+import { isArray } from 'ember-runtime/utils';
 import isNone from 'ember-metal/is_none';
-import { computed } from "ember-metal/computed";
-import { A as emberA } from "ember-runtime/system/native_array";
-import { observer } from "ember-metal/mixin";
-import { defineProperty } from "ember-metal/properties";
+import { computed } from 'ember-metal/computed';
+import { A as emberA } from 'ember-runtime/system/native_array';
+import { observer } from 'ember-metal/mixin';
+import { defineProperty } from 'ember-metal/properties';
 
-import htmlbarsTemplate from "ember-htmlbars/templates/select";
-import selectOptionDefaultTemplate from "ember-htmlbars/templates/select-option";
-import selectOptgroupDefaultTemplate from "ember-htmlbars/templates/select-optgroup";
+import htmlbarsTemplate from 'ember-htmlbars/templates/select';
+import selectOptionDefaultTemplate from 'ember-htmlbars/templates/select-option';
+import selectOptgroupDefaultTemplate from 'ember-htmlbars/templates/select-optgroup';
 
 var defaultTemplate = htmlbarsTemplate;
 
@@ -538,8 +538,12 @@ var Select = View.extend({
     var selection = get(this, 'selection');
     var value = get(this, 'value');
 
-    if (!isNone(selection)) { this.selectionDidChange(); }
-    if (!isNone(value)) { this.valueDidChange(); }
+    if (!isNone(selection)) {
+      this.selectionDidChange();
+    }
+    if (!isNone(value)) {
+      this.valueDidChange();
+    }
     if (isNone(selection)) {
       this._change(false);
     }
@@ -551,13 +555,17 @@ var Select = View.extend({
     var content = get(this, 'content');
     var prompt = get(this, 'prompt');
 
-    if (!content || !get(content, 'length')) { return; }
+    if (!content || !get(content, 'length')) {
+      return;
+    }
     if (prompt && selectedIndex === 0) {
       set(this, 'selection', null);
       return;
     }
 
-    if (prompt) { selectedIndex -= 1; }
+    if (prompt) {
+      selectedIndex -= 1;
+    }
     set(this, 'selection', content.objectAt(selectedIndex));
   },
 
@@ -567,9 +575,13 @@ var Select = View.extend({
     var selectionIndex = indexOf(content, value);
 
     var prompt = get(this, 'prompt');
-    if (prompt) { selectionIndex += 1; }
+    if (prompt) {
+      selectionIndex += 1;
+    }
 
-    if (selectionIndex < 0) { selectionIndex = defaultIndex; }
+    if (selectionIndex < 0) {
+      selectionIndex = defaultIndex;
+    }
 
     return selectionIndex;
   },
@@ -581,7 +593,9 @@ var Select = View.extend({
     var content = get(this, 'content');
     var selection = get(this, 'selection');
 
-    if (!content) { return; }
+    if (!content) {
+      return;
+    }
     if (options) {
       var selectedIndexes = options.map(function() {
         return this.index - offset;
@@ -600,7 +614,7 @@ var Select = View.extend({
     var value = get(this, 'value');
     var self = this;
     if (value && value.then) {
-      value.then(function (resolved) {
+      value.then(function(resolved) {
         // Ensure that we don't overwrite new value
         if (get(self, 'value') === value) {
           self._setSelectedIndex(resolved);
@@ -613,24 +627,30 @@ var Select = View.extend({
 
   _setSelectedIndex(selectionValue) {
     var el = get(this, 'element');
-    if (!el) { return; }
+    if (!el) {
+      return;
+    }
 
     el.selectedIndex = this._selectedIndex(selectionValue, -1);
   },
 
-  _valuePath: computed('optionValuePath', function () {
+  _valuePath: computed('optionValuePath', function() {
     var optionValuePath = get(this, 'optionValuePath');
     return optionValuePath.replace(/^content\.?/, '');
   }),
 
-  contentValues: computed('content.[]', '_valuePath', function () {
+  contentValues: computed('content.[]', '_valuePath', function() {
     var valuePath = get(this, '_valuePath');
     var content = get(this, 'content') || [];
 
     if (valuePath) {
-      return map(content, function (el) { return get(el, valuePath); });
+      return map(content, function(el) {
+        return get(el, valuePath);
+      });
     } else {
-      return map(content, function (el) { return el; });
+      return map(content, function(el) {
+        return el;
+      });
     }
   }),
 
@@ -657,7 +677,7 @@ var Select = View.extend({
 
   init() {
     this._super(...arguments);
-    this.on("change", this, this._change);
+    this.on('change', this, this._change);
   }
 });
 

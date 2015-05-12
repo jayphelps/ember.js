@@ -14,20 +14,24 @@ Comp.reopenClass({
 
 QUnit.module('Ember.compare()', {
   setup() {
-    data[0]  = null;
-    data[1]  = false;
-    data[2]  = true;
-    data[3]  = -12;
-    data[4]  = 3.5;
-    data[5]  = 'a string';
-    data[6]  = 'another string';
-    data[7]  = 'last string';
-    data[8]  = [1, 2];
-    data[9]  = [1, 2, 3];
+    data[0] = null;
+    data[1] = false;
+    data[2] = true;
+    data[3] = -12;
+    data[4] = 3.5;
+    data[5] = 'a string';
+    data[6] = 'another string';
+    data[7] = 'last string';
+    data[8] = [1, 2];
+    data[9] = [1, 2, 3];
     data[10] = [1, 3];
-    data[11] = { a: 'hash' };
+    data[11] = {
+      a: 'hash'
+    };
     data[12] = EmberObject.create();
-    data[13] = function (a) {return a;};
+    data[13] = function(a) {
+      return a;
+    };
     data[14] = new Date('2012/01/01');
     data[15] = new Date('2012/06/06');
   }
@@ -35,7 +39,7 @@ QUnit.module('Ember.compare()', {
 
 QUnit.test('ordering should work', function() {
   var suspect, comparable, failureMessage,
-      suspectIndex, comparableIndex;
+    suspectIndex, comparableIndex;
 
   for (suspectIndex = 0; suspectIndex < data.length; suspectIndex++) {
     suspect = data[suspectIndex];

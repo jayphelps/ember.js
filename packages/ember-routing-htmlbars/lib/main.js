@@ -6,17 +6,17 @@ Ember Routing HTMLBars Helpers
 @requires ember-routing
 */
 
-import Ember from "ember-metal/core";
-import merge from "ember-metal/merge";
+import Ember from 'ember-metal/core';
+import merge from 'ember-metal/merge';
 
-import { registerHelper } from "ember-htmlbars/helpers";
-import { registerKeyword } from "ember-htmlbars/keywords";
+import { registerHelper } from 'ember-htmlbars/helpers';
+import { registerKeyword } from 'ember-htmlbars/keywords';
 
-import { queryParamsHelper } from "ember-routing-htmlbars/helpers/query-params";
-import action from "ember-routing-htmlbars/keywords/action";
-import elementAction from "ember-routing-htmlbars/keywords/element-action";
-import linkTo from "ember-routing-htmlbars/keywords/link-to";
-import render from "ember-routing-htmlbars/keywords/render";
+import { queryParamsHelper } from 'ember-routing-htmlbars/helpers/query-params';
+import action from 'ember-routing-htmlbars/keywords/action';
+import elementAction from 'ember-routing-htmlbars/keywords/element-action';
+import linkTo from 'ember-routing-htmlbars/keywords/link-to';
+import render from 'ember-routing-htmlbars/keywords/render';
 
 registerHelper('query-params', queryParamsHelper);
 
@@ -29,7 +29,7 @@ var deprecatedLinkTo = merge({}, linkTo);
 merge(deprecatedLinkTo, {
   link(state, params, hash) {
     linkTo.link.call(this, state, params, hash);
-    Ember.deprecate("The 'linkTo' view helper is deprecated in favor of 'link-to'");
+    Ember.deprecate('The \'linkTo\' view helper is deprecated in favor of \'link-to\'');
   }
 });
 

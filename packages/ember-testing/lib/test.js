@@ -1,9 +1,9 @@
-import Ember from "ember-metal/core";
-import emberRun from "ember-metal/run_loop";
+import Ember from 'ember-metal/core';
+import emberRun from 'ember-metal/run_loop';
 import create from 'ember-metal/platform/create';
-import RSVP from "ember-runtime/ext/rsvp";
-import setupForTesting from "ember-testing/setup_for_testing";
-import EmberApplication from "ember-application/system/application";
+import RSVP from 'ember-runtime/ext/rsvp';
+import setupForTesting from 'ember-testing/setup_for_testing';
+import EmberApplication from 'ember-application/system/application';
 
 /**
   @module ember
@@ -66,7 +66,9 @@ var Test = {
   registerHelper(name, helperMethod) {
     helpers[name] = {
       method: helperMethod,
-      meta: { wait: false }
+      meta: {
+        wait: false
+      }
     };
   },
 
@@ -113,7 +115,9 @@ var Test = {
   registerAsyncHelper(name, helperMethod) {
     helpers[name] = {
       method: helperMethod,
-      meta: { wait: true }
+      meta: {
+        wait: true
+      }
     };
   },
 
@@ -263,7 +267,9 @@ var Test = {
      @since 1.2.0
   */
   unregisterWaiter(context, callback) {
-    if (!this.waiters) { return; }
+    if (!this.waiters) {
+      return;
+    }
     if (arguments.length === 1) {
       callback = context;
       context = null;
@@ -442,7 +448,9 @@ EmberApplication.reopen({
     @method removeTestHelpers
   */
   removeTestHelpers() {
-    if (!this.helperContainer) { return; }
+    if (!this.helperContainer) {
+      return;
+    }
 
     for (var name in helpers) {
       this.helperContainer[name] = this.originalMethods[name];

@@ -2,18 +2,18 @@
 @module ember
 @submodule ember-views
 */
-import Ember from "ember-metal/core"; // Ember.assert
+import Ember from 'ember-metal/core'; // Ember.assert
 
-import { get } from "ember-metal/property_get";
-import { set } from "ember-metal/property_set";
+import { get } from 'ember-metal/property_get';
+import { set } from 'ember-metal/property_set';
 import isNone from 'ember-metal/is_none';
-import run from "ember-metal/run_loop";
-import { fmt } from "ember-runtime/system/string";
-import EmberObject from "ember-runtime/system/object";
-import jQuery from "ember-views/system/jquery";
-import ActionManager from "ember-views/system/action_manager";
-import View from "ember-views/views/view";
-import merge from "ember-metal/merge";
+import run from 'ember-metal/run_loop';
+import { fmt } from 'ember-runtime/system/string';
+import EmberObject from 'ember-runtime/system/object';
+import jQuery from 'ember-views/system/jquery';
+import ActionManager from 'ember-views/system/action_manager';
+import View from 'ember-views/views/view';
+import merge from 'ember-metal/merge';
 
 //ES6TODO:
 // find a better way to do Ember.View.views without global state
@@ -43,33 +43,33 @@ export default EmberObject.extend({
     @type Object
   */
   events: {
-    touchstart  : 'touchStart',
-    touchmove   : 'touchMove',
-    touchend    : 'touchEnd',
-    touchcancel : 'touchCancel',
-    keydown     : 'keyDown',
-    keyup       : 'keyUp',
-    keypress    : 'keyPress',
-    mousedown   : 'mouseDown',
-    mouseup     : 'mouseUp',
-    contextmenu : 'contextMenu',
-    click       : 'click',
-    dblclick    : 'doubleClick',
-    mousemove   : 'mouseMove',
-    focusin     : 'focusIn',
-    focusout    : 'focusOut',
-    mouseenter  : 'mouseEnter',
-    mouseleave  : 'mouseLeave',
-    submit      : 'submit',
-    input       : 'input',
-    change      : 'change',
-    dragstart   : 'dragStart',
-    drag        : 'drag',
-    dragenter   : 'dragEnter',
-    dragleave   : 'dragLeave',
-    dragover    : 'dragOver',
-    drop        : 'drop',
-    dragend     : 'dragEnd'
+    touchstart: 'touchStart',
+    touchmove: 'touchMove',
+    touchend: 'touchEnd',
+    touchcancel: 'touchCancel',
+    keydown: 'keyDown',
+    keyup: 'keyUp',
+    keypress: 'keyPress',
+    mousedown: 'mouseDown',
+    mouseup: 'mouseUp',
+    contextmenu: 'contextMenu',
+    click: 'click',
+    dblclick: 'doubleClick',
+    mousemove: 'mouseMove',
+    focusin: 'focusIn',
+    focusout: 'focusOut',
+    mouseenter: 'mouseEnter',
+    mouseleave: 'mouseLeave',
+    submit: 'submit',
+    input: 'input',
+    change: 'change',
+    dragstart: 'dragStart',
+    drag: 'drag',
+    dragenter: 'dragEnter',
+    dragleave: 'dragLeave',
+    dragover: 'dragOver',
+    drop: 'drop',
+    dragend: 'dragEnd'
   },
 
   /**
@@ -190,7 +190,7 @@ export default EmberObject.extend({
 
     rootElement.on(event + '.ember', '[data-ember-action]', function(evt) {
       var actionId = jQuery(evt.currentTarget).attr('data-ember-action');
-      var action   = ActionManager.registeredActions[actionId];
+      var action = ActionManager.registeredActions[actionId];
 
       // We have to check for action here since in some cases, jQuery will trigger
       // an event on `removeChild` (i.e. focusout) after we've already torn down the
@@ -206,7 +206,9 @@ export default EmberObject.extend({
 
     while (view) {
       manager = get(view, 'eventManager');
-      if (manager && manager[eventName]) { break; }
+      if (manager && manager[eventName]) {
+        break;
+      }
 
       view = get(view, 'parentView');
     }

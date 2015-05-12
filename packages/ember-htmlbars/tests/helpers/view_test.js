@@ -1,23 +1,23 @@
 /*globals EmberDev */
-import EmberView from "ember-views/views/view";
-import EmberComponent from "ember-views/views/component";
-import Registry from "container/registry";
-import ComponentLookup from "ember-views/component_lookup";
-import run from "ember-metal/run_loop";
-import jQuery from "ember-views/system/jquery";
+import EmberView from 'ember-views/views/view';
+import EmberComponent from 'ember-views/views/component';
+import Registry from 'container/registry';
+import ComponentLookup from 'ember-views/component_lookup';
+import run from 'ember-metal/run_loop';
+import jQuery from 'ember-views/system/jquery';
 import TextField from 'ember-views/views/text_field';
 import Namespace from 'ember-runtime/system/namespace';
 import EmberObject from 'ember-runtime/system/object';
 import ContainerView from 'ember-views/views/container_view';
 import SafeString from 'htmlbars-util/safe-string';
 import precompile from 'ember-template-compiler/compat/precompile';
-import compile from "ember-template-compiler/system/compile";
+import compile from 'ember-template-compiler/system/compile';
 import template from 'ember-template-compiler/system/template';
-import { observersFor } from "ember-metal/observer";
+import { observersFor } from 'ember-metal/observer';
 import Controller from 'ember-runtime/controllers/controller';
-import makeBoundHelper from "ember-htmlbars/system/make_bound_helper";
+import makeBoundHelper from 'ember-htmlbars/system/make_bound_helper';
 
-import { runAppend, runDestroy } from "ember-runtime/tests/utils";
+import { runAppend, runDestroy } from 'ember-runtime/tests/utils';
 import { set } from 'ember-metal/property_set';
 import { get } from 'ember-metal/property_get';
 import { computed } from 'ember-metal/computed';
@@ -41,7 +41,7 @@ function viewClass(options) {
 
 var firstChild = nthChild;
 
-QUnit.module("ember-htmlbars: {{#view}} helper", {
+QUnit.module('ember-htmlbars: {{#view}} helper', {
   setup() {
     originalLookup = Ember.lookup;
     Ember.lookup = lookup = {};
@@ -64,7 +64,7 @@ QUnit.module("ember-htmlbars: {{#view}} helper", {
 });
 
 // https://github.com/emberjs/ember.js/issues/120
-QUnit.test("should not enter an infinite loop when binding an attribute in Handlebars", function() {
+QUnit.test('should not enter an infinite loop when binding an attribute in Handlebars', function() {
   var LinkView = EmberView.extend({
     classNames: ['app-link'],
     tagName: 'a',
@@ -87,13 +87,13 @@ QUnit.test("should not enter an infinite loop when binding an attribute in Handl
   // Use match, since old IE appends the whole URL
   var href = parentView.$('a').attr('href');
   var classNames = parentView.$('a').attr('class');
-  ok(href.match(/(^|\/)test$/), 'Expected href to be \'test\' but got "'+href+'"');
-  equal(classNames, "ember-view app-link");
+  ok(href.match(/(^|\/)test$/), 'Expected href to be \'test\' but got "' + href + '"');
+  equal(classNames, 'ember-view app-link');
 
   runDestroy(parentView);
 });
 
-QUnit.test("By default view:toplevel is used", function() {
+QUnit.test('By default view:toplevel is used', function() {
   var registry = new Registry();
 
   var DefaultView = viewClass({
@@ -113,7 +113,7 @@ QUnit.test("By default view:toplevel is used", function() {
   equal(jQuery('#toplevel-view').text(), 'hello world');
 });
 
-QUnit.test("By default, without a container, EmberView is used", function() {
+QUnit.test('By default, without a container, EmberView is used', function() {
   view = EmberView.extend({
     template: compile('{{view tagName="span"}}')
   }).create();
@@ -123,18 +123,18 @@ QUnit.test("By default, without a container, EmberView is used", function() {
   ok(jQuery('#qunit-fixture').html().toUpperCase().match(/<SPAN/), 'contains view with span');
 });
 
-QUnit.test("View lookup - App.FuView (DEPRECATED)", function() {
+QUnit.test('View lookup - App.FuView (DEPRECATED)', function() {
   Ember.lookup = {
     App: {
       FuView: viewClass({
-        elementId: "fu",
-        template: compile("bro")
+        elementId: 'fu',
+        template: compile('bro')
       })
     }
   };
 
   view = viewClass({
-    template: compile("{{view App.FuView}}")
+    template: compile('{{view App.FuView}}')
   }).create();
 
   expectDeprecation(function() {
@@ -144,16 +144,16 @@ QUnit.test("View lookup - App.FuView (DEPRECATED)", function() {
   equal(jQuery('#fu').text(), 'bro');
 });
 
-QUnit.test("View lookup - 'fu'", function() {
+QUnit.test('View lookup - \'fu\'', function() {
   var FuView = viewClass({
-    elementId: "fu",
-    template: compile("bro")
+    elementId: 'fu',
+    template: compile('bro')
   });
 
   registry.register('view:fu', FuView);
 
   view = EmberView.extend({
-    template: compile("{{view 'fu'}}"),
+    template: compile('{{view \'fu\'}}'),
     container: container
   }).create();
 
@@ -162,16 +162,16 @@ QUnit.test("View lookup - 'fu'", function() {
   equal(jQuery('#fu').text(), 'bro');
 });
 
-QUnit.test("View lookup - 'fu' when fu is a property and a view name", function() {
+QUnit.test('View lookup - \'fu\' when fu is a property and a view name', function() {
   var FuView = viewClass({
-    elementId: "fu",
-    template: compile("bro")
+    elementId: 'fu',
+    template: compile('bro')
   });
 
   registry.register('view:fu', FuView);
 
   view = EmberView.extend({
-    template: compile("{{view 'fu'}}"),
+    template: compile('{{view \'fu\'}}'),
     context: { fu: 'boom!' },
     container: container
   }).create();
@@ -181,16 +181,16 @@ QUnit.test("View lookup - 'fu' when fu is a property and a view name", function(
   equal(jQuery('#fu').text(), 'bro');
 });
 
-QUnit.test("View lookup - view.computed", function() {
+QUnit.test('View lookup - view.computed', function() {
   var FuView = viewClass({
-    elementId: "fu",
-    template: compile("bro")
+    elementId: 'fu',
+    template: compile('bro')
   });
 
   registry.register('view:fu', FuView);
 
   view = EmberView.extend({
-    template: compile("{{view view.computed}}"),
+    template: compile('{{view view.computed}}'),
     container: container,
     computed: 'fu'
   }).create();
@@ -200,31 +200,31 @@ QUnit.test("View lookup - view.computed", function() {
   equal(jQuery('#fu').text(), 'bro');
 });
 
-QUnit.test("id bindings downgrade to one-time property lookup", function() {
+QUnit.test('id bindings downgrade to one-time property lookup', function() {
   view = EmberView.extend({
-    template: compile("{{#view id=view.meshuggah}}{{view.parentView.meshuggah}}{{/view}}"),
+    template: compile('{{#view id=view.meshuggah}}{{view.parentView.meshuggah}}{{/view}}'),
     meshuggah: 'stengah'
   }).create();
 
   runAppend(view);
 
-  equal(jQuery('#stengah').text(), 'stengah', "id binding performed property lookup");
+  equal(jQuery('#stengah').text(), 'stengah', 'id binding performed property lookup');
   run(view, 'set', 'meshuggah', 'omg');
-  equal(jQuery('#stengah').text(), 'omg', "id didn't change");
+  equal(jQuery('#stengah').text(), 'omg', 'id didn\'t change');
 });
 
-QUnit.test("specifying `id` as a static value works properly", function() {
+QUnit.test('specifying `id` as a static value works properly', function() {
   view = EmberView.extend({
-    template: compile("{{#view id='blah'}}{{view.parentView.meshuggah}}{{/view}}"),
+    template: compile('{{#view id=\'blah\'}}{{view.parentView.meshuggah}}{{/view}}'),
     meshuggah: 'stengah'
   }).create();
 
   runAppend(view);
 
-  equal(view.$('#blah').text(), 'stengah', "id binding performed property lookup");
+  equal(view.$('#blah').text(), 'stengah', 'id binding performed property lookup');
 });
 
-QUnit.test("mixing old and new styles of property binding fires a warning, treats value as if it were quoted", function() {
+QUnit.test('mixing old and new styles of property binding fires a warning, treats value as if it were quoted', function() {
   if (EmberDev && EmberDev.runningProdBuild) {
     ok(true, 'Logging does not occur in production builds');
     return;
@@ -242,17 +242,17 @@ QUnit.test("mixing old and new styles of property binding fires a warning, treat
 
   let compiled;
   expectDeprecation(function() {
-    compiled = compile("{{#view borfBinding=view.snork}}<p id='lol'>{{view.borf}}</p>{{/view}}");
-  }, "You're using legacy binding syntax: borfBinding=view.snork @ 1:8 in (inline). Please replace with borf=view.snork");
+    compiled = compile('{{#view borfBinding=view.snork}}<p id=\'lol\'>{{view.borf}}</p>{{/view}}');
+  }, 'You\'re using legacy binding syntax: borfBinding=view.snork @ 1:8 in (inline). Please replace with borf=view.snork');
 
   view = EmberView.extend({
     template: compiled,
-    snork: "nerd"
+    snork: 'nerd'
   }).create();
 
   runAppend(view);
 
-  equal(jQuery('#lol').text(), "nerd", "awkward mixed syntax treated like binding");
+  equal(jQuery('#lol').text(), 'nerd', 'awkward mixed syntax treated like binding');
 
   Ember.warn = oldWarn;
 });
@@ -274,7 +274,7 @@ QUnit.test('"Binding"-suffixed bindings are runloop-synchronized [DEPRECATED]', 
   }, `You're using legacy binding syntax: colorBinding="view.color" @ 1:24 in (inline). Please replace with color=view.color`);
 
   var View = EmberView.extend({
-    color: "mauve",
+    color: 'mauve',
     Subview: Subview,
     template: compiled
   });
@@ -318,7 +318,7 @@ QUnit.test('Non-"Binding"-suffixed bindings are runloop-synchronized', function(
   });
 
   var View = EmberView.extend({
-    color: "mauve",
+    color: 'mauve',
     Subview: Subview,
     template: compile('<h1>{{view view.Subview color=view.color}}</h1>')
   });
@@ -349,7 +349,7 @@ QUnit.test('Non-"Binding"-suffixed bindings are runloop-synchronized', function(
   equal(get(subview, 'color'), 'persian rose', 'bound property is updated after runloop flush');
 });
 
-QUnit.test("allows you to pass attributes that will be assigned to the class instance, like class=\"foo\"", function() {
+QUnit.test('allows you to pass attributes that will be assigned to the class instance, like class="foo"', function() {
   expect(4);
 
   registry = new Registry();
@@ -369,7 +369,7 @@ QUnit.test("allows you to pass attributes that will be assigned to the class ins
   equal(jQuery('#bar').text(), 'Bar');
 });
 
-QUnit.test("Should apply class without condition always", function() {
+QUnit.test('Should apply class without condition always', function() {
   expectDeprecation(function() {
     view = EmberView.create({
       controller: Ember.Object.create(),
@@ -379,10 +379,10 @@ QUnit.test("Should apply class without condition always", function() {
 
   runAppend(view);
 
-  ok(jQuery('#foo').hasClass('foo'), "Always applies classbinding without condition");
+  ok(jQuery('#foo').hasClass('foo'), 'Always applies classbinding without condition');
 });
 
-QUnit.test("Should apply classes when bound controller.* property specified", function() {
+QUnit.test('Should apply classes when bound controller.* property specified', function() {
   view = EmberView.create({
     controller: {
       someProp: 'foo'
@@ -392,10 +392,10 @@ QUnit.test("Should apply classes when bound controller.* property specified", fu
 
   runAppend(view);
 
-  ok(jQuery('#foo').hasClass('foo'), "Always applies classbinding without condition");
+  ok(jQuery('#foo').hasClass('foo'), 'Always applies classbinding without condition');
 });
 
-QUnit.test("Should apply classes when bound property specified", function() {
+QUnit.test('Should apply classes when bound property specified', function() {
   view = EmberView.create({
     controller: {
       someProp: 'foo'
@@ -405,10 +405,10 @@ QUnit.test("Should apply classes when bound property specified", function() {
 
   runAppend(view);
 
-  ok(jQuery('#foo').hasClass('foo'), "Always applies classbinding without condition");
+  ok(jQuery('#foo').hasClass('foo'), 'Always applies classbinding without condition');
 });
 
-QUnit.test("Should apply a class from a sub expression", function() {
+QUnit.test('Should apply a class from a sub expression', function() {
   registry.register('helper:string-concat', makeBoundHelper(function(params) {
     return params.join('');
   }));
@@ -424,15 +424,15 @@ QUnit.test("Should apply a class from a sub expression", function() {
 
   runAppend(view);
 
-  ok(jQuery('#foo').hasClass('btn-large'), "applies classname from subexpression");
+  ok(jQuery('#foo').hasClass('btn-large'), 'applies classname from subexpression');
 
   run(view, view.set, 'controller.size', 'medium');
 
-  ok(!jQuery('#foo').hasClass('btn-large'), "removes classname from subexpression update");
-  ok(jQuery('#foo').hasClass('btn-medium'), "adds classname from subexpression update");
+  ok(!jQuery('#foo').hasClass('btn-large'), 'removes classname from subexpression update');
+  ok(jQuery('#foo').hasClass('btn-medium'), 'adds classname from subexpression update');
 });
 
-QUnit.test("Should not apply classes when bound property specified is false", function() {
+QUnit.test('Should not apply classes when bound property specified is false', function() {
   view = EmberView.create({
     controller: {
       someProp: false
@@ -442,10 +442,10 @@ QUnit.test("Should not apply classes when bound property specified is false", fu
 
   runAppend(view);
 
-  ok(!jQuery('#foo').hasClass('some-prop'), "does not add class when value is falsey");
+  ok(!jQuery('#foo').hasClass('some-prop'), 'does not add class when value is falsey');
 });
 
-QUnit.test("Should apply classes of the dasherized property name when bound property specified is true", function() {
+QUnit.test('Should apply classes of the dasherized property name when bound property specified is true', function() {
   view = EmberView.create({
     controller: {
       someProp: true
@@ -455,10 +455,10 @@ QUnit.test("Should apply classes of the dasherized property name when bound prop
 
   runAppend(view);
 
-  ok(jQuery('#foo').hasClass('some-prop'), "adds dasherized class when value is true");
+  ok(jQuery('#foo').hasClass('some-prop'), 'adds dasherized class when value is true');
 });
 
-QUnit.test("Should update classes from a bound property", function() {
+QUnit.test('Should update classes from a bound property', function() {
   var controller = {
     someProp: true
   };
@@ -470,31 +470,31 @@ QUnit.test("Should update classes from a bound property", function() {
 
   runAppend(view);
 
-  ok(jQuery('#foo').hasClass('some-prop'), "adds dasherized class when value is true");
+  ok(jQuery('#foo').hasClass('some-prop'), 'adds dasherized class when value is true');
 
   run(function() {
     set(controller, 'someProp', false);
   });
 
-  ok(!jQuery('#foo').hasClass('some-prop'), "does not add class when value is falsey");
+  ok(!jQuery('#foo').hasClass('some-prop'), 'does not add class when value is falsey');
 
   run(function() {
     set(controller, 'someProp', 'fooBar');
   });
 
-  ok(jQuery('#foo').hasClass('fooBar'), "changes property to string value (but does not dasherize)");
+  ok(jQuery('#foo').hasClass('fooBar'), 'changes property to string value (but does not dasherize)');
 });
 
-QUnit.test("bound properties should be available in the view", function() {
+QUnit.test('bound properties should be available in the view', function() {
   var FuView = viewClass({
     elementId: 'fu',
-    template: compile("{{view.attrs.foo}}")
+    template: compile('{{view.attrs.foo}}')
   });
 
   registry.register('view:fu', FuView);
 
   view = EmberView.extend({
-    template: compile("{{view 'fu' foo=view.someProp}}"),
+    template: compile('{{view \'fu\' foo=view.someProp}}'),
     container: container,
     someProp: 'initial value'
   }).create();
@@ -623,14 +623,14 @@ QUnit.test('views set the template of their children to a passed block', functio
   });
 
   runAppend(view);
-  ok(view.$('h1:has(span)').length === 1, "renders the passed template inside the parent template");
+  ok(view.$('h1:has(span)').length === 1, 'renders the passed template inside the parent template');
 });
 
 QUnit.test('{{view}} should not override class bindings defined on a child view', function() {
   var LabelView = EmberView.extend({
-    container:         container,
+    container: container,
     classNameBindings: ['something'],
-    something:         'visible'
+    something: 'visible'
   });
 
   registry.register('controller:label', Controller, { instantiate: true });
@@ -639,9 +639,9 @@ QUnit.test('{{view}} should not override class bindings defined on a child view'
   registry.register('template:nester', compile('{{render "label"}}'));
 
   view = EmberView.create({
-    container:    container,
+    container: container,
     templateName: 'nester',
-    controller:   Controller.create({
+    controller: Controller.create({
       container: container
     })
   });
@@ -681,7 +681,7 @@ QUnit.test('child views can be inserted using the {{view}} helper', function() {
   ok(view.$().text().match(/Hello world!.*Goodbye cruel world\!/), 'parent view should appear before the child view');
 });
 
-QUnit.test("should be able to explicitly set a view's context", function() {
+QUnit.test('should be able to explicitly set a view\'s context', function() {
   var context = EmberObject.create({
     test: 'test'
   });
@@ -764,7 +764,7 @@ QUnit.test('Child views created using the view helper and that have a viewName s
   runAppend(view);
 
   var parentView = firstChild(view);
-  var childView  = firstGrandchild(view);
+  var childView = firstGrandchild(view);
 
   equal(get(parentView, 'ohai'), childView);
 });
@@ -826,7 +826,7 @@ QUnit.test('{{view}} should not allow attributeBindings to be set', function() {
       template: compile('{{view attributeBindings="one two"}}')
     });
     runAppend(view);
-  }, "Setting 'attributeBindings' via template helpers is not allowed @ 1:7 in (inline)");
+  }, 'Setting \'attributeBindings\' via template helpers is not allowed @ 1:7 in (inline)');
 });
 
 QUnit.test('{{view}} should be able to point to a local view', function() {
@@ -848,10 +848,10 @@ QUnit.test('{{view}} should evaluate class bindings set to global paths DEPRECAT
 
   run(function() {
     lookup.App = App = Namespace.create({
-      isApp:       true,
-      isGreat:     true,
+      isApp: true,
+      isGreat: true,
       directClass: 'app-direct',
-      isEnabled:   true
+      isEnabled: true
     });
   });
 
@@ -888,8 +888,8 @@ QUnit.test('{{view}} should evaluate class bindings set to global paths DEPRECAT
 QUnit.test('{{view}} should evaluate class bindings set in the current context', function() {
   expectDeprecation(function() {
     view = EmberView.create({
-      isView:      true,
-      isEditable:  true,
+      isView: true,
+      isEditable: true,
       directClass: 'view-direct',
       isEnabled: true,
       textField: TextField,
@@ -1043,8 +1043,8 @@ QUnit.test('{{view}} should be able to bind class names to truthy or falsy prope
     set(view, 'number', 0);
   });
 
-  equal(view.$('.is-truthy').length, 0, "doesn't set class name to truthy value");
-  equal(view.$('.is-falsy').length, 1, "sets class name to falsy value");
+  equal(view.$('.is-truthy').length, 0, 'doesn\'t set class name to truthy value');
+  equal(view.$('.is-falsy').length, 1, 'sets class name to falsy value');
 });
 
 QUnit.test('a view helper\'s bindings are to the parent context', function() {
@@ -1286,36 +1286,36 @@ QUnit.test('should bind to the property if no registered helper found for a must
 
 QUnit.test('{{view}} should be able to point to a local instance of view', function() {
   view = EmberView.create({
-    template: compile("{{view view.common}}"),
+    template: compile('{{view view.common}}'),
 
     common: EmberView.create({
-      template: compile("common")
+      template: compile('common')
     })
   });
 
   runAppend(view);
-  equal(view.$().text(), "common", "tries to look up view name locally");
+  equal(view.$().text(), 'common', 'tries to look up view name locally');
 });
 
-QUnit.test("{{view}} should be able to point to a local instance of subclass of view", function() {
+QUnit.test('{{view}} should be able to point to a local instance of subclass of view', function() {
   var MyView = EmberView.extend();
   view = EmberView.create({
-    template: compile("{{view view.subclassed}}"),
+    template: compile('{{view view.subclassed}}'),
     subclassed: MyView.create({
-      template: compile("subclassed")
+      template: compile('subclassed')
     })
   });
 
   runAppend(view);
-  equal(view.$().text(), "subclassed", "tries to look up view name locally");
+  equal(view.$().text(), 'subclassed', 'tries to look up view name locally');
 });
 
-QUnit.test("{{view}} asserts that a view class is present", function() {
+QUnit.test('{{view}} asserts that a view class is present', function() {
   var MyView = EmberObject.extend();
   view = EmberView.create({
-    template: compile("{{view view.notView}}"),
+    template: compile('{{view view.notView}}'),
     notView: MyView.extend({
-      template: compile("notView")
+      template: compile('notView')
     })
   });
 
@@ -1324,13 +1324,13 @@ QUnit.test("{{view}} asserts that a view class is present", function() {
   }, /must be a subclass or an instance of Ember.View/);
 });
 
-QUnit.test("{{view}} asserts that a view class is present off controller", function() {
+QUnit.test('{{view}} asserts that a view class is present off controller', function() {
   var MyView = EmberObject.extend();
   view = EmberView.create({
-    template: compile("{{view notView}}"),
+    template: compile('{{view notView}}'),
     controller: EmberObject.create({
       notView: MyView.extend({
-        template: compile("notView")
+        template: compile('notView')
       })
     })
   });
@@ -1340,12 +1340,12 @@ QUnit.test("{{view}} asserts that a view class is present off controller", funct
   }, /must be a subclass or an instance of Ember.View/);
 });
 
-QUnit.test("{{view}} asserts that a view instance is present", function() {
+QUnit.test('{{view}} asserts that a view instance is present', function() {
   var MyView = EmberObject.extend();
   view = EmberView.create({
-    template: compile("{{view view.notView}}"),
+    template: compile('{{view view.notView}}'),
     notView: MyView.create({
-      template: compile("notView")
+      template: compile('notView')
     })
   });
 
@@ -1354,13 +1354,13 @@ QUnit.test("{{view}} asserts that a view instance is present", function() {
   }, /must be a subclass or an instance of Ember.View/);
 });
 
-QUnit.test("{{view}} asserts that a view subclass instance is present off controller", function() {
+QUnit.test('{{view}} asserts that a view subclass instance is present off controller', function() {
   var MyView = EmberObject.extend();
   view = EmberView.create({
-    template: compile("{{view notView}}"),
+    template: compile('{{view notView}}'),
     controller: EmberObject.create({
       notView: MyView.create({
-        template: compile("notView")
+        template: compile('notView')
       })
     })
   });
@@ -1408,7 +1408,7 @@ QUnit.test('Specifying `id` to {{view}} does not allow bound id changes.', funct
   equal(view.$('#bar #view-id').text(), 'baz', 'the views id property is not changed');
 });
 
-QUnit.test("using a bound view name does not change on view name property changes", function() {
+QUnit.test('using a bound view name does not change on view name property changes', function() {
   registry.register('view:foo', viewClass({
     elementId: 'foo'
   }));
@@ -1421,7 +1421,7 @@ QUnit.test("using a bound view name does not change on view name property change
     container,
     elementId: 'parent',
     viewName: 'foo',
-    template: compile("{{view view.viewName}}")
+    template: compile('{{view view.viewName}}')
   }).create();
 
   runAppend(view);

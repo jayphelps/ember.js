@@ -2,12 +2,12 @@ import dictionary from 'ember-metal/dictionary';
 export default Cache;
 
 function Cache(limit, func) {
-  this.store  = dictionary(null);
-  this.size   = 0;
+  this.store = dictionary(null);
+  this.size = 0;
   this.misses = 0;
-  this.hits   = 0;
-  this.limit  = limit;
-  this.func   = func;
+  this.hits = 0;
+  this.limit = limit;
+  this.func = func;
 }
 
 var UNDEFINED = function() {};
@@ -15,7 +15,7 @@ var UNDEFINED = function() {};
 Cache.prototype = {
   set(key, value) {
     if (this.limit > this.size) {
-      this.size ++;
+      this.size++;
       if (value === undefined) {
         this.store[key] = UNDEFINED;
       } else {
@@ -30,13 +30,13 @@ Cache.prototype = {
     var value = this.store[key];
 
     if (value === undefined) {
-      this.misses ++;
+      this.misses++;
       value = this.set(key, this.func(key));
     } else if (value === UNDEFINED) {
-      this.hits ++;
+      this.hits++;
       value = undefined;
     } else {
-      this.hits ++;
+      this.hits++;
       // nothing to translate
     }
 
@@ -44,9 +44,9 @@ Cache.prototype = {
   },
 
   purge() {
-    this.store  = dictionary(null);
-    this.size   = 0;
-    this.hits   = 0;
+    this.store = dictionary(null);
+    this.size = 0;
+    this.hits = 0;
     this.misses = 0;
   }
 };
