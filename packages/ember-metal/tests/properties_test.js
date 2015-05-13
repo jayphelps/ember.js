@@ -8,9 +8,7 @@ QUnit.module('Ember.defineProperty');
 QUnit.test('toString', function() {
 
   var obj = {};
-  defineProperty(obj, 'toString', undefined, function() {
-    return 'FOO';
-  });
+  defineProperty(obj, 'toString', undefined, function() { return 'FOO'; });
   equal(obj.toString(), 'FOO', 'should replace toString');
 });
 
@@ -30,9 +28,7 @@ QUnit.test('for data properties, didDefineProperty hook should be called if impl
 QUnit.test('for descriptor properties, didDefineProperty hook should be called if implemented', function() {
   expect(2);
 
-  var computedProperty = computed(function() {
-    return this;
-  });
+  var computedProperty = computed(function() { return this; });
 
   var obj = {
     didDefineProperty(obj, keyName, value) {
@@ -50,9 +46,7 @@ if (hasPropertyAccessors) {
 
   QUnit.test('enables access to deprecated property and returns the value of the new property', function() {
     expect(3);
-    var obj = {
-      foo: 'bar'
-    };
+    var obj = { foo: 'bar' };
 
     deprecateProperty(obj, 'baz', 'foo');
 
@@ -65,10 +59,7 @@ if (hasPropertyAccessors) {
 
   QUnit.test('deprecatedKey is not enumerable', function() {
     expect(2);
-    var obj = {
-      foo: 'bar',
-      blammo: 'whammy'
-    };
+    var obj = { foo: 'bar', blammo: 'whammy' };
 
     deprecateProperty(obj, 'baz', 'foo');
 
@@ -81,9 +72,7 @@ if (hasPropertyAccessors) {
 
   QUnit.test('enables setter to deprecated property and updates the value of the new property', function() {
     expect(3);
-    var obj = {
-      foo: 'bar'
-    };
+    var obj = { foo: 'bar' };
 
     deprecateProperty(obj, 'baz', 'foo');
 

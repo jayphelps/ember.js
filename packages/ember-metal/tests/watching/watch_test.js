@@ -9,8 +9,8 @@ import {
 } from 'ember-metal/watching';
 
 var willCount, didCount,
-  willKeys, didKeys,
-  originalLookup, lookup, Global;
+    willKeys, didKeys,
+    originalLookup, lookup, Global;
 
 QUnit.module('watch', {
   setup() {
@@ -60,9 +60,7 @@ testBoth('watching a computed property', function(get, set) {
 });
 
 testBoth('watching a regular defined property', function(get, set) {
-  var obj = {
-    foo: 'baz'
-  };
+  var obj = { foo: 'baz' };
   addListeners(obj, 'foo');
 
   watch(obj, 'foo');
@@ -94,9 +92,7 @@ testBoth('watching a regular undefined property', function(get, set) {
 });
 
 testBoth('watches should inherit', function(get, set) {
-  var obj = {
-    foo: 'baz'
-  };
+  var obj = { foo: 'baz' };
   var objB = Ember.create(obj);
 
   addListeners(obj, 'foo');
@@ -126,9 +122,7 @@ QUnit.test('watching an object THEN defining it should work also', function() {
 
 QUnit.test('watching a chain then defining the property', function() {
   var obj = {};
-  var foo = {
-    bar: 'bar'
-  };
+  var foo = { bar: 'bar' };
   addListeners(obj, 'foo.bar');
   addListeners(foo, 'bar');
 
@@ -145,12 +139,8 @@ QUnit.test('watching a chain then defining the property', function() {
 
 QUnit.test('watching a chain then defining the nested property', function() {
   var bar = {};
-  var obj = {
-    foo: bar
-  };
-  var baz = {
-    baz: 'baz'
-  };
+  var obj = { foo: bar };
+  var baz = { baz: 'baz' };
   addListeners(obj, 'foo.bar.baz');
   addListeners(baz, 'baz');
 
@@ -197,9 +187,7 @@ testBoth('watching a global object that does not yet exist should queue', functi
   equal(willCount, 0, 'should not have fired yet');
   equal(didCount, 0, 'should not have fired yet');
 
-  lookup['Global'] = Global = {
-    foo: 'bar'
-  };
+  lookup['Global'] = Global = { foo: 'bar' };
   addListeners(Global, 'foo');
 
   watch.flushPending(); // this will also be invoked automatically on ready
@@ -218,9 +206,7 @@ testBoth('watching a global object that does not yet exist should queue', functi
 });
 
 QUnit.test('when watching a global object, destroy should remove chain watchers from the global object', function() {
-  lookup['Global'] = Global = {
-    foo: 'bar'
-  };
+  lookup['Global'] = Global = { foo: 'bar' };
   var obj = {};
   addListeners(obj, 'Global.foo');
 
@@ -244,9 +230,7 @@ QUnit.test('when watching a global object, destroy should remove chain watchers 
 
 QUnit.test('when watching another object, destroy should remove chain watchers from the other object', function() {
   var objA = {};
-  var objB = {
-    foo: 'bar'
-  };
+  var objB = { foo: 'bar' };
   objA.b = objB;
   addListeners(objA, 'b.foo');
 
@@ -269,9 +253,7 @@ QUnit.test('when watching another object, destroy should remove chain watchers f
 // TESTS for length property
 
 testBoth('watching "length" property on an object', function(get, set) {
-  var obj = {
-    length: '26.2 miles'
-  };
+  var obj = { length: '26.2 miles' };
   addListeners(obj, 'length');
 
   watch(obj, 'length');

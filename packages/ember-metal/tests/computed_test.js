@@ -164,9 +164,7 @@ testBoth('using get() and set()', function(get, set) {
 
 QUnit.module('redefining computed property to another property', {
   setup() {
-    objA = {
-      __foo: 'FOO'
-    };
+    objA = { __foo: 'FOO' };
     defineProperty(objA, 'foo', computed({
       get: function(key) {
         return this['__' + key];

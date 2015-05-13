@@ -91,13 +91,7 @@ QUnit.test('libraries can be de-registered', function() {
 QUnit.test('Libraries#each allows us to loop through each registered library (but is deprecated)', function() {
   expect(5);
 
-  var items = [{
-    name: 'lib1',
-    version: '1.0.0'
-  }, {
-    name: 'lib2',
-    version: '2.0.0'
-  }];
+  var items = [{ name: 'lib1', version: '1.0.0' }, { name: 'lib2', version: '2.0.0' }];
 
   for (var i = 0, l = items.length; i < l; i++) {
     libs.register(items[i].name, items[i].version);

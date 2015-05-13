@@ -5,12 +5,8 @@ var obj;
 QUnit.module('Ember.tryInvoke', {
   setup() {
     obj = {
-      aMethodThatExists() {
-        return true;
-      },
-      aMethodThatTakesArguments(arg1, arg2) {
-        return arg1 === arg2;
-      }
+      aMethodThatExists() { return true; },
+      aMethodThatTakesArguments(arg1, arg2) { return arg1 === arg2; }
     };
   },
 

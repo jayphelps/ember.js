@@ -3,14 +3,12 @@ import run from 'ember-metal/run_loop';
 
 QUnit.module('system/run_loop/onerror_test');
 
-QUnit.test('With Ember.onerror undefined, errors in Ember.run are thrown', function() {
+QUnit.test('With Ember.onerror undefined, errors in Ember.run are thrown', function () {
   var thrown = new Error('Boom!');
   var caught;
 
   try {
-    run(function() {
-      throw thrown;
-    });
+    run(function() { throw thrown; });
   } catch (error) {
     caught = error;
   }
@@ -18,17 +16,13 @@ QUnit.test('With Ember.onerror undefined, errors in Ember.run are thrown', funct
   deepEqual(caught, thrown);
 });
 
-QUnit.test('With Ember.onerror set, errors in Ember.run are caught', function() {
+QUnit.test('With Ember.onerror set, errors in Ember.run are caught', function () {
   var thrown = new Error('Boom!');
   var caught;
 
-  Ember.onerror = function(error) {
-    caught = error;
-  };
+  Ember.onerror = function(error) { caught = error; };
 
-  run(function() {
-    throw thrown;
-  });
+  run(function() { throw thrown; });
 
   deepEqual(caught, thrown);
 

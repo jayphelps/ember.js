@@ -6,14 +6,10 @@ import {
 
 QUnit.module('Ember.Mixin.apply');
 
-function K() {
-}
+function K() {}
 
 QUnit.test('using apply() should apply properties', function() {
-  var MixinA = Mixin.create({
-    foo: 'FOO',
-    baz: K
-  });
+  var MixinA = Mixin.create({ foo: 'FOO', baz: K });
   var obj = {};
   mixin(obj, MixinA);
 
@@ -39,12 +35,8 @@ QUnit.test('applying null values', function() {
 });
 
 QUnit.test('applying a property with an undefined value', function() {
-  var obj = {
-    tagName: ''
-  };
-  mixin(obj, {
-    tagName: undefined
-  });
+  var obj = { tagName: '' };
+  mixin(obj, { tagName: undefined })
 
   strictEqual(get(obj, 'tagName'), '');
 });

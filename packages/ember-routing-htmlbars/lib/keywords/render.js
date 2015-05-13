@@ -33,9 +33,7 @@ export default {
   },
 
   childEnv(state) {
-    return {
-      outletState: state.childOutletState
-    };
+    return { outletState: state.childOutletState };
   },
 
   isStable(lastState, nextState) {
@@ -125,7 +123,7 @@ export default {
     // choose name
     if (params.length > 1) {
       var factory = container.lookupFactory(controllerFullName) ||
-        generateControllerFactory(container, controllerName);
+                    generateControllerFactory(container, controllerName);
 
       controller = factory.create({
         model: read(context),
@@ -136,7 +134,7 @@ export default {
       node.addDestruction(controller);
     } else {
       controller = container.lookup(controllerFullName) ||
-        generateController(container, controllerName);
+                   generateController(container, controllerName);
 
       controller.setProperties({
         target: parentController,
@@ -184,19 +182,13 @@ export default {
 
 function childOutletState(name, env) {
   var topLevel = env.view.ownerView;
-  if (!topLevel || !topLevel.outletState) {
-    return;
-  }
+  if (!topLevel || !topLevel.outletState) { return; }
 
   var outletState = topLevel.outletState;
-  if (!outletState.main) {
-    return;
-  }
+  if (!outletState.main) { return; }
 
   var selectedOutletState = outletState.main.outlets['__ember_orphans__'];
-  if (!selectedOutletState) {
-    return;
-  }
+  if (!selectedOutletState) { return; }
   var matched = selectedOutletState.outlets[name];
   if (matched) {
     var childState = create(null);

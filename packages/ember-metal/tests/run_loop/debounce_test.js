@@ -4,9 +4,7 @@ var originalDebounce = run.backburner.debounce;
 var wasCalled = false;
 QUnit.module('Ember.run.debounce', {
   setup() {
-    run.backburner.debounce = function() {
-      wasCalled = true;
-    };
+    run.backburner.debounce = function() { wasCalled = true; };
   },
   teardown() {
     run.backburner.debounce = originalDebounce;

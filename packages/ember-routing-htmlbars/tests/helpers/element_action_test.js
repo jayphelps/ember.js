@@ -52,7 +52,7 @@ QUnit.test('should output a data attribute with a guid', function() {
 QUnit.test('should by default register a click event', function() {
   var registeredEventName;
 
-  ActionHelper.registerAction = function({eventName}) {
+  ActionHelper.registerAction = function({ eventName }) {
     registeredEventName = eventName;
   };
 
@@ -68,7 +68,7 @@ QUnit.test('should by default register a click event', function() {
 QUnit.test('should allow alternative events to be handled', function() {
   var registeredEventName;
 
-  ActionHelper.registerAction = function({eventName}) {
+  ActionHelper.registerAction = function({ eventName }) {
     registeredEventName = eventName;
   };
 
@@ -85,7 +85,7 @@ QUnit.test('should by default target the view\'s controller', function() {
   var registeredTarget;
   var controller = {};
 
-  ActionHelper.registerAction = function({node}) {
+  ActionHelper.registerAction = function({ node }) {
     registeredTarget = node.state.target;
   };
 
@@ -133,7 +133,7 @@ QUnit.test('Inside a yield, the target points at the original target', function(
 QUnit.test('should target the current controller inside an {{each}} loop [DEPRECATED]', function() {
   var registeredTarget;
 
-  ActionHelper.registerAction = function({node}) {
+  ActionHelper.registerAction = function({ node }) {
     registeredTarget = node.state.target;
   };
 
@@ -165,7 +165,7 @@ QUnit.test('should target the current controller inside an {{each}} loop [DEPREC
 QUnit.test('should target the with-controller inside an {{#with controller=\'person\'}} [DEPRECATED]', function() {
   var registeredTarget;
 
-  ActionHelper.registerAction = function({node}) {
+  ActionHelper.registerAction = function({ node }) {
     registeredTarget = node.state.target;
   };
 
@@ -200,12 +200,8 @@ QUnit.skip('should target the with-controller inside an {{each}} in a {{#with co
 
   var PeopleController = EmberArrayController.extend({
     actions: {
-      robert() {
-        eventsCalled.push('robert');
-      },
-      brian() {
-        eventsCalled.push('brian');
-      }
+      robert() { eventsCalled.push('robert'); },
+      brian() { eventsCalled.push('brian'); }
     }
   });
 
@@ -214,12 +210,8 @@ QUnit.skip('should target the with-controller inside an {{each}} in a {{#with co
   var parentController = EmberObject.create({
     container: container,
     people: Ember.A([
-      {
-        name: 'robert'
-      },
-      {
-        name: 'brian'
-      }
+      { name: 'robert' },
+      { name: 'brian' }
     ])
   });
 
@@ -241,7 +233,7 @@ QUnit.skip('should target the with-controller inside an {{each}} in a {{#with co
 QUnit.test('should allow a target to be specified', function() {
   var registeredTarget;
 
-  ActionHelper.registerAction = function({node}) {
+  ActionHelper.registerAction = function({ node }) {
     registeredTarget = node.state.target;
   };
 
@@ -307,11 +299,7 @@ QUnit.test('should register an event handler', function() {
   var eventHandlerWasCalled = false;
 
   var controller = EmberController.extend({
-    actions: {
-      edit() {
-        eventHandlerWasCalled = true;
-      }
-    }
+    actions: { edit() { eventHandlerWasCalled = true; } }
   }).create();
 
   view = EmberView.create({
@@ -336,12 +324,8 @@ QUnit.test('handles whitelisted modifier keys', function() {
 
   var controller = EmberController.extend({
     actions: {
-      edit() {
-        eventHandlerWasCalled = true;
-      },
-      shortcut() {
-        shortcutHandlerWasCalled = true;
-      }
+      edit() { eventHandlerWasCalled = true; },
+      shortcut() { shortcutHandlerWasCalled = true; }
     }
   }).create();
 
@@ -376,12 +360,8 @@ QUnit.test('should be able to use action more than once for the same event withi
 
   var controller = EmberController.extend({
     actions: {
-      edit() {
-        editWasCalled = true;
-      },
-      'delete'() {
-        deleteWasCalled = true;
-      }
+      edit() { editWasCalled = true; },
+      'delete'() { deleteWasCalled = true; }
     }
   }).create();
 
@@ -390,9 +370,7 @@ QUnit.test('should be able to use action more than once for the same event withi
     template: compile(
       '<a id="edit" href="#" {{action "edit"}}>edit</a><a id="delete" href="#" {{action "delete"}}>delete</a>'
     ),
-    click() {
-      originalEventHandlerWasCalled = true;
-    }
+    click() { originalEventHandlerWasCalled = true; }
   });
 
   runAppend(view);
@@ -424,12 +402,8 @@ QUnit.test('the event should not bubble if `bubbles=false` is passed', function(
 
   var controller = EmberController.extend({
     actions: {
-      edit() {
-        editWasCalled = true;
-      },
-      'delete'() {
-        deleteWasCalled = true;
-      }
+      edit() { editWasCalled = true; },
+      'delete'() { deleteWasCalled = true; }
     }
   }).create();
 
@@ -735,11 +709,7 @@ QUnit.test('should only trigger actions for the event they were registered on', 
 
   view = EmberView.extend({
     template: compile('<a href="#" {{action "edit"}}>edit</a>'),
-    actions: {
-      edit() {
-        editWasCalled = true;
-      }
-    }
+    actions: { edit() { editWasCalled = true; } }
   }).create();
 
   runAppend(view);
@@ -981,18 +951,9 @@ QUnit.test('a quoteless parameter should lookup actionName in context [DEPRECATE
   });
 
   var controller = EmberController.extend({
-    allactions: Ember.A([{
-      title: 'Biggity Boom',
-      name: 'biggityBoom'
-    },
-      {
-        title: 'Whomp Whomp',
-        name: 'whompWhomp'
-      },
-      {
-        title: 'Sloopy Dookie',
-        name: 'sloopyDookie'
-      }]),
+    allactions: Ember.A([{ title: 'Biggity Boom', name: 'biggityBoom' },
+                         { title: 'Whomp Whomp', name: 'whompWhomp' },
+                         { title: 'Sloopy Dookie', name: 'sloopyDookie' }]),
     actions: {
       biggityBoom() {
         lastAction = 'biggityBoom';
@@ -1043,18 +1004,9 @@ QUnit.test('a quoteless string parameter should resolve actionName, including pa
   });
 
   var controller = EmberController.extend({
-    allactions: Ember.A([{
-      title: 'Biggity Boom',
-      name: 'biggityBoom'
-    },
-      {
-        title: 'Whomp Whomp',
-        name: 'whompWhomp'
-      },
-      {
-        title: 'Sloopy Dookie',
-        name: 'sloopyDookie'
-      }]),
+    allactions: Ember.A([{ title: 'Biggity Boom', name: 'biggityBoom' },
+                         { title: 'Whomp Whomp', name: 'whompWhomp' },
+                         { title: 'Sloopy Dookie', name: 'sloopyDookie' }]),
     actions: {
       biggityBoom() {
         lastAction = 'biggityBoom';

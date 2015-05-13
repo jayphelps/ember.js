@@ -5,9 +5,7 @@ import {
   removeObserver
 } from 'ember-metal/observer';
 
-function K() {
-  return this;
-}
+function K() { return this; }
 
 QUnit.module('Fetch Keys ');
 
@@ -35,8 +33,7 @@ QUnit.test('should get a key array for property that is named the same as protot
 });
 
 QUnit.test('should not contain properties declared in the prototype', function() {
-  function Beer() {
-  }
+  function Beer() {}
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -45,8 +42,7 @@ QUnit.test('should not contain properties declared in the prototype', function()
 });
 
 QUnit.test('should return properties that were set after object creation', function() {
-  function Beer() {
-  }
+  function Beer() {}
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -59,8 +55,7 @@ QUnit.test('should return properties that were set after object creation', funct
 QUnit.module('Keys behavior with observers');
 
 QUnit.test('should not leak properties on the prototype', function() {
-  function Beer() {
-  }
+  function Beer() {}
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -71,8 +66,7 @@ QUnit.test('should not leak properties on the prototype', function() {
 });
 
 QUnit.test('observing a non existent property', function() {
-  function Beer() {
-  }
+  function Beer() {}
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -88,8 +82,7 @@ QUnit.test('observing a non existent property', function() {
 });
 
 QUnit.test('with observers switched on and off', function() {
-  function Beer() {
-  }
+  function Beer() {}
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -101,8 +94,7 @@ QUnit.test('with observers switched on and off', function() {
 });
 
 QUnit.test('observers switched on and off with setter in between', function() {
-  function Beer() {
-  }
+  function Beer() {}
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();
@@ -115,8 +107,7 @@ QUnit.test('observers switched on and off with setter in between', function() {
 });
 
 QUnit.test('observer switched on and off and then setter', function() {
-  function Beer() {
-  }
+  function Beer() {}
   Beer.prototype.type = 'ipa';
 
   var beer = new Beer();

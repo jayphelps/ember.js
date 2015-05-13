@@ -29,21 +29,13 @@ QUnit.test('false', function() {
 
 QUnit.test('object', function() {
   equal(inspect({}), '{}');
-  equal(inspect({
-    foo: 'bar'
-  }), '{foo: bar}');
-  equal(inspect({
-    foo() {
-      return this;
-    }
-  }), '{foo: function() { ... }}');
+  equal(inspect({ foo: 'bar' }), '{foo: bar}');
+  equal(inspect({ foo() { return this; } }), '{foo: function() { ... }}');
 });
 
 QUnit.test('objects without a prototype', function() {
   var prototypelessObj = create(null);
-  equal(inspect({
-    foo: prototypelessObj
-  }), '{foo: [object Object]}');
+  equal(inspect({ foo: prototypelessObj }), '{foo: [object Object]}');
 });
 
 QUnit.test('array', function() {

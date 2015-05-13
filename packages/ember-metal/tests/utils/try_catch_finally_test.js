@@ -1,7 +1,7 @@
 import { tryCatchFinally } from 'ember-metal/utils';
 
 var tryCount, catchCount, finalizeCount, tryable, catchable, finalizer, error,
-  tryableResult, catchableResult, finalizerResult;
+    tryableResult, catchableResult, finalizerResult;
 
 QUnit.module('Ember.tryFinally', {
   setup() {
@@ -28,7 +28,8 @@ QUnit.module('Ember.tryFinally', {
   },
 
   teardown() {
-    tryCount = catchCount = finalizeCount = tryable = catchable = finalizer = finalizeCount = tryableResult = null;
+    tryCount = catchCount = finalizeCount = tryable = catchable = finalizer =
+    finalizeCount = tryableResult = null;
   }
 });
 

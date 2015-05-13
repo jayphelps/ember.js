@@ -27,9 +27,7 @@ function wait(callback, maxWaitCount) {
 // the timer already expired.
 function pauseUntil(time) {
   // jscs:disable
-  while (+new Date() < time) {
-    /* do nothing - sleeping */
-  }
+  while (+new Date() < time) { /* do nothing - sleeping */ }
   // jscs:enable
 }
 
@@ -41,13 +39,10 @@ QUnit.module('run.later', {
 });
 
 asyncTest('should invoke after specified period of time - function only', function() {
-
   var invoked = false;
 
   run(function() {
-    run.later(function() {
-      invoked = true;
-    }, 100);
+    run.later(function() { invoked = true; }, 100);
   });
 
   wait(function() {
@@ -57,15 +52,10 @@ asyncTest('should invoke after specified period of time - function only', functi
 });
 
 asyncTest('should invoke after specified period of time - target/method', function() {
-
-  var obj = {
-    invoked: false
-  };
+  var obj = { invoked: false };
 
   run(function() {
-    run.later(obj, function() {
-      this.invoked = true;
-    }, 100);
+    run.later(obj, function() { this.invoked = true; }, 100);
   });
 
   wait(function() {
@@ -75,10 +65,7 @@ asyncTest('should invoke after specified period of time - target/method', functi
 });
 
 asyncTest('should invoke after specified period of time - target/method/args', function() {
-
-  var obj = {
-    invoked: 0
-  };
+  var obj = { invoked: 0 };
 
   run(function() {
     run.later(obj, function(amt) {
@@ -181,7 +168,6 @@ asyncTest('should always invoke within a separate runloop', function() {
 // });
 
 asyncTest('inception calls to run.later should run callbacks in separate run loops', function() {
-
   var runLoop, finished;
 
   run(function() {
@@ -195,7 +181,7 @@ asyncTest('inception calls to run.later should run callbacks in separate run loo
 
       run.later(function() {
         ok(run.currentRunLoop && run.currentRunLoop !== runLoop,
-          'second later callback has own run loop');
+           'second later callback has own run loop');
         finished = true;
       }, 40);
     }, 40);
@@ -208,7 +194,6 @@ asyncTest('inception calls to run.later should run callbacks in separate run loo
 });
 
 asyncTest('setTimeout should never run with a negative wait', function() {
-
   // Rationale: The old run loop code was susceptible to an occasional
   // bug where invokeLaterTimers would be scheduled with a setTimeout
   // with a negative wait. Modern browsers normalize this to 0, but

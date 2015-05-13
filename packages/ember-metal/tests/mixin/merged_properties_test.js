@@ -10,62 +10,32 @@ QUnit.test('defining mergedProperties should merge future version', function() {
 
   var MixinA = Mixin.create({
     mergedProperties: ['foo'],
-    foo: {
-      a: true,
-      b: true,
-      c: true
-    }
+    foo: { a: true, b: true, c: true }
   });
 
   var MixinB = Mixin.create({
-    foo: {
-      d: true,
-      e: true,
-      f: true
-    }
+    foo: { d: true, e: true, f: true }
   });
 
   var obj = mixin({}, MixinA, MixinB);
   deepEqual(get(obj, 'foo'),
-    {
-      a: true,
-      b: true,
-      c: true,
-      d: true,
-      e: true,
-      f: true
-    });
+    { a: true, b: true, c: true, d: true, e: true, f: true });
 });
 
 QUnit.test('defining mergedProperties on future mixin should merged into past', function() {
 
-  var MixinA = Mixin.create({
-    foo: {
-      a: true,
-      b: true,
-      c: true
-    }
+   var MixinA = Mixin.create({
+    foo: { a: true, b: true, c: true }
   });
 
   var MixinB = Mixin.create({
     mergedProperties: ['foo'],
-    foo: {
-      d: true,
-      e: true,
-      f: true
-    }
+    foo: { d: true, e: true, f: true }
   });
 
   var obj = mixin({}, MixinA, MixinB);
   deepEqual(get(obj, 'foo'),
-    {
-      a: true,
-      b: true,
-      c: true,
-      d: true,
-      e: true,
-      f: true
-    });
+    { a: true, b: true, c: true, d: true, e: true, f: true });
 });
 
 QUnit.test('defining mergedProperties with null properties should keep properties null', function() {
@@ -87,70 +57,38 @@ QUnit.test('mergedProperties\' properties can get overwritten', function() {
 
   var MixinA = Mixin.create({
     mergedProperties: ['foo'],
-    foo: {
-      a: 1
-    }
+    foo: { a: 1 }
   });
 
   var MixinB = Mixin.create({
-    foo: {
-      a: 2
-    }
+    foo: { a: 2 }
   });
 
   var obj = mixin({}, MixinA, MixinB);
-  deepEqual(get(obj, 'foo'), {
-    a: 2
-  });
+  deepEqual(get(obj, 'foo'), { a: 2 });
 });
 
 QUnit.test('mergedProperties should be concatenated', function() {
 
   var MixinA = Mixin.create({
     mergedProperties: ['foo'],
-    foo: {
-      a: true,
-      b: true,
-      c: true
-    }
+    foo: { a: true, b: true, c: true }
   });
 
   var MixinB = Mixin.create({
     mergedProperties: 'bar',
-    foo: {
-      d: true,
-      e: true,
-      f: true
-    },
-    bar: {
-      a: true,
-      l: true
-    }
+    foo: { d: true, e: true, f: true },
+    bar: { a: true, l: true }
   });
 
   var MixinC = Mixin.create({
-    bar: {
-      e: true,
-      x: true
-    }
+    bar: { e: true, x: true }
   });
 
   var obj = mixin({}, MixinA, MixinB, MixinC);
   deepEqual(get(obj, 'mergedProperties'), ['foo', 'bar'], 'get mergedProperties');
-  deepEqual(get(obj, 'foo'), {
-    a: true,
-    b: true,
-    c: true,
-    d: true,
-    e: true,
-    f: true
-  }, 'get foo');
-  deepEqual(get(obj, 'bar'), {
-    a: true,
-    l: true,
-    e: true,
-    x: true
-  }, 'get bar');
+  deepEqual(get(obj, 'foo'), { a: true, b: true, c: true, d: true, e: true, f: true }, 'get foo');
+  deepEqual(get(obj, 'bar'), { a: true, l: true, e: true, x: true }, 'get bar');
 });
 
 QUnit.test('mergedProperties should exist even if not explicitly set on create', function() {
@@ -217,11 +155,7 @@ QUnit.test('Merging an Array should raise an error', function() {
 
   var MixinA = Mixin.create({
     mergedProperties: ['foo'],
-    foo: {
-      a: true,
-      b: true,
-      c: true
-    }
+    foo: { a: true, b: true, c: true }
   });
 
   var MixinB = Mixin.create({

@@ -4,9 +4,7 @@ import { Mixin } from 'ember-metal/mixin';
 import { computed } from 'ember-metal/computed';
 import { defineProperty } from 'ember-metal/properties';
 
-function K() {
-  return this;
-}
+function K() { return this; }
 
 QUnit.module('Mixin Computed Properties');
 
@@ -69,23 +67,15 @@ QUnit.test('calling set on overridden computed properties', function() {
 
   SuperMixin = Mixin.create({
     aProp: computed({
-      get: function(key) {
-        superGetOccurred = true;
-      },
-      set: function(key, value) {
-        superSetOccurred = true;
-      }
+      get: function(key) { superGetOccurred = true; },
+      set: function(key, value) { superSetOccurred = true; }
     })
   });
 
   SubMixin = Mixin.create(SuperMixin, {
     aProp: computed({
-      get: function(key) {
-        return this._super.apply(this, arguments);
-      },
-      set: function(key, value) {
-        return this._super.apply(this, arguments);
-      }
+      get: function(key) { return this._super.apply(this, arguments); },
+      set: function(key, value) { return this._super.apply(this, arguments); }
     })
   });
 
@@ -121,16 +111,12 @@ QUnit.test('setter behavior works properly when overriding computed properties',
   var MixinB = Mixin.create({
     cpWithSetter2: computed({
       get: K,
-      set: function(k, v) {
-        cpWasCalled = true;
-      }
+      set: function(k, v) { cpWasCalled = true; }
     }),
 
     cpWithSetter3: computed({
       get: K,
-      set: function(k, v) {
-        cpWasCalled = true;
-      }
+      set: function(k, v) { cpWasCalled = true; }
     }),
 
     cpWithoutSetter: computed(function(k) {

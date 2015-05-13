@@ -6,7 +6,6 @@ import {
 } from 'ember-metal/instrumentation';
 
 QUnit.module('Ember Instrumentation', {
-  setup() {},
   teardown() {
     reset();
   }
@@ -116,9 +115,7 @@ QUnit.test('instrument with 3 args (name, callback, binding) no payload', functi
 QUnit.test('instrument with 3 args (name, payload, callback) with payload', function() {
   expect(1);
 
-  var expectedPayload = {
-    hi: 1
-  };
+  var expectedPayload = { hi: 1 };
   subscribe('render', {
     before(name, timestamp, payload) {
       deepEqual(payload, expectedPayload);
@@ -132,9 +129,7 @@ QUnit.test('instrument with 3 args (name, payload, callback) with payload', func
 QUnit.test('instrument with 4 args (name, payload, callback, binding) with payload', function() {
   expect(2);
 
-  var expectedPayload = {
-    hi: 1
-  };
+  var expectedPayload = { hi: 1 };
   var binding = {};
   subscribe('render', {
     before(name, timestamp, payload) {

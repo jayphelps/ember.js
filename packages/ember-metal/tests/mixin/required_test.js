@@ -40,9 +40,7 @@ QUnit.test('combined mixins to meet requirement', function() {
 });
 
 QUnit.test('merged mixin', function() {
-  Mixin.create(PartialMixin, {
-    foo: 'FOO'
-  }).apply(obj);
+  Mixin.create(PartialMixin, { foo: 'FOO' }).apply(obj);
   equal(get(obj, 'foo'), 'FOO', 'should now be defined');
 });
 
@@ -53,9 +51,7 @@ QUnit.test('define property on source object', function() {
 });
 
 QUnit.test('using apply', function() {
-  mixin(obj, PartialMixin, {
-    foo: 'FOO'
-  });
+  mixin(obj, PartialMixin, { foo: 'FOO' });
   equal(get(obj, 'foo'), 'FOO', 'should now be defined');
 });
 

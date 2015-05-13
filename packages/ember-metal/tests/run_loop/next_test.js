@@ -7,9 +7,7 @@ asyncTest('should invoke immediately on next timeout', function() {
   var invoked = false;
 
   run(function() {
-    run.next(function() {
-      invoked = true;
-    });
+    run.next(function() { invoked = true; });
   });
 
   equal(invoked, false, 'should not have invoked yet');
@@ -26,9 +24,7 @@ asyncTest('callback should be called from within separate loop', function() {
   var firstRunLoop, secondRunLoop;
   run(function() {
     firstRunLoop = run.currentRunLoop;
-    run.next(function() {
-      secondRunLoop = run.currentRunLoop;
-    });
+    run.next(function() { secondRunLoop = run.currentRunLoop; });
   });
 
   setTimeout(function() {
@@ -42,12 +38,8 @@ asyncTest('multiple calls to run.next share coalesce callbacks into same run loo
   var firstRunLoop, secondRunLoop, thirdRunLoop;
   run(function() {
     firstRunLoop = run.currentRunLoop;
-    run.next(function() {
-      secondRunLoop = run.currentRunLoop;
-    });
-    run.next(function() {
-      thirdRunLoop = run.currentRunLoop;
-    });
+    run.next(function() { secondRunLoop = run.currentRunLoop; });
+    run.next(function() { thirdRunLoop  = run.currentRunLoop; });
   });
 
   setTimeout(function() {

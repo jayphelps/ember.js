@@ -17,9 +17,7 @@ QUnit.module('system/props/events_test');
 QUnit.test('listener should receive event - removing should remove', function() {
   var obj = {};
   var count = 0;
-  var F = function() {
-    count++;
-  };
+  var F = function() { count++; };
 
   addListener(obj, 'event!', F);
   equal(count, 0, 'nothing yet');
@@ -37,9 +35,7 @@ QUnit.test('listener should receive event - removing should remove', function() 
 QUnit.test('listeners should be inherited', function() {
   var obj = {};
   var count = 0;
-  var F = function() {
-    count++;
-  };
+  var F = function() { count++; };
 
   addListener(obj, 'event!', F);
 
@@ -66,9 +62,7 @@ QUnit.test('adding a listener more than once should only invoke once', function(
 
   var obj = {};
   var count = 0;
-  var F = function() {
-    count++;
-  };
+  var F = function() { count++; };
   addListener(obj, 'event!', F);
   addListener(obj, 'event!', F);
 
@@ -82,9 +76,7 @@ QUnit.test('adding a listener with a target should invoke with target', function
 
   target = {
     count: 0,
-    method() {
-      this.count++;
-    }
+    method() { this.count++; }
   };
 
   addListener(obj, 'event!', target, target.method);
@@ -98,16 +90,12 @@ QUnit.test('suspending a listener should not invoke during callback', function()
 
   target = {
     count: 0,
-    method() {
-      this.count++;
-    }
+    method() { this.count++; }
   };
 
   otherTarget = {
     count: 0,
-    method() {
-      this.count++;
-    }
+    method() { this.count++; }
   };
 
   addListener(obj, 'event!', target, target.method);
@@ -145,9 +133,7 @@ QUnit.test('adding a listener with string method should lookup method on event d
   sendEvent(obj, 'event!');
   equal(target.count, 0, 'should invoke but do nothing');
 
-  target.method = function() {
-    this.count++;
-  };
+  target.method = function() { this.count++; };
   sendEvent(obj, 'event!');
   equal(target.count, 1, 'should invoke now');
 });
@@ -175,9 +161,7 @@ QUnit.test('implementing sendEvent on object should invoke', function() {
     count: 0
   };
 
-  addListener(obj, 'event!', obj, function() {
-    this.count++;
-  });
+  addListener(obj, 'event!', obj, function() { this.count++; });
 
   sendEvent(obj, 'event!', ['foo', 'bar']);
   equal(obj.count, 2, 'should have invoked method & listener');
@@ -229,9 +213,7 @@ QUnit.test('while suspended, it should not be possible to add a duplicate listen
 
   target = {
     count: 0,
-    method() {
-      this.count++;
-    }
+    method() { this.count++; }
   };
 
   addListener(obj, 'event!', target, target.method);

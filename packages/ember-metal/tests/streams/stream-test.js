@@ -28,9 +28,7 @@ QUnit.test('is notified when a proxy\'s content changes', function() {
   stream.value();
 
   value = ObjectProxy.create({
-    content: {
-      message: 'foo'
-    }
+    content: { message: 'foo' }
   });
 
   equal(count, 0);
@@ -40,9 +38,7 @@ QUnit.test('is notified when a proxy\'s content changes', function() {
   equal(count, 1);
   equal(get(stream.value(), 'message'), 'foo');
 
-  value.set('content', {
-    message: 'bar'
-  });
+  value.set('content', { message: 'bar' });
 
   equal(count, 2);
   equal(get(stream.value(), 'message'), 'bar');

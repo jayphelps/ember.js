@@ -12,9 +12,7 @@ function incrementCount() {
 QUnit.module('KeyStream', {
   setup() {
     count = 0;
-    object = {
-      name: 'mmun'
-    };
+    object = { name: 'mmun' };
 
     source = new Stream(function() {
       return object;
@@ -57,9 +55,7 @@ QUnit.test('is notified when the source stream\'s value changes to a new object'
   equal(count, 0, 'Subscribers called correct number of times');
   equal(nameStream.value(), 'mmun', 'Stream value is correct');
 
-  object = {
-    name: 'wycats'
-  };
+  object = { name: 'wycats' };
   source.notify();
 
   equal(count, 1, 'Subscribers called correct number of times');
@@ -96,9 +92,7 @@ QUnit.test('is notified when setSource is called with a new stream whose value i
   equal(count, 0, 'Subscribers called correct number of times');
   equal(nameStream.value(), 'mmun', 'Stream value is correct');
 
-  object = {
-    name: 'wycats'
-  };
+  object = { name: 'wycats' };
   nameStream.setSource(new Stream(function() {
     return object;
   }));
@@ -184,9 +178,7 @@ QUnit.test('manages key observers correctly when the object changes', function()
   ok(isWatching(object, 'name'), '(Precondition) Key is observered after activation');
 
   var prevObject = object;
-  object = {
-    name: 'wycats'
-  };
+  object = { name: 'wycats' };
   source.notify();
 
   ok(isWatching(prevObject, 'name'), 'Key is still observered on the previous object before recomputing');

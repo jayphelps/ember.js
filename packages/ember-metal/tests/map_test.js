@@ -312,21 +312,9 @@ function testMap(nameAndFunc) {
     var iteration = 0;
 
     var expectations = [
-      {
-        value: 1,
-        key: 'a',
-        context: unboundThis
-      },
-      {
-        value: 2,
-        key: 'b',
-        context: unboundThis
-      },
-      {
-        value: 3,
-        key: 'c',
-        context: unboundThis
-      }
+      { value: 1, key: 'a', context: unboundThis },
+      { value: 2, key: 'b', context: unboundThis },
+      { value: 3, key: 'c', context: unboundThis }
     ];
 
     map.forEach(function(value, key, theMap) {
@@ -352,21 +340,9 @@ function testMap(nameAndFunc) {
     var iteration = 0;
     var context = {};
     var expectations = [
-      {
-        value: 1,
-        key: 'a',
-        context: context
-      },
-      {
-        value: 2,
-        key: 'b',
-        context: context
-      },
-      {
-        value: 3,
-        key: 'c',
-        context: context
-      }
+      { value: 1, key: 'a', context: context },
+      { value: 2, key: 'b', context: context },
+      { value: 3, key: 'c', context: context }
     ];
 
     map.forEach(function(value, key, theMap) {
@@ -392,16 +368,8 @@ function testMap(nameAndFunc) {
     var iteration = 0;
 
     var expectations = [
-      {
-        value: 1,
-        key: 'a',
-        context: unboundThis
-      },
-      {
-        value: 2,
-        key: 'b',
-        context: unboundThis
-      }
+      { value: 1, key: 'a', context: unboundThis },
+      { value: 2, key: 'b', context: unboundThis }
     ];
 
     map.forEach(function(value, key, theMap) {
@@ -430,26 +398,10 @@ function testMap(nameAndFunc) {
     var iteration = 0;
 
     var expectations = [
-      {
-        value: 1,
-        key: 'a',
-        context: unboundThis
-      },
-      {
-        value: 2,
-        key: 'b',
-        context: unboundThis
-      },
-      {
-        value: 3,
-        key: 'c',
-        context: unboundThis
-      },
-      {
-        value: 4,
-        key: 'd',
-        context: unboundThis
-      }
+      { value: 1, key: 'a', context: unboundThis },
+      { value: 2, key: 'b', context: unboundThis },
+      { value: 3, key: 'c', context: unboundThis },
+      { value: 4, key: 'd', context: unboundThis }
     ];
 
     map.forEach(function(value, key, theMap) {
@@ -580,9 +532,7 @@ QUnit.test('Map.prototype.constructor', function() {
 
 QUnit.test('MapWithDefault.prototype.constructor', function() {
   var map = new MapWithDefault({
-    defaultValue(key) {
-      return key;
-    }
+    defaultValue(key) { return key; }
   });
   equal(map.constructor, MapWithDefault);
 });
