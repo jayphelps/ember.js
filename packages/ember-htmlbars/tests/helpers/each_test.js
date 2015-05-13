@@ -64,12 +64,12 @@ QUnit.module('parseEach test helper');
 
 QUnit.test('block param syntax substitution', function() {
   equal(parseEach('{{#EACH|people|p}}p people{{/EACH}}', true), '{{#each people as |p|}}p people{{/each}}');
-  equal(parseEach('{{#EACH|people|p|a=\'b\' c=\'d\'}}p people{{/EACH}}', true), '{{#each people a=\'b\' c=\'d\' as |p|}}p people{{/each}}');
+  equal(parseEach('{{#EACH|people|p|a="b" c="d"}}p people{{/EACH}}', true), '{{#each people a="b" c="d" as |p|}}p people{{/each}}');
 });
 
 QUnit.test('non-block param syntax substitution', function() {
   equal(parseEach('{{#EACH|people|p}}p people{{/EACH}}', false), '{{#each p in people}}p people{{/each}}');
-  equal(parseEach('{{#EACH|people|p|a=\'b\' c=\'d\'}}p people{{/EACH}}', false), '{{#each p in people a=\'b\' c=\'d\'}}p people{{/each}}');
+  equal(parseEach('{{#EACH|people|p|a="b" c="d"}}p people{{/EACH}}', false), '{{#each p in people a="b" c="d"}}p people{{/each}}');
 });
 
 function templateFor(templateString, useBlockParams) {

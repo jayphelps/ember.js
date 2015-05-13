@@ -46,7 +46,7 @@ QUnit.module('Template scoping examples', {
 QUnit.test('Actions inside an outlet go to the associated controller', function() {
   expect(1);
 
-  templates.index = compile('{{component-with-action action=\'componentAction\'}}');
+  templates.index = compile('{{component-with-action action="componentAction"}}');
 
   App.IndexController = Ember.Controller.extend({
     actions: {

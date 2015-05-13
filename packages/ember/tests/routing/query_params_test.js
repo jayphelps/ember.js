@@ -286,9 +286,9 @@ QUnit.test('controllers won\'t be eagerly instantiated by internal query params 
     this.route('about');
   });
 
-  Ember.TEMPLATES.home = compile('<h3>{{link-to \'About\' \'about\' (query-params lol=\'wat\') id=\'link-to-about\'}}</h3>');
-  Ember.TEMPLATES.about = compile('<h3>{{link-to \'Home\' \'home\'  (query-params foo=\'naw\')}}</h3>');
-  Ember.TEMPLATES['cats/index'] = compile('<h3>{{link-to \'Cats\' \'cats\'  (query-params name=\'domino\') id=\'cats-link\'}}</h3>');
+  Ember.TEMPLATES.home = compile('<h3>{{link-to \'About\' \'about\' (query-params lol="wat") id="link-to-about"}}</h3>');
+  Ember.TEMPLATES.about = compile('<h3>{{link-to \'Home\' \'home\'  (query-params foo="naw")}}</h3>');
+  Ember.TEMPLATES['cats/index'] = compile('<h3>{{link-to \'Cats\' \'cats\'  (query-params name="domino") id="cats-link"}}</h3>');
 
   var homeShouldBeCreated = false;
   var aboutShouldBeCreated = false;
@@ -761,7 +761,7 @@ QUnit.test('An explicit replace:false on a changed QP always wins and causes a p
 
 QUnit.test('can opt into full transition by setting refreshModel in route queryParams when transitioning from child to parent', function() {
   Ember.TEMPLATES.parent = compile('{{outlet}}');
-  Ember.TEMPLATES['parent/child'] = compile('{{link-to \'Parent\' \'parent\' (query-params foo=\'change\') id=\'parent-link\'}}');
+  Ember.TEMPLATES['parent/child'] = compile('{{link-to \'Parent\' \'parent\' (query-params foo="change") id="parent-link"}}');
 
   App.Router.map(function() {
     this.resource('parent', function() {
@@ -914,7 +914,7 @@ QUnit.test('Subresource naming style is supported', function() {
     });
   });
 
-  Ember.TEMPLATES.application = compile('{{link-to \'A\' \'abc.def\' (query-params foo=\'123\') id=\'one\'}}{{link-to \'B\' \'abc.def.zoo\' (query-params foo=\'123\' bar=\'456\') id=\'two\'}}{{outlet}}');
+  Ember.TEMPLATES.application = compile('{{link-to \'A\' \'abc.def\' (query-params foo="123") id="one"}}{{link-to \'B\' \'abc.def.zoo\' (query-params foo="123" bar="456") id="two"}}{{outlet}}');
 
   App.AbcDefController = Ember.Controller.extend({
     queryParams: ['foo'],
@@ -1257,9 +1257,9 @@ QUnit.test('A child of a resource route still defaults to parent route\'s model 
 QUnit.test('opting into replace does not affect transitions between routes', function() {
   expect(5);
   Ember.TEMPLATES.application = compile(
-    '{{link-to \'Foo\' \'foo\' id=\'foo-link\'}}' +
-    '{{link-to \'Bar\' \'bar\' id=\'bar-no-qp-link\'}}' +
-    '{{link-to \'Bar\' \'bar\' (query-params raytiley=\'isthebest\') id=\'bar-link\'}}' +
+    '{{link-to \'Foo\' \'foo\' id="foo-link"}}' +
+    '{{link-to \'Bar\' \'bar\' id="bar-no-qp-link"}}' +
+    '{{link-to \'Bar\' \'bar\' (query-params raytiley="isthebest") id="bar-link"}}' +
     '{{outlet}}'
   );
   App.Router.map(function() {
@@ -1305,7 +1305,7 @@ QUnit.test('Undefined isn\'t deserialized into a string', function() {
     this.route('example');
   });
 
-  Ember.TEMPLATES.application = compile('{{link-to \'Example\' \'example\' id=\'the-link\'}}');
+  Ember.TEMPLATES.application = compile('{{link-to \'Example\' \'example\' id="the-link"}}');
 
   App.ExampleController = Ember.Controller.extend({
     queryParams: ['foo']
@@ -1352,7 +1352,7 @@ var testParamlessLinks = function(routeName) {
   QUnit.test('param-less links in an app booted with query params in the URL don\'t reset the query params: ' + routeName, function() {
     expect(1);
 
-    Ember.TEMPLATES[routeName] = compile('{{link-to \'index\' \'index\' id=\'index-link\'}}');
+    Ember.TEMPLATES[routeName] = compile('{{link-to \'index\' \'index\' id="index-link"}}');
 
     App[capitalize(routeName) + 'Controller'] = Ember.Controller.extend({
       queryParams: ['foo'],
@@ -1695,7 +1695,7 @@ QUnit.test('can reset query params using the resetController hook', function() {
     }
   });
 
-  Ember.TEMPLATES.about = compile('{{link-to \'A\' \'comments\' \'a-1\' id=\'one\'}} {{link-to \'B\' \'comments\' \'a-2\' id=\'two\'}}');
+  Ember.TEMPLATES.about = compile('{{link-to \'A\' \'comments\' \'a-1\' id="one"}} {{link-to \'B\' \'comments\' \'a-2\' id="two"}}');
 
   this.boot();
 

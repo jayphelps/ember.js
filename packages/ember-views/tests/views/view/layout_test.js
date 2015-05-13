@@ -67,7 +67,7 @@ QUnit.test('should use the template of the associated layout', function() {
 
 QUnit.test('should use the associated template with itself as the context', function() {
   registry.register('template:testTemplate', compile(
-    '<h1 id=\'twas-called\'>template was called for {{personName}}</h1>'
+    '<h1 id="twas-called">template was called for {{personName}}</h1>'
   ));
 
   view = EmberView.create({

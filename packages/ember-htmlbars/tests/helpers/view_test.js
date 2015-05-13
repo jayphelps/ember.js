@@ -215,7 +215,7 @@ QUnit.test('id bindings downgrade to one-time property lookup', function() {
 
 QUnit.test('specifying `id` as a static value works properly', function() {
   view = EmberView.extend({
-    template: compile('{{#view id=\'blah\'}}{{view.parentView.meshuggah}}{{/view}}'),
+    template: compile('{{#view id="blah"}}{{view.parentView.meshuggah}}{{/view}}'),
     meshuggah: 'stengah'
   }).create();
 
@@ -242,7 +242,7 @@ QUnit.test('mixing old and new styles of property binding fires a warning, treat
 
   let compiled;
   expectDeprecation(function() {
-    compiled = compile('{{#view borfBinding=view.snork}}<p id=\'lol\'>{{view.borf}}</p>{{/view}}');
+    compiled = compile('{{#view borfBinding=view.snork}}<p id="lol">{{view.borf}}</p>{{/view}}');
   }, 'You\'re using legacy binding syntax: borfBinding=view.snork @ 1:8 in (inline). Please replace with borf=view.snork');
 
   view = EmberView.extend({

@@ -380,7 +380,7 @@ QUnit.test('it should wrap keyword with object controller [DEPRECATED]', functio
   runDestroy(view);
 });
 
-QUnit.test('destroys the controller generated with {{with foo controller=\'blah\'}} [DEPRECATED]', function() {
+QUnit.test('destroys the controller generated with {{with foo controller="blah"}} [DEPRECATED]', function() {
   var destroyed = false;
   var Controller = EmberController.extend({
     willDestroy() {
@@ -416,7 +416,7 @@ QUnit.test('destroys the controller generated with {{with foo controller=\'blah\
   ok(destroyed, 'controller was destroyed properly');
 });
 
-QUnit.test('destroys the controller generated with {{with foo as bar controller=\'blah\'}}', function() {
+QUnit.test('destroys the controller generated with {{with foo as bar controller="blah"}}', function() {
   var destroyed = false;
   var Controller = EmberController.extend({
     willDestroy() {

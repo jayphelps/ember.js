@@ -59,7 +59,7 @@ var boot = function(callback) {
 
 QUnit.test('Unbound dashed helpers registered on the container can be late-invoked', function() {
 
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{x-borf}} {{x-borf YES}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{x-borf}} {{x-borf YES}}</div>');
 
   boot(function() {
     registry.register('helper:x-borf', function(val) {
@@ -73,7 +73,7 @@ QUnit.test('Unbound dashed helpers registered on the container can be late-invok
 
 // need to make `makeBoundHelper` for HTMLBars
 QUnit.test('Bound helpers registered on the container can be late-invoked', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{x-reverse}} {{x-reverse foo}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{x-reverse}} {{x-reverse foo}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -87,7 +87,7 @@ QUnit.test('Bound helpers registered on the container can be late-invoked', func
 });
 
 QUnit.test('Bound `makeViewHelper` helpers registered on the container can be used', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{x-foo}} {{x-foo name=foo}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{x-foo}} {{x-foo name=foo}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -110,7 +110,7 @@ QUnit.test('Undashed helpers registered on the container can not (presently) be 
   // a possible perf hit in hot code paths, i.e. _triageMustache.
   // We only presently perform container lookups if prop.indexOf('-') >= 0
 
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{omg}}|{{omg \'GRRR\'}}|{{yorp}}|{{yorp \'ahh\'}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{omg}}|{{omg \'GRRR\'}}|{{yorp}}|{{yorp \'ahh\'}}</div>');
 
   expectAssertion(function() {
     boot(function() {

@@ -42,7 +42,7 @@ QUnit.test('maxlength sets the property and attribute', function() {
 QUnit.test('quoted maxlength sets the property and attribute', function() {
   view = EmberView.create({
     context: { length: 5 },
-    template: compile('<input maxlength=\'{{length}}\'>')
+    template: compile('<input maxlength="{{length}}">')
   });
 
   appendView(view);

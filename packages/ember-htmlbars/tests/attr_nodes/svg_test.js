@@ -38,7 +38,7 @@ QUnit.test('quoted viewBox property is output', function() {
   var viewBoxString = '0 0 100 100';
   view = EmberView.create({
     context: { viewBoxString: viewBoxString },
-    template: compile('<svg viewBox=\'{{viewBoxString}}\'></svg>')
+    template: compile('<svg viewBox="{{viewBoxString}}"></svg>')
   });
   appendView(view);
 

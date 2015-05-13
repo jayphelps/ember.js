@@ -449,7 +449,7 @@ QUnit.test('defining templateName allows other templates to be rendered', functi
   });
 
   Ember.TEMPLATES.alert = compile(
-    '<div class=\'alert-box\'>Invader!</div>'
+    '<div class="alert-box">Invader!</div>'
   );
   Ember.TEMPLATES.the_real_home_template = compile(
     '<p>THIS IS THE REAL HOME</p>{{outlet \'alert\'}}'
@@ -2086,9 +2086,9 @@ QUnit.test('Generated names can be customized when providing routes with dot not
   expect(4);
 
   Ember.TEMPLATES.index = compile('<div>Index</div>');
-  Ember.TEMPLATES.application = compile('<h1>Home</h1><div class=\'main\'>{{outlet}}</div>');
-  Ember.TEMPLATES.foo = compile('<div class=\'middle\'>{{outlet}}</div>');
-  Ember.TEMPLATES.bar = compile('<div class=\'bottom\'>{{outlet}}</div>');
+  Ember.TEMPLATES.application = compile('<h1>Home</h1><div class="main">{{outlet}}</div>');
+  Ember.TEMPLATES.foo = compile('<div class="middle">{{outlet}}</div>');
+  Ember.TEMPLATES.bar = compile('<div class="bottom">{{outlet}}</div>');
   Ember.TEMPLATES['bar/baz'] = compile('<p>{{name}}Bottom!</p>');
 
   Router.map(function() {
@@ -2136,9 +2136,9 @@ QUnit.test('Generated names can be customized when providing routes with dot not
 
 QUnit.test('Child routes render into their parent route\'s template by default', function() {
   Ember.TEMPLATES.index = compile('<div>Index</div>');
-  Ember.TEMPLATES.application = compile('<h1>Home</h1><div class=\'main\'>{{outlet}}</div>');
-  Ember.TEMPLATES.top = compile('<div class=\'middle\'>{{outlet}}</div>');
-  Ember.TEMPLATES.middle = compile('<div class=\'bottom\'>{{outlet}}</div>');
+  Ember.TEMPLATES.application = compile('<h1>Home</h1><div class="main">{{outlet}}</div>');
+  Ember.TEMPLATES.top = compile('<div class="middle">{{outlet}}</div>');
+  Ember.TEMPLATES.middle = compile('<div class="bottom">{{outlet}}</div>');
   Ember.TEMPLATES['middle/bottom'] = compile('<p>Bottom!</p>');
 
   Router.map(function() {
@@ -2158,9 +2158,9 @@ QUnit.test('Child routes render into their parent route\'s template by default',
 
 QUnit.test('Child routes render into specified template', function() {
   Ember.TEMPLATES.index = compile('<div>Index</div>');
-  Ember.TEMPLATES.application = compile('<h1>Home</h1><div class=\'main\'>{{outlet}}</div>');
-  Ember.TEMPLATES.top = compile('<div class=\'middle\'>{{outlet}}</div>');
-  Ember.TEMPLATES.middle = compile('<div class=\'bottom\'>{{outlet}}</div>');
+  Ember.TEMPLATES.application = compile('<h1>Home</h1><div class="main">{{outlet}}</div>');
+  Ember.TEMPLATES.top = compile('<div class="middle">{{outlet}}</div>');
+  Ember.TEMPLATES.middle = compile('<div class="bottom">{{outlet}}</div>');
   Ember.TEMPLATES['middle/bottom'] = compile('<p>Bottom!</p>');
 
   Router.map(function() {
@@ -3606,7 +3606,7 @@ QUnit.test('Errors in transitionTo within redirect hook are logged', function() 
 });
 
 QUnit.test('Errors in transition show error template if available', function() {
-  Ember.TEMPLATES.error = compile('<div id=\'error\'>Error!</div>');
+  Ember.TEMPLATES.error = compile('<div id="error">Error!</div>');
 
   Router.map(function() {
     this.route('yondo', {

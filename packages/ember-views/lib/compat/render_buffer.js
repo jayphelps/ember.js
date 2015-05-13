@@ -267,7 +267,7 @@ RenderBuffer.prototype = {
   pushChildView(view) {
     var index = this.childViews.length;
     this.childViews[index] = view;
-    this.push('<script id=\'morph-' + index + '\' type=\'text/x-placeholder\'>\x3C/script>');
+    this.push('<script id=\'morph-' + index + '\' type="text/x-placeholder">\x3C/script>');
   },
 
   pushAttrNode(node) {

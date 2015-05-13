@@ -21,7 +21,7 @@ QUnit.module('Ember.Application', {
     originalLookup = Ember.lookup;
     originalDebug = Ember.debug;
 
-    jQuery('#qunit-fixture').html('<div id=\'one\'><div id=\'one-child\'>HI</div></div><div id=\'two\'>HI</div>');
+    jQuery('#qunit-fixture').html('<div id="one"><div id="one-child">HI</div></div><div id="two">HI</div>');
     run(function() {
       application = Application.create({ rootElement: '#one', router: null });
     });

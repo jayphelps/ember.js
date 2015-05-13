@@ -75,9 +75,9 @@ QUnit.module('The {{link-to}} helper', {
       sharedSetup();
 
       Ember.TEMPLATES.app = compile('{{outlet}}');
-      Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'about\' id=\'about-link\'}}About{{/link-to}}{{#link-to \'index\' id=\'self-link\'}}Self{{/link-to}}');
-      Ember.TEMPLATES.about = compile('<h3>About</h3>{{#link-to \'index\' id=\'home-link\'}}Home{{/link-to}}{{#link-to \'about\' id=\'self-link\'}}Self{{/link-to}}');
-      Ember.TEMPLATES.item = compile('<h3>Item</h3><p>{{model.name}}</p>{{#link-to \'index\' id=\'home-link\'}}Home{{/link-to}}');
+      Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'about\' id="about-link"}}About{{/link-to}}{{#link-to \'index\' id="self-link"}}Self{{/link-to}}');
+      Ember.TEMPLATES.about = compile('<h3>About</h3>{{#link-to \'index\' id="home-link"}}Home{{/link-to}}{{#link-to \'about\' id="self-link"}}Self{{/link-to}}');
+      Ember.TEMPLATES.item = compile('<h3>Item</h3><p>{{model.name}}</p>{{#link-to \'index\' id="home-link"}}Home{{/link-to}}');
 
       AppView = Ember.View.extend({
         templateName: 'app'
@@ -119,7 +119,7 @@ QUnit.test('The {{link-to}} helper moves into the named route', function() {
 
 QUnit.test('The {{link-to}} helper supports URL replacement', function() {
 
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'about\' id=\'about-link\' replace=true}}About{{/link-to}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'about\' id="about-link" replace=true}}About{{/link-to}}');
 
   Router.map(function() {
     this.route('about');
@@ -143,7 +143,7 @@ QUnit.test('The {{link-to}} helper supports URL replacement', function() {
 });
 
 QUnit.test('the {{link-to}} helper doesn\'t add an href when the tagName isn\'t \'a\'', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to \'about\' id=\'about-link\' tagName=\'div\'}}About{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'about\' id="about-link" tagName="div"}}About{{/link-to}}');
 
   Router.map(function() {
     this.route('about');
@@ -232,7 +232,7 @@ QUnit.test('the {{link-to}} helper does not respond to clicks when disabled', fu
 });
 
 QUnit.test('The {{link-to}} helper supports a custom activeClass', function() {
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'about\' id=\'about-link\'}}About{{/link-to}}{{#link-to \'index\' id=\'self-link\' activeClass=\'zomg-active\'}}Self{{/link-to}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'about\' id="about-link"}}About{{/link-to}}{{#link-to \'index\' id="self-link" activeClass="zomg-active"}}Self{{/link-to}}');
 
   Router.map(function() {
     this.route('about');
@@ -257,8 +257,8 @@ QUnit.test('The {{link-to}} helper supports leaving off .index for nested routes
   });
 
   Ember.TEMPLATES.about = compile('<h1>About</h1>{{outlet}}');
-  Ember.TEMPLATES['about/index'] = compile('<div id=\'index\'>Index</div>');
-  Ember.TEMPLATES['about/item'] = compile('<div id=\'item\'>{{#link-to \'about\'}}About{{/link-to}}</div>');
+  Ember.TEMPLATES['about/index'] = compile('<div id="index">Index</div>');
+  Ember.TEMPLATES['about/item'] = compile('<div id="item">{{#link-to \'about\'}}About{{/link-to}}</div>');
 
   bootApplication();
 
@@ -281,7 +281,7 @@ QUnit.test('The {{link-to}} helper supports currentWhen (DEPRECATED)', function(
   });
 
   Ember.TEMPLATES.index = compile('<h3>Home</h3>{{outlet}}');
-  Ember.TEMPLATES['index/about'] = compile('{{#link-to \'item\' id=\'other-link\' currentWhen=\'index\'}}ITEM{{/link-to}}');
+  Ember.TEMPLATES['index/about'] = compile('{{#link-to \'item\' id="other-link" currentWhen="index"}}ITEM{{/link-to}}');
 
   bootApplication();
 
@@ -304,7 +304,7 @@ QUnit.test('The {{link-to}} helper supports custom, nested, current-when', funct
   });
 
   Ember.TEMPLATES.index = compile('<h3>Home</h3>{{outlet}}');
-  Ember.TEMPLATES['index/about'] = compile('{{#link-to \'item\' id=\'other-link\' current-when=\'index\'}}ITEM{{/link-to}}');
+  Ember.TEMPLATES['index/about'] = compile('{{#link-to \'item\' id="other-link" current-when="index"}}ITEM{{/link-to}}');
 
   bootApplication();
 
@@ -329,7 +329,7 @@ QUnit.test('The {{link-to}} helper does not disregard current-when when it is gi
   });
 
   Ember.TEMPLATES.index = compile('<h3>Home</h3>{{outlet}}');
-  Ember.TEMPLATES['index/about'] = compile('{{#link-to \'items\' id=\'other-link\' current-when=\'index\'}}ITEM{{/link-to}}');
+  Ember.TEMPLATES['index/about'] = compile('{{#link-to \'items\' id="other-link" current-when="index"}}ITEM{{/link-to}}');
 
   bootApplication();
 
@@ -352,9 +352,9 @@ QUnit.test('The {{link-to}} helper supports multiple current-when routes', funct
   });
 
   Ember.TEMPLATES.index = compile('<h3>Home</h3>{{outlet}}');
-  Ember.TEMPLATES['index/about'] = compile('{{#link-to \'item\' id=\'link1\' current-when=\'item index\'}}ITEM{{/link-to}}');
-  Ember.TEMPLATES['item'] = compile('{{#link-to \'item\' id=\'link2\' current-when=\'item index\'}}ITEM{{/link-to}}');
-  Ember.TEMPLATES['foo'] = compile('{{#link-to \'item\' id=\'link3\' current-when=\'item index\'}}ITEM{{/link-to}}');
+  Ember.TEMPLATES['index/about'] = compile('{{#link-to \'item\' id="link1" current-when=\'item index\'}}ITEM{{/link-to}}');
+  Ember.TEMPLATES['item'] = compile('{{#link-to \'item\' id="link2" current-when=\'item index\'}}ITEM{{/link-to}}');
+  Ember.TEMPLATES['foo'] = compile('{{#link-to \'item\' id="link3" current-when=\'item index\'}}ITEM{{/link-to}}');
 
   bootApplication();
 
@@ -378,8 +378,8 @@ QUnit.test('The {{link-to}} helper supports multiple current-when routes', funct
 });
 
 QUnit.test('The {{link-to}} helper defaults to bubbling', function() {
-  Ember.TEMPLATES.about = compile('<div {{action \'hide\'}}>{{#link-to \'about.contact\' id=\'about-contact\'}}About{{/link-to}}</div>{{outlet}}');
-  Ember.TEMPLATES['about/contact'] = compile('<h1 id=\'contact\'>Contact</h1>');
+  Ember.TEMPLATES.about = compile('<div {{action \'hide\'}}>{{#link-to \'about.contact\' id="about-contact"}}About{{/link-to}}</div>{{outlet}}');
+  Ember.TEMPLATES['about/contact'] = compile('<h1 id="contact">Contact</h1>');
 
   Router.map(function() {
     this.resource('about', function() {
@@ -413,8 +413,8 @@ QUnit.test('The {{link-to}} helper defaults to bubbling', function() {
 });
 
 QUnit.test('The {{link-to}} helper supports bubbles=false', function() {
-  Ember.TEMPLATES.about = compile('<div {{action \'hide\'}}>{{#link-to \'about.contact\' id=\'about-contact\' bubbles=false}}About{{/link-to}}</div>{{outlet}}');
-  Ember.TEMPLATES['about/contact'] = compile('<h1 id=\'contact\'>Contact</h1>');
+  Ember.TEMPLATES.about = compile('<div {{action \'hide\'}}>{{#link-to \'about.contact\' id="about-contact" bubbles=false}}About{{/link-to}}</div>{{outlet}}');
+  Ember.TEMPLATES['about/contact'] = compile('<h1 id="contact">Contact</h1>');
 
   Router.map(function() {
     this.resource('about', function() {
@@ -455,7 +455,7 @@ QUnit.test('The {{link-to}} helper moves into the named route with context', fun
     });
   });
 
-  Ember.TEMPLATES.about = compile('<h3>List</h3><ul>{{#each model as |person|}}<li>{{#link-to \'item\' person}}{{person.name}}{{/link-to}}</li>{{/each}}</ul>{{#link-to \'index\' id=\'home-link\'}}Home{{/link-to}}');
+  Ember.TEMPLATES.about = compile('<h3>List</h3><ul>{{#each model as |person|}}<li>{{#link-to \'item\' person}}{{person.name}}{{/link-to}}</li>{{/each}}</ul>{{#link-to \'index\' id="home-link"}}Home{{/link-to}}');
 
   App.AboutRoute = Ember.Route.extend({
     model() {
@@ -520,7 +520,7 @@ QUnit.test('The {{link-to}} helper moves into the named route with context', fun
 });
 
 QUnit.test('The {{link-to}} helper binds some anchor html tag common attributes', function() {
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'index\' id=\'self-link\' title=\'title-attr\' rel=\'rel-attr\' tabindex=\'-1\'}}Self{{/link-to}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'index\' id="self-link" title="title-attr" rel="rel-attr" tabindex="-1"}}Self{{/link-to}}');
   bootApplication();
 
   Ember.run(function() {
@@ -534,7 +534,7 @@ QUnit.test('The {{link-to}} helper binds some anchor html tag common attributes'
 });
 
 QUnit.test('The {{link-to}} helper supports `target` attribute', function() {
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'index\' id=\'self-link\' target=\'_blank\'}}Self{{/link-to}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'index\' id="self-link" target="_blank"}}Self{{/link-to}}');
   bootApplication();
 
   Ember.run(function() {
@@ -546,7 +546,7 @@ QUnit.test('The {{link-to}} helper supports `target` attribute', function() {
 });
 
 QUnit.test('The {{link-to}} helper does not call preventDefault if `target` attribute is provided', function() {
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'index\' id=\'self-link\' target=\'_blank\'}}Self{{/link-to}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'index\' id="self-link" target="_blank"}}Self{{/link-to}}');
   bootApplication();
 
   Ember.run(function() {
@@ -560,7 +560,7 @@ QUnit.test('The {{link-to}} helper does not call preventDefault if `target` attr
 });
 
 QUnit.test('The {{link-to}} helper should preventDefault when `target = _self`', function() {
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'index\' id=\'self-link\' target=\'_self\'}}Self{{/link-to}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#link-to \'index\' id="self-link" target="_self"}}Self{{/link-to}}');
   bootApplication();
 
   Ember.run(function() {
@@ -574,7 +574,7 @@ QUnit.test('The {{link-to}} helper should preventDefault when `target = _self`',
 });
 
 QUnit.test('The {{link-to}} helper should not transition if target is not equal to _self or empty', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to \'about\' id=\'about-link\' replace=true target=\'_blank\'}}About{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'about\' id="about-link" replace=true target="_blank"}}About{{/link-to}}');
 
   Router.map(function() {
     this.route('about');
@@ -649,9 +649,9 @@ QUnit.test('Issue 4201 - Shorthand for route.index shouldn\'t throw errors about
     }
   });
 
-  Ember.TEMPLATES['lobby/index'] = compile('{{#link-to \'lobby\' \'foobar\' id=\'lobby-link\'}}Lobby{{/link-to}}');
+  Ember.TEMPLATES['lobby/index'] = compile('{{#link-to \'lobby\' \'foobar\' id="lobby-link"}}Lobby{{/link-to}}');
   Ember.TEMPLATES.index = compile('');
-  Ember.TEMPLATES['lobby/list'] = compile('{{#link-to \'lobby\' \'foobar\' id=\'lobby-link\'}}Lobby{{/link-to}}');
+  Ember.TEMPLATES['lobby/list'] = compile('{{#link-to \'lobby\' \'foobar\' id="lobby-link"}}Lobby{{/link-to}}');
   bootApplication();
   Ember.run(router, 'handleURL', '/lobby/list');
   Ember.run(Ember.$('#lobby-link'), 'click');
@@ -717,7 +717,7 @@ QUnit.test('The {{link-to}} helper doesn\'t change view context', function() {
     isTrue: true
   });
 
-  Ember.TEMPLATES.index = compile('{{view.name}}-{{#link-to \'index\' id=\'self-link\'}}Link: {{view.name}}-{{#if view.isTrue}}{{view.name}}{{/if}}{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{view.name}}-{{#link-to \'index\' id="self-link"}}Link: {{view.name}}-{{#if view.isTrue}}{{view.name}}{{/if}}{{/link-to}}');
 
   bootApplication();
 
@@ -729,7 +729,7 @@ QUnit.test('The {{link-to}} helper doesn\'t change view context', function() {
 });
 
 QUnit.test('Quoteless route param performs property lookup', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' id=\'string-link\'}}string{{/link-to}}{{#link-to foo id=\'path-link\'}}path{{/link-to}}{{#link-to view.foo id=\'view-link\'}}{{view.foo}}{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' id="string-link"}}string{{/link-to}}{{#link-to foo id="path-link"}}path{{/link-to}}{{#link-to view.foo id="view-link"}}{{view.foo}}{{/link-to}}');
 
   function assertEquality(href) {
     equal(normalizeUrl(Ember.$('#string-link', '#qunit-fixture').attr('href')), '/');
@@ -775,7 +775,7 @@ QUnit.test('link-to with null/undefined dynamic parameters are put in a loading 
   Ember.Logger.warn = function() {
     warnCalled = true;
   };
-  Ember.TEMPLATES.index = compile('{{#link-to destinationRoute routeContext loadingClass=\'i-am-loading\' id=\'context-link\'}}string{{/link-to}}{{#link-to secondRoute loadingClass=\'i-am-loading\' id=\'static-link\'}}string{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to destinationRoute routeContext loadingClass="i-am-loading" id="context-link"}}string{{/link-to}}{{#link-to secondRoute loadingClass="i-am-loading" id="static-link"}}string{{/link-to}}');
 
   var thing = Ember.Object.create({
     id: 123
@@ -808,7 +808,7 @@ QUnit.test('link-to with null/undefined dynamic parameters are put in a loading 
       equal(normalizeUrl($link.attr('href')), url, 'loaded link-to has expected href');
       ok(!$link.hasClass('i-am-loading'), 'loaded linkView has no loadingClass');
     } else {
-      equal(normalizeUrl($link.attr('href')), '#', 'unloaded link-to has href=\'#\'');
+      equal(normalizeUrl($link.attr('href')), '#', 'unloaded link-to has href="#"');
       ok($link.hasClass('i-am-loading'), 'loading linkView has loadingClass');
     }
   }
@@ -942,7 +942,7 @@ QUnit.test('The {{link-to}} helper\'s bound parameter functionality works as exp
 });
 
 QUnit.test('{{linkTo}} is aliased', function() {
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#linkTo \'about\' id=\'about-link\' replace=true}}About{{/linkTo}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{#linkTo \'about\' id="about-link" replace=true}}About{{/linkTo}}');
 
   Router.map(function() {
     this.route('about');
@@ -970,7 +970,7 @@ QUnit.test('The {{link-to}} helper is active when a resource is active', functio
     });
   });
 
-  Ember.TEMPLATES.about = compile('<div id=\'about\'>{{#link-to \'about\' id=\'about-link\'}}About{{/link-to}} {{#link-to \'about.item\' id=\'item-link\'}}Item{{/link-to}} {{outlet}}</div>');
+  Ember.TEMPLATES.about = compile('<div id="about">{{#link-to \'about\' id="about-link"}}About{{/link-to}} {{#link-to \'about.item\' id="item-link"}}Item{{/link-to}} {{outlet}}</div>');
   Ember.TEMPLATES['about/item'] = compile(' ');
   Ember.TEMPLATES['about/index'] = compile(' ');
 
@@ -1036,8 +1036,8 @@ QUnit.test('The non-block form {{link-to}} helper moves into the named route', f
     this.route('contact');
   });
 
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{link-to \'Contact us\' \'contact\' id=\'contact-link\'}}{{#link-to \'index\' id=\'self-link\'}}Self{{/link-to}}');
-  Ember.TEMPLATES.contact = compile('<h3>Contact</h3>{{link-to \'Home\' \'index\' id=\'home-link\'}}{{link-to \'Self\' \'contact\' id=\'self-link\'}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{link-to \'Contact us\' \'contact\' id="contact-link"}}{{#link-to \'index\' id="self-link"}}Self{{/link-to}}');
+  Ember.TEMPLATES.contact = compile('<h3>Contact</h3>{{link-to \'Home\' \'index\' id="home-link"}}{{link-to \'Self\' \'contact\' id="self-link"}}');
 
   bootApplication();
 
@@ -1060,8 +1060,8 @@ QUnit.test('The non-block form {{link-to}} helper updates the link text when it 
     contactName: 'Jane'
   });
 
-  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{link-to contactName \'contact\' id=\'contact-link\'}}{{#link-to \'index\' id=\'self-link\'}}Self{{/link-to}}');
-  Ember.TEMPLATES.contact = compile('<h3>Contact</h3>{{link-to \'Home\' \'index\' id=\'home-link\'}}{{link-to \'Self\' \'contact\' id=\'self-link\'}}');
+  Ember.TEMPLATES.index = compile('<h3>Home</h3>{{link-to contactName \'contact\' id="contact-link"}}{{#link-to \'index\' id="self-link"}}Self{{/link-to}}');
+  Ember.TEMPLATES.contact = compile('<h3>Contact</h3>{{link-to \'Home\' \'index\' id="home-link"}}{{link-to \'Self\' \'contact\' id="self-link"}}');
 
   bootApplication();
 
@@ -1134,7 +1134,7 @@ QUnit.test('The non-block form {{link-to}} helper moves into the named route wit
   });
 
   Ember.TEMPLATES.index = compile('<h3>Home</h3><ul>{{#each controller as |person|}}<li>{{link-to person.name \'item\' person}}</li>{{/each}}</ul>');
-  Ember.TEMPLATES.item = compile('<h3>Item</h3><p>{{model.name}}</p>{{#link-to \'index\' id=\'home-link\'}}Home{{/link-to}}');
+  Ember.TEMPLATES.item = compile('<h3>Item</h3><p>{{model.name}}</p>{{#link-to \'index\' id="home-link"}}Home{{/link-to}}');
 
   bootApplication();
 
@@ -1156,7 +1156,7 @@ QUnit.test('The non-block form {{link-to}} helper moves into the named route wit
 });
 
 QUnit.test('The non-block form {{link-to}} performs property lookup', function() {
-  Ember.TEMPLATES.index = compile('{{link-to \'string\' \'index\' id=\'string-link\'}}{{link-to path foo id=\'path-link\'}}{{link-to view.foo view.foo id=\'view-link\'}}');
+  Ember.TEMPLATES.index = compile('{{link-to \'string\' \'index\' id="string-link"}}{{link-to path foo id="path-link"}}{{link-to view.foo view.foo id="view-link"}}');
 
   function assertEquality(href) {
     equal(normalizeUrl(Ember.$('#string-link', '#qunit-fixture').attr('href')), '/');
@@ -1194,7 +1194,7 @@ QUnit.test('The non-block form {{link-to}} performs property lookup', function()
 });
 
 QUnit.test('The non-block form {{link-to}} protects against XSS', function() {
-  Ember.TEMPLATES.application = compile('{{link-to display \'index\' id=\'link\'}}');
+  Ember.TEMPLATES.application = compile('{{link-to display \'index\' id="link"}}');
 
   App.ApplicationController = Ember.Controller.extend({
     display: 'blahzorz'
@@ -1231,7 +1231,7 @@ QUnit.test('the {{link-to}} helper calls preventDefault', function() {
 });
 
 QUnit.test('the {{link-to}} helper does not call preventDefault if `preventDefault=false` is passed as an option', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to \'about\' id=\'about-link\' preventDefault=false}}About{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'about\' id="about-link" preventDefault=false}}About{{/link-to}}');
 
   Router.map(function() {
     this.route('about');
@@ -1250,7 +1250,7 @@ QUnit.test('the {{link-to}} helper does not call preventDefault if `preventDefau
 QUnit.test('the {{link-to}} helper does not throw an error if its route has exited', function() {
   expect(0);
 
-  Ember.TEMPLATES.application = compile('{{#link-to \'index\' id=\'home-link\'}}Home{{/link-to}}{{#link-to \'post\' defaultPost id=\'default-post-link\'}}Default Post{{/link-to}}{{#if currentPost}}{{#link-to \'post\' id=\'post-link\'}}Post{{/link-to}}{{/if}}');
+  Ember.TEMPLATES.application = compile('{{#link-to \'index\' id="home-link"}}Home{{/link-to}}{{#link-to \'post\' defaultPost id="default-post-link"}}Default Post{{/link-to}}{{#if currentPost}}{{#link-to \'post\' id="post-link"}}Post{{/link-to}}{{/if}}');
 
   App.ApplicationController = Ember.Controller.extend({
     needs: ['post'],
@@ -1284,8 +1284,8 @@ QUnit.test('the {{link-to}} helper does not throw an error if its route has exit
 
 QUnit.test('{{link-to}} active property respects changing parent route context', function() {
   Ember.TEMPLATES.application = compile(
-    '{{link-to \'OMG\' \'things\' \'omg\' id=\'omg-link\'}} ' +
-    '{{link-to \'LOL\' \'things\' \'lol\' id=\'lol-link\'}} ');
+    '{{link-to \'OMG\' \'things\' \'omg\' id="omg-link"}} ' +
+    '{{link-to \'LOL\' \'things\' \'lol\' id="lol-link"}} ');
 
 
   Router.map(function() {
@@ -1314,7 +1314,7 @@ QUnit.test('{{link-to}} populates href with default query param values even with
     foo: '123'
   });
 
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' id="the-link"}}Index{{/link-to}}');
   bootApplication();
   equal(Ember.$('#the-link').attr('href'), '/', 'link has right href');
 });
@@ -1325,7 +1325,7 @@ QUnit.test('{{link-to}} populates href with default query param values with empt
     foo: '123'
   });
 
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params) id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params) id="the-link"}}Index{{/link-to}}');
   bootApplication();
   equal(Ember.$('#the-link').attr('href'), '/', 'link has right href');
 });
@@ -1336,7 +1336,7 @@ QUnit.test('{{link-to}} populates href with supplied query param values', functi
     foo: '123'
   });
 
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo=\'456\') id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo="456") id="the-link"}}Index{{/link-to}}');
   bootApplication();
   equal(Ember.$('#the-link').attr('href'), '/?foo=456', 'link has right href');
 });
@@ -1348,7 +1348,7 @@ QUnit.test('{{link-to}} populates href with partially supplied query param value
     bar: 'yes'
   });
 
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo=\'456\') id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo="456") id="the-link"}}Index{{/link-to}}');
   bootApplication();
   equal(Ember.$('#the-link').attr('href'), '/?foo=456', 'link has right href');
 });
@@ -1360,7 +1360,7 @@ QUnit.test('{{link-to}} populates href with partially supplied query param value
     bar: 'yes'
   });
 
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo=\'123\') id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo="123") id="the-link"}}Index{{/link-to}}');
   bootApplication();
   equal(Ember.$('#the-link').attr('href'), '/', 'link has right href');
 });
@@ -1372,7 +1372,7 @@ QUnit.test('{{link-to}} populates href with fully supplied query param values', 
     bar: 'yes'
   });
 
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo=\'456\' bar=\'NAW\') id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo="456" bar="NAW") id="the-link"}}Index{{/link-to}}');
   bootApplication();
   equal(Ember.$('#the-link').attr('href'), '/?bar=NAW&foo=456', 'link has right href');
 });
@@ -1405,7 +1405,7 @@ QUnit.module('The {{link-to}} helper: invoking with query params', {
 });
 
 QUnit.test('doesn\'t update controller QP properties on current route when invoked', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' id="the-link"}}Index{{/link-to}}');
   bootApplication();
 
   Ember.run(Ember.$('#the-link'), 'click');
@@ -1417,7 +1417,7 @@ QUnit.test('doesn\'t update controller QP properties on current route when invok
 });
 
 QUnit.test('doesn\'t update controller QP properties on current route when invoked (empty query-params obj)', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params) id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params) id="the-link"}}Index{{/link-to}}');
   bootApplication();
 
   Ember.run(Ember.$('#the-link'), 'click');
@@ -1429,14 +1429,14 @@ QUnit.test('doesn\'t update controller QP properties on current route when invok
 });
 
 QUnit.test('link-to with no params throws', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to id="the-link"}}Index{{/link-to}}');
   expectAssertion(function() {
     bootApplication();
   }, /one or more/);
 });
 
 QUnit.test('doesn\'t update controller QP properties on current route when invoked (empty query-params obj, inferred route)', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to (query-params) id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to (query-params) id="the-link"}}Index{{/link-to}}');
   bootApplication();
 
   Ember.run(Ember.$('#the-link'), 'click');
@@ -1448,7 +1448,7 @@ QUnit.test('doesn\'t update controller QP properties on current route when invok
 });
 
 QUnit.test('updates controller QP properties on current route when invoked', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo=\'456\') id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'index\' (query-params foo="456") id="the-link"}}Index{{/link-to}}');
   bootApplication();
 
   Ember.run(Ember.$('#the-link'), 'click');
@@ -1460,7 +1460,7 @@ QUnit.test('updates controller QP properties on current route when invoked', fun
 });
 
 QUnit.test('updates controller QP properties on current route when invoked (inferred route)', function() {
-  Ember.TEMPLATES.index = compile('{{#link-to (query-params foo=\'456\') id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to (query-params foo="456") id="the-link"}}Index{{/link-to}}');
   bootApplication();
 
   Ember.run(Ember.$('#the-link'), 'click');
@@ -1476,7 +1476,7 @@ QUnit.test('updates controller QP properties on other route after transitioning 
     this.route('about');
   });
 
-  Ember.TEMPLATES.index = compile('{{#link-to \'about\' (query-params baz=\'lol\') id=\'the-link\'}}About{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to \'about\' (query-params baz="lol") id="the-link"}}About{{/link-to}}');
   bootApplication();
 
   equal(Ember.$('#the-link').attr('href'), '/about?baz=lol');
@@ -1492,7 +1492,7 @@ QUnit.test('updates controller QP properties on other route after transitioning 
 
 QUnit.test('supplied QP properties can be bound', function() {
   var indexController = container.lookup('controller:index');
-  Ember.TEMPLATES.index = compile('{{#link-to (query-params foo=boundThing) id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to (query-params foo=boundThing) id="the-link"}}Index{{/link-to}}');
 
   bootApplication();
 
@@ -1503,7 +1503,7 @@ QUnit.test('supplied QP properties can be bound', function() {
 
 QUnit.test('supplied QP properties can be bound (booleans)', function() {
   var indexController = container.lookup('controller:index');
-  Ember.TEMPLATES.index = compile('{{#link-to (query-params abool=boundThing) id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to (query-params abool=boundThing) id="the-link"}}Index{{/link-to}}');
 
   bootApplication();
 
@@ -1522,7 +1522,7 @@ QUnit.test('supplied QP properties can be bound (booleans)', function() {
 
 QUnit.test('href updates when unsupplied controller QP props change', function() {
   var indexController = container.lookup('controller:index');
-  Ember.TEMPLATES.index = compile('{{#link-to (query-params foo=\'lol\') id=\'the-link\'}}Index{{/link-to}}');
+  Ember.TEMPLATES.index = compile('{{#link-to (query-params foo="lol") id="the-link"}}Index{{/link-to}}');
 
   bootApplication();
 
@@ -1535,30 +1535,30 @@ QUnit.test('href updates when unsupplied controller QP props change', function()
 
 QUnit.test('The {{link-to}} applies activeClass when query params are not changed', function() {
   Ember.TEMPLATES.index = compile(
-    '{{#link-to (query-params foo=\'cat\') id=\'cat-link\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params foo=\'dog\') id=\'dog-link\'}}Index{{/link-to}} ' +
-    '{{#link-to \'index\' id=\'change-nothing\'}}Index{{/link-to}}'
+    '{{#link-to (query-params foo="cat") id="cat-link"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params foo="dog") id="dog-link"}}Index{{/link-to}} ' +
+    '{{#link-to \'index\' id="change-nothing"}}Index{{/link-to}}'
   );
 
   Ember.TEMPLATES.search = compile(
-    '{{#link-to (query-params search=\'same\') id=\'same-search\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'change\') id=\'change-search\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'same\' archive=true) id=\'same-search-add-archive\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params archive=true) id=\'only-add-archive\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'same\' archive=true) id=\'both-same\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'different\' archive=true) id=\'change-one\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'different\' archive=false) id=\'remove-one\'}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="same") id="same-search"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="change") id="change-search"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="same" archive=true) id="same-search-add-archive"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params archive=true) id="only-add-archive"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="same" archive=true) id="both-same"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="different" archive=true) id="change-one"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="different" archive=false) id="remove-one"}}Index{{/link-to}} ' +
     '{{outlet}}'
   );
 
   Ember.TEMPLATES['search/results'] = compile(
-    '{{#link-to (query-params sort=\'title\') id=\'same-sort-child-only\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'same\') id=\'same-search-parent-only\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'change\') id=\'change-search-parent-only\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'same\' sort=\'title\') id=\'same-search-same-sort-child-and-parent\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'same\' sort=\'author\') id=\'same-search-different-sort-child-and-parent\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params search=\'change\' sort=\'title\') id=\'change-search-same-sort-child-and-parent\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params foo=\'dog\') id=\'dog-link\'}}Index{{/link-to}} '
+    '{{#link-to (query-params sort="title") id="same-sort-child-only"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="same") id="same-search-parent-only"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="change") id="change-search-parent-only"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="same" sort="title") id="same-search-same-sort-child-and-parent"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="same" sort="author") id="same-search-different-sort-child-and-parent"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params search="change" sort="title") id="change-search-same-sort-child-and-parent"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params foo="dog") id="dog-link"}}Index{{/link-to}} '
   );
 
   Router.map(function() {
@@ -1625,7 +1625,7 @@ QUnit.test('The {{link-to}} applies activeClass when query params are not change
 
 QUnit.test('The {{link-to}} applies active class when query-param is number', function() {
   Ember.TEMPLATES.index = compile(
-    '{{#link-to (query-params page=pageNumber) id=\'page-link\'}}Index{{/link-to}} ');
+    '{{#link-to (query-params page=pageNumber) id="page-link"}}Index{{/link-to}} ');
 
   App.IndexController = Ember.Controller.extend({
     queryParams: ['page'],
@@ -1642,9 +1642,9 @@ QUnit.test('The {{link-to}} applies active class when query-param is number', fu
 
 QUnit.test('The {{link-to}} applies active class when query-param is array', function() {
   Ember.TEMPLATES.index = compile(
-    '{{#link-to (query-params pages=pagesArray) id=\'array-link\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params pages=biggerArray) id=\'bigger-link\'}}Index{{/link-to}} ' +
-    '{{#link-to (query-params pages=emptyArray) id=\'empty-link\'}}Index{{/link-to}} '
+    '{{#link-to (query-params pages=pagesArray) id="array-link"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params pages=biggerArray) id="bigger-link"}}Index{{/link-to}} ' +
+    '{{#link-to (query-params pages=emptyArray) id="empty-link"}}Index{{/link-to}} '
   );
 
   App.IndexController = Ember.Controller.extend({
@@ -1680,9 +1680,9 @@ QUnit.test('The {{link-to}} helper applies active class to parent route', functi
   });
 
   Ember.TEMPLATES.application = compile(
-    '{{#link-to \'parent\' id=\'parent-link\'}}Parent{{/link-to}} ' +
-    '{{#link-to \'parent.child\' id=\'parent-child-link\'}}Child{{/link-to}} ' +
-    '{{#link-to \'parent\' (query-params foo=cat) id=\'parent-link-qp\'}}Parent{{/link-to}} ' +
+    '{{#link-to \'parent\' id="parent-link"}}Parent{{/link-to}} ' +
+    '{{#link-to \'parent.child\' id="parent-child-link"}}Child{{/link-to}} ' +
+    '{{#link-to \'parent\' (query-params foo=cat) id="parent-link-qp"}}Parent{{/link-to}} ' +
     '{{outlet}}'
   );
 
@@ -1706,9 +1706,9 @@ QUnit.test('The {{link-to}} helper disregards query-params in activeness computa
   });
 
   Ember.TEMPLATES.application = compile(
-    '{{#link-to \'parent\' (query-params page=1) current-when=\'parent\' id=\'app-link\'}}Parent{{/link-to}} {{outlet}}');
+    '{{#link-to \'parent\' (query-params page=1) current-when="parent" id="app-link"}}Parent{{/link-to}} {{outlet}}');
   Ember.TEMPLATES.parent = compile(
-    '{{#link-to \'parent\' (query-params page=1) current-when=\'parent\' id=\'parent-link\'}}Parent{{/link-to}} {{outlet}}');
+    '{{#link-to \'parent\' (query-params page=1) current-when="parent" id="parent-link"}}Parent{{/link-to}} {{outlet}}');
 
   App.ParentController = Ember.Controller.extend({
     queryParams: ['page'],
@@ -1740,7 +1740,7 @@ function basicEagerURLUpdateTest(setTagName) {
   expect(6);
 
   if (setTagName) {
-    Ember.TEMPLATES.application = compile('{{outlet}}{{link-to \'Index\' \'index\' id=\'index-link\'}}{{link-to \'About\' \'about\' id=\'about-link\' tagName=\'span\'}}');
+    Ember.TEMPLATES.application = compile('{{outlet}}{{link-to \'Index\' \'index\' id="index-link"}}{{link-to \'About\' \'about\' id="about-link" tagName="span"}}');
   }
 
   bootApplication();
@@ -1782,7 +1782,7 @@ if (!Ember.FEATURES.isEnabled('ember-routing-transitioning-classes')) {
           }
         });
 
-        Ember.TEMPLATES.application = compile('{{outlet}}{{link-to \'Index\' \'index\' id=\'index-link\'}}{{link-to \'About\' \'about\' id=\'about-link\'}}');
+        Ember.TEMPLATES.application = compile('{{outlet}}{{link-to \'Index\' \'index\' id="index-link"}}{{link-to \'About\' \'about\' id="about-link"}}');
       });
     },
 
@@ -1912,7 +1912,7 @@ if (Ember.FEATURES.isEnabled('ember-routing-transitioning-classes')) {
         });
 
 
-        Ember.TEMPLATES.application = compile('{{outlet}}{{link-to \'Index\' \'index\' id=\'index-link\'}}{{link-to \'About\' \'about\' id=\'about-link\'}}{{link-to \'Other\' \'other\' id=\'other-link\'}}');
+        Ember.TEMPLATES.application = compile('{{outlet}}{{link-to \'Index\' \'index\' id="index-link"}}{{link-to \'About\' \'about\' id="about-link"}}{{link-to \'Other\' \'other\' id="other-link"}}');
       });
     },
 

@@ -125,7 +125,7 @@ QUnit.test('outlet should correctly lookup a view [DEPRECATED]', function() {
 
   registry.register('view:special-outlet', SpecialOutlet);
 
-  var routerState = withTemplate('<h1>HI</h1>{{outlet view=\'special-outlet\'}}');
+  var routerState = withTemplate('<h1>HI</h1>{{outlet view="special-outlet"}}');
   top.setOutletState(routerState);
   runAppend(top);
 
@@ -153,7 +153,7 @@ QUnit.test('outlet should assert view is specified as a string [DEPRECATED]', fu
 
 QUnit.test('outlet should assert view path is successfully resolved [DEPRECATED]', function() {
   expectDeprecation(/Passing `view` or `viewClass` to {{outlet}} is deprecated/);
-  top.setOutletState(withTemplate('<h1>HI</h1>{{outlet view=\'someViewNameHere\'}}'));
+  top.setOutletState(withTemplate('<h1>HI</h1>{{outlet view="someViewNameHere"}}'));
 
   expectAssertion(function() {
     runAppend(top);

@@ -38,7 +38,7 @@ QUnit.test('Template views return throw if their template cannot be found', func
 
 QUnit.test('should call the function of the associated template', function() {
   registry.register('template:testTemplate', compile(
-    '<h1 id=\'twas-called\'>template was called</h1>'
+    '<h1 id="twas-called">template was called</h1>'
   ));
 
   view = EmberView.create({
@@ -55,7 +55,7 @@ QUnit.test('should call the function of the associated template', function() {
 
 QUnit.test('should call the function of the associated template with itself as the context', function() {
   registry.register('template:testTemplate', compile(
-    '<h1 id=\'twas-called\'>template was called for {{personName}}</h1>'
+    '<h1 id="twas-called">template was called for {{personName}}</h1>'
   ));
 
   view = EmberView.create({
@@ -80,7 +80,7 @@ QUnit.test('should fall back to defaultTemplate if neither template nor template
 
   View = EmberView.extend({
     defaultTemplate: compile(
-      '<h1 id=\'twas-called\'>template was called for {{personName}}</h1>'
+      '<h1 id="twas-called">template was called for {{personName}}</h1>'
     )
   });
 
@@ -102,7 +102,7 @@ QUnit.test('should not use defaultTemplate if template is provided', function() 
   var View = EmberView.extend({
     template: compile('foo'),
     defaultTemplate: compile(
-      '<h1 id=\'twas-called\'>template was called for {{personName}}</h1>'
+      '<h1 id="twas-called">template was called for {{personName}}</h1>'
     )
   });
 
@@ -121,7 +121,7 @@ QUnit.test('should not use defaultTemplate if template is provided', function() 
     container: container,
     templateName: 'foobar',
     defaultTemplate: compile(
-      '<h1 id=\'twas-called\'>template was called for {{personName}}</h1>'
+      '<h1 id="twas-called">template was called for {{personName}}</h1>'
     )
   });
 

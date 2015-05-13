@@ -18,7 +18,7 @@ QUnit.test('Using the `bindAttr` helper throws a deprecation', function() {
   }, /The `bindAttr` helper is deprecated in favor of HTMLBars-style bound attributes/);
 });
 
-QUnit.test('asserts for <div class=\'foo\' {{bind-attr class=\'bar\'}}></div>', function() {
+QUnit.test('asserts for <div class="foo" {{bind-attr class="bar"}}></div>', function() {
   expect(1);
 
   expectAssertion(function() {
@@ -28,7 +28,7 @@ QUnit.test('asserts for <div class=\'foo\' {{bind-attr class=\'bar\'}}></div>', 
   }, /You cannot set `class` manually and via `{{bind-attr}}` helper on the same element/);
 });
 
-QUnit.test('asserts for <div data-bar=\'foo\' {{bind-attr data-bar=\'blah\'}}></div>', function() {
+QUnit.test('asserts for <div data-bar="foo" {{bind-attr data-bar="blah"}}></div>', function() {
   expect(1);
 
   expectAssertion(function() {

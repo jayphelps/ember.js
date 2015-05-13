@@ -87,7 +87,7 @@ QUnit.test('If a component is registered, it is used', function() {
 
 QUnit.test('Late-registered components can be rendered with custom `template` property (DEPRECATED)', function() {
 
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>there goes {{my-hero}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">there goes {{my-hero}}</div>');
 
   expectDeprecation(/Do not specify template on a Component/);
 
@@ -104,7 +104,7 @@ QUnit.test('Late-registered components can be rendered with custom `template` pr
 
 QUnit.test('Late-registered components can be rendered with template registered on the container', function() {
 
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>hello world {{sally-rutherford}}-{{#sally-rutherford}}!!!{{/sally-rutherford}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">hello world {{sally-rutherford}}-{{#sally-rutherford}}!!!{{/sally-rutherford}}</div>');
 
   boot(function() {
     registry.register('template:components/sally-rutherford', compile('funkytowny{{yield}}'));
@@ -117,7 +117,7 @@ QUnit.test('Late-registered components can be rendered with template registered 
 
 QUnit.test('Late-registered components can be rendered with ONLY the template registered on the container', function() {
 
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>hello world {{borf-snorlax}}-{{#borf-snorlax}}!!!{{/borf-snorlax}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">hello world {{borf-snorlax}}-{{#borf-snorlax}}!!!{{/borf-snorlax}}</div>');
 
   boot(function() {
     registry.register('template:components/borf-snorlax', compile('goodfreakingTIMES{{yield}}'));
@@ -129,7 +129,7 @@ QUnit.test('Late-registered components can be rendered with ONLY the template re
 
 QUnit.test('Component-like invocations are treated as bound paths if neither template nor component are registered on the container', function() {
 
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{user-name}} hello {{api-key}} world</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{user-name}} hello {{api-key}} world</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -143,7 +143,7 @@ QUnit.test('Component-like invocations are treated as bound paths if neither tem
 QUnit.test('Assigning templateName to a component should setup the template as a layout (DEPRECATED)', function() {
   expect(2);
 
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{#my-component}}{{text}}{{/my-component}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{#my-component}}{{text}}{{/my-component}}</div>');
   Ember.TEMPLATES['foo-bar-baz'] = compile('{{text}}-{{yield}}');
 
   expectDeprecation(/Do not specify templateName on a Component/);
@@ -166,7 +166,7 @@ QUnit.test('Assigning templateName and layoutName should use the templates speci
   expect(2);
   expectDeprecation(/Using deprecated `template` property on a Component/);
 
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{my-component}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{my-component}}</div>');
   Ember.TEMPLATES['foo'] = compile('{{text}}');
   Ember.TEMPLATES['bar'] = compile('{{text}}-{{yield}}');
 
@@ -186,7 +186,7 @@ QUnit.test('Assigning templateName and layoutName should use the templates speci
 });
 
 QUnit.test('Using name of component that does not exist', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{#no-good}} {{/no-good}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{#no-good}} {{/no-good}}</div>');
 
   expectAssertion(function() {
     boot();
@@ -199,7 +199,7 @@ QUnit.module('Application Lifecycle - Component Context', {
 });
 
 QUnit.test('Components with a block should have the proper content when a template is provided', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{#my-component}}{{text}}{{/my-component}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{#my-component}}{{text}}{{/my-component}}</div>');
   Ember.TEMPLATES['components/my-component'] = compile('{{text}}-{{yield}}');
 
   boot(function() {
@@ -216,7 +216,7 @@ QUnit.test('Components with a block should have the proper content when a templa
 });
 
 QUnit.test('Components with a block should yield the proper content without a template provided', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{#my-component}}{{text}}{{/my-component}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{#my-component}}{{text}}{{/my-component}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -232,7 +232,7 @@ QUnit.test('Components with a block should yield the proper content without a te
 });
 
 QUnit.test('Components without a block should have the proper content when a template is provided', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{my-component}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{my-component}}</div>');
   Ember.TEMPLATES['components/my-component'] = compile('{{text}}');
 
   boot(function() {
@@ -249,7 +249,7 @@ QUnit.test('Components without a block should have the proper content when a tem
 });
 
 QUnit.test('Components without a block should have the proper content', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{my-component}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{my-component}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -268,7 +268,7 @@ QUnit.test('Components without a block should have the proper content', function
 
 // The test following this one is the non-deprecated version
 QUnit.test('properties of a component without a template should not collide with internal structures [DEPRECATED]', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{my-component data=foo}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{my-component data=foo}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -287,7 +287,7 @@ QUnit.test('properties of a component without a template should not collide with
 });
 
 QUnit.test('attrs property of a component without a template should not collide with internal structures', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{my-component attrs=foo}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{my-component attrs=foo}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -307,7 +307,7 @@ QUnit.test('attrs property of a component without a template should not collide 
 });
 
 QUnit.test('Components trigger actions in the parents context when called from within a block', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{#my-component}}<a href=\'#\' id=\'fizzbuzz\' {{action \'fizzbuzz\'}}>Fizzbuzz</a>{{/my-component}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{#my-component}}<a href="#" id="fizzbuzz" {{action \'fizzbuzz\'}}>Fizzbuzz</a>{{/my-component}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -327,8 +327,8 @@ QUnit.test('Components trigger actions in the parents context when called from w
 });
 
 QUnit.test('Components trigger actions in the components context when called from within its template', function() {
-  Ember.TEMPLATES.application = compile('<div id=\'wrapper\'>{{#my-component}}{{text}}{{/my-component}}</div>');
-  Ember.TEMPLATES['components/my-component'] = compile('<a href=\'#\' id=\'fizzbuzz\' {{action \'fizzbuzz\'}}>Fizzbuzz</a>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{#my-component}}{{text}}{{/my-component}}</div>');
+  Ember.TEMPLATES['components/my-component'] = compile('<a href="#" id="fizzbuzz" {{action \'fizzbuzz\'}}>Fizzbuzz</a>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({

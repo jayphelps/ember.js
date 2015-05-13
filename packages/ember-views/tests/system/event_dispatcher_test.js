@@ -299,7 +299,7 @@ QUnit.test('additional events which should be listened on can be passed', functi
 QUnit.test('additional events and rootElement can be specified', function() {
   expect(3);
 
-  jQuery('#qunit-fixture').append('<div class=\'custom-root\'></div>');
+  jQuery('#qunit-fixture').append('<div class="custom-root"></div>');
 
   run(function() {
     dispatcher.setup({

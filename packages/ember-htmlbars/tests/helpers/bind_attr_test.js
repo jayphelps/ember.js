@@ -558,7 +558,7 @@ QUnit.test('property before didInsertElement', function() {
   equal(matchingElement.length, 1, 'element is in the DOM when didInsertElement');
 });
 
-QUnit.test('asserts for <div class=\'foo\' {{bind-attr class=\'bar\'}}></div>', function() {
+QUnit.test('asserts for <div class="foo" {{bind-attr class="bar"}}></div>', function() {
   ignoreDeprecation(function() {
     expectAssertion(function() {
       compile('<div class="foo" {{bind-attr class=view.foo}}></div>');
@@ -566,7 +566,7 @@ QUnit.test('asserts for <div class=\'foo\' {{bind-attr class=\'bar\'}}></div>', 
   });
 });
 
-QUnit.test('asserts for <div data-bar=\'foo\' {{bind-attr data-bar=\'blah\'}}></div>', function() {
+QUnit.test('asserts for <div data-bar="foo" {{bind-attr data-bar="blah"}}></div>', function() {
   ignoreDeprecation(function() {
     expectAssertion(function() {
       compile('<div data-bar="foo" {{bind-attr data-bar=view.blah}}></div>');

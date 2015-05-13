@@ -162,7 +162,7 @@ QUnit.test('should target the current controller inside an {{each}} loop [DEPREC
   equal(registeredTarget, itemController, 'the item controller is the target of action');
 });
 
-QUnit.test('should target the with-controller inside an {{#with controller=\'person\'}} [DEPRECATED]', function() {
+QUnit.test('should target the with-controller inside an {{#with controller="person"}} [DEPRECATED]', function() {
   var registeredTarget;
 
   ActionHelper.registerAction = function({ node }) {
@@ -192,7 +192,7 @@ QUnit.test('should target the with-controller inside an {{#with controller=\'per
   ok(registeredTarget instanceof PersonController, 'the with-controller is the target of action');
 });
 
-QUnit.skip('should target the with-controller inside an {{each}} in a {{#with controller=\'person\'}} [DEPRECATED]', function() {
+QUnit.skip('should target the with-controller inside an {{each}} in a {{#with controller="person"}} [DEPRECATED]', function() {
   expectDeprecation(eachDeprecation);
   expectDeprecation('Using the context switching form of `{{with}}` is deprecated. Please use the keyword form (`{{with foo as bar}}`) instead.');
 
@@ -865,7 +865,7 @@ QUnit.test('it can trigger actions for keyboard events', function() {
   var showCalled = false;
 
   view = EmberView.create({
-    template: compile('<input type=\'text\' {{action \'show\' on=\'keyUp\'}}>')
+    template: compile('<input type="text" {{action \'show\' on="keyUp"}}>')
   });
 
   var controller = EmberController.extend({
@@ -894,7 +894,7 @@ QUnit.test('a quoteless parameter should allow dynamic lookup of the actionName'
   var actionOrder = [];
 
   view = EmberView.create({
-    template: compile('<a id=\'woot-bound-param\' {{action hookMeUp}}>Hi</a>')
+    template: compile('<a id="woot-bound-param" {{action hookMeUp}}>Hi</a>')
   });
 
   var controller = EmberController.extend({
@@ -946,7 +946,7 @@ QUnit.test('a quoteless parameter should lookup actionName in context [DEPRECATE
 
   ignoreDeprecation(function() {
     view = EmberView.create({
-      template: compile('{{#each allactions}}<a {{bind-attr id=\'name\'}} {{action name}}>{{title}}</a>{{/each}}')
+      template: compile('{{#each allactions}}<a {{bind-attr id="name"}} {{action name}}>{{title}}</a>{{/each}}')
     });
   });
 
@@ -999,7 +999,7 @@ QUnit.test('a quoteless string parameter should resolve actionName, including pa
 
   ignoreDeprecation(function() {
     view = EmberView.create({
-      template: compile('{{#each item in allactions}}<a {{bind-attr id=\'item.name\'}} {{action item.name}}>{{item.title}}</a>{{/each}}')
+      template: compile('{{#each item in allactions}}<a {{bind-attr id="item.name"}} {{action item.name}}>{{item.title}}</a>{{/each}}')
     });
   });
 
@@ -1082,7 +1082,7 @@ QUnit.test('a quoteless parameter that does not resolve to a value asserts', fun
 
   view = EmberView.create({
     controller: controller,
-    template: compile('<a id=\'oops-bound-param\' {{action ohNoeNotValid}}>Hi</a>')
+    template: compile('<a id="oops-bound-param" {{action ohNoeNotValid}}>Hi</a>')
   });
 
   expectAssertion(function() {
