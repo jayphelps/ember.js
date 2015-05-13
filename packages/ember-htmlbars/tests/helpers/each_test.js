@@ -871,7 +871,7 @@ function testEachWithItem(moduleName, useBlockParams) {
     equal(view.$().text(), 'My Cool Each Test 1My Cool Each Test 2');
   });
 
-  QUnit.test('#each accepts \'this\' as the right hand side', function() {
+  QUnit.test('#each accepts "this" as the right hand side', function() {
     view = EmberView.create({
       template: templateFor('{{#EACH|this|item}}{{view.title}} {{item.name}}{{/each}}', useBlockParams),
       title: 'My Cool Each Test',

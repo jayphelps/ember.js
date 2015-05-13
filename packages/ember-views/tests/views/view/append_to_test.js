@@ -22,7 +22,7 @@ QUnit.module('EmberView - append() and appendTo()', {
 
 QUnit.test('can call `appendTo` for multiple views #11109', function() {
   var elem;
-  jQuery("#qunit-fixture").html('<div id="menu"></div><div id="other-menu"></div>');
+  jQuery('#qunit-fixture').html('<div id="menu"></div><div id="other-menu"></div>');
 
   view = View.create();
   otherView = View.create();

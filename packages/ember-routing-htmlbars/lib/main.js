@@ -29,7 +29,7 @@ var deprecatedLinkTo = merge({}, linkTo);
 merge(deprecatedLinkTo, {
   link(state, params, hash) {
     linkTo.link.call(this, state, params, hash);
-    Ember.deprecate('The \'linkTo\' view helper is deprecated in favor of \'link-to\'');
+    Ember.deprecate('The "linkTo" view helper is deprecated in favor of "link-to"');
   }
 });
 

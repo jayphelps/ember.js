@@ -46,7 +46,7 @@ QUnit.module('ember-testing Acceptance', {
       });
 
       App.PostsView = EmberView.extend({
-        defaultTemplate: compile('<a class="dummy-link"></a><div id="comments-link">{{#link-to \'comments\'}}Comments{{/link-to}}</div>'),
+        defaultTemplate: compile('<a class="dummy-link"></a><div id="comments-link">{{#link-to "comments"}}Comments{{/link-to}}</div>'),
         classNames: ['posts-view']
       });
 

@@ -36,7 +36,7 @@ QUnit.test('applying null values', function() {
 
 QUnit.test('applying a property with an undefined value', function() {
   var obj = { tagName: '' };
-  mixin(obj, { tagName: undefined })
+  mixin(obj, { tagName: undefined });
 
   strictEqual(get(obj, 'tagName'), '');
 });

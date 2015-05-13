@@ -1092,7 +1092,7 @@ function resolverFor(namespace) {
     if (resolver.normalize) {
       return resolver.normalize(fullName);
     } else {
-      Ember.deprecate('The Resolver should now provide a \'normalize\' function', false);
+      Ember.deprecate('The Resolver should now provide a "normalize" function', false);
       return fullName;
     }
   };

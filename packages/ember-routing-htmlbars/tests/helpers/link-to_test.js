@@ -42,7 +42,7 @@ QUnit.module('ember-routing-htmlbars: link-to helper', {
 
 
 QUnit.test('should be able to be inserted in DOM when the router is not present', function() {
-  var template = '{{#link-to \'index\'}}Go to Index{{/link-to}}';
+  var template = '{{#link-to "index"}}Go to Index{{/link-to}}';
   view = EmberView.create({
     template: compile(template),
     container: container
@@ -116,7 +116,7 @@ QUnit.test('unescaped inline form (triple curlies) does not escape link title', 
 });
 
 QUnit.test('unwraps controllers', function() {
-  var template = '{{#link-to \'index\' view.otherController}}Text{{/link-to}}';
+  var template = '{{#link-to "index" view.otherController}}Text{{/link-to}}';
 
   view = EmberView.create({
     otherController: Controller.create({

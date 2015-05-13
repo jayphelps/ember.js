@@ -32,7 +32,7 @@ export function readViewFactory(object, container) {
 export function readComponentFactory(nameOrStream, container) {
   var name = read(nameOrStream);
   var componentLookup = container.lookup('component-lookup:main');
-  Ember.assert('Could not find \'component-lookup:main\' on the provided container,' +
+  Ember.assert('Could not find "component-lookup:main" on the provided container,' +
     ' which is necessary for performing component lookups', componentLookup);
 
   return componentLookup.lookupFactory(name, container);

@@ -421,18 +421,18 @@ QUnit.test('blacklists href bindings based on protocol', function() {
   view = EmberView.create({
     tagName: 'a',
     attributeBindings: ['href'],
-    href: 'javascript:alert(\'foo\')'
+    href: 'javascript:alert("foo")'
   });
 
   appendView();
 
-  equal(view.$().attr('href'), 'unsafe:javascript:alert(\'foo\')', 'value property sanitized');
+  equal(view.$().attr('href'), 'unsafe:javascript:alert("foo")', 'value property sanitized');
 
   run(function() {
     view.set('href', new SafeString(view.get('href')));
   });
 
-  equal(view.$().attr('href'), 'javascript:alert(\'foo\')', 'value is not defined');
+  equal(view.$().attr('href'), 'javascript:alert("foo")', 'value is not defined');
 });
 
 QUnit.test('attributeBindings should be overridable', function() {

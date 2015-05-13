@@ -21,7 +21,7 @@ QUnit.test('Ember.isEmpty', function() {
   equal(false, isEmpty(0), 'for 0');
   equal(true, isEmpty([]), 'for an empty Array');
   equal(false, isEmpty({}), 'for an empty Object');
-  equal(true, isEmpty(object), 'for an Object that has zero \'length\'');
+  equal(true, isEmpty(object), 'for an Object that has zero "length"');
 });
 
 QUnit.test('Ember.isEmpty Ember.Map', function() {

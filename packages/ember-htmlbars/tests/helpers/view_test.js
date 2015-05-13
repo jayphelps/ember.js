@@ -87,7 +87,7 @@ QUnit.test('should not enter an infinite loop when binding an attribute in Handl
   // Use match, since old IE appends the whole URL
   var href = parentView.$('a').attr('href');
   var classNames = parentView.$('a').attr('class');
-  ok(href.match(/(^|\/)test$/), 'Expected href to be \'test\' but got "' + href + '"');
+  ok(href.match(/(^|\/)test$/), 'Expected href to be "test" but got "' + href + '"');
   equal(classNames, 'ember-view app-link');
 
   runDestroy(parentView);
@@ -144,7 +144,7 @@ QUnit.test('View lookup - App.FuView (DEPRECATED)', function() {
   equal(jQuery('#fu').text(), 'bro');
 });
 
-QUnit.test('View lookup - \'fu\'', function() {
+QUnit.test('View lookup - "fu"', function() {
   var FuView = viewClass({
     elementId: 'fu',
     template: compile('bro')
@@ -153,7 +153,7 @@ QUnit.test('View lookup - \'fu\'', function() {
   registry.register('view:fu', FuView);
 
   view = EmberView.extend({
-    template: compile('{{view \'fu\'}}'),
+    template: compile('{{view "fu"}}'),
     container: container
   }).create();
 
@@ -162,7 +162,7 @@ QUnit.test('View lookup - \'fu\'', function() {
   equal(jQuery('#fu').text(), 'bro');
 });
 
-QUnit.test('View lookup - \'fu\' when fu is a property and a view name', function() {
+QUnit.test('View lookup - "fu" when fu is a property and a view name', function() {
   var FuView = viewClass({
     elementId: 'fu',
     template: compile('bro')
@@ -171,7 +171,7 @@ QUnit.test('View lookup - \'fu\' when fu is a property and a view name', functio
   registry.register('view:fu', FuView);
 
   view = EmberView.extend({
-    template: compile('{{view \'fu\'}}'),
+    template: compile('{{view "fu"}}'),
     context: { fu: 'boom!' },
     container: container
   }).create();
@@ -494,7 +494,7 @@ QUnit.test('bound properties should be available in the view', function() {
   registry.register('view:fu', FuView);
 
   view = EmberView.extend({
-    template: compile('{{view \'fu\' foo=view.someProp}}'),
+    template: compile('{{view "fu" foo=view.someProp}}'),
     container: container,
     someProp: 'initial value'
   }).create();
@@ -1436,13 +1436,13 @@ QUnit.test('using a bound view name does not change on view name property change
   equal(view.$('#foo').length, 1, 'the originally rendered view is still present');
 });
 
-QUnit.test("should have the correct action target", function() {
+QUnit.test('should have the correct action target', function() {
   registry.register('component:x-outer', EmberComponent.extend({
     container,
     layout: compile('{{#x-middle}}{{view innerView dismiss="dismiss"}}{{/x-middle}}'),
     actions: {
       dismiss: function() {
-        ok(true, "We handled the action in the right place");
+        ok(true, 'We handled the action in the right place');
       }
     },
     innerView: EmberComponent.extend({
@@ -1455,14 +1455,14 @@ QUnit.test("should have the correct action target", function() {
     container,
     actions: {
       dismiss: function() {
-        throw new Error("action was not supposed to go here");
+        throw new Error('action was not supposed to go here');
       }
     }
   }));
 
   view = EmberView.extend({
     container,
-    template: compile("{{x-outer}}")
+    template: compile('{{x-outer}}')
   }).create();
 
   runAppend(view);

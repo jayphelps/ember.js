@@ -31,7 +31,7 @@ function ifUnless(params, hash, options, truthy) {
 
   Ember.assert(
     'The inline form of the `if` and `unless` helpers expect two or ' +
-    'three arguments, e.g. `{{if trialExpired \'Expired\' expiryDate}}` ' +
+    'three arguments, e.g. `{{if trialExpired "Expired" expiryDate}}` ' +
     'or `{{unless isFirstLogin \'Welcome back!\'}}`.',
     !!options.template.yield || params.length === 2 || params.length === 3
   );

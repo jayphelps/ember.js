@@ -52,7 +52,7 @@ QUnit.test('default store utilizes the container to acquire the model factory', 
   equal(route.findModel('post', 1), post, '#findModel returns the correct post');
 });
 
-QUnit.test('\'store\' can be injected by data persistence frameworks', function() {
+QUnit.test('"store" can be injected by data persistence frameworks', function() {
   expect(8);
   runDestroy(route);
 
@@ -84,7 +84,7 @@ QUnit.test('\'store\' can be injected by data persistence frameworks', function(
   equal(route.findModel('post', 1), post, '#findModel returns the correct post');
 });
 
-QUnit.test('assert if \'store.find\' method is not found', function() {
+QUnit.test('assert if "store.find" method is not found', function() {
   expect(1);
   runDestroy(route);
 
@@ -119,7 +119,7 @@ QUnit.test('asserts if model class is not found', function() {
   }, 'You used the dynamic segment post_id in your route undefined, but undefined.Post did not exist and you did not override your route\'s `model` hook.');
 });
 
-QUnit.test('\'store\' does not need to be injected', function() {
+QUnit.test('"store" does not need to be injected', function() {
   expect(1);
 
   runDestroy(route);

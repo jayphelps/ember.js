@@ -1,9 +1,9 @@
-import Ember from "ember-metal/core"; // assert
-import { uuid } from "ember-metal/utils";
-import run from "ember-metal/run_loop";
-import { readUnwrappedModel } from "ember-views/streams/utils";
-import { isSimpleClick } from "ember-views/system/utils";
-import ActionManager from "ember-views/system/action_manager";
+import Ember from 'ember-metal/core'; // assert
+import { uuid } from 'ember-metal/utils';
+import run from 'ember-metal/run_loop';
+import { readUnwrappedModel } from 'ember-views/streams/utils';
+import { isSimpleClick } from 'ember-views/system/utils';
+import ActionManager from 'ember-views/system/action_manager';
 
 function assert(message, test) {
   // This only exists to prevent defeatureify from error when attempting
@@ -18,15 +18,15 @@ export default {
 
     var actionName = read(params[0]);
 
-    if (Ember.FEATURES.isEnabled("ember-routing-htmlbars-improved-actions")) {
-      assert("You specified a quoteless path to the {{action}} helper " +
-             "which did not resolve to an action name (a string). " +
-             "Perhaps you meant to use a quoted actionName? (e.g. {{action 'save'}}).",
+    if (Ember.FEATURES.isEnabled('ember-routing-htmlbars-improved-actions')) {
+      assert('You specified a quoteless path to the {{action}} helper ' +
+             'which did not resolve to an action name (a string). ' +
+             'Perhaps you meant to use a quoted actionName? (e.g. {{action "save"}}).',
              typeof actionName === 'string' || typeof actionName === 'function');
     } else {
-      assert("You specified a quoteless path to the {{action}} helper " +
-             "which did not resolve to an action name (a string). " +
-             "Perhaps you meant to use a quoted actionName? (e.g. {{action 'save'}}).",
+      assert('You specified a quoteless path to the {{action}} helper ' +
+             'which did not resolve to an action name (a string). ' +
+             'Perhaps you meant to use a quoted actionName? (e.g. {{action "save"}}).',
              typeof actionName === 'string');
     }
 
@@ -56,7 +56,7 @@ export default {
   render: function(node, env, scope, params, hash, template, inverse, visitor) {
     var actionId = ActionHelper.registerAction({
       node: node,
-      eventName: hash.on || "click",
+      eventName: hash.on || 'click',
       bubbles: hash.bubbles,
       preventDefault: hash.preventDefault,
       withKeyCode: hash.withKeyCode,
@@ -98,7 +98,7 @@ ActionHelper.registerAction = function({ node, eventName, preventDefault, bubble
       let { target, actionName, actionArgs } = node.state;
 
       run(function runRegisteredAction() {
-        if (Ember.FEATURES.isEnabled("ember-routing-htmlbars-improved-actions")) {
+        if (Ember.FEATURES.isEnabled('ember-routing-htmlbars-improved-actions')) {
           if (typeof actionName === 'function') {
             actionName.apply(target, actionArgs);
             return;
@@ -108,7 +108,7 @@ ActionHelper.registerAction = function({ node, eventName, preventDefault, bubble
           target.send.apply(target, [actionName, ...actionArgs]);
         } else {
           Ember.assert(
-            "The action '" + actionName + "' did not exist on " + target,
+            `The action '${actionName}' did not exist on ${target}`,
             typeof target[actionName] === 'function'
           );
 
@@ -125,11 +125,11 @@ ActionHelper.unregisterAction = function(actionId) {
   delete ActionManager.registeredActions[actionId];
 };
 
-var MODIFIERS = ["alt", "shift", "meta", "ctrl"];
+var MODIFIERS = ['alt', 'shift', 'meta', 'ctrl'];
 var POINTER_EVENT_TYPE_REGEX = /^click|mouse|touch/;
 
 function isAllowedEvent(event, allowedKeys) {
-  if (typeof allowedKeys === "undefined") {
+  if (typeof allowedKeys === 'undefined') {
     if (POINTER_EVENT_TYPE_REGEX.test(event.type)) {
       return isSimpleClick(event);
     } else {
@@ -137,12 +137,12 @@ function isAllowedEvent(event, allowedKeys) {
     }
   }
 
-  if (allowedKeys.indexOf("any") >= 0) {
+  if (allowedKeys.indexOf('any') >= 0) {
     return true;
   }
 
   for (var i=0, l=MODIFIERS.length;i<l;i++) {
-    if (event[MODIFIERS[i] + "Key"] && allowedKeys.indexOf(MODIFIERS[i]) === -1) {
+    if (event[MODIFIERS[i] + 'Key'] && allowedKeys.indexOf(MODIFIERS[i]) === -1) {
       return false;
     }
   }

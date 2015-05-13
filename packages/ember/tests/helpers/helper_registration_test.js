@@ -110,7 +110,7 @@ QUnit.test('Undashed helpers registered on the container can not (presently) be 
   // a possible perf hit in hot code paths, i.e. _triageMustache.
   // We only presently perform container lookups if prop.indexOf('-') >= 0
 
-  Ember.TEMPLATES.application = compile('<div id="wrapper">{{omg}}|{{omg \'GRRR\'}}|{{yorp}}|{{yorp \'ahh\'}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{omg}}|{{omg "GRRR"}}|{{yorp}}|{{yorp "ahh"}}</div>');
 
   expectAssertion(function() {
     boot(function() {

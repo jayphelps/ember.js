@@ -88,7 +88,7 @@ QUnit.test('value of 0 is included in output', function() {
   buffer.prop('value', 0);
   buffer.generateElement();
   el = buffer.element();
-  strictEqual(el.value, '0', 'generated element has value of \'0\'');
+  strictEqual(el.value, '0', 'generated element has value of "0"');
 });
 
 QUnit.test('sets attributes with camelCase', function() {

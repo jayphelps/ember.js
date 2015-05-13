@@ -9,14 +9,14 @@ if (!Ember.EXTEND_PROTOTYPES && !Ember.EXTEND_PROTOTYPES.String) {
   });
 }
 
-QUnit.test('\'one two three\'.w() => [\'one\',\'two\',\'three\']', function() {
+QUnit.test('\'one two three\'.w() => ["one\',\'two\',\'three"]', function() {
   deepEqual(w('one two three'), ['one', 'two', 'three']);
   if (Ember.EXTEND_PROTOTYPES) {
     deepEqual('one two three'.w(), ['one', 'two', 'three']);
   }
 });
 
-QUnit.test('\'one    two    three\'.w() with extra spaces between words => [\'one\',\'two\',\'three\']', function() {
+QUnit.test('\'one    two    three\'.w() with extra spaces between words => ["one\',\'two\',\'three"]', function() {
   deepEqual(w('one   two  three'), ['one', 'two', 'three']);
   if (Ember.EXTEND_PROTOTYPES) {
     deepEqual('one   two  three'.w(), ['one', 'two', 'three']);

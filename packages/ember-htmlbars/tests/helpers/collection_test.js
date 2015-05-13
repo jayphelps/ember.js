@@ -242,7 +242,7 @@ QUnit.test('should be able to specify which class should be used for the empty v
   runDestroy(App);
 });
 
-QUnit.test('if no content is passed, and no \'else\' is specified, nothing is rendered', function() {
+QUnit.test('if no content is passed, and no "else" is specified, nothing is rendered', function() {
   var CollectionTestView = CollectionView.extend({
     tagName: 'ul',
     content: A()
@@ -258,7 +258,7 @@ QUnit.test('if no content is passed, and no \'else\' is specified, nothing is re
   equal(view.$('li').length, 0, 'if no "else" is specified, nothing is rendered');
 });
 
-QUnit.test('if no content is passed, and \'else\' is specified, the else block is rendered', function() {
+QUnit.test('if no content is passed, and "else" is specified, the else block is rendered', function() {
   var CollectionTestView = CollectionView.extend({
     tagName: 'ul',
     content: A()

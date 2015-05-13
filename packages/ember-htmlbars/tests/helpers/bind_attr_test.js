@@ -149,7 +149,7 @@ QUnit.test('should not allow XSS injection via {{bind-attr}}', function() {
     view = EmberView.create({
       template: compile('<img src="test.jpg" {{bind-attr alt=view.content.value}}>'),
       content: {
-        value: 'Trololol" onmouseover="alert(\'HAX!\');'
+        value: 'Trololol" onmouseover="alert("HAX!");'
       }
     });
   });
@@ -158,7 +158,7 @@ QUnit.test('should not allow XSS injection via {{bind-attr}}', function() {
 
   equal(view.$('img').attr('onmouseover'), undefined);
   // If the whole string is here, then it means we got properly escaped
-  equal(view.$('img').attr('alt'), 'Trololol" onmouseover="alert(\'HAX!\');');
+  equal(view.$('img').attr('alt'), 'Trololol" onmouseover="alert("HAX!");');
 });
 
 QUnit.test('should be able to bind use {{bind-attr}} more than once on an element', function() {
@@ -428,7 +428,7 @@ QUnit.test('should be able to bind classes to globals with {{bind-attr class}}',
   ok(view.$('img').hasClass('is-open'), 'sets classname to the dasherized value of the global property');
 });
 
-QUnit.test('should be able to bind-attr to \'this\' in an {{#each}} block', function() {
+QUnit.test('should be able to bind-attr to "this" in an {{#each}} block', function() {
   ignoreDeprecation(function() {
     view = EmberView.create({
       template: compile('{{#each view.images}}<img {{bind-attr src=this}}>{{/each}}'),
@@ -446,7 +446,7 @@ QUnit.test('should be able to bind-attr to \'this\' in an {{#each}} block', func
   ok(/three\.gif$/.test(images[2].src));
 });
 
-QUnit.test('should be able to bind classes to \'this\' in an {{#each}} block with {{bind-attr class}}', function() {
+QUnit.test('should be able to bind classes to "this" in an {{#each}} block with {{bind-attr class}}', function() {
   ignoreDeprecation(function() {
     view = EmberView.create({
       template: compile('{{#each view.items}}<li {{bind-attr class="this"}}>Item</li>{{/each}}'),

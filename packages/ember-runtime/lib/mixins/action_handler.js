@@ -156,7 +156,7 @@ var ActionHandler = Mixin.create({
     var hashName;
 
     if (!props._actions) {
-      Ember.assert('\'actions\' should not be a function', typeof (props.actions) !== 'function');
+      Ember.assert('"actions" should not be a function', typeof (props.actions) !== 'function');
 
       if (!!props.actions && typeof props.actions === 'object') {
         hashName = 'actions';

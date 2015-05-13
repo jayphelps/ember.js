@@ -452,7 +452,7 @@ QUnit.test('defining templateName allows other templates to be rendered', functi
     '<div class="alert-box">Invader!</div>'
   );
   Ember.TEMPLATES.the_real_home_template = compile(
-    '<p>THIS IS THE REAL HOME</p>{{outlet \'alert\'}}'
+    '<p>THIS IS THE REAL HOME</p>{{outlet "alert"}}'
   );
 
   App.HomeController = Ember.Controller.extend();
@@ -1252,7 +1252,7 @@ QUnit.asyncTest('Events are triggered on the controller if a matching action nam
   });
 
   Ember.TEMPLATES.home = compile(
-    '<a {{action \'showStuff\' model}}>{{name}}</a>'
+    '<a {{action "showStuff" model}}>{{name}}</a>'
   );
 
   var controller = Ember.Controller.extend({
@@ -1306,7 +1306,7 @@ QUnit.asyncTest('Events are triggered on the current state when defined in `acti
   });
 
   Ember.TEMPLATES.home = compile(
-    '<a {{action \'showStuff\' model}}>{{model.name}}</a>'
+    '<a {{action "showStuff" model}}>{{model.name}}</a>'
   );
 
   bootApplication();
@@ -1352,7 +1352,7 @@ QUnit.asyncTest('Events defined in `actions` object are triggered on the current
   });
 
   Ember.TEMPLATES['root/index'] = compile(
-    '<a {{action \'showStuff\' model}}>{{model.name}}</a>'
+    '<a {{action "showStuff" model}}>{{model.name}}</a>'
   );
 
   bootApplication();
@@ -1392,7 +1392,7 @@ QUnit.asyncTest('Events are triggered on the current state when defined in `even
   });
 
   Ember.TEMPLATES.home = compile(
-    '<a {{action \'showStuff\' model}}>{{name}}</a>'
+    '<a {{action "showStuff" model}}>{{name}}</a>'
   );
 
   expectDeprecation(/Action handlers contained in an `events` object are deprecated/);
@@ -1439,7 +1439,7 @@ QUnit.asyncTest('Events defined in `events` object are triggered on the current 
   });
 
   Ember.TEMPLATES['root/index'] = compile(
-    '<a {{action \'showStuff\' model}}>{{name}}</a>'
+    '<a {{action "showStuff" model}}>{{name}}</a>'
   );
 
   expectDeprecation(/Action handlers contained in an `events` object are deprecated/);
@@ -1519,7 +1519,7 @@ QUnit.asyncTest('Actions are not triggered on the controller if a matching actio
   });
 
   Ember.TEMPLATES.home = compile(
-    '<a {{action \'showStuff\' model}}>{{name}}</a>'
+    '<a {{action "showStuff" model}}>{{name}}</a>'
   );
 
   var controller = Ember.Controller.extend({
@@ -1579,7 +1579,7 @@ QUnit.asyncTest('actions can be triggered with multiple arguments', function() {
   });
 
   Ember.TEMPLATES['root/index'] = compile(
-    '<a {{action \'showStuff\' model1 model2}}>{{model1.name}}</a>'
+    '<a {{action "showStuff" model1 model2}}>{{model1.name}}</a>'
   );
 
   bootApplication();
@@ -2375,7 +2375,7 @@ QUnit.test('The rootURL is passed properly to the location implementation', func
 
 
 QUnit.test('Only use route rendered into main outlet for default into property on child', function() {
-  Ember.TEMPLATES.application = compile('{{outlet \'menu\'}}{{outlet}}');
+  Ember.TEMPLATES.application = compile('{{outlet "menu"}}{{outlet}}');
   Ember.TEMPLATES.posts = compile('{{outlet}}');
   Ember.TEMPLATES['posts/index'] = compile('postsIndex');
   Ember.TEMPLATES['posts/menu'] = compile('postsMenu');
@@ -2708,7 +2708,7 @@ QUnit.test('Promises encountered on app load put app into loading state until re
 });
 
 QUnit.test('Route should tear down multiple outlets', function() {
-  Ember.TEMPLATES.application = compile('{{outlet \'menu\'}}{{outlet}}{{outlet \'footer\'}}');
+  Ember.TEMPLATES.application = compile('{{outlet "menu"}}{{outlet}}{{outlet "footer"}}');
   Ember.TEMPLATES.posts = compile('{{outlet}}');
   Ember.TEMPLATES.users = compile('users');
   Ember.TEMPLATES['posts/index'] = compile('postsIndex');
@@ -2791,7 +2791,7 @@ QUnit.test('Route will assert if you try to explicitly render {into: ...} a miss
 });
 
 QUnit.test('Route supports clearing outlet explicitly', function() {
-  Ember.TEMPLATES.application = compile('{{outlet}}{{outlet \'modal\'}}');
+  Ember.TEMPLATES.application = compile('{{outlet}}{{outlet "modal"}}');
   Ember.TEMPLATES.posts = compile('{{outlet}}');
   Ember.TEMPLATES.users = compile('users');
   Ember.TEMPLATES['posts/index'] = compile('postsIndex {{outlet}}');
@@ -2879,7 +2879,7 @@ QUnit.test('Route supports clearing outlet explicitly', function() {
 });
 
 QUnit.test('Route supports clearing outlet using string parameter', function() {
-  Ember.TEMPLATES.application = compile('{{outlet}}{{outlet \'modal\'}}');
+  Ember.TEMPLATES.application = compile('{{outlet}}{{outlet "modal"}}');
   Ember.TEMPLATES.posts = compile('{{outlet}}');
   Ember.TEMPLATES.users = compile('users');
   Ember.TEMPLATES['posts/index'] = compile('postsIndex {{outlet}}');
@@ -2937,7 +2937,7 @@ QUnit.test('Route silently fails when cleaning an outlet from an inactive view',
   expect(1); // handleURL
 
   Ember.TEMPLATES.application = compile('{{outlet}}');
-  Ember.TEMPLATES.posts = compile('{{outlet \'modal\'}}');
+  Ember.TEMPLATES.posts = compile('{{outlet "modal"}}');
   Ember.TEMPLATES.modal = compile('A Yo.');
 
   Router.map(function() {
@@ -3912,7 +3912,7 @@ QUnit.test('Can render into a named outlet at the top level, later', function() 
   equal(Ember.$('#qunit-fixture').text(), 'A-The index-B-Hello world-C', 'second render');
 });
 
-QUnit.test('Can render routes with no \'main\' outlet and their children', function() {
+QUnit.test('Can render routes with no "main" outlet and their children', function() {
   Ember.TEMPLATES.application = compile('<div id="application">{{outlet "app"}}</div>');
   Ember.TEMPLATES.app = compile('<div id="app-common">{{outlet "common"}}</div><div id="app-sub">{{outlet "sub"}}</div>');
   Ember.TEMPLATES.common = compile('<div id="common"></div>');

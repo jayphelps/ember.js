@@ -42,7 +42,7 @@ QUnit.module('ember-routing-htmlbars: {{render}} helper', {
 });
 
 QUnit.test('{{render}} helper should render given template', function() {
-  var template = '<h1>HI</h1>{{render \'home\'}}';
+  var template = '<h1>HI</h1>{{render "home"}}';
   var controller = EmberController.extend({ container: container });
   view = EmberView.create({
     container: container,
@@ -61,7 +61,7 @@ QUnit.test('{{render}} helper should render given template', function() {
 });
 
 QUnit.test('{{render}} helper should render nested helpers', function() {
-  var template = '<h1>HI</h1>{{render \'foo\'}}';
+  var template = '<h1>HI</h1>{{render "foo"}}';
   var controller = EmberController.extend({ container: container });
   view = EmberView.create({
     container: container,
@@ -69,8 +69,8 @@ QUnit.test('{{render}} helper should render nested helpers', function() {
     template: compile(template)
   });
 
-  Ember.TEMPLATES['foo'] = compile('<p>FOO</p>{{render \'bar\'}}');
-  Ember.TEMPLATES['bar'] = compile('<p>BAR</p>{{render \'baz\'}}');
+  Ember.TEMPLATES['foo'] = compile('<p>FOO</p>{{render "bar"}}');
+  Ember.TEMPLATES['bar'] = compile('<p>BAR</p>{{render "baz"}}');
   Ember.TEMPLATES['baz'] = compile('<p>BAZ</p>');
 
   runAppend(view);
@@ -79,7 +79,7 @@ QUnit.test('{{render}} helper should render nested helpers', function() {
 });
 
 QUnit.test('{{render}} helper should have assertion if neither template nor view exists', function() {
-  var template = '<h1>HI</h1>{{render \'oops\'}}';
+  var template = '<h1>HI</h1>{{render "oops"}}';
   var controller = EmberController.extend({ container: container });
   view = EmberView.create({
     container: container,
@@ -93,7 +93,7 @@ QUnit.test('{{render}} helper should have assertion if neither template nor view
 });
 
 QUnit.test('{{render}} helper should not have assertion if template is supplied in block-form', function() {
-  var template = '<h1>HI</h1>{{#render \'good\'}} {{name}}{{/render}}';
+  var template = '<h1>HI</h1>{{#render "good"}} {{name}}{{/render}}';
   var controller = EmberController.extend({ container: container });
   container._registry.register('controller:good', EmberController.extend({ name: 'Rob' }));
   view = EmberView.create({
@@ -170,7 +170,7 @@ QUnit.test('{{render}} helper should render given template with a supplied model
 });
 
 QUnit.test('{{render}} helper with a supplied model should not fire observers on the controller', function() {
-  var template = '<h1>HI</h1>{{render \'post\' post}}';
+  var template = '<h1>HI</h1>{{render "post" post}}';
   var post = {
     title: 'Rails is omakase'
   };
@@ -243,7 +243,7 @@ QUnit.test('{{render}} helper should render with given controller', function() {
 });
 
 QUnit.test('{{render}} helper should render a template without a model only once', function() {
-  var template = '<h1>HI</h1>{{render \'home\'}}<hr/>{{render \'home\'}}';
+  var template = '<h1>HI</h1>{{render "home"}}<hr/>{{render "home"}}';
   var controller = EmberController.extend({ container: container });
   view = EmberView.create({
     container: container,
@@ -259,7 +259,7 @@ QUnit.test('{{render}} helper should render a template without a model only once
 });
 
 QUnit.test('{{render}} helper should render templates with models multiple times', function() {
-  var template = '<h1>HI</h1> {{render \'post\' post1}} {{render \'post\' post2}}';
+  var template = '<h1>HI</h1> {{render "post" post1}} {{render "post" post2}}';
   var post1 = {
     title: 'Me first'
   };
@@ -313,7 +313,7 @@ QUnit.test('{{render}} helper should render templates with models multiple times
 });
 
 QUnit.test('{{render}} helper should not leak controllers', function() {
-  var template = '<h1>HI</h1> {{render \'post\' post1}}';
+  var template = '<h1>HI</h1> {{render "post" post1}}';
   var post1 = {
     title: 'Me first'
   };
@@ -350,7 +350,7 @@ QUnit.test('{{render}} helper should not leak controllers', function() {
 });
 
 QUnit.test('{{render}} helper should not treat invocations with falsy contexts as context-less', function() {
-  var template = '<h1>HI</h1> {{render \'post\' zero}} {{render \'post\' nonexistent}}';
+  var template = '<h1>HI</h1> {{render "post" zero}} {{render "post" nonexistent}}';
 
   view = EmberView.create({
     container: container,
@@ -384,7 +384,7 @@ QUnit.test('{{render}} helper should not treat invocations with falsy contexts a
 });
 
 QUnit.test('{{render}} helper should render templates both with and without models', function() {
-  var template = '<h1>HI</h1> {{render \'post\'}} {{render \'post\' post}}';
+  var template = '<h1>HI</h1> {{render "post"}} {{render "post" post}}';
   var post = {
     title: 'Rails is omakase'
   };
@@ -491,7 +491,7 @@ QUnit.test('{{render}} helper should be able to render a template again when it 
     liveRoutes.outlets.main = {
       render: {
         controller: controller.create(),
-        template: compile('<div>1{{render \'home\'}}</div>')
+        template: compile('<div>1{{render "home"}}</div>')
       }
     };
     view.setOutletState(liveRoutes);
@@ -504,7 +504,7 @@ QUnit.test('{{render}} helper should be able to render a template again when it 
     liveRoutes.outlets.main = {
       render: {
         controller: controller.create(),
-        template: compile('<div>2{{render \'home\'}}</div>')
+        template: compile('<div>2{{render "home"}}</div>')
       }
     };
     view.setOutletState(liveRoutes);
@@ -606,7 +606,7 @@ QUnit.test('throws an assertion if {{render}} is called with a literal for a mod
 });
 
 QUnit.test('{{render}} helper should let view provide its own template', function() {
-  var template = '{{render \'fish\'}}';
+  var template = '{{render "fish"}}';
   var controller = EmberController.extend({ container: container });
   view = EmberView.create({
     container: container,
@@ -627,7 +627,7 @@ QUnit.test('{{render}} helper should let view provide its own template', functio
 });
 
 QUnit.test('{{render}} helper should not require view to provide its own template', function() {
-  var template = '{{render \'fish\'}}';
+  var template = '{{render "fish"}}';
   var controller = EmberController.extend({ container: container });
   view = EmberView.create({
     container: container,

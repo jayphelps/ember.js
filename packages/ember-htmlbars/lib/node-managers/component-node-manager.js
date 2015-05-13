@@ -110,7 +110,7 @@ function extractComponentTemplates(component, _templates) {
     // as the layout.
     layout = componentTemplate;
     templates = _templates;
-    Ember.deprecate("Using deprecated `template` property on a Component.");
+    Ember.deprecate('Using deprecated `template` property on a Component.');
   }
 
   return { layout, templates };

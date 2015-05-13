@@ -32,7 +32,7 @@ QUnit.module('ArrayProxy - arrangedContent', {
   }
 });
 
-QUnit.test('addObject - adds to end of \'content\' if not present', function() {
+QUnit.test('addObject - adds to end of "content" if not present', function() {
   run(function() {
     array.addObject(3);
   });
@@ -45,7 +45,7 @@ QUnit.test('addObject - adds to end of \'content\' if not present', function() {
   deepEqual(array.get('content'), [1, 2, 4, 5, 3], 'does not add existing number to content');
 });
 
-QUnit.test('addObjects - adds to end of \'content\' if not present', function() {
+QUnit.test('addObjects - adds to end of "content" if not present', function() {
   run(function() {
     array.addObjects([1, 3, 6]);
   });

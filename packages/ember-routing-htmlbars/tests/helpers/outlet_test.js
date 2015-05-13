@@ -99,7 +99,7 @@ QUnit.test('view should render the outlet when set before dom insertion', functi
 
 
 QUnit.test('outlet should support an optional name', function() {
-  var routerState = withTemplate('<h1>HI</h1>{{outlet \'mainView\'}}');
+  var routerState = withTemplate('<h1>HI</h1>{{outlet "mainView"}}');
   top.setOutletState(routerState);
   runAppend(top);
 

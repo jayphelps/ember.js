@@ -35,7 +35,7 @@ function selectedOptions() {
   return select.get('childViews').mapBy('selected');
 }
 
-QUnit.test('has \'ember-view\' and \'ember-select\' CSS classes', function() {
+QUnit.test('has "ember-view" and "ember-select" CSS classes', function() {
   deepEqual(select.get('classNames'), ['ember-view', 'ember-select']);
 });
 

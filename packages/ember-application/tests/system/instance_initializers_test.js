@@ -21,7 +21,7 @@ if (Ember.FEATURES.isEnabled('ember-application-instance-initializers')) {
     }
   });
 
-  QUnit.test('initializers require proper \'name\' and \'initialize\' properties', function() {
+  QUnit.test('initializers require proper "name" and "initialize" properties', function() {
     var MyApplication = Application.extend();
 
     expectAssertion(function() {

@@ -56,8 +56,8 @@ suite.test('should return true if any property matches null', function() {
     })
   ]);
 
-  equal(obj.isAny('foo', null), true, 'isAny(\'foo\', null)');
-  equal(obj.isAny('bar', null), true, 'isAny(\'bar\', null)');
+  equal(obj.isAny('foo', null), true, 'isAny("foo", null)');
+  equal(obj.isAny('bar', null), true, 'isAny("bar", null)');
 });
 
 suite.test('should return true if any property is undefined', function() {
@@ -71,8 +71,8 @@ suite.test('should return true if any property is undefined', function() {
     })
   ]);
 
-  equal(obj.isAny('foo', undefined), true, 'isAny(\'foo\', undefined)');
-  equal(obj.isAny('bar', undefined), true, 'isAny(\'bar\', undefined)');
+  equal(obj.isAny('foo', undefined), true, 'isAny("foo", undefined)');
+  equal(obj.isAny('bar', undefined), true, 'isAny("bar", undefined)');
 });
 
 suite.test('should not match undefined properties without second argument', function() {
@@ -83,7 +83,7 @@ suite.test('should not match undefined properties without second argument', func
     EmberObject.create({ })
   ]);
 
-  equal(obj.isAny('foo'), false, 'isAny(\'foo\', undefined)');
+  equal(obj.isAny('foo'), false, 'isAny("foo", undefined)');
 });
 
 suite.test('anyBy should be aliased to isAny', function() {

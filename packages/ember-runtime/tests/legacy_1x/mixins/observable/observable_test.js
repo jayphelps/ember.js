@@ -896,7 +896,7 @@ QUnit.test('should unregister an observer for a property', function() {
 });
 
 
-QUnit.test('should unregister an observer for a property - special case when key has a \'.\' in it.', function() {
+QUnit.test('should unregister an observer for a property - special case when key has a "." in it.', function() {
   ObjectD.addObserver('objectF.propertyVal', ObjectD, 'removeChainedObserver');
   ObjectD.objectF.set('propertyVal', 'chainedPropertyValue');
   ObjectD.removeObserver('objectF.propertyVal', ObjectD, 'removeChainedObserver');

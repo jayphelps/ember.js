@@ -119,7 +119,7 @@ QUnit.test('asserts if component-lookup:main cannot be found', function() {
 
   expectAssertion(function() {
     lookupHelper('some-name', view, env);
-  }, 'Could not find \'component-lookup:main\' on the provided container, which is necessary for performing component lookups');
+  }, 'Could not find "component-lookup:main" on the provided container, which is necessary for performing component lookups');
 });
 
 QUnit.test('registers a helper in the container if component is found', function() {

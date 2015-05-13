@@ -307,7 +307,7 @@ QUnit.test('attrs property of a component without a template should not collide 
 });
 
 QUnit.test('Components trigger actions in the parents context when called from within a block', function() {
-  Ember.TEMPLATES.application = compile('<div id="wrapper">{{#my-component}}<a href="#" id="fizzbuzz" {{action \'fizzbuzz\'}}>Fizzbuzz</a>{{/my-component}}</div>');
+  Ember.TEMPLATES.application = compile('<div id="wrapper">{{#my-component}}<a href="#" id="fizzbuzz" {{action "fizzbuzz"}}>Fizzbuzz</a>{{/my-component}}</div>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({
@@ -328,7 +328,7 @@ QUnit.test('Components trigger actions in the parents context when called from w
 
 QUnit.test('Components trigger actions in the components context when called from within its template', function() {
   Ember.TEMPLATES.application = compile('<div id="wrapper">{{#my-component}}{{text}}{{/my-component}}</div>');
-  Ember.TEMPLATES['components/my-component'] = compile('<a href="#" id="fizzbuzz" {{action \'fizzbuzz\'}}>Fizzbuzz</a>');
+  Ember.TEMPLATES['components/my-component'] = compile('<a href="#" id="fizzbuzz" {{action "fizzbuzz"}}>Fizzbuzz</a>');
 
   boot(function() {
     registry.register('controller:application', Ember.Controller.extend({

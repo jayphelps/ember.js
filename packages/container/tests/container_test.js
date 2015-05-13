@@ -251,7 +251,7 @@ QUnit.test('An invalid factory throws an error', function() {
 
   throws(function() {
     container.lookup('controller:foo');
-  }, /Failed to create an instance of \'controller:foo\'/);
+  }, /Failed to create an instance of 'controller:foo'/);
 });
 
 QUnit.test('Injecting a failed lookup raises an error', function() {

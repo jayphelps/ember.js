@@ -21,10 +21,10 @@ var ClassNamesSupport = Mixin.create({
   init() {
     this._super(...arguments);
 
-    Ember.assert('Only arrays are allowed for \'classNameBindings\'', isArray(this.classNameBindings));
+    Ember.assert('Only arrays are allowed for "classNameBindings"', isArray(this.classNameBindings));
     this.classNameBindings = emberA(this.classNameBindings.slice());
 
-    Ember.assert('Only arrays of static class strings are allowed for \'classNames\'. For dynamic classes, use \'classNameBindings\'.', isArray(this.classNames));
+    Ember.assert('Only arrays of static class strings are allowed for "classNames". For dynamic classes, use "classNameBindings".', isArray(this.classNames));
     this.classNames = emberA(this.classNames.slice());
   },
 

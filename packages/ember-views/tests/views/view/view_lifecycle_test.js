@@ -254,7 +254,7 @@ QUnit.test('should destroy DOM representation when destroyElement is called', fu
 QUnit.test('should destroy DOM representation when destroy is called', function() {
   run(function() {
     view = EmberView.create({
-      template: compile('<div id="warning\'>Don"t fear the reaper</div>')
+      template: compile('<div id="warning">Don\'t fear the reaper</div>')
     });
 
     view.append();

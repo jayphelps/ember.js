@@ -135,7 +135,7 @@ export function registerHandlebarsCompatibleHelper(name, value) {
 
 export function handlebarsHelper(name, value) {
   Ember.assert(`You tried to register a component named '${name}', but ` +
-               'component names must include a \'-\'', !Component.detect(value) || name.match(/-/));
+               'component names must include a "-"', !Component.detect(value) || name.match(/-/));
 
   if (View.detect(value)) {
     helpers[name] = makeViewHelper(value);

@@ -109,7 +109,7 @@ QUnit.test('rerendering component with attrs from parent', function() {
 
   runAppend(view);
 
-  equal(didReceiveAttrs, 1, "The didReceiveAttrs hook fired");
+  equal(didReceiveAttrs, 1, 'The didReceiveAttrs hook fired');
 
   equal(jQuery('#qunit-fixture').text(), 'In layout - someProp: wycats');
 

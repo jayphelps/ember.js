@@ -471,7 +471,7 @@ QUnit.module('{{#with}} helper binding to view keyword', {
   }
 });
 
-QUnit.test('{{with}} helper can bind to keywords with \'as\'', function() {
+QUnit.test('{{with}} helper can bind to keywords with "as"', function() {
   equal(view.$().text(), 'We have: this is from the view and this is from the context', 'should render');
 });
 
@@ -541,12 +541,12 @@ QUnit.test('{{with}} block should not render if passed variable is falsey', func
   equal(view.$().text(), '', 'should not render the inner template');
 });
 
-QUnit.module("{{#with}} inverse template", {
+QUnit.module('{{#with}} inverse template', {
   setup() {
     Ember.lookup = lookup = { Ember: Ember };
 
     view = EmberView.create({
-      template: compile("{{#with view.falsyThing as |thing|}}Has Thing{{else}}No Thing{{/with}}"),
+      template: compile('{{#with view.falsyThing as |thing|}}Has Thing{{else}}No Thing{{/with}}'),
       falsyThing: null
     });
 
@@ -559,23 +559,23 @@ QUnit.module("{{#with}} inverse template", {
   }
 });
 
-QUnit.test("inverse template is displayed", function() {
-  equal(view.$().text(), "No Thing", "should render inverse template");
+QUnit.test('inverse template is displayed', function() {
+  equal(view.$().text(), 'No Thing', 'should render inverse template');
 });
 
-QUnit.test("changing the property to truthy causes standard template to be displayed", function() {
+QUnit.test('changing the property to truthy causes standard template to be displayed', function() {
   run(function() {
     set(view, 'falsyThing', true);
   });
-  equal(view.$().text(), "Has Thing", "should render standard template");
+  equal(view.$().text(), 'Has Thing', 'should render standard template');
 });
 
-QUnit.module("{{#with}} inverse template preserves context", {
+QUnit.module('{{#with}} inverse template preserves context', {
   setup() {
     Ember.lookup = lookup = { Ember: Ember };
 
     view = EmberView.create({
-      template: compile("{{#with falsyThing as |thing|}}Has Thing{{else}}No Thing {{otherThing}}{{/with}}"),
+      template: compile('{{#with falsyThing as |thing|}}Has Thing{{else}}No Thing {{otherThing}}{{/with}}'),
       context: {
         falsyThing: null,
         otherThing: 'bar'
@@ -591,6 +591,6 @@ QUnit.module("{{#with}} inverse template preserves context", {
   }
 });
 
-QUnit.test("inverse template is displayed with context", function() {
-  equal(view.$().text(), "No Thing bar", "should render inverse template with context preserved");
+QUnit.test('inverse template is displayed with context', function() {
+  equal(view.$().text(), 'No Thing bar', 'should render inverse template with context preserved');
 });

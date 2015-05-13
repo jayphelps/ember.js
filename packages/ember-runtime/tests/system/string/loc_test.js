@@ -32,14 +32,14 @@ QUnit.test('\'_Hello World\'.loc() => \'Bonjour le monde\'', function() {
   }
 });
 
-QUnit.test('\'_Hello %@ %@\'.loc(\'John\', \'Doe\') => \'Bonjour John Doe\'', function() {
+QUnit.test('\'_Hello %@ %@".loc(\'John", "Doe") => \'Bonjour John Doe\'', function() {
   equal(loc('_Hello %@ %@', ['John', 'Doe']), 'Bonjour John Doe');
   if (Ember.EXTEND_PROTOTYPES) {
     equal('_Hello %@ %@'.loc('John', 'Doe'), 'Bonjour John Doe');
   }
 });
 
-QUnit.test('\'_Hello %@# %@#\'.loc(\'John\', \'Doe\') => \'Bonjour Doe John\'', function() {
+QUnit.test('\'_Hello %@# %@#".loc(\'John", "Doe") => \'Bonjour Doe John\'', function() {
   equal(loc('_Hello %@# %@#', ['John', 'Doe']), 'Bonjour Doe John');
   if (Ember.EXTEND_PROTOTYPES) {
     equal('_Hello %@# %@#'.loc('John', 'Doe'), 'Bonjour Doe John');

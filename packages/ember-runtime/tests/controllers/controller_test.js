@@ -58,7 +58,7 @@ QUnit.test('When `_actions` is provided, `actions` is left alone', function() {
   equal('foo', controller.get('actions')[0], 'actions property is not untouched');
 });
 
-QUnit.test('Actions object doesn\'t shadow a proxied object\'s \'actions\' property', function() {
+QUnit.test('Actions object doesn\'t shadow a proxied object\'s "actions" property', function() {
   expectDeprecation(objectControllerDeprecation);
 
   var TestController = ObjectController.extend({

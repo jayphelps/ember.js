@@ -4,7 +4,7 @@ var suite = SuiteModuleBuilder.create();
 
 suite.module('replace');
 
-suite.test('[].replace(0,0,\'X\') => [\'X\'] + notify', function() {
+suite.test('[].replace(0,0,"X") => ["X"] + notify', function() {
 
   var obj, exp, observer;
   exp = this.newFixture(1);

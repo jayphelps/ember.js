@@ -71,7 +71,7 @@ QUnit.test('isWatching is true for chained computed properties', function() {
 
 // can't watch length on Array - it is special...
 // But you should be able to watch a length property of an object
-QUnit.test('isWatching is true for \'length\' property on object', function() {
+QUnit.test('isWatching is true for "length" property on object', function() {
   testObserver(function(obj, key, fn) {
     defineProperty(obj, 'length', null, '26.2 miles');
     addObserver(obj, 'length', obj, fn);

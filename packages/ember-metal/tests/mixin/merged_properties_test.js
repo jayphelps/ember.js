@@ -24,7 +24,7 @@ QUnit.test('defining mergedProperties should merge future version', function() {
 
 QUnit.test('defining mergedProperties on future mixin should merged into past', function() {
 
-   var MixinA = Mixin.create({
+  var MixinA = Mixin.create({
     foo: { a: true, b: true, c: true }
   });
 

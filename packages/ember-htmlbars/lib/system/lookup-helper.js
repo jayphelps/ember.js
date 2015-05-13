@@ -47,7 +47,7 @@ export function findHelper(name, view, env) {
   helper = container.lookup(helperName);
   if (!helper) {
     var componentLookup = container.lookup('component-lookup:main');
-    Ember.assert('Could not find \'component-lookup:main\' on the provided container,' +
+    Ember.assert('Could not find "component-lookup:main" on the provided container,' +
                  ' which is necessary for performing component lookups', componentLookup);
 
     var Component = componentLookup.lookupFactory(name, container);

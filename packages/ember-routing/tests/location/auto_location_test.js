@@ -115,7 +115,7 @@ QUnit.test('AutoLocation should use a NoneLocation instance when neither history
   ok(get(location, 'concreteImplementation') instanceof NoneLocation);
 });
 
-QUnit.test('AutoLocation should use an index path (i.e. \'/\') without any location.hash as OK for HashLocation', function() {
+QUnit.test('AutoLocation should use an index path (i.e. "/") without any location.hash as OK for HashLocation', function() {
   expect(1);
 
   var browserLocation = mockBrowserLocation({

@@ -91,8 +91,8 @@ suite.test('should return true if every property matches null', function() {
     })
   ]);
 
-  equal(obj.isEvery('foo', null), true, 'isEvery(\'foo\', null)');
-  equal(obj.isEvery('bar', null), false, 'isEvery(\'bar\', null)');
+  equal(obj.isEvery('foo', null), true, 'isEvery("foo", null)');
+  equal(obj.isEvery('bar', null), false, 'isEvery("bar", null)');
 });
 
 suite.test('everyBy should be aliased to isEvery', function() {
@@ -116,8 +116,8 @@ suite.test('should return true if every property is undefined', function() {
     })
   ]);
 
-  equal(obj.isEvery('foo', undefined), true, 'isEvery(\'foo\', undefined)');
-  equal(obj.isEvery('bar', undefined), false, 'isEvery(\'bar\', undefined)');
+  equal(obj.isEvery('foo', undefined), true, 'isEvery("foo", undefined)');
+  equal(obj.isEvery('bar', undefined), false, 'isEvery("bar", undefined)');
 });
 
 export default suite;

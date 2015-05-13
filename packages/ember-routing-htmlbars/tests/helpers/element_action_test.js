@@ -652,7 +652,7 @@ QUnit.test('should not bubble an event from action helper to original parent eve
   ok(!originalEventHandlerWasCalled, 'The parent handler was not called');
 });
 
-QUnit.test('should allow \'send\' as action name (#594)', function() {
+QUnit.test('should allow "send" as action name (#594)', function() {
   var eventHandlerWasCalled = false;
 
   var controller = EmberController.extend({
@@ -822,7 +822,7 @@ QUnit.test('it does not trigger action with special clicks', function() {
   var showCalled = false;
 
   view = EmberView.create({
-    template: compile('<a {{action \'show\' href=true}}>Hi</a>')
+    template: compile('<a {{action "show" href=true}}>Hi</a>')
   });
 
   var controller = EmberController.extend({
@@ -865,7 +865,7 @@ QUnit.test('it can trigger actions for keyboard events', function() {
   var showCalled = false;
 
   view = EmberView.create({
-    template: compile('<input type="text" {{action \'show\' on="keyUp"}}>')
+    template: compile('<input type="text" {{action "show" on="keyUp"}}>')
   });
 
   var controller = EmberController.extend({
@@ -1091,7 +1091,7 @@ QUnit.test('a quoteless parameter that does not resolve to a value asserts', fun
     });
   }, 'You specified a quoteless path to the {{action}} helper ' +
     'which did not resolve to an action name (a string). ' +
-    'Perhaps you meant to use a quoted actionName? (e.g. {{action \'save\'}}).');
+    'Perhaps you meant to use a quoted actionName? (e.g. {{action "save"}}).');
 });
 
 QUnit.module('ember-routing-htmlbars: action helper - deprecated invoking directly on target', {
@@ -1108,7 +1108,7 @@ QUnit.module('ember-routing-htmlbars: action helper - deprecated invoking direct
 
 QUnit.test('should respect preventDefault=false option if provided', function() {
   view = EmberView.create({
-    template: compile('<a {{action \'show\' preventDefault=false}}>Hi</a>')
+    template: compile('<a {{action "show" preventDefault=false}}>Hi</a>')
   });
 
   var controller = EmberController.extend({

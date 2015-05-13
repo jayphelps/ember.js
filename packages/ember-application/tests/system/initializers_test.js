@@ -16,7 +16,7 @@ QUnit.module('Ember.Application initializers', {
   }
 });
 
-QUnit.test('initializers require proper \'name\' and \'initialize\' properties', function() {
+QUnit.test('initializers require proper "name" and "initialize" properties', function() {
   var MyApplication = Application.extend();
 
   expectAssertion(function() {

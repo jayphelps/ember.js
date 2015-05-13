@@ -30,7 +30,7 @@ QUnit.test('makes helpful assertion when called with invalid arguments', functio
   registry.register('helper:some-random', helper);
 
   view = EmberView.create({
-    template: compile('{{some-random \'sending-params-to-view-is-invalid\'}}'),
+    template: compile('{{some-random "sending-params-to-view-is-invalid"}}'),
     container
   });
 

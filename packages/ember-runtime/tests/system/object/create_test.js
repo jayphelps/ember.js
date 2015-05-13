@@ -121,7 +121,7 @@ QUnit.test('throws if you try to call _super in a method', function() {
   }, 'Ember.Object.create no longer supports defining methods that call _super.');
 });
 
-QUnit.test('throws if you try to \'mixin\' a definition', function() {
+QUnit.test('throws if you try to "mixin" a definition', function() {
   var myMixin = Mixin.create({
     adder(arg1, arg2) {
       return arg1 + arg2;

@@ -772,34 +772,34 @@ QUnit.module('ember-testing routing helpers', {
   }
 });
 
-QUnit.test('currentRouteName for \'/\'', function() {
+QUnit.test('currentRouteName for "/"', function() {
   expect(3);
 
   App.testHelpers.visit('/').then(function() {
-    equal(App.testHelpers.currentRouteName(), 'index', 'should equal \'index\'.');
-    equal(App.testHelpers.currentPath(), 'index', 'should equal \'index\'.');
-    equal(App.testHelpers.currentURL(), '/', 'should equal \'/\'.');
+    equal(App.testHelpers.currentRouteName(), 'index', 'should equal "index".');
+    equal(App.testHelpers.currentPath(), 'index', 'should equal "index".');
+    equal(App.testHelpers.currentURL(), '/', 'should equal "/".');
   });
 });
 
 
-QUnit.test('currentRouteName for \'/posts\'', function() {
+QUnit.test('currentRouteName for "/posts"', function() {
   expect(3);
 
   App.testHelpers.visit('/posts').then(function() {
-    equal(App.testHelpers.currentRouteName(), 'posts.index', 'should equal \'posts.index\'.');
-    equal(App.testHelpers.currentPath(), 'posts.index', 'should equal \'posts.index\'.');
-    equal(App.testHelpers.currentURL(), '/posts', 'should equal \'/posts\'.');
+    equal(App.testHelpers.currentRouteName(), 'posts.index', 'should equal "posts.index".');
+    equal(App.testHelpers.currentPath(), 'posts.index', 'should equal "posts.index".');
+    equal(App.testHelpers.currentURL(), '/posts', 'should equal "/posts".');
   });
 });
 
-QUnit.test('currentRouteName for \'/posts/new\'', function() {
+QUnit.test('currentRouteName for "/posts/new"', function() {
   expect(3);
 
   App.testHelpers.visit('/posts/new').then(function() {
-    equal(App.testHelpers.currentRouteName(), 'posts.new', 'should equal \'posts.new\'.');
-    equal(App.testHelpers.currentPath(), 'posts.new', 'should equal \'posts.new\'.');
-    equal(App.testHelpers.currentURL(), '/posts/new', 'should equal \'/posts/new\'.');
+    equal(App.testHelpers.currentRouteName(), 'posts.new', 'should equal "posts.new".');
+    equal(App.testHelpers.currentPath(), 'posts.new', 'should equal "posts.new".');
+    equal(App.testHelpers.currentURL(), '/posts/new', 'should equal "/posts/new".');
   });
 });
 
@@ -920,25 +920,25 @@ QUnit.module('ember-testing async router', {
   }
 });
 
-QUnit.test('currentRouteName for \'/user\'', function() {
+QUnit.test('currentRouteName for "/user"', function() {
   expect(4);
 
   App.testHelpers.visit('/user').then(function() {
-    equal(currentRouteName(App), 'user.index', 'should equal \'user.index\'.');
-    equal(currentPath(App), 'user.index', 'should equal \'user.index\'.');
-    equal(currentURL(App), '/user', 'should equal \'/user\'.');
-    equal(App.__container__.lookup('route:user').get('controller.model.firstName'), 'Tom', 'should equal \'Tom\'.');
+    equal(currentRouteName(App), 'user.index', 'should equal "user.index".');
+    equal(currentPath(App), 'user.index', 'should equal "user.index".');
+    equal(currentURL(App), '/user', 'should equal "/user".');
+    equal(App.__container__.lookup('route:user').get('controller.model.firstName'), 'Tom', 'should equal "Tom".');
   });
 });
 
-QUnit.test('currentRouteName for \'/user/profile\'', function() {
+QUnit.test('currentRouteName for "/user/profile"', function() {
   expect(4);
 
   App.testHelpers.visit('/user/profile').then(function() {
-    equal(currentRouteName(App), 'user.edit', 'should equal \'user.edit\'.');
-    equal(currentPath(App), 'user.edit', 'should equal \'user.edit\'.');
-    equal(currentURL(App), '/user/edit', 'should equal \'/user/edit\'.');
-    equal(App.__container__.lookup('route:user').get('controller.model.firstName'), 'Tom', 'should equal \'Tom\'.');
+    equal(currentRouteName(App), 'user.edit', 'should equal "user.edit".');
+    equal(currentPath(App), 'user.edit', 'should equal "user.edit".');
+    equal(currentURL(App), '/user/edit', 'should equal "/user/edit".');
+    equal(App.__container__.lookup('route:user').get('controller.model.firstName'), 'Tom', 'should equal "Tom".');
   });
 });
 

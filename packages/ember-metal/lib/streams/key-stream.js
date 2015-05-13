@@ -14,7 +14,7 @@ import { isStream  } from 'ember-metal/streams/utils';
 function KeyStream(source, key) {
   Ember.assert('KeyStream error: source must be a stream', isStream(source)); // TODO: This isn't necessary.
   Ember.assert('KeyStream error: key must be a non-empty string', typeof key === 'string' && key.length > 0);
-  Ember.assert('KeyStream error: key must not have a \'.\'', key.indexOf('.') === -1);
+  Ember.assert('KeyStream error: key must not have a "."', key.indexOf('.') === -1);
 
   // used to get the original path for debugging and legacy purposes
   var label = labelFor(source, key);

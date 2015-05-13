@@ -7,7 +7,7 @@ QUnit.test('global path\'s are recognized', function() {
   ok(isGlobalPath('App.myProperty.subProperty'));
 });
 
-QUnit.test('if there is a \'this\' in the path, it\'s not a global path', function() {
+QUnit.test('if there is a "this" in the path, it\'s not a global path', function() {
   ok(!isGlobalPath('this.myProperty'));
   ok(!isGlobalPath('this'));
 });

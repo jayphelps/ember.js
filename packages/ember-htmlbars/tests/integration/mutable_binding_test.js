@@ -283,7 +283,7 @@ QUnit.test('automatic mutable bindings tolerate undefined non-stream inputs', fu
   });
 
   runAppend(view);
-  assert.strictEqual(view.$().text(), "hello");
+  assert.strictEqual(view.$().text(), 'hello');
 });
 
 QUnit.test('automatic mutable bindings tolerate constant non-stream inputs', function(assert) {
@@ -296,7 +296,7 @@ QUnit.test('automatic mutable bindings tolerate constant non-stream inputs', fun
   });
 
   runAppend(view);
-  assert.strictEqual(view.$().text(), "hellofoo");
+  assert.strictEqual(view.$().text(), 'hellofoo');
 });
 
 QUnit.test('automatic mutable bindings to undefined non-streams tolerate attempts to set them', function(assert) {

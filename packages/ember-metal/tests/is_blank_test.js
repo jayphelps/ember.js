@@ -20,6 +20,6 @@ QUnit.test('Ember.isBlank', function() {
   equal(false, isBlank(0), 'for 0');
   equal(true, isBlank([]), 'for an empty Array');
   equal(false, isBlank({}), 'for an empty Object');
-  equal(true, isBlank(object), 'for an Object that has zero \'length\'');
+  equal(true, isBlank(object), 'for an Object that has zero "length"');
   equal(false, isBlank([1, 2, 3]), 'for a non-empty array');
 });

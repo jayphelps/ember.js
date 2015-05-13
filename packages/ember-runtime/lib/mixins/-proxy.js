@@ -97,7 +97,7 @@ export default Mixin.create({
 
     var content = get(this, 'content');
     Ember.assert(fmt('Cannot delegate set(\'%@\', %@) to the \'content\' property of' +
-      ' object proxy %@: its \'content\' is undefined.', [key, value, this]), content);
+      ' object proxy %@: its "content" is undefined.', [key, value, this]), content);
 
     Ember.deprecate(
       fmt('You attempted to set `%@` from `%@`, but object proxying is deprecated. ' +

@@ -152,7 +152,7 @@ QUnit.test('rejection', function() {
   equal(get(proxy, 'isFulfilled'), false, 'expects the proxy to indicate that it is not fulfilled');
 });
 
-QUnit.test('unhandled rejects still propagate to RSVP.on(\'error\', ...) ', function() {
+QUnit.test('unhandled rejects still propagate to RSVP.on("error", ...) ', function() {
   expect(1);
 
   RSVP.on('error', onerror);
